@@ -1,0 +1,8 @@
+source;share/ess_imu_driver2/hook/cmake_prefix_path.ps1
+source;share/ess_imu_driver2/hook/cmake_prefix_path.dsv
+source;share/ess_imu_driver2/hook/cmake_prefix_path.sh
+source;share/ess_imu_driver2/local_setup.bash
+source;share/ess_imu_driver2/local_setup.dsv
+source;share/ess_imu_driver2/local_setup.ps1
+source;share/ess_imu_driver2/local_setup.sh
+source;share/ess_imu_driver2/local_setup.zsh

@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-ae84df2d14081efd38ba.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ess_imu_driver2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ess_imu_driver2_lib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ess_imu_driver2_lib-c9c559f588d10e587b81.json",
+					"name" : "ess_imu_driver2_lib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ess_imu_driver2_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ess_imu_driver2_node-c28b92b28c304b0ff961.json",
+					"name" : "ess_imu_driver2_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ess_imu_driver2_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ess_imu_driver2_uninstall-f9f922052be54f1d165d.json",
+					"name" : "ess_imu_driver2_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mahony_ahrs_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mahony_ahrs_node-4d302062891db1a8df60.json",
+					"name" : "mahony_ahrs_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-2f80db4e8e1c2848fb27.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2",
+		"source" : "/home/hajies/G-Exo/ros2_ws/src/ess_imu_driver2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

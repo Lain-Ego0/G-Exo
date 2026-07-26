@@ -1,0 +1,4 @@
+source;share/ess_imu_driver2/local_setup.bash
+source;share/ess_imu_driver2/local_setup.dsv
+source;share/ess_imu_driver2/local_setup.sh
+source;share/ess_imu_driver2/local_setup.zsh
