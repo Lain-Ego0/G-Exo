@@ -96,11 +96,12 @@
       link="l_thigh" />
     <axis
       xyz="0 1 0" />
+    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+      lower="-0.5236"
+      upper="0.5236"
+      effort="17"
+      velocity="28.8" />
   </joint>
   <link
     name="l_calf">
@@ -154,11 +155,12 @@
       link="l_calf" />
     <axis
       xyz="0 1 0" />
+    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+      lower="-0.5236"
+      upper="0.5236"
+      effort="17"
+      velocity="28.8" />
   </joint>
   <link
     name="r_thigh">
@@ -212,11 +214,12 @@
       link="r_thigh" />
     <axis
       xyz="0 -1 0" />
+    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+      lower="-0.5236"
+      upper="0.5236"
+      effort="17"
+      velocity="28.8" />
   </joint>
   <link
     name="r_calf">
@@ -270,10 +273,11 @@
       link="r_calf" />
     <axis
       xyz="0 -1 0" />
+    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+      lower="-0.5236"
+      upper="0.5236"
+      effort="17"
+      velocity="28.8" />
   </joint>
 </robot>
