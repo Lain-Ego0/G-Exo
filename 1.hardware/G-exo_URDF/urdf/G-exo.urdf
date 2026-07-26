@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="G-exo">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0487751460332164 -0.00349905189190992 -0.043368079377932"
+        rpy="0 0 0" />
+      <mass
+        value="1.31134816165551" />
+      <inertia
+        ixx="0.00319506452401314"
+        ixy="1.91843589633937E-05"
+        ixz="-6.00966650836024E-05"
+        iyy="0.00142949470877883"
+        iyz="1.7063494259796E-05"
+        izz="0.00285361830142739" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.611764705882353 0.756862745098039 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="l_thigh">
+    <inertial>
+      <origin
+        xyz="0.0106 -0.0363 -0.3525"
+        rpy="0 0 0" />
+      <mass
+        value="0.777" />
+      <inertia
+        ixx="0.0134"
+        ixy="-0.0002"
+        ixz="0.0009"
+        iyy="0.0137"
+        iyz="0.001"
+        izz="0.0038" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/l_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/l_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_thigh_joint"
+    type="revolute">
+    <origin
+      xyz="0.1475 0.21 -0.13"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="l_thigh" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="l_calf">
+    <inertial>
+      <origin
+        xyz="-0.059 -0.0634 -0.0846"
+        rpy="0 0 0" />
+      <mass
+        value="0.1165" />
+      <inertia
+        ixx="0.0004"
+        ixy="-0.0001"
+        ixz="-0.0001"
+        iyy="0.0002"
+        iyz="-0.0001"
+        izz="0.0003" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/l_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/l_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_calf_joint"
+    type="revolute">
+    <origin
+      xyz="0.0073951 -0.033143 -0.44134"
+      rpy="0 0 0" />
+    <parent
+      link="l_thigh" />
+    <child
+      link="l_calf" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_thigh">
+    <inertial>
+      <origin
+        xyz="0.0106 0.0363 -0.3525"
+        rpy="0 0 0" />
+      <mass
+        value="0.777" />
+      <inertia
+        ixx="0.0134"
+        ixy="0.0002"
+        ixz="0.0009"
+        iyy="0.0137"
+        iyz="-0.001"
+        izz="0.0038" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/r_thigh.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/r_thigh.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_thigh_joint"
+    type="revolute">
+    <origin
+      xyz="0.1475 -0.21 -0.13"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="r_thigh" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="r_calf">
+    <inertial>
+      <origin
+        xyz="-0.059 0.0634 -0.0846"
+        rpy="0 0 0" />
+      <mass
+        value="0.1165" />
+      <inertia
+        ixx="0.0004"
+        ixy="0.0001"
+        ixz="-0.0001"
+        iyy="0.0002"
+        iyz="0.0001"
+        izz="0.0003" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/r_calf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://G-exo/meshes/r_calf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_calf_joint"
+    type="revolute">
+    <origin
+      xyz="0.0073951 0.033143 -0.44134"
+      rpy="0 0 0" />
+    <parent
+      link="r_thigh" />
+    <child
+      link="r_calf" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
