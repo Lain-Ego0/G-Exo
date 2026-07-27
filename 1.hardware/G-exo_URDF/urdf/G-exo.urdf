@@ -96,10 +96,11 @@
       link="l_thigh" />
     <axis
       xyz="0 1 0" />
-    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
+    <!-- L Hip (axis +Y): + = extension, - = flexion. ROM: flex 90° ↔ ext 20° -->
+    <!-- Anatomical ref: ext 10-15° active, flex 120-130°. Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="-0.5236"
-      upper="0.5236"
+      lower="-1.5708"
+      upper="0.3491"
       effort="17"
       velocity="28.8" />
   </joint>
@@ -155,10 +156,11 @@
       link="l_calf" />
     <axis
       xyz="0 1 0" />
-    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
+    <!-- L Knee (axis +Y): + = flexion, - = extension. ROM: neutral 0° ↔ flex 110° -->
+    <!-- Anatomical ref: flex 120-140° active. Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="-0.5236"
-      upper="0.5236"
+      lower="0"
+      upper="1.9199"
       effort="17"
       velocity="28.8" />
   </joint>
@@ -214,10 +216,11 @@
       link="r_thigh" />
     <axis
       xyz="0 -1 0" />
-    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
+    <!-- R Hip (axis -Y): + = flexion, - = extension. ROM: ext 20° ↔ flex 90° -->
+    <!-- Anatomical ref: ext 10-15° active, flex 120-130°. Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="-0.5236"
-      upper="0.5236"
+      lower="-0.3491"
+      upper="1.5708"
       effort="17"
       velocity="28.8" />
   </joint>
@@ -273,10 +276,11 @@
       link="r_calf" />
     <axis
       xyz="0 -1 0" />
-    <!-- Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
+    <!-- R Knee (axis -Y): + = extension, - = flexion. ROM: flex 110° ↔ neutral 0° -->
+    <!-- Anatomical ref: flex 120-140° active. Motor: rated 6 Nm, peak 17 Nm, 275 rpm -->
     <limit
-      lower="-0.5236"
-      upper="0.5236"
+      lower="-1.9199"
+      upper="0"
       effort="17"
       velocity="28.8" />
   </joint>
