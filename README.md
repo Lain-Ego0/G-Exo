@@ -27,11 +27,11 @@ Physical AI 黑客松作品预研发仓库 — Ghost-Exoskeleton
 - **重量**：≤4kg（不含电池）
 - **供电**：6S LiPo（22.2V 标称，25.2V 满电），双电池热插拔轮换
 - **续航**：步行 ~1.3h / 双电，跑步 ~50min
-- **BOM**：~¥4,500（在 ¥5,000 预算内）
+- **BOM**：~¥4,611
 - **控制**：RL + TCN 时序编码器混合架构（PPO 策略 → 四关节力矩 → CAN → RS02）
   - 理论框架参考 Nature 2024 任务无关控制范式
   - 仿真训练：MyoSuite 80 肌肉人体 + MuJoCo 物理引擎
-  - 实机部署：K3/OPi5 Plus NPU 推理 + RT Linux 实时控制
+  - 实机部署：K3 NPU 推理 + RT Linux 实时控制
 - **场景**：户外徒步（主）+ 慢跑/爬山
 
 详细参数见 [Q&A Round 5 最终收敛](Q&A.md#round-5--最终收敛-) 和 [BOM V2.0](1.hardware/BOM.md)。
