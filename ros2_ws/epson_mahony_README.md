@@ -1,5 +1,7 @@
 # G-Exo ROS2 工作区 — Epson G354 IMU + Mahony AHRS 姿态解算
 
+echo "=== USB devices ===" && ls -la /dev/ttyUSB* 2>&1 && echo "" && echo "=== dmesg USB (last 20 lines) ===" && sudo dmesg | grep -i -E "ttyUSB|usb|ch34|cp210|ftdi|disconnect" | tail -20 && echo "" && echo "=== ch341 module info ===" && lsmod | grep -E "ch34|cp210" && echo "" && echo "=== udev info for ttyUSB0 ===" && udevadm info -a -n /dev/ttyUSB0 2>&1 | head -30
+
 > 本工作区基于 [ess_imu_driver2](https://github.com/cubicleguy/ess_imu_driver2.git) 封装，集成 Mahony AHRS 姿态估计算法，用于 G-Exo 外骨骼项目的 IMU 数据采集与姿态解算。
 
 ---
