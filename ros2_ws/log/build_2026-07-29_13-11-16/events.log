@@ -1,0 +1,177 @@
+[0.000000] (-) TimerEvent: {}
+[0.000155] (ess_imu_driver2) JobQueued: {'identifier': 'ess_imu_driver2', 'dependencies': OrderedDict()}
+[0.000303] (ess_imu_driver2) JobStarted: {'identifier': 'ess_imu_driver2'}
+[0.007147] (ess_imu_driver2) JobProgress: {'identifier': 'ess_imu_driver2', 'progress': 'cmake'}
+[0.008280] (ess_imu_driver2) Command: {'cmd': ['/usr/bin/cmake', '/home/hajies/G-Exo/ros2_ws/src/ess_imu_driver2', '-DCMAKE_INSTALL_PREFIX=/home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2'], 'cwd': '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('HTTPS_PROXY', 'http://127.0.0.1:7897/'), ('no_proxy', 'localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,::1'), ('LANGUAGE', 'zh_CN:zh'), ('USER', 'hajies'), ('all_proxy', 'socks://127.0.0.1:7897/'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/hajies'), ('DESKTOP_SESSION', 'ubuntu'), ('NO_PROXY', 'localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,::1'), ('NVM_BIN', '/home/hajies/.nvm/versions/node/v24.16.0/bin'), ('NVM_INC', '/home/hajies/.nvm/versions/node/v24.16.0/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('DBUS_STARTER_BUS_TYPE', 'session'), ('SYSTEMD_EXEC_PID', '1168'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus,guid=1cf738642d2b13f378c8089a6a69fbd8'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/hajies/.nvm'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('https_proxy', 'http://127.0.0.1:7897/'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'hajies'), ('ALL_PROXY', 'socks://127.0.0.1:7897/'), ('http_proxy', 'http://127.0.0.1:7897/'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'hajies'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/hajies/.nvm/versions/node/v24.16.0/bin:/opt/ros/humble/bin:/home/hajies/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/hajies-Yoga-7-14IRL8:@/tmp/.ICE-unix/1168,unix/hajies-Yoga-7-14IRL8:/tmp/.ICE-unix/1168'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/7e496271_d52a_4150_82a1_7199e7156b1b'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'zh_CN.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.DSE7S3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.160'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('DBUS_STARTER_ADDRESS', 'unix:path=/run/user/1000/bus,guid=1cf738642d2b13f378c8089a6a69fbd8'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/hajies/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('HTTP_PROXY', 'http://127.0.0.1:7897/'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099568] (-) TimerEvent: {}
+[0.178405] (ess_imu_driver2) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.199684] (-) TimerEvent: {}
+[0.294598] (ess_imu_driver2) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.299784] (-) TimerEvent: {}
+[0.302253] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.397954] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.399912] (-) TimerEvent: {}
+[0.406166] (ess_imu_driver2) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.455815] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.456327] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.459214] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.500042] (-) TimerEvent: {}
+[0.557767] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.569938] (ess_imu_driver2) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.570288] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.570992] (ess_imu_driver2) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.580178] (ess_imu_driver2) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.600176] (-) TimerEvent: {}
+[0.700477] (-) TimerEvent: {}
+[0.778301] (ess_imu_driver2) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.800632] (-) TimerEvent: {}
+[0.901117] (-) TimerEvent: {}
+[1.001518] (-) TimerEvent: {}
+[1.059401] (ess_imu_driver2) StdoutLine: {'line': b'-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.101646] (-) TimerEvent: {}
+[1.103554] (ess_imu_driver2) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.9 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.107425] (ess_imu_driver2) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.9 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.114946] (ess_imu_driver2) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.9 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.130512] (ess_imu_driver2) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.150559] (ess_imu_driver2) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.191913] (ess_imu_driver2) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.195654] (ess_imu_driver2) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.201728] (-) TimerEvent: {}
+[1.302024] (-) TimerEvent: {}
+[1.402395] (-) TimerEvent: {}
+[1.478241] (ess_imu_driver2) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.502624] (-) TimerEvent: {}
+[1.587696] (ess_imu_driver2) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.602787] (-) TimerEvent: {}
+[1.703144] (-) TimerEvent: {}
+[1.738766] (ess_imu_driver2) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.803279] (-) TimerEvent: {}
+[1.841555] (ess_imu_driver2) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.903523] (-) TimerEvent: {}
+[1.926461] (ess_imu_driver2) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.927046] (ess_imu_driver2) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[2.003824] (-) TimerEvent: {}
+[2.077735] (ess_imu_driver2) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[2.079144] (ess_imu_driver2) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[2.103786] (-) TimerEvent: {}
+[2.203995] (-) TimerEvent: {}
+[2.282174] (ess_imu_driver2) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[2.304149] (-) TimerEvent: {}
+[2.314917] (ess_imu_driver2) StdoutLine: {'line': b'-- ---- Building for platform: NONE\n'}
+[2.315115] (ess_imu_driver2) StdoutLine: {'line': b'-- ---- Building for interface: UART\n'}
+[2.393818] (ess_imu_driver2) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.404294] (-) TimerEvent: {}
+[2.404525] (ess_imu_driver2) StdoutLine: {'line': b'-- Generating done\n'}
+[2.407932] (ess_imu_driver2) StdoutLine: {'line': b'-- Build files have been written to: /home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2\n'}
+[2.414574] (ess_imu_driver2) CommandEnded: {'returncode': 0}
+[2.415322] (ess_imu_driver2) JobProgress: {'identifier': 'ess_imu_driver2', 'progress': 'build'}
+[2.416355] (ess_imu_driver2) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2', '--', '-j12', '-l12'], 'cwd': '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('HTTPS_PROXY', 'http://127.0.0.1:7897/'), ('no_proxy', 'localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,::1'), ('LANGUAGE', 'zh_CN:zh'), ('USER', 'hajies'), ('all_proxy', 'socks://127.0.0.1:7897/'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/hajies'), ('DESKTOP_SESSION', 'ubuntu'), ('NO_PROXY', 'localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,::1'), ('NVM_BIN', '/home/hajies/.nvm/versions/node/v24.16.0/bin'), ('NVM_INC', '/home/hajies/.nvm/versions/node/v24.16.0/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('DBUS_STARTER_BUS_TYPE', 'session'), ('SYSTEMD_EXEC_PID', '1168'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus,guid=1cf738642d2b13f378c8089a6a69fbd8'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/hajies/.nvm'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('https_proxy', 'http://127.0.0.1:7897/'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'hajies'), ('ALL_PROXY', 'socks://127.0.0.1:7897/'), ('http_proxy', 'http://127.0.0.1:7897/'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'hajies'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/hajies/.nvm/versions/node/v24.16.0/bin:/opt/ros/humble/bin:/home/hajies/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/hajies-Yoga-7-14IRL8:@/tmp/.ICE-unix/1168,unix/hajies-Yoga-7-14IRL8:/tmp/.ICE-unix/1168'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/7e496271_d52a_4150_82a1_7199e7156b1b'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'zh_CN.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.DSE7S3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.160'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('DBUS_STARTER_ADDRESS', 'unix:path=/run/user/1000/bus,guid=1cf738642d2b13f378c8089a6a69fbd8'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/hajies/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('HTTP_PROXY', 'http://127.0.0.1:7897/'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[2.475275] (ess_imu_driver2) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding C object CMakeFiles/ess_imu_driver2_lib.dir/src/hcl_uart.c.o\x1b[0m\n'}
+[2.476514] (ess_imu_driver2) StdoutLine: {'line': b'[ 27%] \x1b[32mBuilding CXX object CMakeFiles/mahony_ahrs_node.dir/src/mahony_ahrs_node.cpp.o\x1b[0m\n'}
+[2.476652] (ess_imu_driver2) StdoutLine: {'line': b'[ 27%] \x1b[32mBuilding CXX object CMakeFiles/mahony_ahrs_node.dir/src/mahony.cpp.o\x1b[0m\n'}
+[2.477327] (ess_imu_driver2) StdoutLine: {'line': b'[ 36%] \x1b[32mBuilding C object CMakeFiles/ess_imu_driver2_lib.dir/src/hcl_linux.c.o\x1b[0m\n'}
+[2.477609] (ess_imu_driver2) StdoutLine: {'line': b'[ 45%] \x1b[32mBuilding C object CMakeFiles/ess_imu_driver2_lib.dir/src/hcl_gpio.c.o\x1b[0m\n'}
+[2.477994] (ess_imu_driver2) StdoutLine: {'line': b'[ 63%] \x1b[32mBuilding C object CMakeFiles/ess_imu_driver2_lib.dir/src/sensor_epsonCommon.c.o\x1b[0m\n'}
+[2.478080] (ess_imu_driver2) StdoutLine: {'line': b'[ 63%] \x1b[32mBuilding C object CMakeFiles/ess_imu_driver2_lib.dir/src/sensor_epsonUart.c.o\x1b[0m\n'}
+[2.504388] (-) TimerEvent: {}
+[2.562529] (ess_imu_driver2) StdoutLine: {'line': b'[ 72%] \x1b[32m\x1b[1mLinking C static library libess_imu_driver2_lib.a\x1b[0m\n'}
+[2.597001] (ess_imu_driver2) StdoutLine: {'line': b'[ 72%] Built target ess_imu_driver2_lib\n'}
+[2.604487] (-) TimerEvent: {}
+[2.620063] (ess_imu_driver2) StdoutLine: {'line': b'[ 81%] \x1b[32mBuilding CXX object CMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o\x1b[0m\n'}
+[2.704576] (-) TimerEvent: {}
+[2.804811] (-) TimerEvent: {}
+[2.905084] (-) TimerEvent: {}
+[3.005478] (-) TimerEvent: {}
+[3.105795] (-) TimerEvent: {}
+[3.206092] (-) TimerEvent: {}
+[3.306431] (-) TimerEvent: {}
+[3.406746] (-) TimerEvent: {}
+[3.507078] (-) TimerEvent: {}
+[3.607466] (-) TimerEvent: {}
+[3.707804] (-) TimerEvent: {}
+[3.808089] (-) TimerEvent: {}
+[3.908384] (-) TimerEvent: {}
+[4.008816] (-) TimerEvent: {}
+[4.109147] (-) TimerEvent: {}
+[4.209541] (-) TimerEvent: {}
+[4.310018] (-) TimerEvent: {}
+[4.410626] (-) TimerEvent: {}
+[4.510980] (-) TimerEvent: {}
+[4.611328] (-) TimerEvent: {}
+[4.711767] (-) TimerEvent: {}
+[4.812078] (-) TimerEvent: {}
+[4.912437] (-) TimerEvent: {}
+[5.012786] (-) TimerEvent: {}
+[5.113086] (-) TimerEvent: {}
+[5.213394] (-) TimerEvent: {}
+[5.313826] (-) TimerEvent: {}
+[5.414116] (-) TimerEvent: {}
+[5.514510] (-) TimerEvent: {}
+[5.614855] (-) TimerEvent: {}
+[5.715180] (-) TimerEvent: {}
+[5.815603] (-) TimerEvent: {}
+[5.915944] (-) TimerEvent: {}
+[6.016284] (-) TimerEvent: {}
+[6.116616] (-) TimerEvent: {}
+[6.216916] (-) TimerEvent: {}
+[6.246443] (ess_imu_driver2) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking CXX executable ess_imu_driver2_node\x1b[0m\n'}
+[6.317020] (-) TimerEvent: {}
+[6.417349] (-) TimerEvent: {}
+[6.517774] (-) TimerEvent: {}
+[6.534149] (ess_imu_driver2) StdoutLine: {'line': b'[ 90%] Built target ess_imu_driver2_node\n'}
+[6.618004] (-) TimerEvent: {}
+[6.718417] (-) TimerEvent: {}
+[6.818835] (-) TimerEvent: {}
+[6.919253] (-) TimerEvent: {}
+[7.019669] (-) TimerEvent: {}
+[7.120082] (-) TimerEvent: {}
+[7.220485] (-) TimerEvent: {}
+[7.320887] (-) TimerEvent: {}
+[7.421307] (-) TimerEvent: {}
+[7.521729] (-) TimerEvent: {}
+[7.622154] (-) TimerEvent: {}
+[7.722414] (-) TimerEvent: {}
+[7.822746] (-) TimerEvent: {}
+[7.922978] (-) TimerEvent: {}
+[8.023226] (-) TimerEvent: {}
+[8.123599] (-) TimerEvent: {}
+[8.224036] (-) TimerEvent: {}
+[8.324306] (-) TimerEvent: {}
+[8.424550] (-) TimerEvent: {}
+[8.514138] (ess_imu_driver2) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable mahony_ahrs_node\x1b[0m\n'}
+[8.524674] (-) TimerEvent: {}
+[8.624928] (-) TimerEvent: {}
+[8.725197] (-) TimerEvent: {}
+[8.797344] (ess_imu_driver2) StdoutLine: {'line': b'[100%] Built target mahony_ahrs_node\n'}
+[8.825357] (-) TimerEvent: {}
+[8.829686] (ess_imu_driver2) CommandEnded: {'returncode': 0}
+[8.830661] (ess_imu_driver2) JobProgress: {'identifier': 'ess_imu_driver2', 'progress': 'install'}
+[8.843341] (ess_imu_driver2) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2'], 'cwd': '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('HTTPS_PROXY', 'http://127.0.0.1:7897/'), ('no_proxy', 'localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,::1'), ('LANGUAGE', 'zh_CN:zh'), ('USER', 'hajies'), ('all_proxy', 'socks://127.0.0.1:7897/'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/hajies'), ('DESKTOP_SESSION', 'ubuntu'), ('NO_PROXY', 'localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,::1'), ('NVM_BIN', '/home/hajies/.nvm/versions/node/v24.16.0/bin'), ('NVM_INC', '/home/hajies/.nvm/versions/node/v24.16.0/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('DBUS_STARTER_BUS_TYPE', 'session'), ('SYSTEMD_EXEC_PID', '1168'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus,guid=1cf738642d2b13f378c8089a6a69fbd8'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/hajies/.nvm'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('https_proxy', 'http://127.0.0.1:7897/'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'hajies'), ('ALL_PROXY', 'socks://127.0.0.1:7897/'), ('http_proxy', 'http://127.0.0.1:7897/'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'hajies'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/hajies/.nvm/versions/node/v24.16.0/bin:/opt/ros/humble/bin:/home/hajies/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/hajies-Yoga-7-14IRL8:@/tmp/.ICE-unix/1168,unix/hajies-Yoga-7-14IRL8:/tmp/.ICE-unix/1168'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/7e496271_d52a_4150_82a1_7199e7156b1b'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'zh_CN.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.DSE7S3'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.160'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('DBUS_STARTER_ADDRESS', 'unix:path=/run/user/1000/bus,guid=1cf738642d2b13f378c8089a6a69fbd8'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/home/hajies/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('HTTP_PROXY', 'http://127.0.0.1:7897/'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[8.852902] (ess_imu_driver2) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.853256] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/ess_imu_driver2_node\n'}
+[8.854300] (ess_imu_driver2) StdoutLine: {'line': b'-- Set runtime path of "/home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/ess_imu_driver2_node" to ""\n'}
+[8.854492] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch\n'}
+[8.882817] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/tc_launch.py\n'}
+[8.883686] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/launch.py\n'}
+[8.884144] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/raw_launch.py\n'}
+[8.884645] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/mahony_launch.py\n'}
+[8.885692] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/mahony_ahrs_node\n'}
+[8.890579] (ess_imu_driver2) StdoutLine: {'line': b'-- Set runtime path of "/home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/mahony_ahrs_node" to ""\n'}
+[8.890785] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ament_index/resource_index/package_run_dependencies/ess_imu_driver2\n'}
+[8.891130] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ament_index/resource_index/parent_prefix_path/ess_imu_driver2\n'}
+[8.891251] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/ament_prefix_path.sh\n'}
+[8.891327] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/ament_prefix_path.dsv\n'}
+[8.891396] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/path.sh\n'}
+[8.891554] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/path.dsv\n'}
+[8.891654] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.bash\n'}
+[8.891717] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.sh\n'}
+[8.891865] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.zsh\n'}
+[8.891939] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.dsv\n'}
+[8.892005] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/package.dsv\n'}
+[8.892065] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ament_index/resource_index/packages/ess_imu_driver2\n'}
+[8.892204] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/cmake/ess_imu_driver2Config.cmake\n'}
+[8.892293] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/cmake/ess_imu_driver2Config-version.cmake\n'}
+[8.892353] (ess_imu_driver2) StdoutLine: {'line': b'-- Installing: /home/hajies/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/package.xml\n'}
+[8.894712] (ess_imu_driver2) CommandEnded: {'returncode': 0}
+[8.920355] (ess_imu_driver2) JobEnded: {'identifier': 'ess_imu_driver2', 'rc': 0}
+[8.920682] (-) EventReactorShutdown: {}

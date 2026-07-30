@@ -1,0 +1,2 @@
+/usr/bin/ar qc libess_imu_driver2_lib.a CMakeFiles/ess_imu_driver2_lib.dir/src/hcl_linux.c.o CMakeFiles/ess_imu_driver2_lib.dir/src/hcl_gpio.c.o CMakeFiles/ess_imu_driver2_lib.dir/src/hcl_uart.c.o CMakeFiles/ess_imu_driver2_lib.dir/src/sensor_epsonCommon.c.o CMakeFiles/ess_imu_driver2_lib.dir/src/sensor_epsonUart.c.o
+/usr/bin/ranlib libess_imu_driver2_lib.a

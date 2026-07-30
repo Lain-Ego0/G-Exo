@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ess_imu_driver2</name>
+  <version>2.0.3</version>
+  <description>ROS2 package for Epson IMU using C++ wrapper around Linux C driver</description>
+  <maintainer email="raymond.chow@ea.epson.com">Raymond Chow</maintainer>
+  <license>BSD-3</license>
+  <license>Public Domain</license>
+
+  <url type="website">https://wiki.ros.org/ess_imu_driver2</url>
+  <url type="repository">https://github.com/cubicleguy/ess_imu_driver2.git</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
