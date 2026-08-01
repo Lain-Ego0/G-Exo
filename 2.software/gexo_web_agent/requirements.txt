@@ -1,0 +1,12 @@
+fastapi>=0.100
+uvicorn>=0.23
+pydantic>=2.0
+pydantic-settings>=2.0
+httpx>=0.24
+jieba>=0.42
+pypdf>=3.0
+PyYAML>=6.0
+websockets>=11.0
+# dev / test
+pytest>=7.0
+pytest-asyncio>=0.21

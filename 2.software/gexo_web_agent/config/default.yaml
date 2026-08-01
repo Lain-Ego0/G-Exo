@@ -1,0 +1,53 @@
+server:
+  host: 0.0.0.0
+  port: 8000
+
+bridge:
+  transport: mock          # mock | ros2
+  topic: /g_exo/bridge
+  message_mode: json_string
+  source_id: gexo_web_agent
+
+state:
+  stale_timeout_s: 1.0     # ROS_STATE_TIMEOUT_MS=1000
+  ws_min_interval_ms: 200
+
+command:
+  result_timeout_s: 3.0
+  confirm_ttl_s: 30.0
+  history_size: 200
+
+safety:
+  assist_min: 0.3
+  assist_max: 1.0
+  assist_step: 0.1
+
+llm:
+  base_url: http://127.0.0.1:8080/v1
+  model: Qwen_Qwen3-4B-Instruct-2507
+  api_key: none            # llama-server ignores it; kept for OpenAI-client compat
+  temperature: 0.1
+  timeout_s: 30.0
+  max_tokens: 1024
+  force_json_fallback: false
+
+rag:
+  corpus_dirs:             # relative paths resolve against the repo root
+    - data/docs
+    - ../../4.document
+  db_path: data/rag_index.db
+  chunk_size: 700
+  chunk_overlap: 100
+  top_k: 3
+
+mock:
+  state_hz: 5.0
+  result_latency_ms: 150
+  scenario: normal         # normal | estop | fault | can_offline | moving | overheat | no_reply | fail
+
+debug:
+  enabled: true            # exposes /api/debug/scenario; set false on the real device
+
+logging:
+  level: INFO
+  file: null

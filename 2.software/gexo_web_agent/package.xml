@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>gexo_web_agent</name>
+  <version>0.1.0</version>
+  <description>
+    G-Exo web agent: local LLM chat + mobile web UI + ROS 2 control bridge.
+    FastAPI backend bridging natural-language intents to the exoskeleton
+    controller over a single JSON topic, with independent safety validation.
+  </description>
+  <maintainer email="dev@g-exo.local">G-Exo Team</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

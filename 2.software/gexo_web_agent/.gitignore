@@ -1,0 +1,9 @@
+# runtime artifacts
+data/rag_index.db*
+__pycache__/
+*.pyc
+.pytest_cache/
+build/
+install/
+log/
+*.egg-info/
