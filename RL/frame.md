@@ -1106,3 +1106,740 @@ $$
 ### 18.9 为什么 Reward 使用仿真真实肌肉状态而不是轻量估计值
 
 在 MyoSuite 中已经能够读取 activation、force 和 power。PPO 若以可被其动作影响的近似估计器作为唯一 Reward，可能利用估计误差作弊。因此训练 Reward 优先使用仿真真实肌肉状态和配对零助力基线；轻量肌肉层只用于蒸馏、辅助损失、解释和后续实机诊断研究。
+
+## 19. 2026-07-29 路线收敛：多地形人体底座与平地优先训练
+
+本节覆盖第 17 节中“先完成轻量肌肉层再做人体闭环”的旧顺序。当前主线改为：Phase 1/2 提供参考运动和生物关节力矩，PPO 只学习 12 维平衡残差，现有 BVLS 层负责将目标关节力矩转换为 80 维 MyoSuite 肌肉动作。人体策略仅存在于仿真中，最终 K3 仍只部署 TCN、外骨骼 Actor、归一化和安全层。
+
+### 19.1 为什么 Phase 1/2 不能直接保证稳定
+
+Phase 1/2 是运动记录和聚合动力学标签，不是可执行控制器。当前数据提供 12 维下肢关节角、速度、生物关节力矩、GRF/COP 和 IMU，但没有完整骨盆六自由度轨迹、80 路肌肉激活真值以及与 MyoSuite 完全一致的人体参数和接触状态。因此：
+
+- 轨迹参考不等于受到扰动后的反馈控制；
+- 原受试者的净关节力矩不能逐帧原样驱动另一个肌骨模型；
+- 静态肌肉募集只解决力矩分配，不能独立解决骨盆和质心平衡；
+- 当前 `PhaseReference + PD + BVLS` 已经跑通。修正 MyoSuite 双 `MjData` 同步后，在半体重骨盆支撑和 10 个固定验证种子下，零平衡残差平均维持 78.8 步，即约 0.79 s。
+
+### 19.2 人体底座控制结构
+
+人体目标力矩固定为：
+
+$$
+\tau_{human}
+=
+\tau_{Phase}
++K_p(q_{ref}-q)
++K_d(\dot q_{ref}-\dot q)
++\tau_{balance}
+-\tau_{exo}
+$$
+
+其中 PPO 只输出 12 维 `tau_balance`，不直接输出 80 维肌肉动作。BVLS 根据当前肌肉力臂、主动增益和被动力求解 excitation：
+
+$$
+a^*=\arg\min_a
+\left\|R(q)^T(G(q,\dot q)a+F_{passive})-\tau_{human}\right\|^2
++\lambda\|a\|^2
+$$
+
+这种组织保留 Phase 运动风格和 MyoSuite 肌肉动力学，同时把 PPO 动作维度从 80 降到 12。人体策略训练时可以读取骨盆姿态、COM、接触、地形和肌肉状态等特权信息；这些信息不进入外骨骼实机 Actor。
+
+### 19.3 数据规模、划分与采样
+
+当前 Phase 1/2 正常行走清单包含 127 条可用 trial：112 条训练、15 条验证；其中 50 条 `off` 数据来自 10 名受试者，覆盖 0.6、1.2、1.8、2.0 和 2.5 m/s，每种速度 10 条。平地人体策略首轮使用 0.6 和 1.2 m/s，并按受试者隔离：BT11、BT12 作为平地验证，其余 `off` 受试者用于训练。Phase 3 的 7 名受试者、31 条 `on` trial 保持冻结测试，不参与训练。
+
+每个 episode 随机选择受试者、trial 和起始相位；后续再加入人体质量、惯量、地面摩擦、阻尼、传感器延迟和外骨骼扰动。不能按帧随机拆分训练和验证，也不能把全部数据不加区分地混合。
+
+### 19.4 特殊地形设置
+
+`myoLegWalk-v0` 已包含一个 100 x 100、约 14 m x 14 m 的 MuJoCo heightfield，只是默认移到地下。后续环境在 `reset()` 时启用 heightfield 并程序化生成：
+
+$$
+h_{flat}(x,y)=0
+$$
+
+$$
+h_{slope}(x,y)=y\tan\theta
+$$
+
+$$
+h_{stairs}(x,y)=H\left\lfloor\frac{y-y_0}{D}\right\rfloor
+$$
+
+坡道初始范围为正负 3～8 度；台阶高度 0.08～0.18 m、深度 0.25～0.35 m；路缘使用单次高度跃迁；粗糙地面使用平滑随机高度。需要精确垂直侧面或移动障碍时再使用 box geom。训练课程顺序为平地低速、平地全部速度、坡道和低台阶、楼梯/路缘/启停、障碍与随机外骨骼扰动。
+
+heightfield 的每个网格不能单独设置摩擦系数。局部湿滑或冰面应拆成多个地面 geom，再分别修改 `geom_friction`；精确楼梯也优先使用 box geom，避免高度场斜面近似影响接触。若实机仍只有编码器和 IMU，没有视觉、足底触地或地形预览，策略只能在接触地形后进行反应式稳定，不能在脚接触台阶前可靠规划抬脚。因此平地 V0 不加入楼梯，后续坡道与粗糙地面先验证反应式鲁棒性。
+
+地形课程固定为：平地 0.6/1.2 m/s、平地全部速度、正负 3 度坡、逐步扩大到正负 8 度并加入低台阶、最后才加入粗糙地面和摩擦变化。不能第一轮就均匀混合全部难度，否则大量早期跌倒会淹没有用的 PPO 信号。
+
+### 19.5 平地优先与外骨骼训练衔接
+
+不等待完整多地形人体收敛后才开始外骨骼训练。首先训练并冻结 `human_flat_v0`，随后立即启动平地外骨骼 PPO；人体策略继续扩展成 `human_terrain_v1` 后，用冻结的新人体底座继续微调 `exo_flat_v0` 得到 `exo_terrain_v1`。
+
+```text
+Phase off 低速参考
+        ↓
+12 维平衡残差 PPO
+        ↓
+BVLS 80 肌肉动作
+        ↓
+human_flat_v0
+        ↓
+平地外骨骼 PPO
+        ↓
+exo_flat_v0
+```
+
+### 19.6 今晚训练命令与设备
+
+平地人体 PPO 使用现有 `RL/train.py`、SB3 PPO 和 `SubprocVecEnv`。MyoSuite 和 BVLS 主要消耗 CPU；小型 MLP 在 CPU 上通常更快，但保留 CUDA 运行方式用于本机比较。
+
+CPU 推荐命令：
+
+```bash
+cd ~/HK_hackthon
+conda activate gexo-opensim-rl
+PYTHONPATH="$PWD/G-Exo" \
+python -m RL.runners.train_human_balance \
+  --total-timesteps 10000000 \
+  --num-envs 8 \
+  --device cpu
+```
+
+CUDA 命令：
+
+```bash
+cd ~/HK_hackthon
+conda activate gexo-opensim-rl
+PYTHONPATH="$PWD/G-Exo" \
+python -m RL.runners.train_human_balance \
+  --total-timesteps 10000000 \
+  --num-envs 8 \
+  --device cuda
+```
+
+TensorBoard：
+
+```bash
+tensorboard --logdir G-Exo/RL/outputs/human_balance/tensorboard --port 6006
+```
+
+2026-07-29 在本机实测 8 个 CPU 仿真 worker 为 680～725 steps/s。1000 万步按纯训练时间约 3.8～4.1 h，计入留出集评估和系统波动后按 4～5 h 预留。MuJoCo 和 BVLS 仍在 CPU 上运行，`--device cuda` 只将 PPO 网络更新放到 GPU；本项目的小 MLP 不保证 CUDA 比 CPU 更快，应以 8192 步短基准实测选择。
+
+### 19.7 平地 V0 验收标准
+
+今晚开始长训练前必须满足：环境通过 `check_env`；随机动作和零动作不产生 NaN；两环境 PPO 短训练可以保存并加载 checkpoint；TensorBoard 能看到总奖励和姿态、速度、直立、高度、肌肉激活、残差惩罚等子项。
+
+一晚训练后的初步验收目标为：
+
+1. 固定验证受试者上 10 s episode 成功率不低于 80%；
+2. 平均 episode 长度显著高于零残差基线，至少提高 25%；
+3. 12 关节位置 RMSE 小于 0.30 rad，并继续向 0.20 rad 调整；
+4. 平均肌肉激活不持续饱和，激活大于 0.9 的比例低于 10%；
+5. 在质量、阻尼和摩擦变化的参数迁移环境中，成功率保留名义环境的 70% 以上；
+6. 参数迁移评估冻结策略权重、Observation 顺序、归一化、动作映射和控制频率。
+
+当前参数迁移只记作 `sim2sim-lite`，用于今晚快速判断策略是否依赖单一模型参数；严格 Sim2Sim 仍按第 14 节要求迁移到带详细外骨骼刚体/URDF 的第二模型，并保持策略冻结。
+
+### 19.8 当前实现和首轮证据
+
+平地人体基线环境位于 `RL/env/myosuite/human_balance_env.py`；人体目标力矩到 80 路肌肉动作的转换位于 `RL/env/myosuite/muscle_controller.py`；训练入口为 `RL/runners/train_human_balance.py`；统一评估入口为 `RL/runners/evaluate_human_sim2sim.py`。
+
+MyoSuite 内部由 `base.mj_data` 生成观测，由 `base.robot.mj_data` 执行动力学积分。Phase 初态必须在重置后从前者同步到后者，`qfrc_applied` 也必须写入后者。支撑比例定义为：`0.0` 不施加骨盆支撑，`1.0` 补偿全部体重并叠加骨盆位置/姿态弹簧，`0.5` 补偿一半体重。这个支撑是人体策略的课程脚手架，不是最终外骨骼助力，后续必须逐级降低并单独报告支撑比例。
+
+10 万步 pilot 使用 8 个环境、CPU PPO，共耗时 2 min 40 s。10 个固定留出种子得到：零残差名义环境平均 78.8 步，pilot 为 184.0 步，即 2.34 倍；参数扰动环境零残差为 59.1 步，pilot 为 175.5 步，即 2.97 倍。该结果证明训练和参数迁移方向有效，但成功率仍为 0，尚未达到 1000 步/10 s 的最终门槛，不能把 pilot 当作 `human_flat_v0`。
+
+冻结模型的统一评估命令为：
+
+```bash
+cd ~/HK_hackthon
+conda activate gexo-opensim-rl
+PYTHONPATH="$PWD/G-Exo" \
+python -m RL.runners.evaluate_human_sim2sim \
+  --model G-Exo/RL/outputs/human_balance/best_model/best_model.zip \
+  --episodes 10 \
+  --require-pass
+```
+
+评估脚本会自动用相同种子再跑零残差基线，输出名义/参数扰动结果、平均长度提升倍率和成功率保留率。`--require-pass` 失败是正常的非零退出，不应删除报告或改低门槛来制造通过。
+
+### 19.9 当前奖励函数与调参原则
+
+当前平地人体奖励只使用仿真状态、Phase 参考和控制代价。定义关节位置误差 $e_q=q-q_{ref}$、关节速度误差 $e_{dq}=\dot q-\dot q_{ref}$、骨盆重力方向误差 $e_g=g_{body}-g_{target}$，则每步奖励为：
+
+$$
+\begin{aligned}
+r_{pose} &= 2.0\exp\left(-2.0\operatorname{mean}(e_q^2)\right) \\
+r_{velocity} &= 0.5\exp\left(-0.05\operatorname{mean}(e_{dq}^2)\right) \\
+r_{upright} &= 1.5\exp\left(-5.0\operatorname{mean}(e_g^2)\right) \\
+r_{height} &= \exp\left(-20.0(h-h_{target})^2\right) \\
+r_{speed} &= 0.5\exp\left(-(v-v_{target})^2\right) \\
+r_{effort} &= -0.1\operatorname{mean}(a_{muscle}^2) \\
+r_{residual} &= -0.02\operatorname{mean}(u_{PPO}^2) \\
+r &= r_{pose}+r_{velocity}+r_{upright}+r_{height} \\
+&\quad +r_{speed}+r_{effort}+r_{residual}
+\end{aligned}
+$$
+
+发生原生跌倒终止时再加 $-10$。正奖励每多存活一步就继续累积，因此已经隐含“存活奖励”，无需再无条件加一个固定 alive 常数。各正项理论最大值依次为 2.0、0.5、1.5、1.0、0.5，总计 5.5；当前 effort 和 residual 在实测中约为 $-0.01$，只起正则作用，不应主导早期平衡。
+
+调参顺序固定为：先存活与直立，再轨迹跟踪，最后肌肉能耗和残差平滑。每次只改变一组权重或一个指数尺度，使用相同的 10 个验证 seed 对照零残差基线；不能同时改 reward、支撑范围和动作限额，否则无法判断因果。动作峰值、关节范围和电机限额属于硬约束，不能只靠 reward 惩罚。骨盆支撑是 curriculum 参数，也不能混入 reward 伪装成策略能力。
+
+判断 reward 是否需要修改时先看外部指标：episode length、success rate、关节 RMSE、肌肉饱和率和参数迁移保留率。只有训练回报上升但这些指标不升，或单项 reward 长期压倒其他项时，才修改公式。不能为了让 gate 通过而降低门槛。
+
+### 19.10 PPO 轮数、阶段训练与播放
+
+当前 `num_envs=8`、`n_steps=512`，所以一个 PPO iteration 收集 $8\times512=4096$ 个 transition；每个 iteration 对这批数据执行 5 个 optimization epoch。对应关系为：10 万步约 25 iterations，100 万步约 245 iterations，500 万步约 1221 iterations，1000 万步约 2442 iterations。项目以 transition 数和固定验证集结果决定是否停止，不以模糊的“epoch 数”决定。
+
+推荐分段而不是直接盲跑 1000 万步：
+
+1. 8192 步 smoke 已完成，只检查接口；
+2. 从已验证的 10 万步模型继续 90 万步，到约 100 万步后做 10-seed 评估；
+3. 若平均长度仍持续提高，则继续约 400 万步到 500 万步；
+4. 500 万步通过 gate 就冻结为 `human_flat_v0`，不必凑满 1000 万步；若未通过且曲线仍上升，再继续到 1000 万步；若已经平台或退化，先检查 reward 和 curriculum，不能继续堆步数。
+
+此前被中断的 50 万步试跑只训练到 TensorBoard step 245760；其唯一 `best_model` 位于 step 202400，5 个验证 episode 长度为 220、91、116、120、98，没有优于 10 万步模型的固定 10-seed 结果，因此不作为新的续训起点。继续训练仍从 `human_balance_pilot_100k/final_model.zip` 开始。
+
+100 万步阶段推荐命令：
+
+```bash
+cd ~/HK_hackthon
+conda activate gexo-opensim-rl
+PYTHONPATH="$PWD/G-Exo" \
+python -m RL.runners.train_human_balance \
+  --resume G-Exo/RL/outputs/human_balance_pilot_100k/final_model.zip \
+  --total-timesteps 900000 \
+  --num-envs 8 \
+  --device cpu \
+  --output G-Exo/RL/outputs/human_balance_1m
+```
+
+CUDA 只替换 `--device cpu` 为 `--device cuda`；MuJoCo 和 BVLS 仍运行在 CPU。训练后先去掉 `--require-pass` 查看完整报告，再用 `--require-pass` 做正式门禁。
+
+数值评估加策略/零残差同初态顺序播放：
+
+```bash
+PYTHONPATH="$PWD/G-Exo" \
+python -m RL.runners.evaluate_human_sim2sim \
+  --model G-Exo/RL/outputs/human_balance_1m/best_model/best_model.zip \
+  --episodes 10 \
+  --play nominal \
+  --play-mode both \
+  --show-muscles
+```
+
+参数扰动播放将 `--play nominal` 改为 `--play shifted`。该脚本是同一 MyoSuite 模型的参数迁移 `sim2sim-lite`；严格 Sim2Sim 必须冻结策略后接入独立第二模型，不能用本脚本的质量/阻尼/摩擦缩放替代。
+
+## 20. 2026-07-30 路线收敛：Kinesis 人体底座上的外骨骼 PPO
+
+本节覆盖第 19 节中“继续训练 MyoSuite 人体平衡策略后再训练外骨骼”的执行顺序。当前已经验证 Kinesis `legs_abs` 人体能够稳定复现多条平地动作，四个髋膝等效外骨骼力矩能够产生正确方向的因果响应，`MuscleLoadSharing` 也能够在保持名义关节合力矩的条件下减少一部分人体肌肉输出。因此先冻结 Kinesis 人体策略，直接训练四输出外骨骼 PPO；原 MyoSuite、OpenSim 和人体平衡 PPO 文件全部保留，不删除。
+
+### 20.1 冻结组件和训练组件
+
+训练过程中只更新外骨骼 Actor 和 Critic：
+
+```text
+Kinesis 预训练策略（冻结）
+        ↓ 86 维名义肌肉兴奋度
+MuscleLoadSharing（固定解析层）← 四关节外骨骼力矩
+        ↓ 受助力肌肉兴奋度
+MuJoCo 激活动力学和人体前向动力学
+        ↓
+144 维可部署观测 → PPO → 四维外骨骼动作
+```
+
+Kinesis 负责给出无助力人体的名义肌肉控制；MuJoCo 负责 excitation、activation、肌肉力和运动积分；`MuscleLoadSharing` 负责外骨骼介入后的首版显式卸力。PPO 不更新 Kinesis 权重，不输出 86 维肌肉动作，也不能在 Actor Observation 中读取肌肉激活、参考动作、完整人体状态或未来状态。
+
+当前 `MuscleLoadSharing` 只维护反事实肌肉激活，并不是一套完全独立的影子人体动力学。它足以用于首版平地 PPO 和方法验证，但由此得到的激活下降仍属于模型内代理指标。后续若要加强人机共同适应，应升级为完整影子人体或 MyoAssist 式多 Actor 训练，不能把首版结果直接表述为真人代谢下降。
+
+### 20.2 文件位置和职责
+
+```text
+RL/env/kinesis/teacher.py
+    加载冻结 Kinesis checkpoint，并把策略包装为 86 维人体动作回调
+
+RL/env/kinesis/assist_backend.py
+    20 ms 外骨骼步进、力矩限幅/限速、解析卸力和 MuJoCo 积分
+
+RL/env/kinesis/exo_env.py
+    Gymnasium 环境、144 维历史观测、四维动作、奖励和终止
+
+RL/train.py
+    通用 SB3 PPO、并行环境、checkpoint、TensorBoard、验证和墙钟停止
+
+RL/runners/train_kinesis_exo.py
+    训练/验证步态分配、PPO 参数和命令行入口
+
+RL/runners/evaluate_kinesis_exo.py
+    零助力、固定 oracle 助力和冻结 PPO 的数值评估及 GUI 播放
+```
+
+`RL/env/gexo_env.py` 的旧抽象接口与 Kinesis 的“冻结人体策略 + 外骨骼力矩”调用方式不同。本阶段不继续给旧类堆叠适配器，而是新增一个只负责 Kinesis 的最小 Gymnasium 环境；通用训练器、执行器、传感器读取、Kinesis 后端和已有 checkpoint 加载逻辑继续复用。
+
+### 20.3 Observation、动作和频率
+
+外骨骼控制周期保持 $20\,\mathrm{ms}$，即 $50\,\mathrm{Hz}$。单帧仍采用第 7 节确定的 36 维定义：
+
+$$
+z_t=[q_t,\dot q_t,\omega_t^{IMU},a_t^{IMU},u_{t-1}]
+$$
+
+其中四个 IMU 依次位于左大腿、左小腿、右大腿和右小腿。Kinesis 模型已有对应刚体角速度和线速度传感器；V0 用相邻控制帧线速度差分得到线加速度，减去重力并旋转到各刚体局部坐标系，形成与真实 IMU 一致的比力语义。噪声和零偏默认关闭，保留参数接口后再做随机化。
+
+四帧历史组成：
+
+$$
+o_t=[z_{t-3},z_{t-2},z_{t-1},z_t]\in\mathbb R^{144}
+$$
+
+物理量使用固定尺度归一化并裁剪，部署时可原样复现，不使用仿真在线统计量。动作固定为：
+
+$$
+a_t=[a_{LH},a_{LK},a_{RH},a_{RK}]\in[-1,1]^4
+$$
+
+外骨骼动作直接使用 RS02 的物理包络：峰值力矩 $\pm17\,\mathrm{Nm}$，额定力矩 $6\,\mathrm{Nm}$ 只作为代价归一化和超额时间统计，不作为第二层裁剪。力矩变化率仍由 `TorqueActuator` 作为执行器硬约束；当前 $50\,\mathrm{Nm/s}$ 是待实机阶跃测试替换的保守值，不属于 Reward。
+
+### 20.4 集中式 Reward
+
+Reward 只在 `RL/env/kinesis/exo_env.py` 顶部的 `REWARD_WEIGHTS` 和 `_compute_reward()` 中定义，避免权重散落在 runner、后端或 XML。定义当前人体与参考刚体位置均方误差为 $e_p$，影子和实际肌肉激活分别为 $a_0$、$a$，影子和实际四关节肌肉力矩分别为 $\tau_{m,0}$、$\tau_m$，则首版为：
+
+$$
+r_{track}=\exp(-200e_p)
+$$
+
+$$
+r_{activation}=\operatorname{clip}\left(
+\frac{\operatorname{mean}(a_0^2)-\operatorname{mean}(a^2)}
+{\operatorname{mean}(a_0^2)+\epsilon},-1,1\right)
+$$
+
+$$
+r_{muscle}=\operatorname{clip}\left(
+\frac{\operatorname{mean}(|\tau_{m,0}|)-\operatorname{mean}(|\tau_m|)}
+{\operatorname{mean}(|\tau_{m,0}|)+\epsilon},-1,1\right)
+$$
+
+$$
+\begin{aligned}
+r_t={}&w_{track}r_{track}+w_{upright}r_{upright}
++w_{activation}r_{activation}+w_{muscle}r_{muscle}\\
+&-w_{torque}c_{torque}-w_{smooth}c_{smooth}
+-w_{negative}c_{negative\ power}-w_{balance}c_{balance}
+\end{aligned}
+$$
+
+原生 Kinesis 跟踪失败时额外加入终止惩罚。正的跟踪和直立项已经随存活时间累计，不再添加任意固定 `alive=0.5`。动作峰值和变化率由执行器硬限制负责，Reward 中的力矩与平滑项只用于偏好优化，不能替代安全边界。
+
+调参时先看成功率、运动覆盖率和当前 MPJPE，再看肌肉激活/肌肉力矩下降，最后才压低外骨骼力矩、负功和抖动。每次只修改一组权重，并固定训练步态、验证步态、种子和力矩限额；不能通过降低跟踪门槛制造“省力”。
+
+### 20.5 步态划分和训练课程
+
+进入 PPO 前通过稳定筛选的动作中，首版按 motion ID 固定划分：
+
+- 训练：`2,8,9,11,16,38,43,52`；
+- 验证：`64,82,99`。
+
+每个并行 worker 固定加载一条训练动作，避免每次 reset 重建 Kinesis 大模型。8 个 worker 正好覆盖 8 条训练动作；验证回调固定使用未进入训练的 motion 64，训练结束后再由统一评估脚本遍历全部三个留出动作。motion 10 的无助力基线曾出现失败，不进入首轮正式集合。
+
+TCN 暂不接入本次快速 PPO。V0 先证明“编码器/IMU/动作历史能够产生稳定的动态助力”；随后冻结已训练的 TCN 编码器，并保持同一动作、Reward 和评估口径进行对照。2026-07-31 的 300k 筛选表明“64 维 latent + 200 ms 显式预测”的 216 维接口跨步态不稳定，因此下一版 Actor 不再直接读取 latent，只读取 100/200 ms 的四关节 `delta_q + delta_dq`，形成 144+16=160 维 Observation。latent 仍保留在 TCN 内部供预测头使用。
+
+### 20.6 训练前门禁和约八小时运行
+
+长训练前依次通过：
+
+1. `py_compile`；
+2. Gymnasium `check_env`；
+3. 零动作和随机动作无 NaN；
+4. GUI 中分别播放零助力和 2.5% 生物力矩 oracle 助力；
+5. 8192 transition 的 PPO smoke 能保存并加载；
+6. 20 万 transition pilot 的 TensorBoard 中各 Reward 子项、episode length、MPJPE、肌肉激活和四关节力矩均可解释。
+
+正式训练同时设置较大的 transition 上限和 8 小时墙钟上限。墙钟回调到时正常停止 `learn()`，保存 `final_model.zip`；checkpoint 和最佳验证模型仍按固定 transition 间隔保存。因此机器速度变化不会让“八小时训练”变成无法预估的步数任务。
+
+训练后必须用同一留出动作和种子配对比较零助力、固定 oracle 与 PPO，至少报告成功率、覆盖率、MPJPE、实际/影子激活平方、人体肌肉力矩、外骨骼力矩、正负机械功和力矩平衡误差。只有运动质量没有退化且人体负担指标下降，才能把策略记为有效候选。
+
+### 20.7 实现状态、验证结果和运行入口
+
+截至 2026-07-30，以上最小流水线已经落位并完成以下验证：
+
+- Gymnasium `check_env` 通过，Observation 为 `(144,)`，Action 为 `(4,)`；
+- 零动作和随机动作各连续运行 100 步，无 NaN、Inf 或异常终止；
+- 2 个并行 worker 的 8192-transition PPO smoke 完成，模型可保存并重新加载；
+- 8 个并行 worker 均能加载不同训练动作，首轮采样吞吐约为 445 transition/s；
+- 3.6 秒墙钟停止 smoke 在 rollout 边界正常退出，并保存 `final_model.zip`；
+- 留出动作 64 的 smoke 策略仍接近零助力，符合 8192 步只验证接口、不验证收敛性的定位。
+
+Kinesis 原实现即使只加载一个动作也会无条件创建 `multiprocessing.Manager`，而 SB3 的 daemon worker 不能再创建子进程。兼容补丁位于 `third_party/Kinesis/src/KinesisCore/kinesis_core.py`：仅当动作加载确实包含多个并行 job 时才创建 Manager 和 Queue。每个 PPO worker 只加载一个 motion，因此走串行分支；原有多动作并行加载行为保持不变。
+
+训练前用相同 motion 和 seed 顺序播放零助力与 2.5% 生物力矩 oracle。oracle 会读取仿真特权力矩，只用于确认助力方向、渲染和指标链路，不能作为可部署策略：
+
+```bash
+cd ~/HK_hackthon/G-Exo
+conda activate kinesis
+export PYTHONNOUSERSITE=1
+
+PYTHONPATH="$PWD:$PWD/../third_party/Kinesis" \
+python -m RL.runners.evaluate_kinesis_exo \
+  --motion-ids 8 \
+  --modes baseline,oracle \
+  --episodes 1 \
+  --render \
+  --output RL/outputs/kinesis_exo_evaluation/pretrain_render.json
+```
+
+正式首轮训练用 8 个 worker 覆盖 8 条训练动作。`--total-timesteps` 是防止异常长跑的上限，`--hours 8` 才是本轮正常停止条件：
+
+```bash
+PYTHONPATH="$PWD:$PWD/../third_party/Kinesis" \
+python -m RL.runners.train_kinesis_exo \
+  --hours 8 \
+  --total-timesteps 100000000 \
+  --num-envs 8 \
+  --device cpu \
+  --output RL/outputs/kinesis_exo_ppo_8h
+```
+
+TensorBoard 监视命令：
+
+```bash
+tensorboard \
+  --logdir RL/outputs/kinesis_exo_ppo_8h/tensorboard \
+  --port 6006
+```
+
+训练后在三个完全留出的动作上做确定性配对评估；数值指标通过后，再追加 `--render` 录制策略画面：
+
+```bash
+PYTHONPATH="$PWD:$PWD/../third_party/Kinesis" \
+python -m RL.runners.evaluate_kinesis_exo \
+  --model RL/outputs/kinesis_exo_ppo_8h/best_model/best_model.zip \
+  --motion-ids 64,82,99 \
+  --modes baseline,policy \
+  --episodes 3 \
+  --device cpu \
+  --output RL/outputs/kinesis_exo_ppo_8h/holdout_report.json
+```
+
+奖励只允许从 `RL/env/kinesis/exo_env.py` 的 `REWARD_WEIGHTS`、`TRACKING_EXP_SCALE`、`NEGATIVE_POWER_SCALE_W` 和 `_compute_reward()` 调整。训练 runner 只记录配置，不重复定义公式；动作峰值和力矩变化率仍在 `AssistBackend` 中作为硬约束。
+
+### 20.8 Kinesis 渲染中的 G-Exo URDF
+
+Kinesis PPO 的 `render_mode="human"` 已复用 `RL/env/myosuite/exo_overlay.py` 中的 URDF 解析、五连杆正运动学和 `GExoMocapDriver`。由于 Kinesis 的预训练策略会把人体模型中的全部 body 数量用于构造 Observation，不能把五个外骨骼 mocap body 直接加入教师动力学模型；否则教师输入维度会改变，原 checkpoint 失效。因此渲染采用与旧 Demo 相同的双模型数据流：
+
+```text
+原始 Kinesis 模型
+    ├── 86 维人体肌肉控制和 MuJoCo 动力学
+    ├── 四路 qfrc_applied 等效外骨骼力矩
+    └── qpos/qvel/act/ctrl
+                    ↓ 每个显示帧复制
+Kinesis + G-Exo 显示模型
+    ├── 相同 nq=38、nv=37、nu=86
+    ├── 五个无质量、无碰撞 mocap link
+    └── GExoMocapDriver 根据骨盆和四个髋膝角更新 URDF
+```
+
+MuJoCo 3.1.2 没有 `MjSpec`，所以原 overlay 生成器增加了标准 XML fallback：先用 `mj_saveLastXML` 展开 Kinesis 的嵌套 include，再插入 URDF mesh 和 mocap body，并重新加载检查维度。生成文件位于：
+
+```text
+RL/output/demo_7_27/generated/kinesis_gexo.xml
+```
+
+只有 `--render` 时才生成和加载显示模型，headless PPO 训练路径不增加额外模型或渲染开销。该方案已经把完整 URDF 外观和关节运动接入仿真播放，但外骨骼质量、惯量、碰撞和绑带柔性仍未进入动力学；当前动力学助力仍由四路等效力矩和 `MuscleLoadSharing` 表示。后续物理 URDF 阶段必须把电机力矩施加到实体外骨骼关节，并避免与人体 `qfrc_applied` 重复施力。
+
+运行必须使用装有 Kinesis 依赖的 `kinesis` Conda 环境，而不是 `gexo-opensim-rl`：
+
+```bash
+cd ~/HK_hackthon/G-Exo
+conda activate kinesis
+export PYTHONNOUSERSITE=1
+
+PYTHONPATH="$PWD:$PWD/../third_party/Kinesis" \
+python -m RL.runners.evaluate_kinesis_exo \
+  --motion-ids 8 \
+  --modes baseline,oracle \
+  --episodes 1 \
+  --render \
+  --output RL/outputs/kinesis_exo_evaluation/pretrain_render.json
+```
+
+### 20.9 Reward V2 与文件落位（覆盖 20.4～20.7 的 V0 奖励）
+
+V2 不再把“尽可能贴近理想参考轨迹”作为外骨骼优化目标。冻结的 Kinesis 人体已经负责运动复现；外骨骼策略只在运动质量不比同条件零助力人体明显变差时优化人体减负。数据流固定为：
+
+```text
+同 motion、seed 和时间的零助力 baseline
+    ├── 跟踪 MSE
+    └── 全部肌肉激活平方均值
+                    ↓
+50 Hz 外骨骼 rollout → tracking/balance 有效性门控
+                    ↓
+有效的激活平方节省 + 执行器代价 + 异常终止
+```
+
+零助力 baseline 由 `RL/runners/collect_kinesis_baseline.py` 离线采集，`RL/env/kinesis/baseline_reference.py` 按 `motion_id + seed + simulation_time` 加载和插值。PPO worker 只从已有 baseline 的成功 seed 中抽样，避免每个 worker 同时运行第二套人体而使计算量翻倍。`shadow_activation` 仍可供解析肌肉层内部计算，但不再作为 Reward 的零助力真值。
+
+定义全肌肉激活平方代价：
+
+$$
+E_a=\frac{1}{N}\sum_i a_i^2
+$$
+
+真实 baseline 相对省力为：
+
+$$
+e_a=\operatorname{clip}\left(
+\frac{E_{a,base}-E_{a,assist}}
+{\max(E_{a,base},E_{floor})},-1,1\right)
+$$
+
+省力时 $r_{effort}=e_a$；增力时 $r_{effort}=2e_a$，使人体负担增加受到双倍惩罚。实际与 baseline 激活平方均使用相同的短时指数平滑，避免单个物理步的激活动力学噪声主导 PPO。
+
+Tracking 使用相对 baseline 的归一化铰链约束。设 $E_{track,base}$ 为同一时刻零助力 MSE，初始允许上限为：
+
+$$
+E_{threshold}=\max(1.5E_{track,base},E_{track,base}+E_{margin})
+$$
+
+$$
+z=\max\left(0,\frac{E_{track}-E_{threshold}}
+{\max(E_{threshold},E_{floor})}\right),\qquad
+c_{track}=\min(z^2,c_{max})
+$$
+
+阈值内 $c_{track}=0$，不再用跟踪梯度继续修正 Kinesis；超限后才产生二次惩罚。正的 effort 还要乘 tracking gate，轨迹明显退化时不兑现“省力”。负 effort 永远保留，不能通过故意破坏 tracking 隐藏增力惩罚。
+
+解析肌肉层必须尽量满足：
+
+$$
+\tau_{human}+\tau_{exo}\approx\tau_{baseline}
+$$
+
+定义相对残差：
+
+$$
+e_{balance}=\frac{\operatorname{mean}(|\tau_{human}+\tau_{exo}-\tau_{baseline}|)}
+{\max(\operatorname{mean}(|\tau_{exo}|),\tau_{floor})}
+$$
+
+`balance` 不再作为一个可与省力交换的微小线性 Reward，也不等同于物理摔倒。正 effort 的门控使用 `MuscleLoadSharing` 在当前姿态下求解目标激活时得到的预测残差，因为它直接回答“该助力是否存在可行的肌肉卸载解”。肌肉激活存在动力学延迟，物理积分后的实际瞬时残差会另外记录为诊断量，但不直接关掉当步 effort。`muscle_torque_saving` 退出 Reward，只作为诊断指标。若预测残差长期偏高，必须先修正 `MuscleLoadSharing`，不能靠调小权重掩盖；若实际残差长期偏高并导致 tracking 退化，则由 tracking 门控和异常终止处理。
+
+力矩平滑使用二阶差分：
+
+$$
+c_{jerk}=\operatorname{mean}\left[
+\left(\frac{\tau_t-2\tau_{t-1}+\tau_{t-2}}
+{6\,\mathrm{Nm}}\right)^2\right]
+$$
+
+其中 $6\,\mathrm{Nm}$ 只是额定力矩归一化尺度。两步历史在每次 `reset()` 清零；一阶变化率继续由执行器硬限制负责。
+
+功率必须逐关节计算 $P_i=\tau_i\dot q_i$，禁止先把四关节求和后取绝对值，以免正负功互相抵消。V2 只惩罚超过免费正功阈值的部分：
+
+$$
+c_{P+}=\frac{1}{4}\sum_i\left[
+\frac{\max(\max(P_i,0)-P_{free},0)}{P_{scale}}
+\right]^2
+$$
+
+首版 $P_{free}=20\,\mathrm{W}$、$P_{scale}=20\,\mathrm{W}$，并在评估中输出逐关节 `P95/P99/max` 后再校准。负功单独记录，不与正功抵消；是否加入负功阈值等待电机回馈能力确认。
+
+V2 初始权重固定为：
+
+```text
+effort                 1.000
+tracking_cost          0.300
+upright_cost           0.050
+alive                   0.005
+torque_cost             0.050
+jerk_cost               0.030
+positive_power_cost     0.030
+abnormal_termination   10.000
+```
+
+`upright` 同样采用安全铰链：Kinesis 内置 upright reward 不低于 0.2 时代价为零，低于该值后才按归一化平方产生惩罚，避免把自然躯干前倾优化成僵硬直立。`alive` 的原始值恒为 1，因此每步实际贡献就是 $+0.005$，不能再次乘 `0.005`。骨盆过低、躯干倾角过大、Kinesis tracking failure 或非有限状态属于异常终止；`motion_complete` 和 `time_limit` 是正常截断，不扣终止惩罚。
+
+文件职责如下：
+
+```text
+RL/env/kinesis/assist_backend.py
+    有界肌肉卸载、逐关节功率、balance 诊断和连续仿真时间
+
+RL/env/kinesis/baseline_reference.py
+    零助力 baseline 文件命名、加载、seed 选择和时间插值
+
+RL/runners/collect_kinesis_baseline.py
+    对训练/验证 motion 采集成功的零助力 baseline
+
+RL/env/kinesis/exo_env.py
+    Reward V2、门控、二阶力矩、17 Nm 动作映射和异常终止
+
+RL/train.py
+    TensorBoard 记录 Reward、baseline、门控、功率和额定力矩指标
+
+RL/runners/train_kinesis_exo.py
+    baseline 路径检查、训练/验证环境参数和完整配置留档
+
+RL/runners/evaluate_kinesis_exo.py
+    同 seed 配对数值评估与带 G-Exo URDF 的 GUI 播放
+```
+
+Reward、动作映射和 Critic 目标都已改变，旧的 $\pm2\,\mathrm{Nm}$ PPO checkpoint 不得用 `--resume` 继续训练。新链路必须从头训练并写入新输出目录。训练前依次通过 baseline 采集、零动作复现、固定 oracle、随机动作、Gymnasium `check_env` 和短 PPO smoke；之后才允许开始长训练。
+
+### 20.10 Reward V2 的运行顺序、命令和当前证据
+
+所有命令都从项目根目录运行，并使用 Kinesis 环境：
+
+```bash
+cd ~/HK_hackthon/G-Exo
+conda activate kinesis
+export PYTHONNOUSERSITE=1
+export PYTHONPATH="$PWD:$PWD/../third_party/Kinesis"
+```
+
+第一次运行 V2 或 baseline 定义改变后，先重新采集 11 条动作、每条 4 个成功 seed 的零助力真值。Kinesis 在同一进程中连续切换 motion 会残留全局动作缓存，因此采集器和多 motion 评估器都让每条 motion 在独立 Python 进程中运行：
+
+```bash
+python -m RL.runners.collect_kinesis_baseline \
+  --motion-ids 2,8,9,11,16,38,43,52,64,82,99 \
+  --rollouts-per-motion 4 \
+  --first-seed 0 \
+  --max-attempts 32 \
+  --output RL/outputs/kinesis_baseline_v2
+```
+
+先做零助力复现。每条结果都应成功完成，`activation_change_percent` 应接近 0，当前 tracking MSE 应与缓存 baseline 对齐：
+
+```bash
+python -m RL.runners.evaluate_kinesis_exo \
+  --motion-ids 2,8,9,11,16,38,43,52,64,82,99 \
+  --modes baseline \
+  --episodes 1 \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --output RL/outputs/kinesis_baseline_v2/reproducibility_report.json
+```
+
+训练前 GUI 顺序播放零助力和固定 oracle。显示模型包含 G-Exo URDF；oracle 使用仿真特权力矩，只验证符号、肌肉卸载、轨迹质量和渲染链路：
+
+```bash
+python -m RL.runners.evaluate_kinesis_exo \
+  --motion-ids 8 \
+  --modes baseline,oracle \
+  --episodes 1 \
+  --first-seed 0 \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --render \
+  --output RL/outputs/kinesis_exo_evaluation/reward_v2_pretrain_render.json
+```
+
+最小 8-worker PPO smoke 用于验证并行环境、Reward、日志和模型保存，不用于判断策略效果：
+
+```bash
+python -m RL.runners.train_kinesis_exo \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --total-timesteps 4096 \
+  --num-envs 8 \
+  --device cpu \
+  --output RL/outputs/kinesis_exo_reward_v2_8env_smoke
+```
+
+通过 smoke 后，从头开始八小时训练。不能恢复旧 Reward 或旧 $\pm2\,\mathrm{Nm}$ checkpoint：
+
+```bash
+python -m RL.runners.train_kinesis_exo \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --hours 8 \
+  --total-timesteps 100000000 \
+  --num-envs 8 \
+  --device cpu \
+  --output RL/outputs/kinesis_exo_ppo_reward_v2_8h
+```
+
+训练期间查看数值：
+
+```bash
+tensorboard \
+  --logdir RL/outputs/kinesis_exo_ppo_reward_v2_8h/tensorboard \
+  --port 6006
+```
+
+需要观察中间模型时，另开终端对最新 checkpoint 做一次单 motion 渲染。把下面模型路径替换为实际存在的 checkpoint；渲染进程只读取模型，不影响训练文件：
+
+```bash
+python -m RL.runners.evaluate_kinesis_exo \
+  --model RL/outputs/kinesis_exo_ppo_reward_v2_8h/checkpoints/gexo_ppo_500000_steps.zip \
+  --motion-ids 64 \
+  --modes baseline,policy \
+  --episodes 1 \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --device cpu \
+  --render \
+  --output RL/outputs/kinesis_exo_ppo_reward_v2_8h/render_500000.json
+```
+
+训练结束后必须在三个留出动作上做配对数值评估。先使用 `best_model`；若它不存在，再用 `final_model.zip`：
+
+```bash
+python -m RL.runners.evaluate_kinesis_exo \
+  --model RL/outputs/kinesis_exo_ppo_reward_v2_8h/best_model/best_model.zip \
+  --motion-ids 64,82,99 \
+  --modes baseline,policy \
+  --episodes 3 \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --device cpu \
+  --output RL/outputs/kinesis_exo_ppo_reward_v2_8h/holdout_report.json
+```
+
+截至 2026-07-30，V2 已有以下实测证据：
+
+- 44 个成功 baseline 文件已生成；11 条 motion 的 seed 0 复现均成功，激活变化为 0；
+- Gymnasium `check_env` 通过，144 维 Observation、4 维 Action 和 100 步随机动作均为有限值；
+- motion 8 的 2.5% oracle 完整走完，MPJPE 从 42.89 mm 降到 42.45 mm，激活平方降低 5.13%，人体肌肉力矩降低 2.26%；
+- oracle 的预测 balance 残差比为 0.01%，实际瞬时残差比约为 98.47%，后者体现肌肉激活动力学延迟，已单独记录；
+- 8-worker、4096-transition smoke 约为 299 transition/s，成功保存 `final_model.zip`；
+- smoke 模型在留出 motion 64 上成功完整运行，激活平方降低 3.39%，但 MPJPE 从 48.76 mm 增至 54.41 mm。该模型只证明训练、保存和加载链路闭环，不能作为已收敛结果。
+
+长训练的第一验收顺序固定为：成功率/覆盖率不下降，留出 MPJPE 不明显恶化，真实 baseline 相对激活平方下降，然后才检查力矩、jerk、逐关节功率和额定力矩超限比例。只看到训练回报上升不能宣布策略有效。
+
+### 20.11 肌肉卸载求解失败的训练容错
+
+首轮 Reward V2 五小时训练在 1,699,840 transition 处遇到一次 SciPy BVLS 内部 `SVD did not converge`。这是单个姿态下解析肌肉卸载最小二乘的数值失败，不应杀死整个 `SubprocVecEnv` 和全部 PPO worker。
+
+容错数据流固定为：
+
+```text
+BVLS 输入非有限 / LinAlgError / 求解未成功
+                    ↓
+回退冻结 Kinesis 的名义肌肉 excitation
+                    ↓
+撤销尚未积分的外骨骼力矩并保留最后有限状态
+                    ↓
+terminated=True, reason=muscle_solver_failure, reward=-10
+                    ↓
+VecEnv 自动 reset；其余 worker 和 PPO 继续训练
+```
+
+失败回退不能产生 effort、tracking 或其他正奖励，只产生异常终止惩罚，防止策略主动寻找求解器失败状态。TensorBoard 使用 `system/muscle_solver_failure_rate` 记录每个 rollout 的失败 transition 比例；正常情况应为 0，偶发极低值允许继续训练，若持续升高则必须检查动作幅值、人体状态和求解矩阵条件数。
+
+该修复不改变 Observation、Action、Reward 权重、力矩边界或 PPO 超参数，因此可以从崩溃前最近的 150 万步 checkpoint 继续。为避免新的 `EvalCallback` 覆盖原目录中的 25 万步最佳模型，续训写入独立输出目录：
+
+```bash
+cd ~/HK_hackthon/G-Exo
+conda activate kinesis
+export PYTHONNOUSERSITE=1
+export PYTHONPATH="$PWD:$PWD/../third_party/Kinesis"
+
+python -m RL.runners.train_kinesis_exo \
+  --baseline-dir RL/outputs/kinesis_baseline_v2 \
+  --resume RL/outputs/kinesis_exo_ppo_reward_v2_5h/checkpoints/gexo_ppo_1500000_steps.zip \
+  --hours 3.4 \
+  --total-timesteps 100000000 \
+  --num-envs 8 \
+  --device cpu \
+  --seed 42 \
+  --output RL/outputs/kinesis_exo_ppo_reward_v2_5h_resume
+```
+
+`--hours 3.4` 表示本次续训再运行约 3.4 小时，与已完成的 1.62 小时合计约 5 小时；`--total-timesteps` 在 `reset_num_timesteps=False` 下作为额外安全上限，不会把模型总步数重置为 0。
+
+修复验收包括：人为注入同样的 `LinAlgError` 后环境返回有限 Observation、`-10`、`terminated=True` 和 `muscle_solver_failure`；随后 reset 能正常步进；8-worker 从 1,500,000 续训 4096 transition 后到达 1,504,096，并成功保存模型，吞吐约 302 transition/s。
