@@ -197,18 +197,60 @@ _JSON_FALLBACK_SCHEMA = {
     "json_schema": {
         "name": "intent",
         "schema": {
-            "type": "object",
-            "properties": {
-                "action": {
-                    "type": "string",
-                    "enum": ["query_status", "set_mode", "adjust_assist", "document_qa", "clarify"],
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "action": {"const": "query_status"},
+                        "fields": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": ["mode", "assist_ratio", "battery", "temperature",
+                                         "joints", "imu", "can", "fault"],
+                            },
+                        },
+                    },
+                    "required": ["action"],
+                    "additionalProperties": False,
                 },
-                "mode": {"type": "string", "enum": ["assist", "damping"]},
-                "delta": {"type": "number", "enum": [0.1, -0.1]},
-                "question": {"type": "string"},
-                "reply": {"type": "string"},
-            },
-            "required": ["action"],
+                {
+                    "type": "object",
+                    "properties": {
+                        "action": {"const": "set_mode"},
+                        "mode": {"type": "string", "enum": ["assist", "damping"]},
+                    },
+                    "required": ["action", "mode"],
+                    "additionalProperties": False,
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "action": {"const": "adjust_assist"},
+                        "delta": {"type": "number", "enum": [0.1, -0.1]},
+                    },
+                    "required": ["action", "delta"],
+                    "additionalProperties": False,
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "action": {"const": "document_qa"},
+                        "question": {"type": "string"},
+                    },
+                    "required": ["action", "question"],
+                    "additionalProperties": False,
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "action": {"const": "clarify"},
+                        "reply": {"type": "string"},
+                    },
+                    "required": ["action", "reply"],
+                    "additionalProperties": False,
+                },
+            ],
         },
     },
 }

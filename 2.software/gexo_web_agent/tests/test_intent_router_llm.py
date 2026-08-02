@@ -117,7 +117,21 @@ async def test_json_schema_fallback_validates_action():
         resp = await router.handle("腿有点沉，帮我调一下")
         assert resp.intent == "adjust_assist"
         assert resp.command is not None and resp.command.status.value == "success"
-        assert llm.calls[0]["response_format"]["type"] == "json_schema"
+        response_format = llm.calls[0]["response_format"]
+        assert response_format["type"] == "json_schema"
+        branches = response_format["json_schema"]["schema"]["oneOf"]
+        required_by_action = {
+            branch["properties"]["action"]["const"]: set(branch["required"])
+            for branch in branches
+        }
+        assert required_by_action == {
+            "query_status": {"action"},
+            "set_mode": {"action", "mode"},
+            "adjust_assist": {"action", "delta"},
+            "document_qa": {"action", "question"},
+            "clarify": {"action", "reply"},
+        }
+        assert all(branch["additionalProperties"] is False for branch in branches)
     finally:
         transport.stop()
 
