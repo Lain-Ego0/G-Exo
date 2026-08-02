@@ -1,0 +1,13 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/model_zoo/llm -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_llm -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_llm
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_llm -j8
+[ 66%] Built target llm_service_cpp
+[100%] Built target llm_chat
+-- Install configuration: ""
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/lib/libllm_service_cpp.so.1.0.0
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/lib/libllm_service_cpp.so.1
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/lib/libllm_service_cpp.so
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/include/llm_service.h
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/bin/llm_chat

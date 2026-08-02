@@ -1,0 +1,17 @@
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/mcp_static.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/mcp_shared.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/example_simple.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/example_multi.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/llm_chat.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/CMakeFiles/install/strip.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-build/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-build/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-build/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-build/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-build/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-build/CMakeFiles/install/strip.dir

@@ -1,0 +1,268 @@
+libvision.so: \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crti.o \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o \
+  CMakeFiles/vision.dir/src/vision_service.cpp.o \
+  CMakeFiles/vision.dir/src/core/cpp/vision_model_base.cpp.o \
+  CMakeFiles/vision.dir/src/core/cpp/vision_model_factory.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/align_face.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/drawing.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/embedding_utils.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/image_processing.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/mpp_frame_source.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/mpp_nv12_layout.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/nms.cpp.o \
+  CMakeFiles/vision.dir/src/common/cpp/yolo_utils.cpp.o \
+  CMakeFiles/vision.dir/src/operators/image_preprocess/cpu_image_preprocessor.cpp.o \
+  CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_backend.cpp.o \
+  CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_dispatcher.cpp.o \
+  CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_geometry.cpp.o \
+  CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_result.cpp.o \
+  CMakeFiles/vision.dir/src/operators/image_preprocess/opencl_image_preprocessor_stub.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/adaface/cpp/adaface_recognizer.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/arcface/cpp/arcface_recognizer.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/byte_track_tracker.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/emotion/cpp/emotion_recognizer.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/emotion_lstm/cpp/emotion_lstm.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/genderage/cpp/genderage_classifier.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/landmark2d106/cpp/landmark2d106.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/mobileclip2/cpp/mobileclip2_encoder.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/mobilenet/cpp/mobilenet_classifier.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/ocsort_tracker.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/pp_liteseg/cpp/pp_liteseg.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ppocr/cpp/ppocr_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/resnet/cpp/resnet_classifier.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/scrfd/cpp/scrfd_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/siglip2/cpp/gemma_tokenizer.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/siglip2/cpp/siglip2_encoder.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/stgcn/cpp/stgcn_action_recognizer.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolo26/cpp/yolo26_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/clip.cc.o \
+  CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/clip_tokenizer.cc.o \
+  CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/yolo_world_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yoloe/cpp/mobileclip.cc.o \
+  CMakeFiles/vision.dir/src/deploy/yoloe/cpp/mobileclip_tokenizer.cc.o \
+  CMakeFiles/vision.dir/src/deploy/yoloe/cpp/yoloe_segmentor.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolov5/cpp/yolov5_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolov5_face/cpp/yolov5_face_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolov5_gesture/cpp/yolov5_gesture_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolov8/cpp/yolov8_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolov8_pose/cpp/yolov8_pose_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/yolov8_seg/cpp/yolov8_seg_detector.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/BYTETracker.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/STrack.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/kalmanFilter.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/lapjv.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/utils.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/Association.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/KalmanBoxTracker.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/KalmanFilter.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/OCSort.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/Utilities.cpp.o \
+  CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/lapjv.cpp.o \
+  /opt/opencv-spacemit/lib/libopencv_highgui.so.4.14.0 \
+  /opt/opencv-spacemit/lib/libopencv_dnn.so.4.14.0 \
+  /lib/libonnxruntime.so \
+  /lib/libspacemit_ep.so \
+  /lib/riscv64-linux-gnu/libyaml-cpp.so \
+  /opt/opencv-spacemit/lib/libopencv_videoio.so.4.14.0 \
+  /opt/opencv-spacemit/lib/libopencv_imgcodecs.so.4.14.0 \
+  /opt/opencv-spacemit/lib/libopencv_imgproc.so.4.14.0 \
+  /opt/opencv-spacemit/lib/libopencv_core.so.4.14.0 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libstdc++.so \
+  /lib/riscv64-linux-gnu/libm.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /lib/riscv64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a \
+  /lib/riscv64-linux-gnu/libc.so \
+  /lib/riscv64-linux-gnu/libc.so \
+  /lib/riscv64-linux-gnu/libc.so \
+  /usr/lib/riscv64-linux-gnu/libc.so.6 \
+  /usr/lib/riscv64-linux-gnu/libc_nonshared.a \
+  /lib/ld-linux-riscv64-lp64d.so.1 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /lib/riscv64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crti.o:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o:
+
+CMakeFiles/vision.dir/src/vision_service.cpp.o:
+
+CMakeFiles/vision.dir/src/core/cpp/vision_model_base.cpp.o:
+
+CMakeFiles/vision.dir/src/core/cpp/vision_model_factory.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/align_face.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/drawing.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/embedding_utils.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/image_processing.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/mpp_frame_source.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/mpp_nv12_layout.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/nms.cpp.o:
+
+CMakeFiles/vision.dir/src/common/cpp/yolo_utils.cpp.o:
+
+CMakeFiles/vision.dir/src/operators/image_preprocess/cpu_image_preprocessor.cpp.o:
+
+CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_backend.cpp.o:
+
+CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_dispatcher.cpp.o:
+
+CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_geometry.cpp.o:
+
+CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_result.cpp.o:
+
+CMakeFiles/vision.dir/src/operators/image_preprocess/opencl_image_preprocessor_stub.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/adaface/cpp/adaface_recognizer.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/arcface/cpp/arcface_recognizer.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/byte_track_tracker.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/emotion/cpp/emotion_recognizer.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/emotion_lstm/cpp/emotion_lstm.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/genderage/cpp/genderage_classifier.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/landmark2d106/cpp/landmark2d106.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/mobileclip2/cpp/mobileclip2_encoder.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/mobilenet/cpp/mobilenet_classifier.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/ocsort_tracker.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/pp_liteseg/cpp/pp_liteseg.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ppocr/cpp/ppocr_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/resnet/cpp/resnet_classifier.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/scrfd/cpp/scrfd_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/siglip2/cpp/gemma_tokenizer.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/siglip2/cpp/siglip2_encoder.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/stgcn/cpp/stgcn_action_recognizer.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolo26/cpp/yolo26_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/clip.cc.o:
+
+CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/clip_tokenizer.cc.o:
+
+CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/yolo_world_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yoloe/cpp/mobileclip.cc.o:
+
+CMakeFiles/vision.dir/src/deploy/yoloe/cpp/mobileclip_tokenizer.cc.o:
+
+CMakeFiles/vision.dir/src/deploy/yoloe/cpp/yoloe_segmentor.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolov5/cpp/yolov5_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolov5_face/cpp/yolov5_face_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolov5_gesture/cpp/yolov5_gesture_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolov8/cpp/yolov8_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolov8_pose/cpp/yolov8_pose_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/yolov8_seg/cpp/yolov8_seg_detector.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/BYTETracker.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/STrack.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/kalmanFilter.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/lapjv.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/utils.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/Association.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/KalmanBoxTracker.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/KalmanFilter.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/OCSort.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/Utilities.cpp.o:
+
+CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/lapjv.cpp.o:
+
+/opt/opencv-spacemit/lib/libopencv_highgui.so.4.14.0:
+
+/opt/opencv-spacemit/lib/libopencv_dnn.so.4.14.0:
+
+/lib/libonnxruntime.so:
+
+/lib/libspacemit_ep.so:
+
+/lib/riscv64-linux-gnu/libyaml-cpp.so:
+
+/opt/opencv-spacemit/lib/libopencv_videoio.so.4.14.0:
+
+/opt/opencv-spacemit/lib/libopencv_imgcodecs.so.4.14.0:
+
+/opt/opencv-spacemit/lib/libopencv_imgproc.so.4.14.0:
+
+/opt/opencv-spacemit/lib/libopencv_core.so.4.14.0:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libstdc++.so:
+
+/lib/riscv64-linux-gnu/libm.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/lib/riscv64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a:
+
+/lib/riscv64-linux-gnu/libc.so:
+
+/lib/riscv64-linux-gnu/libc.so:
+
+/lib/riscv64-linux-gnu/libc.so:
+
+/usr/lib/riscv64-linux-gnu/libc.so.6:
+
+/usr/lib/riscv64-linux-gnu/libc_nonshared.a:
+
+/lib/ld-linux-riscv64-lp64d.so.1:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/lib/riscv64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o:

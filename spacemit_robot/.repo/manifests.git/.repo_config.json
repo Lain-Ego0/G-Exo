@@ -1,0 +1,101 @@
+{
+  "core.repositoryformatversion": [
+    "1"
+  ],
+  "core.filemode": [
+    "true"
+  ],
+  "filter.lfs.smudge": [
+    "git-lfs smudge --skip -- %f"
+  ],
+  "filter.lfs.process": [
+    "git-lfs filter-process --skip"
+  ],
+  "remote.origin.url": [
+    "https://gitee.com/spacemit-robotics/manifest.git"
+  ],
+  "remote.origin.fetch": [
+    "+refs/heads/*:refs/remotes/origin/*"
+  ],
+  "manifest.platform": [
+    "auto"
+  ],
+  "extensions.preciousobjects": [
+    "true"
+  ],
+  "branch.default.remote": [
+    "origin"
+  ],
+  "branch.default.merge": [
+    "refs/heads/main"
+  ],
+  "repo.existingprojectcount": [
+    "0"
+  ],
+  "repo.newprojectcount": [
+    "71"
+  ],
+  "repo.syncstate.main.synctime": [
+    "2026-07-30T12:57:33.690144+00:00"
+  ],
+  "repo.syncstate.main.version": [
+    "1"
+  ],
+  "repo.syncstate.sys.argv": [
+    "['/home/gexo/spacemit_robot/.repo/repo/main.py', '--repo-dir=/home/gexo/spacemit_robot/.repo', '--wrapper-version=2.54', '--wrapper-path=/usr/bin/repo', '--', 'sync', '-j4']"
+  ],
+  "repo.syncstate.options.jobs": [
+    "4"
+  ],
+  "repo.syncstate.options.outermanifest": [
+    "true"
+  ],
+  "repo.syncstate.options.jobsnetwork": [
+    "4"
+  ],
+  "repo.syncstate.options.jobscheckout": [
+    "4"
+  ],
+  "repo.syncstate.options.mpupdate": [
+    "true"
+  ],
+  "repo.syncstate.options.interleaved": [
+    "true"
+  ],
+  "repo.syncstate.options.clonebundle": [
+    "true"
+  ],
+  "repo.syncstate.options.retryfetches": [
+    "0"
+  ],
+  "repo.syncstate.options.prune": [
+    "true"
+  ],
+  "repo.syncstate.options.repoverify": [
+    "true"
+  ],
+  "repo.syncstate.options.quiet": [
+    "false"
+  ],
+  "repo.syncstate.options.verbose": [
+    "false"
+  ],
+  "repo.syncstate.remote.origin.url": [
+    "https://gitee.com/spacemit-robotics/manifest.git"
+  ],
+  "repo.syncstate.remote.origin.fetch": [
+    "+refs/heads/*:refs/remotes/origin/*"
+  ],
+  "repo.syncstate.branch.default.remote": [
+    "origin"
+  ],
+  "repo.syncstate.branch.default.merge": [
+    "refs/heads/main"
+  ],
+  "repo.syncstate.repo.existingprojectcount": [
+    "0"
+  ],
+  "repo.syncstate.repo.newprojectcount": [
+    "71"
+  ]
+}

@@ -1,0 +1,69 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:10 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/uname"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/uname"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/uname"
+      - "/home/gexo/spacemit_robot/output/staging/bin/uname"
+      - "/opt/ros/humble/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/usr/sbin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:10 (project)"
+    message: |
+      The system is: Linux - 6.18.3-generic - riscv64
+...

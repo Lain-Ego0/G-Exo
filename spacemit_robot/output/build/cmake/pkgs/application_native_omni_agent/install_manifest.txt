@@ -1,0 +1,4 @@
+/home/gexo/spacemit_robot/output/staging/bin/voice_chat_aec
+/home/gexo/spacemit_robot/output/staging/bin/voice_chat
+/home/gexo/spacemit_robot/output/staging/lib/libwebrtc-audio-processing-2.so.1
+/home/gexo/spacemit_robot/output/staging/bin/voice_chat_daemon

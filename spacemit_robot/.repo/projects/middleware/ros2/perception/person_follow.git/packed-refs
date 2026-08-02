@@ -1,0 +1,8 @@
+# pack-refs with: peeled fully-peeled sorted 
+97b5af84ad818d6fb08e066b397d3248cf81082f refs/remotes/origin/feat/add-person-follow-node
+a4262c51dc9bf89efb89b5d1e3ce57a371fccc54 refs/remotes/origin/main
+c7f3bfb7ae726901b83b66b6e7880c7ec467c554 refs/remotes/origin/test/add-person-follow-tests
+c71c0bdc91f36508e8c99cd5c3bc627d1967be57 refs/tags/v1.1.0-rc1
+^9ec2f39160cf84ed58faaa7082ea185b3b67cba6
+667e6569b2c93f2eb94b4c86b5a143c3db613f2a refs/tags/v1.1.0-rc2
+^a4262c51dc9bf89efb89b5d1e3ce57a371fccc54

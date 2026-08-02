@@ -1,0 +1,10 @@
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/voice_chat_aec.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/voice_chat.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/voice_chat_daemon.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/install/strip.dir

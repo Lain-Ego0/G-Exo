@@ -1,0 +1,94 @@
+# pack-refs with: peeled fully-peeled sorted 
+bb12e493df282e99c0c5e4e0e433035b524f3743 refs/remotes/origin/feat/demux-make-bind-mode-stream-output-optional
+a481d4ed5395c8a3138e109bb828e3ee508ae1ea refs/remotes/origin/feat/vdec-output-buffer-query
+28ad3021e1cb3bab12742a7325bed7db930ff126 refs/remotes/origin/fix/linlon-eos-during-input-fill
+874cb7c51873dce844e1f59e06ee60357e83649e refs/remotes/origin/fix/linlon-flush-state-transitions
+3b381ff6721b341e768a490e66a9ceef03781a3d refs/remotes/origin/fix/media-pipeline-reliability
+4494a71eda1022be71cb7dd68583f42f248c407d refs/remotes/origin/fix/mp-mt-refs
+dd8b69b0cea042c2831bd210b88faf8b235c6d28 refs/remotes/origin/fix/sys-close-toctou-race-and-shm-init-detach
+899b04bde5acbe879fc350398f5ef72ea9d3f2b0 refs/remotes/origin/fix/vcodec-force-dt-needed
+9908055d6d4b81c2a08753f6edbd5ca676dbc8e4 refs/remotes/origin/fix/vdec-capture-buffer-ownership
+59fd1d39d5d49b2dcceaee02f79e066005854b4f refs/remotes/origin/fix/vdec-depth-queue-backpressure
+668f024ef64eed60c41dc696ef23c89e0191b91c refs/remotes/origin/fix/vdec-display-error-frames
+46e95747bd028d5262658416b360125c2d00940b refs/remotes/origin/fix/vdec-guard-ext-pool-buffer-release-with-bindecoder
+cc100d87b819dd7da127c19c33ae82e166c89942 refs/remotes/origin/fix/venc-release-input-vb-refs-on-encoder-completion
+748dad7666f48b64409c129d72f2a9179f1686ff refs/remotes/origin/k1-bl-v2.2.y
+00fe1a201b606f8681213bc3a4e39e3a65f3814b refs/remotes/origin/k3-br-v1.0.y
+38f45e3f38279aa805a17676d208fef480b0f630 refs/remotes/origin/main
+26095640dfefc5944460f0b150e2bb71ab488bdf refs/remotes/origin/resplit/25-from-main
+dd975e8658d39aaae91fe7f7f3da6e0777c082c6 refs/remotes/origin/test/add-mpp-perf-timing-instrumentation-to-samples-and-tests
+ae34b357f027a04bdefdea7d1e4c954bf4f97246 refs/tags/k1-bl-v2.1-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+63c484e8668e3aee89e158e2a20d3487278854c0 refs/tags/k1-bl-v2.2-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+2bbf27956b4d23f5d728c35431bf7e883494ddbe refs/tags/k1-bl-v2.2.1-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+9fd4d4ecfd20e7d0a2ac3ec319d898b9135f444a refs/tags/k1-bl-v2.2.10-release
+9ef116be606d41fe0b92c586d522908c62582982 refs/tags/k1-bl-v2.2.2-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+b4b897d6913296da7077f7892edea8a7718dbe5a refs/tags/k1-bl-v2.2.4-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+6dd5ea3944e51262b18db68e83c016855461eced refs/tags/k1-bl-v2.2.6-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+313066e24fe850eb45ec7fb92031ef8547787a30 refs/tags/k1-bl-v2.2.7-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+3d0576780728933dc556e064bc03bf67995635e0 refs/tags/k1-bl-v2.2.9-release
+^748dad7666f48b64409c129d72f2a9179f1686ff
+0c7db7bf29381dcf122c0fc8f45cd64c7894b305 refs/tags/k1-bl-v2.2rc4-release
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+45ac87a0263e94c25ceb1feb6952b5805662757b refs/tags/k3-br-v1.0.0
+^c0b44e1a31d028af3c82cc0d551b48884727b99f
+eb378c3bc17e05a986aec2a2e82843e9909e3b8b refs/tags/k3-br-v1.0.2
+^00fe1a201b606f8681213bc3a4e39e3a65f3814b
+4c117da35dba69d8d78d32e5919e416f1593bea2 refs/tags/k3-br-v1.0.5
+^00fe1a201b606f8681213bc3a4e39e3a65f3814b
+9c639876f1c64cd3df497efd18941175dd110533 refs/tags/v1.0
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+bead911781e48444895d258444f1968272fda341 refs/tags/v1.0.11
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+b7ed206ae7b22abfd171aada533adfe440258306 refs/tags/v1.0.12
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+8cfe4df72a7a0d37597312e78ff8961e182a7a15 refs/tags/v1.0.13
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+c5df1b1bb4b47377e1eea33291aa767e0ad1320c refs/tags/v1.0.14
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+1decf899c41c1ed6a21d4ba4db4510c30cb6ac9a refs/tags/v1.0.15
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+a2d18f3c7f2d78db150771854e9596fd058c746a refs/tags/v1.0.3
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+454b44fd2e1eb597b3c2644c3b1b5a15538ecfbe refs/tags/v1.0.5
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+b17785a0f5e5f65786d39997a637d9cd4e57d835 refs/tags/v1.0.7
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+c3d0fb0db825584bb5924af9d1e7f8454a05559d refs/tags/v1.0.8
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+c4a1e059904418c0880ab63be79d5a61ae1bc891 refs/tags/v1.0.9
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+bd19dfe5806e68c0391882781c019e9fa75a1753 refs/tags/v1.0alpha2
+^1f9aee5123169143e944a9b3d5f860a805074c12
+38679c94be9a69c15fdbe7de2c9b1ce6adc269ed refs/tags/v1.0beta3.1
+^33953193f8136c4ac2dbe3c9246bbe519dd36ec2
+77e6f48b2d5a39132f07d7044846fa087e26d3a9 refs/tags/v1.0beta4
+^43230a4e3fadebb85b1eb50930a2ab7b72cebae9
+76578ad00c627cd10a36eef8933866746ce8354f refs/tags/v1.0rc1
+^9cc270fc7165cb4be194c415acd856422bc8cbd7
+ab86ac8be7e0ffa9f5981682f17f6b71a21adb0d refs/tags/v1.1.0-rc2
+^c145db6a60a10716a520bd6a076575b9ce242211
+2fcc767a60c344dd0a0f995ee9680f54ac412893 refs/tags/v2.0
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+89bd123aae26867e1e33aeeb5059d1ddb875ebe6 refs/tags/v2.0.1
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+e22d2dcb131227b027f120f4381792c2317b0ad9 refs/tags/v2.0.2
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+6fc49db809c4bd76093bb15d8a979163b60b1840 refs/tags/v2.0.4
+^ff011c81ea810dd40a9897e9946a509455b94dd3
+d8403bf44bf602a542b465327da6f646aee2f6fe refs/tags/v2.0rc3
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+a28d29f0a050137800ae1bb0b4795434b14fb902 refs/tags/v2.0rc4
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+4f94c7653a44832fb64c308c94f196f565921179 refs/tags/v2.0rc5
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+e01bf8418e02b4504097911bdf753b2d61b186af refs/tags/v2.0rc6
+^ca72db949739d2b5f1aeb1d46aba40e0aecbecf5
+f77dff79769c9c0eddd9c922c8daa1340e00261b refs/tags/v2.0rc7
+^ff011c81ea810dd40a9897e9946a509455b94dd3

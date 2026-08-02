@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -march=rv64gc -mabi=lp64d -ffast-math -funroll-loops -DNDEBUG -Wl,--dependency-file=CMakeFiles/identify_speaker.dir/link.d CMakeFiles/identify_speaker.dir/tools/identify_speaker.cpp.o -o bin/identify_speaker  -Wl,--whole-archive lib/libvoiceprint.a -Wl,--no-whole-archive /usr/lib/libonnxruntime.so /usr/lib/riscv64-linux-gnu/libcurl.so -lm

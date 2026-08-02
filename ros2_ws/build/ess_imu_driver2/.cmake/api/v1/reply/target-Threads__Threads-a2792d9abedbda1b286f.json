@@ -1,0 +1,155 @@
+{
+	"abstract" : true,
+	"backtrace" : 21,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"find_package",
+			"include"
+		],
+		"files" : 
+		[
+			"/usr/share/cmake-4.2/Modules/FindThreads.cmake",
+			"/usr/lib/riscv64-linux-gnu/cmake/spdlog/spdlogConfig.cmake",
+			"/opt/ros/humble/share/rcl_logging_spdlog/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rcl_logging_spdlog/cmake/rcl_logging_spdlogConfig.cmake",
+			"/opt/ros/humble/share/rcl/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rcl/cmake/rclConfig.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/libstatistics_collectorConfig.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/rclcppConfig.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 10
+			},
+			{
+				"command" : 1,
+				"file" : 10,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"file" : 9,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 9,
+				"line" : 41,
+				"parent" : 2
+			},
+			{
+				"file" : 8,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 8,
+				"line" : 21,
+				"parent" : 4
+			},
+			{
+				"file" : 7,
+				"parent" : 5
+			},
+			{
+				"command" : 2,
+				"file" : 7,
+				"line" : 41,
+				"parent" : 6
+			},
+			{
+				"file" : 6,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 6,
+				"line" : 21,
+				"parent" : 8
+			},
+			{
+				"file" : 5,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 5,
+				"line" : 41,
+				"parent" : 10
+			},
+			{
+				"file" : 4,
+				"parent" : 11
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 21,
+				"parent" : 12
+			},
+			{
+				"file" : 3,
+				"parent" : 13
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 41,
+				"parent" : 14
+			},
+			{
+				"file" : 2,
+				"parent" : 15
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 21,
+				"parent" : 16
+			},
+			{
+				"file" : 1,
+				"parent" : 17
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 40,
+				"parent" : 18
+			},
+			{
+				"file" : 0,
+				"parent" : 19
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 292,
+				"parent" : 20
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "Threads::Threads::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"local" : true,
+	"name" : "Threads::Threads",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "INTERFACE_LIBRARY"
+}

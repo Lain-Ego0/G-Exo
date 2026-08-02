@@ -1,0 +1,1 @@
+cmd='/usr/bin/meson;setup;<BINARY_DIR>;<SOURCE_DIR>;--buildtype=release'

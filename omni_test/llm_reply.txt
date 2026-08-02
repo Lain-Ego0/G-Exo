@@ -1,0 +1,28 @@
+=== LLM (OpenAI-compatible) ===
+API base: http://127.0.0.1:9191/v1
+Model:    qwen3.5-4b
+Prompt:   You are a helpful assistant. 请用中文简短回答。
+Input:    你好，请问今天天气怎么样？
+
+=== Response (stream) ===
+Thinking Process:
+1.  **Analyze the Request:**
+    *   User asks: "你好，请问今天天气怎么样？" (Hello, how's the weather today?)
+    *   Constraint: "请用中文简短回答。" (Please answer briefly in Chinese.)
+    *   Language: Chinese.
+    *   Intent: The user wants to know the current weather.
+
+2.  **Determine Capabilities:**
+    *   As an AI text model, I don't have real-time access to the user's location or current weather data unless provided by an external tool (which I don't have active access to in this context).
+    *   I need to acknowledge the limitation politely and offer assistance.
+
+3.  **Draft the Response:**
+    *   *Option 1 (Direct & Honest):* 我是人工智能，无法查询天气。 (I am AI, cannot query weather.) -> Too blunt.
+    *   *
+
+=== Metrics ===
+Requests:       1
+TTFT:           635 ms
+Tokens:         out=200
+Throughput:     6.93049 tokens/s
+E2E latency:    29493 ms (last)  29493 ms (avg)

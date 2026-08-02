@@ -1,0 +1,184 @@
+{
+	"abstract" : true,
+	"artifacts" : 
+	[
+		{
+			"path" : "/opt/ros/humble/lib/libyaml.so"
+		}
+	],
+	"backtrace" : 25,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"find_package"
+		],
+		"files" : 
+		[
+			"/opt/ros/humble/cmake/yamlTargets.cmake",
+			"/opt/ros/humble/cmake/yamlConfig.cmake",
+			"/opt/ros/humble/share/libyaml_vendor/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/libyaml_vendor/cmake/libyaml_vendorConfig.cmake",
+			"/opt/ros/humble/share/rcl_yaml_param_parser/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rcl_yaml_param_parser/cmake/rcl_yaml_param_parserConfig.cmake",
+			"/opt/ros/humble/share/rcl/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rcl/cmake/rclConfig.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/libstatistics_collectorConfig.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/rclcppConfig.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 12
+			},
+			{
+				"command" : 2,
+				"file" : 12,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"file" : 11,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 11,
+				"line" : 41,
+				"parent" : 2
+			},
+			{
+				"file" : 10,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 10,
+				"line" : 21,
+				"parent" : 4
+			},
+			{
+				"file" : 9,
+				"parent" : 5
+			},
+			{
+				"command" : 1,
+				"file" : 9,
+				"line" : 41,
+				"parent" : 6
+			},
+			{
+				"file" : 8,
+				"parent" : 7
+			},
+			{
+				"command" : 2,
+				"file" : 8,
+				"line" : 21,
+				"parent" : 8
+			},
+			{
+				"file" : 7,
+				"parent" : 9
+			},
+			{
+				"command" : 1,
+				"file" : 7,
+				"line" : 41,
+				"parent" : 10
+			},
+			{
+				"file" : 6,
+				"parent" : 11
+			},
+			{
+				"command" : 2,
+				"file" : 6,
+				"line" : 21,
+				"parent" : 12
+			},
+			{
+				"file" : 5,
+				"parent" : 13
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 41,
+				"parent" : 14
+			},
+			{
+				"file" : 4,
+				"parent" : 15
+			},
+			{
+				"command" : 2,
+				"file" : 4,
+				"line" : 21,
+				"parent" : 16
+			},
+			{
+				"file" : 3,
+				"parent" : 17
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 41,
+				"parent" : 18
+			},
+			{
+				"file" : 2,
+				"parent" : 19
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 21,
+				"parent" : 20
+			},
+			{
+				"file" : 1,
+				"parent" : 21
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 26,
+				"parent" : 22
+			},
+			{
+				"file" : 0,
+				"parent" : 23
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 57,
+				"parent" : 24
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "yaml::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"local" : true,
+	"name" : "yaml",
+	"nameOnDisk" : "libyaml.so",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "SHARED_LIBRARY"
+}

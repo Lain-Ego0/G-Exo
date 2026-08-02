@@ -1,0 +1,6 @@
+d5f4593b6251a66285162b379c8fe6db9d0c0f38		branch 'fix/fix-mcp-style' of https://gitee.com/spacemit-robotics/agent-tools-mcp
+4590de4147ebacf08069f56297e888a9c53b0a08		branch 'main' of https://gitee.com/spacemit-robotics/agent-tools-mcp
+105e23c8539a35b35ced36f8f4a1001138494bdc		branch 'refactor/update-mlink-json' of https://gitee.com/spacemit-robotics/agent-tools-mcp
+898d22b5355ee44222301b06c2227cfa92ee87e4		branch 'style/fix-cd-failure' of https://gitee.com/spacemit-robotics/agent-tools-mcp
+ad59d8f376a6a628c41a412c6a9c52dac58ce402		tag 'v1.1.0-rc1' of https://gitee.com/spacemit-robotics/agent-tools-mcp
+503bd98e315d47c01f11b871452320c90a5c0074		tag 'v1.1.0-rc2' of https://gitee.com/spacemit-robotics/agent-tools-mcp

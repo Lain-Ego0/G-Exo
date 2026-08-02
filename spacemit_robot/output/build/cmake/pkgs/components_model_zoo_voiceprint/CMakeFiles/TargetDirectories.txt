@@ -1,0 +1,17 @@
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/voiceprint.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/register_speaker.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/identify_speaker.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/install/strip.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/portaudio_static.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/uninstall.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-build/CMakeFiles/install/strip.dir

@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libsilero_vad.a CMakeFiles/silero_vad.dir/src/backends/silero/silero_backend.cpp.o
+/usr/bin/ranlib lib/libsilero_vad.a

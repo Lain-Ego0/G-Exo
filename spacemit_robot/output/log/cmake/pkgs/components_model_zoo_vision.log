@@ -1,0 +1,311 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/model_zoo/vision -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenCV: /opt/opencv-spacemit (found version "4.14.0") found components: core imgproc imgcodecs highgui dnn
+-- OpenCV found: 4.14.0
+--   Includes: /opt/opencv-spacemit/include/opencv4
+--   Libraries: opencv_core;opencv_imgproc;opencv_imgcodecs;opencv_highgui;opencv_dnn
+-- Eigen3 found: 3.4.0
+-- yaml-cpp found: 0.8.0
+--   Includes: 
+--   Libraries: 
+-- Vision MPP disabled (pass -DVISION_WITH_MPP=ON to enable)
+-- vision: defining __fp16=_Float16 for dependency headers (no native __fp16)
+CMake Warning at CMakeLists.txt:286 (message):
+  BUILD_PYTHON_BINDINGS=ON but pybind11 not found for /usr/bin/python3;
+  skipping Python bindings.  Install with: /usr/bin/python3 -m pip install
+  pybind11
+
+
+-- vision_infer_benchmark: defining __fp16=_Float16 for ONNX Runtime headers
+-- 
+-- ==================== ModelZoo Configuration ====================
+--   Version:              0.1.0
+--   C++ Compiler:         /usr/bin/c++
+--   C++ Standard:         17
+--   Build type:           
+--   Build examples:       ON
+--   Build tests:           ON
+--   Build python bindings: ON
+--   Build python wheel:    ON
+--   OpenCV version:        4.14.0
+--   OpenCV libs:           opencv_core;opencv_imgproc;opencv_imgcodecs;opencv_highgui;opencv_dnn
+--   SpaceMIT dir:         
+-- ================================================================
+-- 
+-- Configuring done (1.6s)
+-- Generating done (0.3s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision -j8
+[  0%] Building CXX object tests/cpp/CMakeFiles/vision_mpp_nv12_layout_test.dir/__/__/src/common/cpp/mpp_nv12_layout.cpp.o
+[  2%] Building CXX object tests/benchmarks/CMakeFiles/vision_benchmark_stats_test.dir/benchmark_stats_test.cpp.o
+[  2%] Building CXX object tests/benchmarks/CMakeFiles/vision_benchmark_stats_test.dir/benchmark_stats.cpp.o
+[  3%] Building CXX object tests/cpp/CMakeFiles/vision_mpp_nv12_layout_test.dir/mpp_nv12_layout_test.cpp.o
+[  4%] Building CXX object tests/cpp/CMakeFiles/vision_preprocess_backend_test.dir/opencl/image_preprocess_backend_test.cpp.o
+[  5%] Building CXX object tests/cpp/CMakeFiles/vision_preprocess_backend_test.dir/__/__/src/operators/image_preprocess/image_preprocess_backend.cpp.o
+[  6%] Building CXX object CMakeFiles/vision.dir/src/vision_service.cpp.o
+[  7%] Building CXX object tests/cpp/CMakeFiles/vision_opencl_geometry_test.dir/opencl/image_preprocess_geometry_test.cpp.o
+[  7%] Building CXX object tests/cpp/CMakeFiles/vision_opencl_geometry_test.dir/__/__/src/operators/image_preprocess/image_preprocess_geometry.cpp.o
+[  7%] Building CXX object CMakeFiles/vision.dir/src/core/cpp/vision_model_base.cpp.o
+[  8%] Linking CXX executable vision_mpp_nv12_layout_test
+[  8%] Linking CXX executable vision_preprocess_backend_test
+[  8%] Built target vision_mpp_nv12_layout_test
+[  9%] Building CXX object CMakeFiles/vision.dir/src/core/cpp/vision_model_factory.cpp.o
+[ 10%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/align_face.cpp.o
+[ 10%] Built target vision_preprocess_backend_test
+[ 10%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/drawing.cpp.o
+[ 11%] Linking CXX executable vision_opencl_geometry_test
+[ 11%] Built target vision_opencl_geometry_test
+[ 12%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/embedding_utils.cpp.o
+[ 13%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/image_processing.cpp.o
+[ 13%] Linking CXX executable vision_benchmark_stats_test
+[ 13%] Built target vision_benchmark_stats_test
+[ 13%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/mpp_frame_source.cpp.o
+[ 14%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/mpp_nv12_layout.cpp.o
+[ 15%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/nms.cpp.o
+[ 15%] Building CXX object CMakeFiles/vision.dir/src/common/cpp/yolo_utils.cpp.o
+[ 16%] Building CXX object CMakeFiles/vision.dir/src/operators/image_preprocess/cpu_image_preprocessor.cpp.o
+[ 17%] Building CXX object CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_backend.cpp.o
+[ 17%] Building CXX object CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_dispatcher.cpp.o
+[ 18%] Building CXX object CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_geometry.cpp.o
+[ 19%] Building CXX object CMakeFiles/vision.dir/src/operators/image_preprocess/image_preprocess_result.cpp.o
+[ 19%] Building CXX object CMakeFiles/vision.dir/src/operators/image_preprocess/opencl_image_preprocessor_stub.cpp.o
+[ 20%] Building CXX object CMakeFiles/vision.dir/src/deploy/adaface/cpp/adaface_recognizer.cpp.o
+[ 21%] Building CXX object CMakeFiles/vision.dir/src/deploy/arcface/cpp/arcface_recognizer.cpp.o
+[ 21%] Building CXX object CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/byte_track_tracker.cpp.o
+[ 22%] Building CXX object CMakeFiles/vision.dir/src/deploy/emotion/cpp/emotion_recognizer.cpp.o
+[ 23%] Building CXX object CMakeFiles/vision.dir/src/deploy/emotion_lstm/cpp/emotion_lstm.cpp.o
+[ 23%] Building CXX object CMakeFiles/vision.dir/src/deploy/genderage/cpp/genderage_classifier.cpp.o
+[ 24%] Building CXX object CMakeFiles/vision.dir/src/deploy/landmark2d106/cpp/landmark2d106.cpp.o
+[ 25%] Building CXX object CMakeFiles/vision.dir/src/deploy/mobileclip2/cpp/mobileclip2_encoder.cpp.o
+[ 25%] Building CXX object CMakeFiles/vision.dir/src/deploy/mobilenet/cpp/mobilenet_classifier.cpp.o
+[ 26%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/ocsort_tracker.cpp.o
+[ 27%] Building CXX object CMakeFiles/vision.dir/src/deploy/pp_liteseg/cpp/pp_liteseg.cpp.o
+[ 27%] Building CXX object CMakeFiles/vision.dir/src/deploy/ppocr/cpp/ppocr_detector.cpp.o
+[ 28%] Building CXX object CMakeFiles/vision.dir/src/deploy/resnet/cpp/resnet_classifier.cpp.o
+[ 29%] Building CXX object CMakeFiles/vision.dir/src/deploy/scrfd/cpp/scrfd_detector.cpp.o
+[ 29%] Building CXX object CMakeFiles/vision.dir/src/deploy/siglip2/cpp/gemma_tokenizer.cpp.o
+[ 30%] Building CXX object CMakeFiles/vision.dir/src/deploy/siglip2/cpp/siglip2_encoder.cpp.o
+[ 31%] Building CXX object CMakeFiles/vision.dir/src/deploy/stgcn/cpp/stgcn_action_recognizer.cpp.o
+[ 31%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolo26/cpp/yolo26_detector.cpp.o
+[ 32%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/clip.cc.o
+[ 33%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/clip_tokenizer.cc.o
+[ 33%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolo_world/cpp/yolo_world_detector.cpp.o
+[ 34%] Building CXX object CMakeFiles/vision.dir/src/deploy/yoloe/cpp/mobileclip.cc.o
+[ 35%] Building CXX object CMakeFiles/vision.dir/src/deploy/yoloe/cpp/mobileclip_tokenizer.cc.o
+[ 35%] Building CXX object CMakeFiles/vision.dir/src/deploy/yoloe/cpp/yoloe_segmentor.cpp.o
+[ 36%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolov5/cpp/yolov5_detector.cpp.o
+[ 37%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolov5_face/cpp/yolov5_face_detector.cpp.o
+[ 37%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolov5_gesture/cpp/yolov5_gesture_detector.cpp.o
+[ 38%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolov8/cpp/yolov8_detector.cpp.o
+[ 39%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolov8_pose/cpp/yolov8_pose_detector.cpp.o
+[ 39%] Building CXX object CMakeFiles/vision.dir/src/deploy/yolov8_seg/cpp/yolov8_seg_detector.cpp.o
+[ 40%] Building CXX object CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/BYTETracker.cpp.o
+[ 41%] Building CXX object CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/STrack.cpp.o
+[ 41%] Building CXX object CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/kalmanFilter.cpp.o
+[ 42%] Building CXX object CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/lapjv.cpp.o
+[ 43%] Building CXX object CMakeFiles/vision.dir/src/deploy/bytetrack/cpp/src/utils.cpp.o
+[ 43%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/Association.cpp.o
+[ 44%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/KalmanBoxTracker.cpp.o
+[ 45%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/KalmanFilter.cpp.o
+[ 45%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/OCSort.cpp.o
+[ 46%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/Utilities.cpp.o
+[ 47%] Building CXX object CMakeFiles/vision.dir/src/deploy/ocsort/cpp/src/lapjv.cpp.o
+[ 47%] Linking CXX shared library libvision.so
+[ 47%] Built target vision
+[ 47%] Building CXX object examples/CMakeFiles/efficientnet.dir/efficientnet/cpp/efficientnet.cpp.o
+[ 48%] Building CXX object examples/CMakeFiles/arcface.dir/arcface/cpp/arcface.cpp.o
+[ 49%] Building CXX object examples/CMakeFiles/emotion.dir/emotion/cpp/emotion.cpp.o
+[ 50%] Building CXX object examples/CMakeFiles/bytetrack.dir/bytetrack/cpp/bytetrack.cpp.o
+[ 50%] Building CXX object examples/CMakeFiles/adaface.dir/adaface/cpp/adaface.cpp.o
+[ 50%] Building CXX object examples/CMakeFiles/mobilenet.dir/mobilenet/cpp/mobilenet.cpp.o
+[ 51%] Building CXX object examples/CMakeFiles/mobileclip2.dir/mobileclip2/cpp/mobileclip2.cpp.o
+[ 52%] Building CXX object examples/CMakeFiles/efficientnet_v2s.dir/efficientnet_v2s/cpp/efficientnet_v2s.cpp.o
+[ 53%] Linking CXX executable mobileclip2
+[ 54%] Linking CXX executable adaface
+[ 54%] Linking CXX executable arcface
+[ 54%] Built target mobileclip2
+[ 55%] Building CXX object examples/CMakeFiles/mobilenetv1.dir/mobilenetv1/cpp/mobilenetv1.cpp.o
+[ 55%] Built target adaface
+[ 56%] Building CXX object examples/CMakeFiles/ocsort.dir/ocsort/cpp/ocsort.cpp.o
+[ 57%] Linking CXX executable bytetrack
+[ 57%] Built target arcface
+[ 57%] Building CXX object examples/CMakeFiles/pp_liteseg.dir/pp_liteseg/cpp/pp_liteseg.cpp.o
+[ 58%] Linking CXX executable efficientnet
+[ 58%] Built target bytetrack
+[ 59%] Building CXX object examples/CMakeFiles/ppocr.dir/ppocr/cpp/ppocr.cpp.o
+[ 60%] Linking CXX executable emotion
+[ 60%] Linking CXX executable efficientnet_v2s
+[ 61%] Linking CXX executable mobilenet
+[ 61%] Built target efficientnet
+[ 62%] Building CXX object examples/CMakeFiles/resnet.dir/resnet/cpp/resnet.cpp.o
+[ 62%] Built target emotion
+[ 62%] Building CXX object examples/CMakeFiles/siglip2.dir/siglip2/cpp/siglip2.cpp.o
+[ 62%] Built target efficientnet_v2s
+[ 62%] Building CXX object examples/CMakeFiles/vit.dir/vit/cpp/vit.cpp.o
+[ 62%] Built target mobilenet
+[ 63%] Building CXX object examples/CMakeFiles/yolo12.dir/yolo12/cpp/yolo12.cpp.o
+[ 64%] Linking CXX executable pp_liteseg
+[ 65%] Linking CXX executable ocsort
+[ 65%] Built target pp_liteseg
+[ 66%] Building CXX object examples/CMakeFiles/yolo26.dir/yolo26/cpp/yolo26.cpp.o
+[ 66%] Linking CXX executable mobilenetv1
+[ 67%] Linking CXX executable ppocr
+[ 67%] Linking CXX executable siglip2
+[ 67%] Built target ocsort
+[ 67%] Building CXX object examples/CMakeFiles/yolo_world.dir/yolo_world/cpp/yolo_world.cpp.o
+[ 67%] Built target mobilenetv1
+[ 68%] Building CXX object examples/CMakeFiles/yoloe.dir/yoloe/cpp/yoloe.cpp.o
+[ 68%] Built target siglip2
+[ 69%] Building CXX object examples/CMakeFiles/yolov11.dir/yolov11/cpp/yolov11.cpp.o
+[ 69%] Built target ppocr
+[ 70%] Building CXX object examples/CMakeFiles/yolov5-face.dir/yolov5-face/cpp/yolov5-face.cpp.o
+[ 71%] Linking CXX executable resnet
+[ 72%] Linking CXX executable vit
+[ 72%] Linking CXX executable yolo12
+[ 72%] Built target resnet
+[ 72%] Building CXX object examples/CMakeFiles/yolov5.dir/yolov5/cpp/yolov5.cpp.o
+[ 72%] Built target yolo12
+[ 73%] Building CXX object examples/CMakeFiles/yolov5_gesture.dir/yolov5_gesture/cpp/yolov5_gesture.cpp.o
+[ 74%] Linking CXX executable yolo_world
+[ 74%] Built target vit
+[ 74%] Building CXX object examples/CMakeFiles/yolov8.dir/yolov8/cpp/yolov8.cpp.o
+[ 75%] Linking CXX executable yolo26
+[ 75%] Built target yolo_world
+[ 76%] Building CXX object examples/CMakeFiles/yolov8_pose.dir/yolov8_pose/cpp/yolov8_pose.cpp.o
+[ 77%] Linking CXX executable yolov11
+[ 77%] Linking CXX executable yoloe
+[ 77%] Built target yolo26
+[ 78%] Building CXX object examples/CMakeFiles/yolov8_seg.dir/yolov8_seg/cpp/yolov8_seg.cpp.o
+[ 78%] Linking CXX executable yolov5-face
+[ 78%] Built target yoloe
+[ 78%] Building CXX object applications/CMakeFiles/example_emotion.dir/emotion_detection/cpp/example_emotion.cpp.o
+[ 78%] Built target yolov11
+[ 79%] Building CXX object applications/CMakeFiles/example_fall_detection.dir/fall_detection/cpp/example_fall_detection.cpp.o
+[ 79%] Built target yolov5-face
+[ 80%] Building CXX object applications/CMakeFiles/example_intrusion_identification.dir/intrusion_detection/cpp/example_intrusion_identification.cpp.o
+[ 81%] Linking CXX executable yolov5
+[ 82%] Linking CXX executable yolov8
+[ 83%] Linking CXX executable yolov5_gesture
+[ 83%] Linking CXX executable yolov8_pose
+[ 83%] Built target yolov5
+[ 83%] Built target yolov8
+[ 83%] Building CXX object applications/CMakeFiles/example_fire_detection.dir/fire_detection/cpp/example_fire_detection.cpp.o
+[ 84%] Building CXX object applications/CMakeFiles/example_face_recognition.dir/face_recognition/cpp/example_face_recognition.cpp.o
+[ 84%] Built target yolov5_gesture
+[ 84%] Building CXX object tests/benchmarks/CMakeFiles/vision_infer_benchmark.dir/infer_benchmark.cpp.o
+[ 84%] Built target yolov8_pose
+[ 85%] Building CXX object tests/benchmarks/CMakeFiles/vision_infer_benchmark.dir/benchmark_stats.cpp.o
+[ 86%] Linking CXX executable yolov8_seg
+[ 87%] Building CXX object tests/cpp/CMakeFiles/vision_cpp_functional.dir/cpp_functional.cpp.o
+[ 87%] Built target yolov8_seg
+[ 87%] Building CXX object tests/cpp/CMakeFiles/vision_cpp_invalid_input.dir/cpp_invalid_input.cpp.o
+[ 87%] Linking CXX executable example_intrusion_identification
+[ 88%] Linking CXX executable example_emotion
+[ 89%] Linking CXX executable example_fall_detection
+[ 90%] Linking CXX executable vision_infer_benchmark
+[ 90%] Built target example_intrusion_identification
+[ 91%] Building CXX object tests/cpp/CMakeFiles/vision_cpp_runtime_profile.dir/cpp_runtime_profile.cpp.o
+[ 92%] Linking CXX executable vision_cpp_invalid_input
+[ 93%] Linking CXX executable example_fire_detection
+[ 93%] Built target example_emotion
+[ 93%] Built target vision_infer_benchmark
+[ 94%] Building CXX object tests/cpp/CMakeFiles/vision_preprocess_backend_scope_test.dir/preprocess_backend_scope_test.cpp.o
+[ 94%] Building CXX object tests/cpp/CMakeFiles/vision_mpp_frame_api_test.dir/mpp_frame_source_api_test.cpp.o
+[ 94%] Built target example_fall_detection
+[ 95%] Building CXX object tests/cpp/CMakeFiles/vision_preprocess_dispatcher_test.dir/opencl/image_preprocess_dispatcher_test.cpp.o
+[ 95%] Built target vision_cpp_invalid_input
+[ 95%] Built target example_fire_detection
+[ 96%] Building CXX object tests/cpp/CMakeFiles/vision_cpu_image_preprocessor_test.dir/opencl/cpu_image_preprocessor_test.cpp.o
+[ 96%] Linking CXX executable example_face_recognition
+[ 97%] Linking CXX executable vision_mpp_frame_api_test
+[ 98%] Linking CXX executable vision_preprocess_dispatcher_test
+[ 98%] Built target example_face_recognition
+[ 99%] Linking CXX executable vision_cpu_image_preprocessor_test
+[100%] Linking CXX executable vision_cpp_functional
+[100%] Built target vision_mpp_frame_api_test
+[100%] Built target vision_preprocess_dispatcher_test
+[100%] Built target vision_cpu_image_preprocessor_test
+[100%] Built target vision_cpp_functional
+[100%] Linking CXX executable vision_cpp_runtime_profile
+[100%] Linking CXX executable vision_preprocess_backend_scope_test
+[100%] Built target vision_cpp_runtime_profile
+[100%] Built target vision_preprocess_backend_scope_test
+-- Install configuration: ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/adaface
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/adaface" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/arcface
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/arcface" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/bytetrack
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/bytetrack" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/efficientnet
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/efficientnet" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/efficientnet_v2s
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/efficientnet_v2s" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/emotion
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/emotion" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/mobileclip2
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/mobileclip2" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/mobilenet
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/mobilenet" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/mobilenetv1
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/mobilenetv1" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/ocsort
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/ocsort" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/pp_liteseg
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/pp_liteseg" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/ppocr
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/ppocr" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/resnet
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/resnet" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/siglip2
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/siglip2" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/vit
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/vit" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolo12
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolo12" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolo26
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolo26" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolo_world
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolo_world" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yoloe
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yoloe" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov11
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov11" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov5-face
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov5-face" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov5
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov5" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov5_gesture
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov5_gesture" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov8
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov8" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov8_pose
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov8_pose" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/yolov8_seg
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/yolov8_seg" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/example_emotion
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/example_emotion" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/example_fall_detection
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/example_fall_detection" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/example_intrusion_identification
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/example_intrusion_identification" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/example_fire_detection
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/example_fire_detection" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/example_face_recognition
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/example_face_recognition" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/vision_infer_benchmark
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/vision_infer_benchmark" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/vision_cpp_functional
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/vision_cpp_functional" to "$ORIGIN:$ORIGIN/..:$ORIGIN/../..:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/vision_cpp_invalid_input
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/vision_cpp_invalid_input" to "$ORIGIN:$ORIGIN/..:$ORIGIN/../..:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/vision_cpp_runtime_profile
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/vision_cpp_runtime_profile" to "$ORIGIN:$ORIGIN/..:$ORIGIN/../..:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libvision.so
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/lib/libvision.so" to "$ORIGIN/../lib:$ORIGIN:/opt/opencv-spacemit/lib"
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/vision_service.h

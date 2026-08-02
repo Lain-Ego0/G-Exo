@@ -1,0 +1,192 @@
+{
+	"abstract" : true,
+	"artifacts" : 
+	[
+		{
+			"path" : "/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so"
+		}
+	],
+	"backtrace" : 11,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"find_package",
+			"set_target_properties"
+		],
+		"files" : 
+		[
+			"/opt/ros/humble/share/geometry_msgs/cmake/export_geometry_msgs__rosidl_typesupport_fastrtps_cppExport.cmake",
+			"/opt/ros/humble/share/geometry_msgs/cmake/ament_cmake_export_targets-extras.cmake",
+			"/opt/ros/humble/share/geometry_msgs/cmake/geometry_msgsConfig.cmake",
+			"/opt/ros/humble/share/sensor_msgs/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/sensor_msgs/cmake/sensor_msgsConfig.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 5
+			},
+			{
+				"command" : 2,
+				"file" : 5,
+				"line" : 21,
+				"parent" : 0
+			},
+			{
+				"file" : 4,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 41,
+				"parent" : 2
+			},
+			{
+				"file" : 3,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 21,
+				"parent" : 4
+			},
+			{
+				"file" : 2,
+				"parent" : 5
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 41,
+				"parent" : 6
+			},
+			{
+				"file" : 1,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 9,
+				"parent" : 8
+			},
+			{
+				"file" : 0,
+				"parent" : 9
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 59,
+				"parent" : 10
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 61,
+				"parent" : 10
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"interfaceCompileDependencies" : 
+	[
+		{
+			"backtrace" : 12,
+			"id" : "fastcdr::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rmw::rmw::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_runtime_c::rosidl_runtime_c::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_runtime_cpp::rosidl_runtime_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_typesupport_interface::rosidl_typesupport_interface::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_typesupport_fastrtps_cpp::rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "std_msgs::std_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "builtin_interfaces::builtin_interfaces__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "geometry_msgs::geometry_msgs__rosidl_generator_cpp::@6890427a1f51a3e7e1df"
+		}
+	],
+	"interfaceLinkLibraries" : 
+	[
+		{
+			"backtrace" : 12,
+			"id" : "fastcdr::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rmw::rmw::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_runtime_c::rosidl_runtime_c::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_runtime_cpp::rosidl_runtime_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_typesupport_interface::rosidl_typesupport_interface::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "rosidl_typesupport_fastrtps_cpp::rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "std_msgs::std_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "builtin_interfaces::builtin_interfaces__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 12,
+			"id" : "geometry_msgs::geometry_msgs__rosidl_generator_cpp::@6890427a1f51a3e7e1df"
+		}
+	],
+	"local" : true,
+	"name" : "geometry_msgs::geometry_msgs__rosidl_typesupport_fastrtps_cpp",
+	"nameOnDisk" : "libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "SHARED_LIBRARY"
+}

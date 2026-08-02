@@ -1,0 +1,29 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/json_rpc.cpp" "CMakeFiles/mcp_static.dir/src/json_rpc.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/json_rpc.cpp.o.d"
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp.cpp" "CMakeFiles/mcp_static.dir/src/mcp.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/mcp.cpp.o.d"
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_client.cpp" "CMakeFiles/mcp_static.dir/src/mcp_client.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/mcp_client.cpp.o.d"
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_manager.cpp" "CMakeFiles/mcp_static.dir/src/mcp_manager.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/mcp_manager.cpp.o.d"
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_http.cpp" "CMakeFiles/mcp_static.dir/src/transport_http.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/transport_http.cpp.o.d"
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_stdio.cpp" "CMakeFiles/mcp_static.dir/src/transport_stdio.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/transport_stdio.cpp.o.d"
+  "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_unix_socket.cpp" "CMakeFiles/mcp_static.dir/src/transport_unix_socket.cpp.o" "gcc" "CMakeFiles/mcp_static.dir/src/transport_unix_socket.cpp.o.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

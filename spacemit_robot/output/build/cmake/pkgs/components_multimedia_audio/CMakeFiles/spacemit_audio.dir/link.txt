@@ -1,0 +1,2 @@
+/usr/bin/ar qc libspacemit_audio.a CMakeFiles/spacemit_audio.dir/src/spacemit_audio.cpp.o CMakeFiles/spacemit_audio.dir/src/spacemit_audio_duplex.cpp.o CMakeFiles/spacemit_audio.dir/src/audio_stream.cpp.o CMakeFiles/spacemit_audio.dir/src/audio_duplex_stream.cpp.o
+/usr/bin/ranlib libspacemit_audio.a

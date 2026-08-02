@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

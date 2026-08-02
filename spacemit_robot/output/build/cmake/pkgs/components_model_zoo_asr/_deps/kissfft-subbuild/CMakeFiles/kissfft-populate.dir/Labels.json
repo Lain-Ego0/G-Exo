@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/CMakeFiles/kissfft-populate"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/CMakeFiles/kissfft-populate.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/CMakeFiles/kissfft-populate-complete.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-build.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-configure.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-download.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-install.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-patch.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-test.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/kissfft-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"kissfft-populate"
+		],
+		"name" : "kissfft-populate"
+	}
+}

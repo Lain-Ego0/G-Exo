@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/audio_demo.dir/link.d CMakeFiles/audio_demo.dir/examples/audio_demo.cpp.o -o bin/audio_demo  libspacemit_audio.a libaudio_resampler.a _deps/portaudio-build/libportaudio.a /usr/lib/riscv64-linux-gnu/libasound.so -lm -lpthread -lsamplerate

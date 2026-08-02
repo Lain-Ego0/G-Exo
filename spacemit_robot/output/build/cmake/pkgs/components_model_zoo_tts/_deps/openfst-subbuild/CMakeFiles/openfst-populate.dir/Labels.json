@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/CMakeFiles/openfst-populate"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/CMakeFiles/openfst-populate.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/CMakeFiles/openfst-populate-complete.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-build.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-configure.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-download.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-install.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-patch.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-test.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"openfst-populate"
+		],
+		"name" : "openfst-populate"
+	}
+}

@@ -1,0 +1,122 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/multimedia/audio -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- [audio] Standalone build mode
+-- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Checking for module 'samplerate'
+--   Found samplerate, version 0.2.2
+CMake Deprecation Warning at /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-src/CMakeLists.txt:7 (CMAKE_MINIMUM_REQUIRED):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Found ALSA: /usr/lib/riscv64-linux-gnu/libasound.so (found version "1.2.15.3")
+-- [audio] libsamplerate enabled
+-- [audio] audio_resampler enabled
+-- [audio] spacemit_audio enabled
+-- [audio] audio_demo enabled
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- [audio] Python bindings enabled (/usr/bin/python3)
+-- 
+-- [audio] Build Summary:
+--   Mode:           ON
+--   audio_resampler: ON
+--   spacemit_audio:     TRUE
+--   Examples:        ON
+--   Python:          ON
+-- 
+-- Configuring done (40.8s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio -j8
+[  2%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_debugprint.c.o
+[  4%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_allocation.c.o
+[  6%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_allocation.c.o
+[ 10%] Building CXX object CMakeFiles/audio_resampler.dir/src/resampler_rvv.cpp.o
+[ 13%] Building CXX object CMakeFiles/audio_resampler.dir/src/resampler.cpp.o
+[ 10%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_converters.c.o
+[ 15%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_converters.c.o
+[ 17%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_cpuload.c.o
+[ 19%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_dither.c.o
+[ 21%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_front.c.o
+[ 23%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_cpuload.c.o
+[ 26%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_process.c.o
+[ 28%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_ringbuffer.c.o
+[ 30%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_debugprint.c.o
+[ 32%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_dither.c.o
+[ 34%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_front.c.o
+[ 36%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_stream.c.o
+[ 39%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_trace.c.o
+[ 41%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/hostapi/skeleton/pa_hostapi_skeleton.c.o
+[ 43%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_hostapis.c.o
+[ 45%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_process.c.o
+[ 47%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_ringbuffer.c.o
+[ 50%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_util.c.o
+[ 52%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/hostapi/alsa/pa_linux_alsa.c.o
+[ 54%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_stream.c.o
+[ 56%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_trace.c.o
+[ 58%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/hostapi/skeleton/pa_hostapi_skeleton.c.o
+[ 60%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/os/unix/pa_unix_hostapis.c.o
+[ 63%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/os/unix/pa_unix_util.c.o
+[ 65%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/hostapi/alsa/pa_linux_alsa.c.o
+[ 67%] Linking C shared library libportaudio.so
+[ 67%] Built target portaudio
+[ 69%] Linking C static library libportaudio.a
+[ 69%] Built target portaudio_static
+[ 71%] Building CXX object CMakeFiles/spacemit_audio.dir/src/spacemit_audio.cpp.o
+[ 73%] Building CXX object CMakeFiles/spacemit_audio.dir/src/spacemit_audio_duplex.cpp.o
+[ 76%] Building CXX object CMakeFiles/spacemit_audio.dir/src/audio_stream.cpp.o
+[ 78%] Building CXX object CMakeFiles/spacemit_audio.dir/src/audio_duplex_stream.cpp.o
+[ 80%] Building CXX object CMakeFiles/_spacemit_audio.dir/python/src/bindings.cpp.o
+[ 82%] Building CXX object CMakeFiles/_spacemit_audio.dir/src/spacemit_audio_duplex.cpp.o
+[ 84%] Building CXX object CMakeFiles/_spacemit_audio.dir/src/spacemit_audio.cpp.o
+[ 86%] Linking CXX static library libaudio_resampler.a
+[ 86%] Built target audio_resampler
+[ 89%] Building CXX object CMakeFiles/_spacemit_audio.dir/src/audio_stream.cpp.o
+[ 91%] Building CXX object CMakeFiles/_spacemit_audio.dir/src/audio_duplex_stream.cpp.o
+[ 93%] Linking CXX static library libspacemit_audio.a
+[ 93%] Built target spacemit_audio
+[ 95%] Building CXX object CMakeFiles/audio_demo.dir/examples/audio_demo.cpp.o
+[ 97%] Linking CXX executable bin/audio_demo
+[ 97%] Built target audio_demo
+[100%] Linking CXX shared module /home/gexo/spacemit_robot/components/multimedia/audio/python/spacemit_audio/_spacemit_audio.cpython-314-riscv64-linux-gnu.so
+[100%] Built target _spacemit_audio
+-- Install configuration: ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/share/doc/portaudio/README.md
+-- Installing: /home/gexo/spacemit_robot/output/staging/share/doc/portaudio/LICENSE.txt
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/pkgconfig/portaudio-2.0.pc
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/portaudio.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/pa_linux_alsa.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libportaudio.so
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libportaudio.a
+-- Old export file "/home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets.cmake" will be replaced.  Removing files [/home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets-release.cmake].
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets-noconfig.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfig.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfigVersion.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libaudio_resampler.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/audio_resampler.hpp
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libspacemit_audio.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/audio_base.hpp
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/audio_duplex.hpp
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/audio_demo
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/python/spacemit_audio/_spacemit_audio.cpython-314-riscv64-linux-gnu.so
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/python/spacemit_audio/__init__.py

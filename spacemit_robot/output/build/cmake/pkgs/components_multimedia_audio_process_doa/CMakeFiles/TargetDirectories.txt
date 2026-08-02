@@ -1,0 +1,10 @@
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/sound_locator.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/ssl_demo.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/_spacemit_audio_process.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/audio_process-install-python.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa/CMakeFiles/install/strip.dir

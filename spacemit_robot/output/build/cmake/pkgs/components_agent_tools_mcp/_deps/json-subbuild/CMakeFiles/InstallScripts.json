@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

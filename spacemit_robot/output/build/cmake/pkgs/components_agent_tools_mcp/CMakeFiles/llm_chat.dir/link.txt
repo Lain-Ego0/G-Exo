@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/llm_chat.dir/link.d CMakeFiles/llm_chat.dir/examples/llm_chat.cpp.o -o bin/llm_chat  lib/libmcp.a /usr/lib/riscv64-linux-gnu/libcurl.so /usr/lib/riscv64-linux-gnu/libcurl.so

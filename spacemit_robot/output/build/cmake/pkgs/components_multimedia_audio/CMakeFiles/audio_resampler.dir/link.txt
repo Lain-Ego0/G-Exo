@@ -1,0 +1,2 @@
+/usr/bin/ar qc libaudio_resampler.a CMakeFiles/audio_resampler.dir/src/resampler.cpp.o CMakeFiles/audio_resampler.dir/src/resampler_rvv.cpp.o
+/usr/bin/ranlib libaudio_resampler.a

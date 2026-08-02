@@ -1,0 +1,2 @@
+Invoking command in '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2': /usr/bin/cmake --build /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2 -- -j8 -l8
+Invoked command in '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2' returned '2': /usr/bin/cmake --build /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2 -- -j8 -l8

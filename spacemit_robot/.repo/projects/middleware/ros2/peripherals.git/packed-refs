@@ -1,0 +1,7 @@
+# pack-refs with: peeled fully-peeled sorted 
+d602c6245a5a06b995f26e0a256359b76d26d369 refs/remotes/origin/main
+2901aaa1a32aab26ed783d55cc85a9cea2bf319c refs/remotes/origin/test/lidar-ci-coverage
+211d55f52088104db952859a76a016a92a255c0e refs/tags/v1.1.0-rc1
+^b03d813d70b60b51bc02826e12d7c4fa0cc39f80
+4cd720bcb7ffc5bfdfd7445357aa7a555ec28539 refs/tags/v1.1.0-rc2
+^5d67c411e56296692060e9a8270529a0ea58142c

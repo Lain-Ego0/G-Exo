@@ -1,0 +1,3 @@
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/portaudio-subbuild/CMakeFiles/portaudio-populate.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/portaudio-subbuild/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/portaudio-subbuild/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,23 @@
+{
+  "core.repositoryformatversion": [
+    "0"
+  ],
+  "core.filemode": [
+    "true"
+  ],
+  "filter.lfs.smudge": [
+    "git-lfs smudge --skip -- %f"
+  ],
+  "filter.lfs.process": [
+    "git-lfs filter-process --skip"
+  ],
+  "remote.origin.url": [
+    "https://gitee.com/spacemit-robotics/ros2_body_pose"
+  ],
+  "remote.origin.projectname": [
+    "ros2_body_pose"
+  ],
+  "remote.origin.fetch": [
+    "+refs/heads/*:refs/remotes/origin/*"
+  ]
+}

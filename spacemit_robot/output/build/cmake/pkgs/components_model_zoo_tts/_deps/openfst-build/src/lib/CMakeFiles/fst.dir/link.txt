@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libkaldifst_fst.a CMakeFiles/fst.dir/compat.cc.o CMakeFiles/fst.dir/flags.cc.o CMakeFiles/fst.dir/fst.cc.o CMakeFiles/fst.dir/properties.cc.o "CMakeFiles/fst.dir/symbol-table.cc.o" CMakeFiles/fst.dir/util.cc.o "CMakeFiles/fst.dir/symbol-table-ops.cc.o" "CMakeFiles/fst.dir/mapped-file.cc.o" CMakeFiles/fst.dir/weight.cc.o
+/usr/bin/ranlib ../../../../lib/libkaldifst_fst.a

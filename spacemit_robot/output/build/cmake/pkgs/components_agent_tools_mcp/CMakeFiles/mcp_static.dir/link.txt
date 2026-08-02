@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libmcp.a CMakeFiles/mcp_static.dir/src/mcp.cpp.o CMakeFiles/mcp_static.dir/src/json_rpc.cpp.o CMakeFiles/mcp_static.dir/src/mcp_client.cpp.o CMakeFiles/mcp_static.dir/src/mcp_manager.cpp.o CMakeFiles/mcp_static.dir/src/transport_stdio.cpp.o CMakeFiles/mcp_static.dir/src/transport_unix_socket.cpp.o CMakeFiles/mcp_static.dir/src/transport_http.cpp.o
+/usr/bin/ranlib lib/libmcp.a

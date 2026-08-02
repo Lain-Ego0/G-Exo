@@ -1,0 +1,4 @@
+38fcb394c9de5f40152cd941d982433b0ab6f29a		branch 'main' of https://gitee.com/spacemit-robotics/ros2_rtabmap_run
+9ea993ec375dc4a5e4ce7f81643411149bc4d100		branch 'test/add-rtabmap-rgbd-ci-tests' of https://gitee.com/spacemit-robotics/ros2_rtabmap_run
+2a51b212a673d60582fcaad95950d4046bc1f0be		tag 'v1.1.0-rc1' of https://gitee.com/spacemit-robotics/ros2_rtabmap_run
+8ef6832d2c326532a299f8be3c4952625fde771f		tag 'v1.1.0-rc2' of https://gitee.com/spacemit-robotics/ros2_rtabmap_run

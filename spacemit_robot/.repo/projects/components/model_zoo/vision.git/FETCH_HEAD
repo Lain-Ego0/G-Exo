@@ -1,0 +1,6 @@
+bbf2263bc62657a807ecaded404f5627249b17d5		branch 'feat/add_yolov5_python_code_and_add_camera_parameter' of https://gitee.com/spacemit-robotics/model-zoo-vision
+e5f7cfbf258eff52b79f549855afa49e6e014631		branch 'fix/face-cli-and-model-paths' of https://gitee.com/spacemit-robotics/model-zoo-vision
+535bbb86ac2cb1f407f0110eab32ca92781c4d5e		branch 'main' of https://gitee.com/spacemit-robotics/model-zoo-vision
+eded304cc34b8b640677c56482252d331d31d4e0		branch 'refactor/unify-inference-via-one-function-and-simplify-application-configs' of https://gitee.com/spacemit-robotics/model-zoo-vision
+2f845e633d9555d1c0f53dd438f6352db8aa9e9d		tag 'v1.1.0-rc1' of https://gitee.com/spacemit-robotics/model-zoo-vision
+53c56bd6e7c15c0c5f62d7fb3f6b74558aa42a50		tag 'v1.1.0-rc2' of https://gitee.com/spacemit-robotics/model-zoo-vision

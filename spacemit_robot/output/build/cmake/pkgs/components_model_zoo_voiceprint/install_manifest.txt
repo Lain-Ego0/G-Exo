@@ -1,0 +1,14 @@
+/home/gexo/spacemit_robot/output/staging/share/doc/portaudio/README.md
+/home/gexo/spacemit_robot/output/staging/share/doc/portaudio/LICENSE.txt
+/home/gexo/spacemit_robot/output/staging/lib/pkgconfig/portaudio-2.0.pc
+/home/gexo/spacemit_robot/output/staging/include/portaudio.h
+/home/gexo/spacemit_robot/output/staging/include/pa_linux_alsa.h
+/home/gexo/spacemit_robot/output/staging/lib/libportaudio.a
+/home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets.cmake
+/home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets-release.cmake
+/home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfig.cmake
+/home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfigVersion.cmake
+/home/gexo/spacemit_robot/output/staging/lib/libvoiceprint.a
+/home/gexo/spacemit_robot/output/staging/bin/register_speaker
+/home/gexo/spacemit_robot/output/staging/bin/identify_speaker
+/home/gexo/spacemit_robot/output/staging/include/vp_service.h

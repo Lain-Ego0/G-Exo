@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

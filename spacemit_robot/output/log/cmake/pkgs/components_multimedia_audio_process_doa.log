@@ -1,0 +1,53 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/multimedia/audio_process/doa -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- [audio_process] RISC-V conservative C++ flags: -mstrict-align;-fno-strict-aliasing;-fno-aggressive-loop-optimizations
+-- [audio_process] RISC-V Python extension flags: -O2;-fno-strict-overflow;-mstrict-align;-fno-strict-aliasing;-fno-aggressive-loop-optimizations
+-- [audio_process] Standalone build mode
+-- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Checking for module 'fftw3f'
+--   Found fftw3f, version 3.3.10
+-- [audio_process] sound_locator enabled
+-- [audio_process] ssl_demo: live mode disabled (spacemit_audio not found)
+-- [audio_process] ssl_demo (unified 2-ch + 3+ch) enabled
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- [audio_process] Python bindings enabled (/usr/bin/python3)
+-- 
+-- [audio_process] Build Summary:
+--   Mode:            ON
+--   sound_locator:   ON
+--   Examples:        ON
+--   Python:          ON
+-- 
+-- Configuring done (4.6s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio_process_doa -j8
+[  9%] Building CXX object CMakeFiles/sound_locator.dir/src/gcc_phat_pair.cpp.o
+[ 18%] Building CXX object CMakeFiles/sound_locator.dir/src/multi_sound_locator.cpp.o
+[ 27%] Building CXX object CMakeFiles/sound_locator.dir/src/sound_locator.cpp.o
+[ 36%] Building CXX object CMakeFiles/_spacemit_audio_process.dir/src/sound_locator.cpp.o
+[ 45%] Building CXX object CMakeFiles/_spacemit_audio_process.dir/python/src/bindings.cpp.o
+[ 54%] Building CXX object CMakeFiles/_spacemit_audio_process.dir/src/gcc_phat_pair.cpp.o
+[ 63%] Building CXX object CMakeFiles/_spacemit_audio_process.dir/src/multi_sound_locator.cpp.o
+[ 72%] Linking CXX static library libsound_locator.a
+[ 72%] Built target sound_locator
+[ 81%] Building CXX object CMakeFiles/ssl_demo.dir/examples/ssl_demo.cpp.o
+[ 90%] Linking CXX executable bin/ssl_demo
+[ 90%] Built target ssl_demo
+[100%] Linking CXX shared module /home/gexo/spacemit_robot/components/multimedia/audio_process/doa/python/spacemit_audio_process/_spacemit_audio_process.cpython-314-riscv64-linux-gnu.so
+[100%] Built target _spacemit_audio_process
+-- Install configuration: "Release"
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libsound_locator.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/doa_service.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/ssl_demo
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/python/spacemit_audio_process/_spacemit_audio_process.cpython-314-riscv64-linux-gnu.so
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/python/spacemit_audio_process/__init__.py

@@ -1,0 +1,3 @@
+# Hashes of file build rules.
+024a179855cfdec7a72fa0f7540540b1 CMakeFiles/audio-install-python
+670e687fa4bb2e34b10f353cf7d19ca1 _deps/portaudio-build/CMakeFiles/uninstall

@@ -1,0 +1,70 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/model_zoo/vad -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+-- Checking for module 'libcurl'
+--   Found libcurl, version 8.18.0
+-- VAD Framework library enabled
+-- Python found: /usr/bin/python3 (3.14.4)
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- Python bindings enabled (_spacemit_vad module for Python 3.14.4)
+-- 
+-- === VAD Build Configuration ===
+--   BUILD_VAD_EXAMPLES:  ON
+--   BUILD_VAD_PYTHON:    ON
+--   ONNX Runtime:        /usr/lib/libonnxruntime.so
+--   Wheel output:        /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/python_wheel/dist
+--   Wheel install dir:   /home/gexo/spacemit_robot/output/dist
+-- 
+-- Configuring done (4.7s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad -j8
+[  9%] Building CXX object CMakeFiles/silero_vad.dir/src/backends/silero/silero_backend.cpp.o
+[ 18%] Linking CXX static library lib/libsilero_vad.a
+[ 18%] Built target silero_vad
+[ 27%] Building CXX object CMakeFiles/vad.dir/src/vad_engine.cpp.o
+[ 36%] Building CXX object CMakeFiles/vad.dir/src/vad_backend_factory.cpp.o
+[ 45%] Building CXX object CMakeFiles/vad.dir/src/vad_presets.cpp.o
+[ 54%] Linking CXX static library lib/libvad.a
+[ 54%] Built target vad
+[ 63%] Building CXX object CMakeFiles/vad_simple_demo.dir/examples/simple_demo.cpp.o
+[ 72%] Building CXX object CMakeFiles/_spacemit_vad.dir/python/vad_bindings.cpp.o
+[ 81%] Linking CXX executable bin/vad_simple_demo
+[ 81%] Built target vad_simple_demo
+[ 90%] Linking CXX shared module python/_spacemit_vad.cpython-314-riscv64-linux-gnu.so
+[ 90%] Built target _spacemit_vad
+[100%] Building spacemit_vad wheel into /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/python_wheel/dist
+Processing /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/python_wheel/src
+  Installing build dependencies: started
+  Installing build dependencies: still running...
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: spacemit_vad
+  Building wheel for spacemit_vad (pyproject.toml): started
+  Building wheel for spacemit_vad (pyproject.toml): finished with status 'done'
+  Created wheel for spacemit_vad: filename=spacemit_vad-1.0.0-cp314-cp314-linux_riscv64.whl size=384457 sha256=bc3130d31005099de03e7541274c8fc95a940224617e31aec255677cce824e7d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-b1wkgd4a/wheels/3b/e1/b2/aa9b7d35b9360aacfbb48a7338f78805c36e8be00e128800dc
+Successfully built spacemit_vad
+[100%] Built target vad-python-wheel
+-- Install configuration: ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libvad.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libsilero_vad.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/vad_service.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/vad_simple_demo
+-- Installing: /home/gexo/spacemit_robot/output/dist
+-- Installing: /home/gexo/spacemit_robot/output/dist/spacemit_vad-1.0.0-cp314-cp314-linux_riscv64.whl

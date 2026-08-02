@@ -1,0 +1,82 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/model_zoo/voiceprint -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found CURL: /usr/lib/riscv64-linux-gnu/libcurl.so (found version "8.18.0")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found ALSA: /usr/lib/riscv64-linux-gnu/libasound.so (found version "1.2.15.3")
+CMake Deprecation Warning at /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-src/CMakeLists.txt:7 (CMAKE_MINIMUM_REQUIRED):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Using RISC-V optimizations
+-- ONNX Runtime include: /usr/include
+-- ONNX Runtime lib: /usr/lib/libonnxruntime.so
+-- voiceprint: enabling CamP+ backend
+-- Configuring done (9.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint -j8
+[  3%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_cpuload.c.o
+[  7%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_debugprint.c.o
+[ 10%] Building CXX object CMakeFiles/voiceprint.dir/src/vp_engine.cpp.o
+[ 14%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_dither.c.o
+[ 17%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_allocation.c.o
+[ 21%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_converters.c.o
+[ 25%] Building CXX object CMakeFiles/voiceprint.dir/src/wave_reader.cpp.o
+[ 28%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_front.c.o
+[ 32%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_process.c.o
+[ 35%] Building CXX object CMakeFiles/voiceprint.dir/src/vp_presets.cpp.o
+[ 39%] Building CXX object CMakeFiles/voiceprint.dir/src/vp_backend_factory.cpp.o
+[ 42%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_ringbuffer.c.o
+[ 46%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_stream.c.o
+[ 50%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_trace.c.o
+[ 53%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/hostapi/skeleton/pa_hostapi_skeleton.c.o
+[ 57%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_hostapis.c.o
+[ 60%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_util.c.o
+[ 64%] Building CXX object CMakeFiles/voiceprint.dir/src/common/mel_filterbank.cpp.o
+[ 67%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/hostapi/alsa/pa_linux_alsa.c.o
+[ 71%] Building CXX object CMakeFiles/voiceprint.dir/src/backends/campplus/campplus_backend.cpp.o
+[ 75%] Building CXX object CMakeFiles/voiceprint.dir/src/backends/campplus/onnx_model.cpp.o
+[ 78%] Linking C static library libportaudio.a
+[ 78%] Built target portaudio_static
+[ 82%] Linking CXX static library lib/libvoiceprint.a
+[ 82%] Built target voiceprint
+[ 85%] Building CXX object CMakeFiles/identify_speaker.dir/tools/identify_speaker.cpp.o
+[ 89%] Building CXX object CMakeFiles/register_speaker.dir/tools/register_speaker.cpp.o
+[ 92%] Building CXX object CMakeFiles/register_speaker.dir/src/audio_recorder.cpp.o
+[ 96%] Linking CXX executable bin/identify_speaker
+[ 96%] Built target identify_speaker
+[100%] Linking CXX executable bin/register_speaker
+[100%] Built target register_speaker
+-- Install configuration: "Release"
+-- Installing: /home/gexo/spacemit_robot/output/staging/share/doc/portaudio/README.md
+-- Installing: /home/gexo/spacemit_robot/output/staging/share/doc/portaudio/LICENSE.txt
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/pkgconfig/portaudio-2.0.pc
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/portaudio.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/pa_linux_alsa.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libportaudio.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets-release.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfig.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfigVersion.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libvoiceprint.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/register_speaker
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/identify_speaker
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/vp_service.h

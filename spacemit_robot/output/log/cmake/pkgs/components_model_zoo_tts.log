@@ -1,0 +1,266 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/model_zoo/tts -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Fetching cppjieba to /home/gexo/.cache/thirdparty/cppjieba ...
+正克隆到 '/home/gexo/.cache/thirdparty/cppjieba'...
+子模组 'deps/limonp'（https://github.com/yanyiwu/limonp.git）已对路径 'deps/limonp' 注册
+正克隆到 '/home/gexo/.cache/thirdparty/cppjieba/deps/limonp'...
+子模组路径 'deps/limonp'：检出 '5c82a3f17e4e0adc6a5decfe245054b0ed533d1a'
+-- Fetching cpp-pinyin to /home/gexo/.cache/thirdparty/cpp-pinyin ...
+正克隆到 '/home/gexo/.cache/thirdparty/cpp-pinyin'...
+-- [kaldifst] Trying gitee mirror: https://gitee.com/spacemit-robotics/kaldifst.git
+-- [kaldifst] Downloading OpenFst tarball from https://archive.spacemit.com/spacemit-ai/thirdparty/openfst-sherpa-onnx-2024-06-13.tar.gz
+-- [download 3% complete]
+-- [download 12% complete]
+-- [download 22% complete]
+-- [download 35% complete]
+-- [download 49% complete]
+-- [download 51% complete]
+-- [download 56% complete]
+-- [download 70% complete]
+-- [download 80% complete]
+-- [download 82% complete]
+-- [download 97% complete]
+-- [download 100% complete]
+-- No CMAKE_BUILD_TYPE given, default to Release
+-- CMAKE_BUILD_TYPE: Release
+-- CMAKE_BUILD_TYPE: Release
+-- CMAKE_INSTALL_PREFIX: /home/gexo/spacemit_robot/output/staging
+-- BUILD_SHARED_LIBS OFF
+-- C++ Standard version: 17
+-- CMAKE_CXX_FLAGS: 
+-- Downloading openfst from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/openfst-sherpa-onnx-2024-06-13.tar.gz
+CMake Warning (dev) at /usr/share/cmake-4.2/Modules/FetchContent.cmake:1963 (message):
+  Calling FetchContent_Populate(openfst) is deprecated, call
+  FetchContent_MakeAvailable(openfst) instead.  Policy CMP0169 can be set to
+  OLD to allow FetchContent_Populate(openfst) to be called directly for now,
+  but the ability to call it with declared details will be removed completely
+  in a future version.
+Call Stack (most recent call first):
+  /home/gexo/.cache/thirdparty/kaldifst/cmake/openfst.cmake:67 (FetchContent_Populate)
+  /home/gexo/.cache/thirdparty/kaldifst/cmake/openfst.cmake:95 (download_openfst)
+  /home/gexo/.cache/thirdparty/kaldifst/CMakeLists.txt:94 (include)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- openfst is downloaded to /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src
+-- Failed to find all ICU components (missing: ICU_INCLUDE_DIR ICU_LIBRARY data i18n io test tu uc) 
+-- Found ZLIB: /usr/lib/riscv64-linux-gnu/libz.so (found version "1.3.1")
+CMake Deprecation Warning at /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/CMakeLists.txt:15 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- [tts] Found ONNX Runtime via direct search:
+--   Include: /usr/include
+--   Lib: /usr/lib/libonnxruntime.so
+-- [tts] SpaceMIT EP enabled: /usr/include, lib: /usr/lib/libspacemit_ep.so
+-- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+-- Checking for module 'samplerate'
+--   Found samplerate, version 0.2.2
+CMake Deprecation Warning at /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/portaudio-src/CMakeLists.txt:7 (CMAKE_MINIMUM_REQUIRED):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Found ALSA: /usr/lib/riscv64-linux-gnu/libasound.so (found version "1.2.15.3")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- [tts] tts_stream_demo enabled
+-- [tts] Python found: /usr/bin/python3 (3.14.4)
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- [tts] Python bindings enabled (_spacemit_tts module for Python 3.14.4)
+-- Configuring done (56.5s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts -j8
+[  3%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_allocation.c.o
+[  3%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_allocation.c.o
+[  4%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/compat.cc.o
+[  6%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_cpuload.c.o
+[  7%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_converters.c.o
+[  7%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_converters.c.o
+[  7%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_cpuload.c.o
+[  7%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/flags.cc.o
+[  9%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/fst.cc.o
+[ 10%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_debugprint.c.o
+[ 12%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_debugprint.c.o
+[ 13%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_dither.c.o
+[ 15%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/properties.cc.o
+[ 16%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_dither.c.o
+[ 15%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_front.c.o
+[ 18%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/symbol-table.cc.o
+[ 20%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_front.c.o
+[ 21%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_process.c.o
+[ 21%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/util.cc.o
+[ 21%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_process.c.o
+[ 23%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_ringbuffer.c.o
+[ 24%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_ringbuffer.c.o
+[ 24%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_stream.c.o
+[ 26%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/common/pa_trace.c.o
+[ 27%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_stream.c.o
+[ 29%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/symbol-table-ops.cc.o
+[ 29%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/common/pa_trace.c.o
+[ 30%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/hostapi/skeleton/pa_hostapi_skeleton.c.o
+[ 32%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/hostapi/skeleton/pa_hostapi_skeleton.c.o
+[ 33%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_hostapis.c.o
+[ 33%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_util.c.o
+[ 35%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/os/unix/pa_unix_hostapis.c.o
+[ 36%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/os/unix/pa_unix_util.c.o
+[ 38%] Building C object _deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/hostapi/alsa/pa_linux_alsa.c.o
+[ 38%] Building C object _deps/portaudio-build/CMakeFiles/portaudio.dir/src/hostapi/alsa/pa_linux_alsa.c.o
+[ 40%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/mapped-file.cc.o
+[ 40%] Building CXX object _deps/openfst-build/src/lib/CMakeFiles/fst.dir/weight.cc.o
+In file included from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/./include/fst/accumulator.h:20,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/./include/fst/label-reachable.h:16,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/./include/fst/lookahead-matcher.h:20,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/./include/fst/matcher-fst.h:14,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/lib/fst.cc:17:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/./include/fst/replace.h: In member function ‘bool fst::internal::ReplaceFstImpl<Arc, StateTable, CacheStore>::ComputeArc(const StateTuple&, const Arc&, Arc*, uint32)’:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/./include/fst/replace.h:803:32: warning: expected ‘template’ keyword before dependent template name [-Wmissing-template-keyword]
+  803 |     if (arc.olabel == 0 || arc.olabel < *nonterminal_set_.begin() ||
+      |                                ^~~~~~
+      |                                template
+[ 41%] Linking C shared library libportaudio.so
+[ 43%] Linking C static library libportaudio.a
+[ 43%] Built target portaudio_static
+[ 43%] Built target portaudio
+[ 44%] Linking CXX static library ../../../../lib/libkaldifst_fst.a
+[ 44%] Built target fst
+[ 46%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/kaldi-holder.cc.o
+[ 46%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/kaldi-io.cc.o
+[ 47%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/kaldi-math.cc.o
+[ 49%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/kaldi-semaphore.cc.o
+[ 50%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/context-fst.cc.o
+[ 50%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/kaldi-table.cc.o
+[ 52%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/kaldi-fst-io.cc.o
+[ 53%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/parse-options.cc.o
+[ 55%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/text-normalizer.cc.o
+[ 56%] Building CXX object kaldifst-build/kaldifst/csrc/CMakeFiles/kaldifst_core.dir/text-utils.cc.o
+In file included from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/rational.h:15,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/closure.h:13,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/fstlib.h:41,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/context-fst.h:15,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/context-fst.cc:7:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h: In member function ‘bool fst::internal::ReplaceFstImpl<Arc, StateTable, CacheStore>::ComputeArc(const StateTuple&, const Arc&, Arc*, uint32)’:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h:803:32: warning: expected ‘template’ keyword before dependent template name [-Wmissing-template-keyword]
+  803 |     if (arc.olabel == 0 || arc.olabel < *nonterminal_set_.begin() ||
+      |                                ^~~~~~
+      |                                template
+In file included from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/rational.h:15,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/closure.h:13,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/fstlib.h:41,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/script/print-impl.h:14,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/script/print.h:11,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/kaldi-fst-io-inl.h:19,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/kaldi-fst-io.h:148,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/kaldi-fst-io.cc:10:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h: In member function ‘bool fst::internal::ReplaceFstImpl<Arc, StateTable, CacheStore>::ComputeArc(const StateTuple&, const Arc&, Arc*, uint32)’:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h:803:32: warning: expected ‘template’ keyword before dependent template name [-Wmissing-template-keyword]
+  803 |     if (arc.olabel == 0 || arc.olabel < *nonterminal_set_.begin() ||
+      |                                ^~~~~~
+      |                                template
+In file included from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/rational.h:15,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/closure.h:13,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/fstlib.h:41,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/text-normalizer.h:12,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/text-normalizer.cc:5:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h: In member function ‘bool fst::internal::ReplaceFstImpl<Arc, StateTable, CacheStore>::ComputeArc(const StateTuple&, const Arc&, Arc*, uint32)’:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h:803:32: warning: expected ‘template’ keyword before dependent template name [-Wmissing-template-keyword]
+  803 |     if (arc.olabel == 0 || arc.olabel < *nonterminal_set_.begin() ||
+      |                                ^~~~~~
+      |                                template
+[ 56%] Linking CXX static library ../../../lib/libkaldifst_core.a
+[ 56%] Built target kaldifst_core
+[ 58%] Building CXX object CMakeFiles/tts.dir/src/audio/audio_processor.cpp.o
+[ 58%] Building CXX object CMakeFiles/tts.dir/src/text/number_utils.cpp.o
+[ 58%] Building CXX object CMakeFiles/tts.dir/src/tts_engine.cpp.o
+[ 61%] Building CXX object CMakeFiles/tts.dir/src/text/fst_normalizer.cpp.o
+[ 61%] Building CXX object CMakeFiles/tts.dir/src/text/text_utils.cpp.o
+[ 61%] Building CXX object CMakeFiles/tts.dir/src/text/token_utils.cpp.o
+[ 63%] Building CXX object CMakeFiles/tts.dir/src/tts_backend_factory.cpp.o
+[ 64%] Building CXX object CMakeFiles/tts.dir/src/text/text_normalizer.cpp.o
+[ 66%] Building CXX object CMakeFiles/tts.dir/src/text/phoneme_utils.cpp.o
+[ 67%] Building CXX object CMakeFiles/tts.dir/src/vocoder/vocoder.cpp.o
+[ 69%] Building CXX object CMakeFiles/tts.dir/src/backends/matcha/matcha_backend.cpp.o
+[ 69%] Building CXX object CMakeFiles/tts.dir/src/backends/matcha/matcha_zh_backend.cpp.o
+[ 70%] Building CXX object CMakeFiles/tts.dir/src/backends/matcha/matcha_en_backend.cpp.o
+[ 72%] Building CXX object CMakeFiles/tts.dir/src/backends/matcha/matcha_zh_en_backend.cpp.o
+In file included from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/rational.h:15,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/closure.h:13,
+                 from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/fstlib.h:41,
+                 from /home/gexo/.cache/thirdparty/kaldifst/kaldifst/csrc/text-normalizer.h:12,
+                 from /home/gexo/spacemit_robot/components/model_zoo/tts/src/text/fst_normalizer.cpp:14:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h: In member function ‘bool fst::internal::ReplaceFstImpl<Arc, StateTable, CacheStore>::ComputeArc(const StateTuple&, const Arc&, Arc*, uint32)’:
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-src/src/include/fst/replace.h:803:32: warning: expected ‘template’ keyword before dependent template name [-Wmissing-template-keyword]
+  803 |     if (arc.olabel == 0 || arc.olabel < *nonterminal_set_.begin() ||
+      |                                ^~~~~~
+      |                                template
+[ 72%] Building CXX object CMakeFiles/tts.dir/src/backends/matcha/tts_model_downloader.cpp.o
+[ 73%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/kokoro_backend.cpp.o
+[ 75%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/kokoro_en_backend.cpp.o
+[ 76%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/kokoro_zh_backend.cpp.o
+[ 76%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/tone_sandhi.cpp.o
+[ 78%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/tone_sandhi_data.cpp.o
+[ 80%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/kokoro_phonemizer.cpp.o
+[ 80%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/kokoro_voice_manager.cpp.o
+[ 81%] Building CXX object CMakeFiles/tts.dir/src/backends/kokoro/kokoro_model_downloader.cpp.o
+[ 83%] Building CXX object CMakeFiles/tts.dir/src/tts_presets.cpp.o
+[ 84%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/ChineseG2p.cpp.o
+[ 84%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/DictUtil.cpp.o
+[ 86%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/G2pglobal.cpp.o
+[ 87%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/Pinyin.cpp.o
+[ 87%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/PinyinRes.cpp.o
+[ 89%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/ToneConverter.cpp.o
+[ 90%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/U16Str.cpp.o
+[ 92%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/toneUtil/ManTone.cpp.o
+[ 92%] Building CXX object CMakeFiles/tts.dir/home/gexo/.cache/thirdparty/cpp-pinyin/src/toneUtil/ManToneUtil.cpp.o
+[ 93%] Linking CXX static library libtts.a
+[ 93%] Built target tts
+[ 93%] Building CXX object CMakeFiles/_spacemit_tts.dir/python/tts_bindings.cpp.o
+[ 93%] Building CXX object CMakeFiles/tts_file_demo.dir/examples/tts_file_demo.cpp.o
+[ 95%] Building CXX object CMakeFiles/tts_stream_demo.dir/examples/tts_stream_demo.cpp.o
+[ 96%] Linking CXX executable bin/tts_file_demo
+[ 98%] Linking CXX executable bin/tts_stream_demo
+[ 98%] Built target tts_file_demo
+[ 98%] Built target tts_stream_demo
+[100%] Linking CXX shared module python/_spacemit_tts.cpython-314-riscv64-linux-gnu.so
+[100%] Built target _spacemit_tts
+-- Install configuration: ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/tts
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/tts/tts_service.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libtts.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libkaldifst_core.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libkaldifst_fst.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/tts_file_demo
+-- Installing: /home/gexo/spacemit_robot/output/staging/share/doc/portaudio/README.md
+-- Installing: /home/gexo/spacemit_robot/output/staging/share/doc/portaudio/LICENSE.txt
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/pkgconfig/portaudio-2.0.pc
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/portaudio.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/pa_linux_alsa.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libportaudio.so
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libportaudio.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioTargets-noconfig.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfig.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/portaudio/portaudioConfigVersion.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/tts_stream_demo

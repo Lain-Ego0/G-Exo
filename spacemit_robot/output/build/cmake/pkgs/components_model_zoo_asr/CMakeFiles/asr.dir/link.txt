@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libasr.a CMakeFiles/asr.dir/src/model_downloader.cpp.o CMakeFiles/asr.dir/src/asr_engine.cpp.o CMakeFiles/asr.dir/src/backends/sensevoice/sensevoice_backend.cpp.o CMakeFiles/asr.dir/src/backends/qwen3_asr/qwen3_asr_backend.cpp.o CMakeFiles/asr.dir/src/backends/zipformer/zipformer_backend.cpp.o CMakeFiles/asr.dir/src/asr_adapter.cpp.o CMakeFiles/asr.dir/src/asr_presets.cpp.o
+/usr/bin/ranlib lib/libasr.a

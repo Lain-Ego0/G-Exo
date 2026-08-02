@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -flto=auto -Wl,--dependency-file=CMakeFiles/_spacemit_vad.dir/link.d  -o python/_spacemit_vad.cpython-314-riscv64-linux-gnu.so CMakeFiles/_spacemit_vad.dir/python/vad_bindings.cpp.o  lib/libvad.a lib/libsilero_vad.a /usr/lib/libonnxruntime.so -lcurl -lpthread

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/ssl_demo.dir/link.d CMakeFiles/ssl_demo.dir/examples/ssl_demo.cpp.o -o bin/ssl_demo  libsound_locator.a -lm -lfftw3f -lm

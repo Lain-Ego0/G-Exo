@@ -1,0 +1,11 @@
+[ 50%] Built target ess_imu_driver2_lib
+[ 75%] Built target mahony_ahrs_node
+[ 83%] Building CXX object CMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o
+In file included from /home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/epson_imu_uart_ros2_node.cpp:68:
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h: In member function ‘void EmbeddedMahonyAhrs::runAhrs(float, float, float, float, float, float, const rclcpp::Time&, sensor_msgs::msg::Imu&)’:
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h:175:5: error: expected primary-expression before ‘constexpr’
+  175 |     constexpr float MG2MPS2 = 9.80665f / 1000.0f;
+      |     ^~~~~~~~~
+gmake[2]: *** [CMakeFiles/ess_imu_driver2_node.dir/build.make:79：CMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o] 错误 1
+gmake[1]: *** [CMakeFiles/Makefile2:191：CMakeFiles/ess_imu_driver2_node.dir/all] 错误 2
+gmake: *** [Makefile:146：all] 错误 2

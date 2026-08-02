@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/example_multi.dir/link.d CMakeFiles/example_multi.dir/examples/multi_server.cpp.o -o bin/example_multi  lib/libmcp.a /usr/lib/riscv64-linux-gnu/libcurl.so /usr/lib/riscv64-linux-gnu/libcurl.so

@@ -1,0 +1,7 @@
+# pack-refs with: peeled fully-peeled sorted 
+1cda17390714e29fdcdc1e41433724dff442efd4 refs/remotes/origin/feat/add-doa-api
+b7654008ffb67c232510693dd67fa0366552689e refs/remotes/origin/main
+6f6e2874401f9f25062285548c0551bbef852b51 refs/tags/v1.1.0-rc1
+^467c16a2466d463dec50d640a913f5d2d4435065
+7a725aa6b7d7a5077acf52ad4ca4e3a191e769a9 refs/tags/v1.1.0-rc2
+^e7c7b072d008d8b528141550d9fa200eb5956d1d

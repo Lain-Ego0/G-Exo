@@ -1,0 +1,16 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/kaldifst-build/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-build/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-build/src/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-build/src/lib/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-build/src/script/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-build/src/extensions/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/kaldifst-build/kaldifst/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/kaldifst-build/kaldifst/csrc/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/portaudio-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

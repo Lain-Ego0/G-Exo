@@ -1,0 +1,14 @@
+# Target labels
+ openfst-populate
+# Source files and their labels
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/CMakeFiles/openfst-populate
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/CMakeFiles/openfst-populate.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/CMakeFiles/openfst-populate-complete.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-build.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-configure.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-download.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-install.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-mkdir.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-patch.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-test.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_tts/_deps/openfst-subbuild/openfst-populate-prefix/src/openfst-populate-stamp/openfst-populate-update.rule

@@ -1,0 +1,38 @@
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+-- ---- Building for platform: NONE
+-- ---- Building for interface: UART
+-- Configuring done (1.9s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2
+[ 50%] Built target ess_imu_driver2_lib
+[ 75%] Built target mahony_ahrs_node
+[ 83%] Building CXX object CMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o
+[ 91%] Building CXX object CMakeFiles/ess_imu_driver2_node.dir/src/mahony.cpp.o
+In file included from /home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/epson_imu_uart_ros2_node.cpp:68:
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h: In member function ‘void EmbeddedMahonyAhrs::runAhrs(float, float, float, float, float, float, const rclcpp::Time&, sensor_msgs::msg::Imu&)’:
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h:175:5: error: expected primary-expression before ‘constexpr’
+  175 |     constexpr float MG2MPS2 = 9.80665f / 1000.0f;
+      |     ^~~~~~~~~
+gmake[2]: *** [CMakeFiles/ess_imu_driver2_node.dir/build.make:79：CMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o] 错误 1
+gmake[1]: *** [CMakeFiles/Makefile2:191：CMakeFiles/ess_imu_driver2_node.dir/all] 错误 2
+gmake: *** [Makefile:146：all] 错误 2

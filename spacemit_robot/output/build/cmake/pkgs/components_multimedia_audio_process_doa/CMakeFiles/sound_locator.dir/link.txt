@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsound_locator.a CMakeFiles/sound_locator.dir/src/sound_locator.cpp.o CMakeFiles/sound_locator.dir/src/gcc_phat_pair.cpp.o CMakeFiles/sound_locator.dir/src/multi_sound_locator.cpp.o
+/usr/bin/ranlib libsound_locator.a

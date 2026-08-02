@@ -1,0 +1,8 @@
+# pack-refs with: peeled fully-peeled sorted 
+363dd6d1b40bf5eb089e83aef6ff431218b36f5a refs/remotes/origin/feat/add_moter_reg_rw_functions
+cda489a759170d36a9c1b2518dc009955ffefb18 refs/remotes/origin/feat/zhangrou/add-motor-ci-test
+10768cb060277ca7bb78f020192612f3938c8707 refs/remotes/origin/main
+6358d45ae5dd1500459aa162c2047f4c41eca2f4 refs/tags/v1.1.0-rc1
+^b42852be7e159aed1275f9e78777fa0233368939
+ffbecab4763cf498ff3fa1f5a92736bd15961c1a refs/tags/v1.1.0-rc2
+^54769bfca33e30aa2915d32b5fec6a634489a76a

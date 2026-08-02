@@ -1,0 +1,114 @@
+[0.000000] (-) TimerEvent: {}
+[0.000303] (ess_imu_driver2) JobQueued: {'identifier': 'ess_imu_driver2', 'dependencies': OrderedDict()}
+[0.001254] (ess_imu_driver2) JobStarted: {'identifier': 'ess_imu_driver2'}
+[0.026929] (ess_imu_driver2) JobProgress: {'identifier': 'ess_imu_driver2', 'progress': 'cmake'}
+[0.028321] (ess_imu_driver2) JobProgress: {'identifier': 'ess_imu_driver2', 'progress': 'build'}
+[0.029973] (ess_imu_driver2) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2', '--', '-j8', '-l8'], 'cwd': '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2', 'env': OrderedDict({'USER': 'gexo', 'SSH_CLIENT': '192.168.11.2 6092 22', 'LC_TIME': 'zh_CN.UTF-8', 'MESA_LOADER_DRIVER_OVERRIDE': 'pvr', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/riscv64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/gexo', 'OLDPWD': '/home/gexo', 'IM_CONFIG_ENTRY': 'profile', 'ROS_PYTHON_VERSION': '3', 'COGL_DRIVER': 'gles2', 'LC_MONETARY': 'zh_CN.UTF-8', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'humble', 'LOGNAME': 'gexo', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'XDG_SESSION_ID': '151', 'ROS_LOCALHOST_ONLY': '0', 'SAL_USE_VCLPLUGIN': 'qt6', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_ADDRESS': 'zh_CN.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'zh_CN.UTF-8', 'LC_TELEPHONE': 'zh_CN.UTF-8', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SAL_ENABLESKIA': '1', 'SHELL': '/bin/bash', 'LC_NAME': 'zh_CN.UTF-8', 'SDL_VIDEODRIVER': 'wayland', 'LC_MEASUREMENT': 'zh_CN.UTF-8', 'LC_IDENTIFICATION': 'zh_CN.UTF-8', 'GSK_RENDERER': 'gl', 'GDK_GL': 'gles', 'SAL_DISABLEGL': '1', 'PWD': '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2', 'SSH_CONNECTION': '192.168.11.2 6092 192.168.11.66 22', 'PYTHONPATH': '/opt/ros/humble/lib/python3.14/site-packages:/opt/ros/humble/lib/python3/dist-packages', 'LC_NUMERIC': 'zh_CN.UTF-8', 'LC_PAPER': 'zh_CN.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/humble'}), 'shell': False}
+[0.099392] (-) TimerEvent: {}
+[0.135095] (ess_imu_driver2) StdoutLine: {'line': b'[ 50%] Built target ess_imu_driver2_lib\n'}
+[0.147158] (ess_imu_driver2) StdoutLine: {'line': b'[ 75%] Built target mahony_ahrs_node\n'}
+[0.199525] (-) TimerEvent: {}
+[0.201773] (ess_imu_driver2) StdoutLine: {'line': b'[ 83%] Building CXX object CMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o\n'}
+[0.299654] (-) TimerEvent: {}
+[0.399961] (-) TimerEvent: {}
+[0.500262] (-) TimerEvent: {}
+[0.600558] (-) TimerEvent: {}
+[0.700865] (-) TimerEvent: {}
+[0.801144] (-) TimerEvent: {}
+[0.901439] (-) TimerEvent: {}
+[1.001749] (-) TimerEvent: {}
+[1.102042] (-) TimerEvent: {}
+[1.202347] (-) TimerEvent: {}
+[1.302645] (-) TimerEvent: {}
+[1.402940] (-) TimerEvent: {}
+[1.503243] (-) TimerEvent: {}
+[1.603534] (-) TimerEvent: {}
+[1.703846] (-) TimerEvent: {}
+[1.804144] (-) TimerEvent: {}
+[1.904445] (-) TimerEvent: {}
+[2.004740] (-) TimerEvent: {}
+[2.105086] (-) TimerEvent: {}
+[2.205390] (-) TimerEvent: {}
+[2.305677] (-) TimerEvent: {}
+[2.405969] (-) TimerEvent: {}
+[2.506262] (-) TimerEvent: {}
+[2.606551] (-) TimerEvent: {}
+[2.706853] (-) TimerEvent: {}
+[2.807160] (-) TimerEvent: {}
+[2.907470] (-) TimerEvent: {}
+[3.007781] (-) TimerEvent: {}
+[3.108085] (-) TimerEvent: {}
+[3.208389] (-) TimerEvent: {}
+[3.308683] (-) TimerEvent: {}
+[3.408978] (-) TimerEvent: {}
+[3.509293] (-) TimerEvent: {}
+[3.609589] (-) TimerEvent: {}
+[3.709880] (-) TimerEvent: {}
+[3.810170] (-) TimerEvent: {}
+[3.910500] (-) TimerEvent: {}
+[4.010822] (-) TimerEvent: {}
+[4.111113] (-) TimerEvent: {}
+[4.211407] (-) TimerEvent: {}
+[4.311711] (-) TimerEvent: {}
+[4.412002] (-) TimerEvent: {}
+[4.512290] (-) TimerEvent: {}
+[4.612583] (-) TimerEvent: {}
+[4.712878] (-) TimerEvent: {}
+[4.813191] (-) TimerEvent: {}
+[4.913494] (-) TimerEvent: {}
+[5.013795] (-) TimerEvent: {}
+[5.114065] (-) TimerEvent: {}
+[5.214321] (-) TimerEvent: {}
+[5.314641] (-) TimerEvent: {}
+[5.414953] (-) TimerEvent: {}
+[5.515275] (-) TimerEvent: {}
+[5.615561] (-) TimerEvent: {}
+[5.715851] (-) TimerEvent: {}
+[5.816135] (-) TimerEvent: {}
+[5.916426] (-) TimerEvent: {}
+[6.016725] (-) TimerEvent: {}
+[6.117040] (-) TimerEvent: {}
+[6.217332] (-) TimerEvent: {}
+[6.282947] (ess_imu_driver2) StderrLine: {'line': b'In file included from /home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/epson_imu_uart_ros2_node.cpp:68:\n'}
+[6.283516] (ess_imu_driver2) StderrLine: {'line': b'/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h: In member function \xe2\x80\x98void EmbeddedMahonyAhrs::runAhrs(float, float, float, float, float, float, const rclcpp::Time&, sensor_msgs::msg::Imu&)\xe2\x80\x99:\n'}
+[6.283792] (ess_imu_driver2) StderrLine: {'line': b'/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h:175:5: error: expected primary-expression before \xe2\x80\x98constexpr\xe2\x80\x99\n'}
+[6.284042] (ess_imu_driver2) StderrLine: {'line': b'  175 |     constexpr float MG2MPS2 = 9.80665f / 1000.0f;\n'}
+[6.284288] (ess_imu_driver2) StderrLine: {'line': b'      |     ^~~~~~~~~\n'}
+[6.317447] (-) TimerEvent: {}
+[6.417728] (-) TimerEvent: {}
+[6.518027] (-) TimerEvent: {}
+[6.618328] (-) TimerEvent: {}
+[6.718619] (-) TimerEvent: {}
+[6.818901] (-) TimerEvent: {}
+[6.919193] (-) TimerEvent: {}
+[7.019485] (-) TimerEvent: {}
+[7.119775] (-) TimerEvent: {}
+[7.220065] (-) TimerEvent: {}
+[7.320360] (-) TimerEvent: {}
+[7.420672] (-) TimerEvent: {}
+[7.520963] (-) TimerEvent: {}
+[7.621296] (-) TimerEvent: {}
+[7.721600] (-) TimerEvent: {}
+[7.821885] (-) TimerEvent: {}
+[7.922180] (-) TimerEvent: {}
+[8.022475] (-) TimerEvent: {}
+[8.122745] (-) TimerEvent: {}
+[8.223004] (-) TimerEvent: {}
+[8.323296] (-) TimerEvent: {}
+[8.423594] (-) TimerEvent: {}
+[8.523900] (-) TimerEvent: {}
+[8.624209] (-) TimerEvent: {}
+[8.724506] (-) TimerEvent: {}
+[8.824805] (-) TimerEvent: {}
+[8.925116] (-) TimerEvent: {}
+[9.025415] (-) TimerEvent: {}
+[9.125706] (-) TimerEvent: {}
+[9.226007] (-) TimerEvent: {}
+[9.326306] (-) TimerEvent: {}
+[9.369825] (ess_imu_driver2) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/ess_imu_driver2_node.dir/build.make:79\xef\xbc\x9aCMakeFiles/ess_imu_driver2_node.dir/src/epson_imu_uart_ros2_node.cpp.o] \xe9\x94\x99\xe8\xaf\xaf 1\n'}
+[9.370505] (ess_imu_driver2) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:191\xef\xbc\x9aCMakeFiles/ess_imu_driver2_node.dir/all] \xe9\x94\x99\xe8\xaf\xaf 2\n'}
+[9.371113] (ess_imu_driver2) StderrLine: {'line': b'gmake: *** [Makefile:146\xef\xbc\x9aall] \xe9\x94\x99\xe8\xaf\xaf 2\n'}
+[9.375513] (ess_imu_driver2) CommandEnded: {'returncode': 2}
+[9.416687] (ess_imu_driver2) JobEnded: {'identifier': 'ess_imu_driver2', 'rc': 2}
+[9.426379] (-) TimerEvent: {}
+[9.427337] (-) EventReactorShutdown: {}

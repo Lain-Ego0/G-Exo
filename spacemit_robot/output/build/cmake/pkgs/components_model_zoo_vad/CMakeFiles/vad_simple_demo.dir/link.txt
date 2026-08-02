@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/vad_simple_demo.dir/link.d CMakeFiles/vad_simple_demo.dir/examples/simple_demo.cpp.o -o bin/vad_simple_demo  lib/libvad.a -lpthread -lm lib/libsilero_vad.a /usr/lib/libonnxruntime.so -lpthread -lcurl

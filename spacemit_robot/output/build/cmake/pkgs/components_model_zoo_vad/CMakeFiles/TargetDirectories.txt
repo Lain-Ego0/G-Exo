@@ -1,0 +1,12 @@
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/silero_vad.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/vad.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/vad_simple_demo.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/_spacemit_vad.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/vad-python-wheel.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/vad-install-python.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/edit_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/rebuild_cache.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/list_install_components.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/install.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/install/local.dir
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vad/CMakeFiles/install/strip.dir

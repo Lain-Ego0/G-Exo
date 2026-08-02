@@ -1,0 +1,8 @@
+In file included from /home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/epson_imu_uart_ros2_node.cpp:68:
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h: In constructor ‘EmbeddedMahonyAhrs::EmbeddedMahonyAhrs(double, double, const std::string&)’:
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h:32:34: warning: ‘*this.EmbeddedMahonyAhrs::acc_norm_min_g_’ is used uninitialized [-Wuninitialized]
+   32 |               static_cast<float>(acc_norm_min_g_),
+      |                                  ^~~~~~~~~~~~~~~
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/src/mahony_embedded.h:33:34: warning: ‘*this.EmbeddedMahonyAhrs::acc_norm_max_g_’ is used uninitialized [-Wuninitialized]
+   33 |               static_cast<float>(acc_norm_max_g_)),
+      |                                  ^~~~~~~~~~~~~~~

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/CMakeFiles/portaudio-populate"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/CMakeFiles/portaudio-populate.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/CMakeFiles/portaudio-populate-complete.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-build.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-configure.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-download.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-install.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-patch.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-test.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_multimedia_audio/_deps/portaudio-subbuild/portaudio-populate-prefix/src/portaudio-populate-stamp/portaudio-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"portaudio-populate"
+		],
+		"name" : "portaudio-populate"
+	}
+}

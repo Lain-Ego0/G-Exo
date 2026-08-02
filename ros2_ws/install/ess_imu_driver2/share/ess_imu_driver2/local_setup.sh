@@ -1,1 +1,1 @@
-/home/hajies/G-Exo/ros2_ws/build/ess_imu_driver2/ament_cmake_environment_hooks/local_setup.sh
+/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2/ament_cmake_environment_hooks/local_setup.sh

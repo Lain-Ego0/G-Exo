@@ -1,0 +1,6 @@
+# pack-refs with: peeled fully-peeled sorted 
+98b000deabc4e43d87f5da9cb6988e44f714e639 refs/remotes/origin/fix/k1-fp16-compat
+640d4df787c0778863eab2a5f5e47ddc85b2c8cc refs/remotes/origin/main
+0a1820cf3138ea0b58c09b83fdd4011f1d88aed5 refs/tags/v1.1.0-rc1
+7145b2702b31c6ae020c07ac8ae052cc15f5fafd refs/tags/v1.1.0-rc2
+^60b0b5da926dc1649031e78cfd680927ce6f9afe

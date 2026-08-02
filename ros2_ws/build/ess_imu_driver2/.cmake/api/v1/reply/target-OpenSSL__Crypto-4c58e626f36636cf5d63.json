@@ -1,0 +1,207 @@
+{
+	"abstract" : true,
+	"backtrace" : 30,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"find_package",
+			"include",
+			"get_default_rmw_implementation"
+		],
+		"files" : 
+		[
+			"/usr/share/cmake-4.2/Modules/FindOpenSSL.cmake",
+			"/opt/ros/humble/share/fastrtps/cmake/fastrtps-config.cmake",
+			"/opt/ros/humble/share/rmw_fastrtps_shared_cpp/cmake/rmw_fastrtps_shared_cpp-extras.cmake",
+			"/opt/ros/humble/share/rmw_fastrtps_shared_cpp/cmake/rmw_fastrtps_shared_cppConfig.cmake",
+			"/opt/ros/humble/share/rmw_fastrtps_cpp/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rmw_fastrtps_cpp/cmake/rmw_fastrtps_cppConfig.cmake",
+			"/opt/ros/humble/share/rmw_implementation_cmake/cmake/get_default_rmw_implementation.cmake",
+			"/opt/ros/humble/share/rmw_implementation/cmake/rmw_implementation-extras.cmake",
+			"/opt/ros/humble/share/rmw_implementation/cmake/rmw_implementationConfig.cmake",
+			"/opt/ros/humble/share/rcl/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rcl/cmake/rclConfig.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/libstatistics_collectorConfig.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/rclcppConfig.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 15
+			},
+			{
+				"command" : 1,
+				"file" : 15,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"file" : 14,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 14,
+				"line" : 41,
+				"parent" : 2
+			},
+			{
+				"file" : 13,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 13,
+				"line" : 21,
+				"parent" : 4
+			},
+			{
+				"file" : 12,
+				"parent" : 5
+			},
+			{
+				"command" : 2,
+				"file" : 12,
+				"line" : 41,
+				"parent" : 6
+			},
+			{
+				"file" : 11,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 11,
+				"line" : 21,
+				"parent" : 8
+			},
+			{
+				"file" : 10,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 10,
+				"line" : 41,
+				"parent" : 10
+			},
+			{
+				"file" : 9,
+				"parent" : 11
+			},
+			{
+				"command" : 1,
+				"file" : 9,
+				"line" : 21,
+				"parent" : 12
+			},
+			{
+				"file" : 8,
+				"parent" : 13
+			},
+			{
+				"command" : 2,
+				"file" : 8,
+				"line" : 41,
+				"parent" : 14
+			},
+			{
+				"file" : 7,
+				"parent" : 15
+			},
+			{
+				"command" : 3,
+				"file" : 7,
+				"line" : 19,
+				"parent" : 16
+			},
+			{
+				"command" : 1,
+				"file" : 6,
+				"line" : 64,
+				"parent" : 17
+			},
+			{
+				"file" : 5,
+				"parent" : 18
+			},
+			{
+				"command" : 2,
+				"file" : 5,
+				"line" : 41,
+				"parent" : 19
+			},
+			{
+				"file" : 4,
+				"parent" : 20
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 21,
+				"parent" : 21
+			},
+			{
+				"file" : 3,
+				"parent" : 22
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 41,
+				"parent" : 23
+			},
+			{
+				"file" : 2,
+				"parent" : 24
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 19,
+				"parent" : 25
+			},
+			{
+				"file" : 1,
+				"parent" : 26
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 53,
+				"parent" : 27
+			},
+			{
+				"file" : 0,
+				"parent" : 28
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 772,
+				"parent" : 29
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"local" : true,
+	"name" : "OpenSSL::Crypto",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "UNKNOWN_LIBRARY"
+}

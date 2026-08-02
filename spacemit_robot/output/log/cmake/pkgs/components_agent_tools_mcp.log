@@ -1,0 +1,53 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/agent_tools/mcp -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found CURL: /usr/lib/riscv64-linux-gnu/libcurl.so (found version "8.18.0")
+-- Using the multi-header code from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include/
+-- Configuring done (10.4s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp -j8
+[  4%] Building CXX object CMakeFiles/mcp_static.dir/src/mcp_manager.cpp.o
+[  9%] Building CXX object CMakeFiles/mcp_static.dir/src/mcp_client.cpp.o
+[ 13%] Building CXX object CMakeFiles/mcp_static.dir/src/json_rpc.cpp.o
+[ 18%] Building CXX object CMakeFiles/mcp_static.dir/src/transport_stdio.cpp.o
+[ 22%] Building CXX object CMakeFiles/mcp_static.dir/src/mcp.cpp.o
+[ 27%] Building CXX object CMakeFiles/mcp_shared.dir/src/mcp.cpp.o
+[ 31%] Building CXX object CMakeFiles/mcp_static.dir/src/transport_unix_socket.cpp.o
+[ 36%] Building CXX object CMakeFiles/mcp_shared.dir/src/json_rpc.cpp.o
+[ 40%] Building CXX object CMakeFiles/mcp_static.dir/src/transport_http.cpp.o
+[ 45%] Building CXX object CMakeFiles/mcp_shared.dir/src/mcp_client.cpp.o
+[ 50%] Building CXX object CMakeFiles/mcp_shared.dir/src/mcp_manager.cpp.o
+[ 54%] Building CXX object CMakeFiles/mcp_shared.dir/src/transport_stdio.cpp.o
+[ 59%] Building CXX object CMakeFiles/mcp_shared.dir/src/transport_unix_socket.cpp.o
+[ 63%] Building CXX object CMakeFiles/mcp_shared.dir/src/transport_http.cpp.o
+[ 68%] Linking CXX static library lib/libmcp.a
+[ 68%] Built target mcp_static
+[ 72%] Building CXX object CMakeFiles/example_multi.dir/examples/multi_server.cpp.o
+[ 77%] Building CXX object CMakeFiles/example_simple.dir/examples/simple_client.cpp.o
+[ 81%] Building CXX object CMakeFiles/llm_chat.dir/examples/llm_chat.cpp.o
+[ 86%] Linking CXX shared library lib/libmcp.so
+[ 86%] Built target mcp_shared
+[ 90%] Linking CXX executable bin/example_simple
+[ 90%] Built target example_simple
+[ 95%] Linking CXX executable bin/example_multi
+[ 95%] Built target example_multi
+[100%] Linking CXX executable bin/llm_chat
+[100%] Built target llm_chat
+-- Install configuration: ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/mcp_service.hpp
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libmcp.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libmcp.so.1.0.0
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libmcp.so.1
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libmcp.so
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/mcp/mcp-targets.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/mcp/mcp-targets-noconfig.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/mcp/mcp-config.cmake
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/cmake/mcp/mcp-config-version.cmake

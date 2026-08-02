@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision/examples/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision/applications/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision/tests/benchmarks/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_vision/tests/cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

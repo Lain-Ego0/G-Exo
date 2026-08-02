@@ -1,0 +1,185 @@
+>>> cmake -S /home/gexo/spacemit_robot/components/model_zoo/asr -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+-- Checking for module 'sndfile'
+--   Found sndfile, version 1.2.2
+-- Checking for module 'libcurl'
+--   Found libcurl, version 8.18.0
+-- Checking for module 'fftw3f'
+--   Found fftw3f, version 3.3.10
+-- Checking for module 'samplerate'
+--   Found samplerate, version 0.2.2
+-- [kaldi-native-fbank] Trying gitee mirror: https://gitee.com/spacemit-robotics/kaldi-native-fbank.git
+-- [kaldi-native-fbank] Downloading kissfft from https://archive.spacemit.com/spacemit-ai/thirdparty/kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec.zip
+-- [download 100% complete]
+CMake Deprecation Warning at /home/gexo/.cache/thirdparty/kaldi-native-fbank/CMakeLists.txt:28 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- CMAKE_BUILD_TYPE: Release
+-- CMAKE_EXPORT_COMPILE_COMMANDS: 
+-- BUILD_SHARED_LIBS: OFF
+-- KALDI_NATIVE_FBANK_BUILD_TESTS: OFF
+-- KALDI_NATIVE_FBANK_BUILD_PYTHON: OFF
+-- KALDI_NATIVE_FBANK_ENABLE_CHECK: OFF
+-- KALDI_NATIVE_FBANK_ENABLE_CHECK: OFF
+-- CMAKE_CXX_FLAGS: 
+-- CMAKE_INSTALL_PREFIX: /home/gexo/spacemit_robot/output/staging
+-- Looking for C++ include cxxabi.h
+-- Looking for C++ include cxxabi.h - found
+-- Looking for C++ include execinfo.h
+-- Looking for C++ include execinfo.h - found
+-- Downloading kissfft from /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec.zip
+-- kissfft is downloaded to /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-src
+-- kissfft's binary dir is /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-build
+CMake Deprecation Warning at /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-src/CMakeLists.txt:35 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Building KissFFT with datatype: float
+-- Building static library
+-- PKGINCLUDEDIR is include/kissfft
+-- Disable building Python
+CMake Warning at cmake/FetchSenseVoiceModel.cmake:34 (message):
+  SenseVoice model not found at /home/gexo/.cache/models/asr/sensevoice,
+  fetch disabled (ASR_MODEL_FETCH_OFF).  Will attempt runtime download.
+Call Stack (most recent call first):
+  CMakeLists.txt:84 (include)
+
+
+CMake Warning at cmake/FetchZipformerModel.cmake:34 (message):
+  Zipformer model not found at /home/gexo/.cache/models/asr/zipformer, fetch
+  disabled (ASR_MODEL_FETCH_OFF).  Will attempt runtime download.
+Call Stack (most recent call first):
+  CMakeLists.txt:85 (include)
+
+
+CMake Warning at cmake/FetchQwen3AsrModel.cmake:41 (message):
+  Qwen3-ASR model not found at
+  /home/gexo/.cache/models/asr/qwen3-asr-1.7B-dynq-q40, fetch disabled
+  (ASR_MODEL_FETCH_OFF).  Will attempt runtime download.
+Call Stack (most recent call first):
+  CMakeLists.txt:86 (include)
+
+
+-- Checking for module 'portaudio-2.0'
+--   Found portaudio-2.0, version 19
+-- ASR Framework library enabled
+-- SpaceMIT EP enabled: /usr/include, lib: /usr/lib/libspacemit_ep.so
+-- ASR file demo executable enabled
+-- ASR stream demo executable enabled
+-- Python found: /usr/bin/python3 (3.14.4)
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- Python bindings enabled (_spacemit_asr module for Python 3.14.4)
+-- 
+-- === ASR Build Configuration ===
+--   BUILD_STREAM_DEMO:      ON
+--   BUILD_PYTHON_BINDINGS:  ON
+-- 
+-- Configuring done (14.0s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr -j8
+[  2%] Building CXX object CMakeFiles/sensevoice.dir/src/backends/sensevoice/sensevoice_model.cpp.o
+[  4%] Building CXX object CMakeFiles/sensevoice.dir/src/backends/sensevoice/feature_extractor.cpp.o
+[  6%] Building CXX object CMakeFiles/sensevoice.dir/src/backends/sensevoice/hotword_scorer.cpp.o
+[  8%] Building CXX object CMakeFiles/sensevoice.dir/src/backends/sensevoice/tokenizer.cpp.o
+[ 10%] Generating python/spacemit_asr/__init__.py
+[ 13%] Building C object _deps/kissfft-build/CMakeFiles/kissfft.dir/kiss_fftnd.c.o
+[ 15%] Building C object _deps/kissfft-build/CMakeFiles/kissfft.dir/kiss_fft.c.o
+[ 17%] Building C object _deps/kissfft-build/CMakeFiles/kissfft.dir/kfc.c.o
+[ 19%] Generating python/spacemit_asr/callback.py
+[ 21%] Generating python/spacemit_asr/engine.py
+[ 23%] Generating python/spacemit_asr/stream.py
+[ 26%] Generating python/spacemit_asr/utils.py
+[ 26%] Built target spacemit_asr_python_package
+[ 28%] Building C object _deps/kissfft-build/CMakeFiles/kissfft.dir/kiss_fftndr.c.o
+[ 30%] Building C object _deps/kissfft-build/CMakeFiles/kissfft.dir/kiss_fftr.c.o
+[ 32%] Linking C static library ../../lib/libkissfft-float.a
+[ 32%] Built target kissfft
+[ 34%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/feature-fbank.cc.o
+[ 36%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/feature-raw-audio-samples.cc.o
+[ 39%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/feature-functions.cc.o
+[ 41%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/feature-mfcc.cc.o
+[ 43%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/feature-window.cc.o
+[ 45%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/istft.cc.o
+[ 47%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/kaldi-math.cc.o
+[ 50%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/mel-computations.cc.o
+[ 52%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/online-feature.cc.o
+[ 54%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/rfft.cc.o
+[ 56%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/stft.cc.o
+[ 58%] Building CXX object kaldi-native-fbank-build/kaldi-native-fbank/csrc/CMakeFiles/kaldi-native-fbank-core.dir/whisper-feature.cc.o
+[ 60%] Linking CXX static library ../../../lib/libkaldi-native-fbank-core.a
+[ 60%] Built target kaldi-native-fbank-core
+[ 63%] Building CXX object CMakeFiles/zipformer.dir/src/backends/zipformer/zipformer_ctc_model.cpp.o
+[ 65%] Building CXX object CMakeFiles/zipformer.dir/src/backends/zipformer/zipformer_feature_extractor.cpp.o
+[ 67%] Linking CXX static library lib/libsensevoice.a
+[ 67%] Built target sensevoice
+[ 69%] Linking CXX static library lib/libzipformer.a
+[ 69%] Built target zipformer
+[ 73%] Building CXX object CMakeFiles/asr.dir/src/asr_engine.cpp.o
+[ 73%] Building CXX object CMakeFiles/asr.dir/src/model_downloader.cpp.o
+[ 76%] Building CXX object CMakeFiles/asr.dir/src/backends/qwen3_asr/qwen3_asr_backend.cpp.o
+[ 78%] Building CXX object CMakeFiles/asr.dir/src/backends/sensevoice/sensevoice_backend.cpp.o
+[ 80%] Building CXX object CMakeFiles/asr.dir/src/asr_presets.cpp.o
+[ 82%] Building CXX object CMakeFiles/asr.dir/src/backends/zipformer/zipformer_backend.cpp.o
+[ 84%] Building CXX object CMakeFiles/asr.dir/src/asr_adapter.cpp.o
+[ 86%] Linking CXX static library lib/libasr.a
+[ 86%] Built target asr
+[ 91%] Building CXX object CMakeFiles/_spacemit_asr.dir/python/asr_bindings.cpp.o
+[ 91%] Building CXX object CMakeFiles/asr_file_demo.dir/examples/asr_file_demo.cpp.o
+[ 93%] Building CXX object CMakeFiles/asr_stream_demo.dir/examples/asr_stream_demo.cpp.o
+[ 95%] Linking CXX executable bin/asr_file_demo
+[ 97%] Linking CXX executable bin/asr_stream_demo
+[ 97%] Built target asr_file_demo
+[ 97%] Built target asr_stream_demo
+[100%] Linking CXX shared module python/spacemit_asr/_spacemit_asr.cpython-314-riscv64-linux-gnu.so
+[100%] Built target _spacemit_asr
+-- Install configuration: ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libkaldi-native-fbank-core.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/feature-fbank.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/feature-functions.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/feature-mfcc.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/feature-raw-audio-samples.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/feature-window.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/istft.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/kaldi-math.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/log.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/mel-computations.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/online-feature.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/rfft.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/stft.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/kaldi-native-fbank/csrc/whisper-feature.h
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libasr.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libsensevoice.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libzipformer.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libstt.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/include/asr_service.h
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/lib/libkaldi-native-fbank-core.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libkissfft-float.a
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/asr_file_demo
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/asr_stream_demo
+-- Set non-toolchain portion of runtime path of "/home/gexo/spacemit_robot/output/staging/bin/asr_stream_demo" to ""
+-- Installing: /home/gexo/spacemit_robot/output/staging/./_spacemit_asr.cpython-314-riscv64-linux-gnu.so

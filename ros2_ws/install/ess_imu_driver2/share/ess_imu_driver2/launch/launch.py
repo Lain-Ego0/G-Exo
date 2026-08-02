@@ -1,1 +1,1 @@
-/home/hajies/G-Exo/ros2_ws/src/ess_imu_driver2/launch/launch.py
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/launch/launch.py

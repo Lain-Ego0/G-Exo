@@ -1,0 +1,13 @@
+# Target labels
+ webrtc_ap_ep
+# Source files and their labels
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep-complete.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-build.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-configure.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-download.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-install.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-mkdir.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-patch.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-update.rule

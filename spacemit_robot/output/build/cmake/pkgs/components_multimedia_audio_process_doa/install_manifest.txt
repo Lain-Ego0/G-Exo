@@ -1,0 +1,5 @@
+/home/gexo/spacemit_robot/output/staging/lib/libsound_locator.a
+/home/gexo/spacemit_robot/output/staging/include/doa_service.h
+/home/gexo/spacemit_robot/output/staging/bin/ssl_demo
+/home/gexo/spacemit_robot/output/staging/lib/python/spacemit_audio_process/_spacemit_audio_process.cpython-314-riscv64-linux-gnu.so
+/home/gexo/spacemit_robot/output/staging/lib/python/spacemit_audio_process/__init__.py

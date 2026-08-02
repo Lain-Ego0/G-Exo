@@ -1,0 +1,1 @@
+/home/gexo/G-Exo/ros2_ws/src/ess_imu_driver2/scripts/imu_auto_detect.py

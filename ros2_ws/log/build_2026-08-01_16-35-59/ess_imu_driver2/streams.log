@@ -1,0 +1,63 @@
+[0.030s] Invoking command in '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2 -- -j8 -l8
+[0.072s] CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.073s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.073s]   CMake.
+[0.073s] 
+[0.073s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.074s]   to tell CMake that the project requires at least <min> but has been updated
+[0.074s]   to work with policies introduced by <max> or earlier.
+[0.074s] 
+[0.074s] 
+[0.090s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.631s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.648s] -- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)
+[0.736s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.744s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.763s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.797s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.840s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.955s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.958s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.148s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.287s] -- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.444s] -- ---- Building for platform: NONE
+[1.444s] -- ---- Building for interface: UART
+[1.769s] -- Configuring done (1.7s)
+[1.817s] -- Generating done (0.0s)
+[1.881s] -- Build files have been written to: /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2
+[1.960s] [ 54%] Built target ess_imu_driver2_lib
+[1.977s] [ 81%] Built target mahony_ahrs_node
+[2.019s] [100%] Built target ess_imu_driver2_node
+[2.040s] Invoked command in '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2 -- -j8 -l8
+[2.061s] Invoking command in '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2
+[2.076s] -- Install configuration: ""
+[2.077s] -- Execute custom install script
+[2.077s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/ess_imu_driver2_node
+[2.079s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/__pycache__/imu4_launch.cpython-314.pyc
+[2.079s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/__pycache__/imu4_mahony_launch.cpython-314.pyc
+[2.079s] -- Symlinking: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/__pycache__/imu_auto_launch.cpython-314.pyc
+[2.098s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/imu4_launch.py
+[2.098s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/imu4_mahony_launch.py
+[2.098s] -- Symlinking: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/imu_auto_launch.py
+[2.115s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/launch.py
+[2.116s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/mahony_launch.py
+[2.116s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/raw_launch.py
+[2.116s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/launch/tc_launch.py
+[2.116s] -- Symlinking: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/imu_auto_detect.py
+[2.133s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/ess_imu_driver2/mahony_ahrs_node
+[2.133s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ament_index/resource_index/package_run_dependencies/ess_imu_driver2
+[2.134s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ament_index/resource_index/parent_prefix_path/ess_imu_driver2
+[2.134s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/ament_prefix_path.sh
+[2.135s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/ament_prefix_path.dsv
+[2.135s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/path.sh
+[2.136s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/environment/path.dsv
+[2.136s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.bash
+[2.137s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.sh
+[2.137s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.zsh
+[2.137s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/local_setup.dsv
+[2.137s] -- Symlinking: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/package.dsv
+[2.154s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ament_index/resource_index/packages/ess_imu_driver2
+[2.154s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/cmake/ess_imu_driver2Config.cmake
+[2.155s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/cmake/ess_imu_driver2Config-version.cmake
+[2.155s] -- Up-to-date symlink: /home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/share/ess_imu_driver2/package.xml
+[2.158s] Invoked command in '/home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/gexo/G-Exo/ros2_ws/build/ess_imu_driver2

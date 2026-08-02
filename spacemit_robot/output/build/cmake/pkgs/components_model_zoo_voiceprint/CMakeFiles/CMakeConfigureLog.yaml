@@ -1,0 +1,3015 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/uname"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/uname"
+      - "/home/gexo/spacemit_robot/output/staging/uname"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/uname"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/uname"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/uname"
+      - "/home/gexo/spacemit_robot/output/staging/bin/uname"
+      - "/opt/ros/humble/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/usr/sbin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Linux - 6.18.3-generic - riscv64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gmake"
+      - "make"
+      - "smake"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/gmake"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/gmake"
+      - "/home/gexo/spacemit_robot/output/staging/gmake"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/gmake"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/gmake"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/gmake"
+      - "/home/gexo/spacemit_robot/output/staging/bin/gmake"
+      - "/opt/ros/humble/bin/gmake"
+      - "/usr/local/sbin/gmake"
+      - "/usr/local/bin/gmake"
+      - "/usr/sbin/gmake"
+    found: "/usr/bin/gmake"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:64 (_cmake_find_compiler)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER"
+    description: "C compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cc"
+      - "gcc"
+      - "cl"
+      - "bcc"
+      - "xlc"
+      - "icx"
+      - "clang"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/cc"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/cc"
+      - "/home/gexo/spacemit_robot/output/staging/cc"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/cc"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/cc"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/cc"
+      - "/home/gexo/spacemit_robot/output/staging/bin/cc"
+      - "/opt/ros/humble/bin/cc"
+      - "/usr/local/sbin/cc"
+      - "/usr/local/bin/cc"
+      - "/usr/sbin/cc"
+    found: "/usr/bin/cc"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "/usr/share/cmake-4.2/Modules/"
+    found: "/usr/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/cc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/4.2.3/CompilerIdC/a.out
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/ar"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/ranlib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/strip"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/ld"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/nm"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/objdump"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/objcopy"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/readelf"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/dlltool"
+      - "/home/gexo/spacemit_robot/output/staging/bin/dlltool"
+      - "/opt/ros/humble/bin/dlltool"
+      - "/usr/local/sbin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/usr/sbin/dlltool"
+      - "/sbin/dlltool"
+      - "/bin/dlltool"
+      - "/usr/games/dlltool"
+      - "/usr/local/games/dlltool"
+      - "/snap/bin/dlltool"
+    found: false
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    found: "/usr/bin/addr2line"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/tapi"
+      - "/home/gexo/spacemit_robot/output/staging/bin/tapi"
+      - "/opt/ros/humble/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/usr/sbin/tapi"
+      - "/sbin/tapi"
+      - "/bin/tapi"
+      - "/usr/games/tapi"
+      - "/usr/local/games/tapi"
+      - "/snap/bin/tapi"
+    found: false
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_AR"
+    description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ar-15.2"
+      - "gcc-ar-15"
+      - "gcc-ar15"
+      - "gcc-ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ar-15.2"
+      - "/home/gexo/spacemit_robot/output/staging/bin/gcc-ar-15.2"
+      - "/opt/ros/humble/bin/gcc-ar-15.2"
+      - "/usr/local/sbin/gcc-ar-15.2"
+      - "/usr/local/bin/gcc-ar-15.2"
+      - "/usr/sbin/gcc-ar-15.2"
+      - "/sbin/gcc-ar-15.2"
+      - "/bin/gcc-ar-15.2"
+      - "/usr/games/gcc-ar-15.2"
+      - "/usr/local/games/gcc-ar-15.2"
+      - "/snap/bin/gcc-ar-15.2"
+    found: "/usr/bin/gcc-ar-15"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_RANLIB"
+    description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ranlib-15.2"
+      - "gcc-ranlib-15"
+      - "gcc-ranlib15"
+      - "gcc-ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ranlib-15.2"
+      - "/home/gexo/spacemit_robot/output/staging/bin/gcc-ranlib-15.2"
+      - "/opt/ros/humble/bin/gcc-ranlib-15.2"
+      - "/usr/local/sbin/gcc-ranlib-15.2"
+      - "/usr/local/bin/gcc-ranlib-15.2"
+      - "/usr/sbin/gcc-ranlib-15.2"
+      - "/sbin/gcc-ranlib-15.2"
+      - "/bin/gcc-ranlib-15.2"
+      - "/usr/games/gcc-ranlib-15.2"
+      - "/usr/local/games/gcc-ranlib-15.2"
+      - "/snap/bin/gcc-ranlib-15.2"
+    found: "/usr/bin/gcc-ranlib-15"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompiler.cmake:54 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER"
+    description: "CXX compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "c++"
+      - "CC"
+      - "g++"
+      - "aCC"
+      - "cl"
+      - "bcc"
+      - "xlC"
+      - "icpx"
+      - "icx"
+      - "clang++"
+    candidate_directories:
+      - "/usr/bin/"
+    found: "/usr/bin/c++"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "/usr/share/cmake-4.2/Modules/"
+    found: "/usr/share/cmake-4.2/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/c++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/4.2.3/CompilerIdCXX/a.out
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_AR"
+    description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ar-15.2"
+      - "gcc-ar-15"
+      - "gcc-ar15"
+      - "gcc-ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ar-15.2"
+      - "/home/gexo/spacemit_robot/output/staging/bin/gcc-ar-15.2"
+      - "/opt/ros/humble/bin/gcc-ar-15.2"
+      - "/usr/local/sbin/gcc-ar-15.2"
+      - "/usr/local/bin/gcc-ar-15.2"
+      - "/usr/sbin/gcc-ar-15.2"
+      - "/sbin/gcc-ar-15.2"
+      - "/bin/gcc-ar-15.2"
+      - "/usr/games/gcc-ar-15.2"
+      - "/usr/local/games/gcc-ar-15.2"
+      - "/snap/bin/gcc-ar-15.2"
+    found: "/usr/bin/gcc-ar-15"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_RANLIB"
+    description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ranlib-15.2"
+      - "gcc-ranlib-15"
+      - "gcc-ranlib15"
+      - "gcc-ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ranlib-15.2"
+      - "/home/gexo/spacemit_robot/output/staging/bin/gcc-ranlib-15.2"
+      - "/opt/ros/humble/bin/gcc-ranlib-15.2"
+      - "/usr/local/sbin/gcc-ranlib-15.2"
+      - "/usr/local/bin/gcc-ranlib-15.2"
+      - "/usr/sbin/gcc-ranlib-15.2"
+      - "/sbin/gcc-ranlib-15.2"
+      - "/bin/gcc-ranlib-15.2"
+      - "/usr/games/gcc-ranlib-15.2"
+      - "/usr/local/games/gcc-ranlib-15.2"
+      - "/snap/bin/gcc-ranlib-15.2"
+    found: "/usr/bin/gcc-ranlib-15"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2"
+      binary: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6c9f6/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_6c9f6.dir/build.make CMakeFiles/cmTC_6c9f6.dir/build
+        gmake[1]: Entering directory '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2'
+        Building C object CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -v -o CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        Target: riscv64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_6c9f6.dir/'
+         /usr/libexec/gcc/riscv64-linux-gnu/15/cc1 -quiet -v -imultilib . -imultiarch riscv64-linux-gnu /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_6c9f6.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=spacemit-x100 -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -version -fstack-protector-strong -Wformat -Wformat-security -fzero-init-padding-bits=all -Wbidi-chars=any -o /tmp/ccb4Ziij.s
+        GNU C23 (Bianbu 15.2.0-16ubuntu1bb3) version 15.2.0 (riscv64-linux-gnu)
+        	compiled by GNU C version 15.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/local/include/riscv64-linux-gnu"
+        ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed/riscv64-linux-gnu"
+        ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/../../../../riscv64-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/riscv64-linux-gnu/15/include
+         /usr/local/include
+         /usr/include/riscv64-linux-gnu
+         /usr/include
+        End of search list.
+        Compiler executable checksum: 14e28b9a96a3d39702381bd9d0c66e86
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_6c9f6.dir/'
+         /usr/bin/riscv64-linux-gnu-as -v --traditional-format -fpic -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -o CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o /tmp/ccb4Ziij.s
+        GNU assembler version 2.46 (riscv64-linux-gnu) using BFD version (GNU Binutils for Bianbu) 2.46
+        COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_6c9f6
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6c9f6.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        COLLECT_LTO_WRAPPER=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper
+        Target: riscv64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) 
+        COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_6c9f6' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'cmTC_6c9f6.'
+         /usr/libexec/gcc/riscv64-linux-gnu/15/collect2 -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWci87f.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_6c9f6 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o
+        collect2 version 15.2.0
+        /usr/bin/ld -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWci87f.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_6c9f6 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o
+        GNU ld (GNU Binutils for Bianbu) 2.46
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_6c9f6' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'cmTC_6c9f6.'
+        /usr/bin/cc  -v -Wl,-v CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -o cmTC_6c9f6
+        gmake[1]: Leaving directory '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/riscv64-linux-gnu/15/include]
+          add: [/usr/local/include]
+          add: [/usr/include/riscv64-linux-gnu]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/riscv64-linux-gnu/15/include] ==> [/usr/lib/gcc/riscv64-linux-gnu/15/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/riscv64-linux-gnu] ==> [/usr/include/riscv64-linux-gnu]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/gcc/riscv64-linux-gnu/15/include;/usr/local/include;/usr/include/riscv64-linux-gnu;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6c9f6/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_6c9f6.dir/build.make CMakeFiles/cmTC_6c9f6.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-ijWFK2']
+        ignore line: [Building C object CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [Target: riscv64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 rust cobol algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_6c9f6.dir/']
+        ignore line: [ /usr/libexec/gcc/riscv64-linux-gnu/15/cc1 -quiet -v -imultilib . -imultiarch riscv64-linux-gnu /usr/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_6c9f6.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=spacemit-x100 -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -version -fstack-protector-strong -Wformat -Wformat-security -fzero-init-padding-bits=all -Wbidi-chars=any -o /tmp/ccb4Ziij.s]
+        ignore line: [GNU C23 (Bianbu 15.2.0-16ubuntu1bb3) version 15.2.0 (riscv64-linux-gnu)]
+        ignore line: [	compiled by GNU C version 15.2.0  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/local/include/riscv64-linux-gnu"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed/riscv64-linux-gnu"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/../../../../riscv64-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/riscv64-linux-gnu/15/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/riscv64-linux-gnu]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 14e28b9a96a3d39702381bd9d0c66e86]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_6c9f6.dir/']
+        ignore line: [ /usr/bin/riscv64-linux-gnu-as -v --traditional-format -fpic -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -o CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o /tmp/ccb4Ziij.s]
+        ignore line: [GNU assembler version 2.46 (riscv64-linux-gnu) using BFD version (GNU Binutils for Bianbu) 2.46]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_6c9f6]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6c9f6.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper]
+        ignore line: [Target: riscv64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 rust cobol algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) ]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_6c9f6' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'cmTC_6c9f6.']
+        link line: [ /usr/libexec/gcc/riscv64-linux-gnu/15/collect2 -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWci87f.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_6c9f6 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+          arg [/usr/libexec/gcc/riscv64-linux-gnu/15/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccWci87f.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-hash-style=gnu] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-melf64lriscv] ==> ignore
+          arg [-X] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib/ld-linux-riscv64-lp64d.so.1] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_6c9f6] ==> ignore
+          arg [/lib/riscv64-linux-gnu/Scrt1.o] ==> obj [/lib/riscv64-linux-gnu/Scrt1.o]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crti.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crti.o]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o]
+          arg [-L/usr/lib/gcc/riscv64-linux-gnu/15] ==> dir [/usr/lib/gcc/riscv64-linux-gnu/15]
+          arg [-L/lib/riscv64-linux-gnu] ==> dir [/lib/riscv64-linux-gnu]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib/riscv64-linux-gnu] ==> dir [/usr/lib/riscv64-linux-gnu]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+        ignore line: [collect2 version 15.2.0]
+        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccWci87f.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_6c9f6 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_6c9f6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+        linker tool for 'C': /usr/bin/ld
+        collapse library dir [/usr/lib/gcc/riscv64-linux-gnu/15] ==> [/usr/lib/gcc/riscv64-linux-gnu/15]
+        collapse library dir [/lib/riscv64-linux-gnu] ==> [/lib/riscv64-linux-gnu]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib/riscv64-linux-gnu] ==> [/usr/lib/riscv64-linux-gnu]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/lib/riscv64-linux-gnu/Scrt1.o;/usr/lib/gcc/riscv64-linux-gnu/15/crti.o;/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o;/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o;/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+        implicit dirs: [/usr/lib/gcc/riscv64-linux-gnu/15;/lib/riscv64-linux-gnu;/lib;/usr/lib/riscv64-linux-gnu;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Bianbu) 2.46
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl"
+      binary: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_df635/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_df635.dir/build.make CMakeFiles/cmTC_df635.dir/build
+        gmake[1]: Entering directory '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl'
+        Building CXX object CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -v -o CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/c++
+        Target: riscv64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_df635.dir/'
+         /usr/libexec/gcc/riscv64-linux-gnu/15/cc1plus -quiet -v -imultilib . -imultiarch riscv64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_df635.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=spacemit-x100 -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -version -fstack-protector-strong -Wformat -Wformat-security -fzero-init-padding-bits=all -Wbidi-chars=any -o /tmp/ccE9oH75.s
+        GNU C++17 (Bianbu 15.2.0-16ubuntu1bb3) version 15.2.0 (riscv64-linux-gnu)
+        	compiled by GNU C version 15.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "/usr/include/riscv64-linux-gnu/c++/15"
+        ignoring nonexistent directory "/usr/local/include/riscv64-linux-gnu"
+        ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed/riscv64-linux-gnu"
+        ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/../../../../riscv64-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/include/c++/15
+         /usr/include/riscv64-linux-gnu/c++/15
+         /usr/include/c++/15/backward
+         /usr/lib/gcc/riscv64-linux-gnu/15/include
+         /usr/local/include
+         /usr/include/riscv64-linux-gnu
+         /usr/include
+        End of search list.
+        Compiler executable checksum: 58a4b0ece3ddf91f4600cdbf2e6deb1b
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_df635.dir/'
+         /usr/bin/riscv64-linux-gnu-as -v --traditional-format -fpic -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -o CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccE9oH75.s
+        GNU assembler version 2.46 (riscv64-linux-gnu) using BFD version (GNU Binutils for Bianbu) 2.46
+        COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_df635
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df635.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/c++
+        COLLECT_LTO_WRAPPER=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper
+        Target: riscv64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) 
+        COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_df635' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'cmTC_df635.'
+         /usr/libexec/gcc/riscv64-linux-gnu/15/collect2 -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYxRUOc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_df635 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o
+        collect2 version 15.2.0
+        /usr/bin/ld -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYxRUOc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_df635 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o
+        GNU ld (GNU Binutils for Bianbu) 2.46
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_df635' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'cmTC_df635.'
+        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_df635
+        gmake[1]: Leaving directory '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/include/c++/15]
+          add: [/usr/include/riscv64-linux-gnu/c++/15]
+          add: [/usr/include/c++/15/backward]
+          add: [/usr/lib/gcc/riscv64-linux-gnu/15/include]
+          add: [/usr/local/include]
+          add: [/usr/include/riscv64-linux-gnu]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/include/c++/15] ==> [/usr/include/c++/15]
+        collapse include dir [/usr/include/riscv64-linux-gnu/c++/15] ==> [/usr/include/riscv64-linux-gnu/c++/15]
+        collapse include dir [/usr/include/c++/15/backward] ==> [/usr/include/c++/15/backward]
+        collapse include dir [/usr/lib/gcc/riscv64-linux-gnu/15/include] ==> [/usr/lib/gcc/riscv64-linux-gnu/15/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/riscv64-linux-gnu] ==> [/usr/include/riscv64-linux-gnu]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/include/c++/15;/usr/include/riscv64-linux-gnu/c++/15;/usr/include/c++/15/backward;/usr/lib/gcc/riscv64-linux-gnu/15/include;/usr/local/include;/usr/include/riscv64-linux-gnu;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_df635/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_df635.dir/build.make CMakeFiles/cmTC_df635.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-2lS4Rl']
+        ignore line: [Building CXX object CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [Target: riscv64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 rust cobol algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_df635.dir/']
+        ignore line: [ /usr/libexec/gcc/riscv64-linux-gnu/15/cc1plus -quiet -v -imultilib . -imultiarch riscv64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_df635.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=spacemit-x100 -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -version -fstack-protector-strong -Wformat -Wformat-security -fzero-init-padding-bits=all -Wbidi-chars=any -o /tmp/ccE9oH75.s]
+        ignore line: [GNU C++17 (Bianbu 15.2.0-16ubuntu1bb3) version 15.2.0 (riscv64-linux-gnu)]
+        ignore line: [	compiled by GNU C version 15.2.0  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "/usr/include/riscv64-linux-gnu/c++/15"]
+        ignore line: [ignoring nonexistent directory "/usr/local/include/riscv64-linux-gnu"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed/riscv64-linux-gnu"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/riscv64-linux-gnu/15/../../../../riscv64-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/include/c++/15]
+        ignore line: [ /usr/include/riscv64-linux-gnu/c++/15]
+        ignore line: [ /usr/include/c++/15/backward]
+        ignore line: [ /usr/lib/gcc/riscv64-linux-gnu/15/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/riscv64-linux-gnu]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 58a4b0ece3ddf91f4600cdbf2e6deb1b]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_df635.dir/']
+        ignore line: [ /usr/bin/riscv64-linux-gnu-as -v --traditional-format -fpic -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm -mabi=lp64d -misa-spec=20191213 -o CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccE9oH75.s]
+        ignore line: [GNU assembler version 2.46 (riscv64-linux-gnu) using BFD version (GNU Binutils for Bianbu) 2.46]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_df635]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df635.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper]
+        ignore line: [Target: riscv64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Bianbu 15.2.0-16ubuntu1bb3' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 rust cobol algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=riscv64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --disable-multilib --with-abi=lp64d --with-tune=spacemit-x100 --with-arch=rv64i_m_a_f_d_c_b_v_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl32b_zvl64b_supm_zvl256b --enable-checking=release --build=riscv64-linux-gnu --host=riscv64-linux-gnu --target=riscv64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=4]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (Bianbu 15.2.0-16ubuntu1bb3) ]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/15/:/usr/libexec/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15/:/usr/lib/gcc/riscv64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/riscv64-linux-gnu/15/:/lib/riscv64-linux-gnu/:/lib/:/usr/lib/riscv64-linux-gnu/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_df635' '-shared-libgcc' '-mtune=spacemit-x100' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-mabi=lp64d' '-misa-spec=20191213' '-mtls-dialect=trad' '-march=rv64imafdcbv_zic64b_zicbom_zicbop_zicboz_ziccamoa_ziccif_zicclsm_ziccrse_zicntr_zicond_zicsr_zifencei_zihintntl_zihintpause_zihpm_zimop_zmmul_za64rs_zaamo_zalrsc_zawrs_zfa_zfhmin_zca_zcb_zcd_zcmop_zba_zbb_zbs_zkt_zvbb_zve32f_zve32x_zve64d_zve64f_zve64x_zvfhmin_zvkb_zvkt_zvl128b_zvl256b_zvl32b_zvl64b_supm' '-dumpdir' 'cmTC_df635.']
+        link line: [ /usr/libexec/gcc/riscv64-linux-gnu/15/collect2 -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYxRUOc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_df635 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+          arg [/usr/libexec/gcc/riscv64-linux-gnu/15/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccYxRUOc.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-hash-style=gnu] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-melf64lriscv] ==> ignore
+          arg [-X] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib/ld-linux-riscv64-lp64d.so.1] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_df635] ==> ignore
+          arg [/lib/riscv64-linux-gnu/Scrt1.o] ==> obj [/lib/riscv64-linux-gnu/Scrt1.o]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crti.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crti.o]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o]
+          arg [-L/usr/lib/gcc/riscv64-linux-gnu/15] ==> dir [/usr/lib/gcc/riscv64-linux-gnu/15]
+          arg [-L/lib/riscv64-linux-gnu] ==> dir [/lib/riscv64-linux-gnu]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib/riscv64-linux-gnu] ==> dir [/usr/lib/riscv64-linux-gnu]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o]
+          arg [/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o] ==> obj [/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+        ignore line: [collect2 version 15.2.0]
+        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/riscv64-linux-gnu/15/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/riscv64-linux-gnu/15/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYxRUOc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -hash-style=gnu --as-needed -melf64lriscv -X -dynamic-linker /lib/ld-linux-riscv64-lp64d.so.1 -pie -z now -z relro -o cmTC_df635 /lib/riscv64-linux-gnu/Scrt1.o /usr/lib/gcc/riscv64-linux-gnu/15/crti.o /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o -L/usr/lib/gcc/riscv64-linux-gnu/15 -L/lib/riscv64-linux-gnu -L/lib -L/usr/lib/riscv64-linux-gnu -L/usr/lib -v CMakeFiles/cmTC_df635.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+        linker tool for 'CXX': /usr/bin/ld
+        collapse library dir [/usr/lib/gcc/riscv64-linux-gnu/15] ==> [/usr/lib/gcc/riscv64-linux-gnu/15]
+        collapse library dir [/lib/riscv64-linux-gnu] ==> [/lib/riscv64-linux-gnu]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib/riscv64-linux-gnu] ==> [/usr/lib/riscv64-linux-gnu]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/lib/riscv64-linux-gnu/Scrt1.o;/usr/lib/gcc/riscv64-linux-gnu/15/crti.o;/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o;/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o;/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o]
+        implicit dirs: [/usr/lib/gcc/riscv64-linux-gnu/15;/lib/riscv64-linux-gnu;/lib;/usr/lib/riscv64-linux-gnu;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/usr/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/usr/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Bianbu) 2.46
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindCURL.cmake:174 (find_package)"
+      - "CMakeLists.txt:14 (find_package)"
+    name: "CURL"
+    configs:
+      -
+        filename: "CURLConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "curl-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "optional"
+      quiet: true
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "CURL"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/pkgRedirects/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/pkgRedirects/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/gexo/spacemit_robot/output/staging/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/gexo/spacemit_robot/output/staging/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/ros/humble/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/ros/humble/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/ros/humble/cmake/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/ros/humble/cmake/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/games/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/games/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/games/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/games/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/CURLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/curl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found: null
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:517 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/FindCURL.cmake:189 (find_package)"
+      - "CMakeLists.txt:14 (find_package)"
+    mode: "program"
+    variable: "PKG_CONFIG_EXECUTABLE"
+    description: "pkg-config executable"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pkg-config"
+      - "pkgconf"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/pkg-config"
+      - "/home/gexo/spacemit_robot/output/staging/bin/pkgconf"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/pkg-config"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/pkgconf"
+      - "/home/gexo/spacemit_robot/output/staging/pkg-config"
+      - "/home/gexo/spacemit_robot/output/staging/pkgconf"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/pkg-config"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/pkgconf"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/pkg-config"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/pkgconf"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/pkg-config"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/pkgconf"
+      - "/home/gexo/spacemit_robot/output/staging/bin/pkg-config"
+      - "/home/gexo/spacemit_robot/output/staging/bin/pkgconf"
+      - "/opt/ros/humble/bin/pkg-config"
+      - "/opt/ros/humble/bin/pkgconf"
+      - "/usr/local/sbin/pkg-config"
+      - "/usr/local/sbin/pkgconf"
+      - "/usr/local/bin/pkg-config"
+      - "/usr/local/bin/pkgconf"
+      - "/usr/sbin/pkg-config"
+      - "/usr/sbin/pkgconf"
+    found: "/usr/bin/pkg-config"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:761 (find_library)"
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:811 (_pkg_find_libs)"
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:1149 (_pkg_recalculate)"
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:1166 (_pkg_check_modules_internal)"
+      - "/usr/share/cmake-4.2/Modules/FindCURL.cmake:191 (pkg_check_modules)"
+      - "CMakeLists.txt:14 (find_package)"
+    mode: "library"
+    variable: "pkgcfg_lib_PC_CURL_curl"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "curl"
+    candidate_directories:
+      - "/usr/lib/riscv64-linux-gnu/"
+    found: "/usr/lib/riscv64-linux-gnu/libcurl.so"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindCURL.cmake:201 (find_path)"
+      - "CMakeLists.txt:14 (find_package)"
+    mode: "path"
+    variable: "CURL_INCLUDE_DIR"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "curl/curl.h"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/include/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/include/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/usr/include/riscv64-linux-gnu/"
+      - "/usr/include/"
+      - "/usr/include/p11-kit-1/"
+      - "/usr/include/mit-krb5/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/include/riscv64-linux-gnu/"
+      - "/usr/local/include/"
+      - "/usr/local/"
+      - "/usr/include/riscv64-linux-gnu/"
+      - "/usr/include/"
+      - "/usr/"
+      - "/include/riscv64-linux-gnu/"
+      - "/include/"
+      - "/usr/X11R6/include/riscv64-linux-gnu/"
+      - "/usr/X11R6/include/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/include/riscv64-linux-gnu/"
+      - "/usr/pkg/include/"
+      - "/usr/pkg/"
+      - "/opt/include/riscv64-linux-gnu/"
+      - "/opt/include/"
+      - "/opt/"
+      - "/usr/include/X11/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/include/riscv64-linux-gnu/curl/curl.h"
+      - "/home/gexo/spacemit_robot/output/staging/include/curl/curl.h"
+      - "/home/gexo/spacemit_robot/output/staging/curl/curl.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/riscv64-linux-gnu/curl/curl.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/curl/curl.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/curl/curl.h"
+    found: "/usr/include/riscv64-linux-gnu/"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_INCLUDE_PATH:
+        - "/usr/include/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindCURL.cmake:208 (find_library)"
+      - "CMakeLists.txt:14 (find_package)"
+    mode: "library"
+    variable: "CURL_LIBRARY_RELEASE"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "curl"
+      - "curllib"
+      - "libcurl_imp"
+      - "curllib_static"
+      - "libcurl"
+      - "libcurl_a"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/lib/riscv64-linux-gnu/"
+      - "/lib/"
+      - "/usr/X11R6/lib/riscv64-linux-gnu/"
+      - "/usr/X11R6/lib/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/lib/riscv64-linux-gnu/"
+      - "/usr/pkg/lib/"
+      - "/usr/pkg/"
+      - "/opt/lib/riscv64-linux-gnu/"
+      - "/opt/lib/"
+      - "/opt/"
+      - "/usr/lib/X11/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+    found: "/usr/lib/riscv64-linux-gnu/libcurl.so"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindCURL.cmake:223 (find_library)"
+      - "CMakeLists.txt:14 (find_package)"
+    mode: "library"
+    variable: "CURL_LIBRARY_DEBUG"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "libcurl-d_imp"
+      - "libcurl-d"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/lib/riscv64-linux-gnu/"
+      - "/lib/"
+      - "/usr/X11R6/lib/riscv64-linux-gnu/"
+      - "/usr/X11R6/lib/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/lib/riscv64-linux-gnu/"
+      - "/usr/pkg/lib/"
+      - "/usr/pkg/"
+      - "/opt/lib/riscv64-linux-gnu/"
+      - "/opt/lib/"
+      - "/opt/"
+      - "/usr/lib/X11/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/local/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/usr/"
+      - "/lib/riscv64-linux-gnu/"
+      - "/lib/riscv64-linux-gnu/"
+      - "/lib/"
+      - "/lib/"
+      - "/usr/X11R6/lib/riscv64-linux-gnu/"
+      - "/usr/X11R6/lib/riscv64-linux-gnu/"
+      - "/usr/X11R6/lib/"
+      - "/usr/X11R6/lib/"
+      - "/usr/X11R6/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/lib/riscv64-linux-gnu/"
+      - "/usr/pkg/lib/riscv64-linux-gnu/"
+      - "/usr/pkg/lib/"
+      - "/usr/pkg/lib/"
+      - "/usr/pkg/"
+      - "/usr/pkg/"
+      - "/opt/lib/riscv64-linux-gnu/"
+      - "/opt/lib/riscv64-linux-gnu/"
+      - "/opt/lib/"
+      - "/opt/lib/"
+      - "/opt/"
+      - "/opt/"
+      - "/usr/lib/X11/"
+      - "/usr/lib/X11/"
+    found: false
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-4.2/Modules/FindThreads.cmake:160 (check_c_source_compiles)"
+      - "/usr/share/cmake-4.2/Modules/FindThreads.cmake:226 (_threads_check_libc)"
+      - "CMakeLists.txt:15 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-TqeECw"
+      binary: "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-TqeECw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-TqeECw'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ed05f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ed05f.dir/build.make CMakeFiles/cmTC_ed05f.dir/build
+        gmake[1]: 进入目录“/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-TqeECw”
+        Building C object CMakeFiles/cmTC_ed05f.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_ed05f.dir/src.c.o -c /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-TqeECw/src.c
+        Linking C executable cmTC_ed05f
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ed05f.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_ed05f.dir/src.c.o -o cmTC_ed05f
+        gmake[1]: 离开目录“/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/CMakeFiles/CMakeScratch/TryCompile-TqeECw”
+        
+      exitCode: 0
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindALSA.cmake:81 (find_path)"
+      - "CMakeLists.txt:22 (find_package)"
+    mode: "path"
+    variable: "ALSA_INCLUDE_DIR"
+    description: "The ALSA (asound) include directory"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "alsa/asoundlib.h"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/include/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/include/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/include/riscv64-linux-gnu/"
+      - "/usr/local/include/"
+      - "/usr/local/"
+      - "/usr/include/riscv64-linux-gnu/"
+      - "/usr/include/"
+      - "/usr/"
+      - "/include/riscv64-linux-gnu/"
+      - "/include/"
+      - "/usr/X11R6/include/riscv64-linux-gnu/"
+      - "/usr/X11R6/include/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/include/riscv64-linux-gnu/"
+      - "/usr/pkg/include/"
+      - "/usr/pkg/"
+      - "/opt/include/riscv64-linux-gnu/"
+      - "/opt/include/"
+      - "/opt/"
+      - "/usr/include/X11/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/include/riscv64-linux-gnu/alsa/asoundlib.h"
+      - "/home/gexo/spacemit_robot/output/staging/include/alsa/asoundlib.h"
+      - "/home/gexo/spacemit_robot/output/staging/alsa/asoundlib.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/riscv64-linux-gnu/alsa/asoundlib.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/alsa/asoundlib.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/alsa/asoundlib.h"
+      - "/home/gexo/spacemit_robot/output/staging/bin/alsa/asoundlib.h"
+      - "/opt/ros/humble/bin/alsa/asoundlib.h"
+      - "/usr/local/sbin/alsa/asoundlib.h"
+      - "/usr/local/bin/alsa/asoundlib.h"
+      - "/usr/sbin/alsa/asoundlib.h"
+      - "/usr/bin/alsa/asoundlib.h"
+      - "/sbin/alsa/asoundlib.h"
+      - "/bin/alsa/asoundlib.h"
+      - "/usr/games/alsa/asoundlib.h"
+      - "/usr/local/games/alsa/asoundlib.h"
+      - "/snap/bin/alsa/asoundlib.h"
+      - "/usr/local/include/riscv64-linux-gnu/alsa/asoundlib.h"
+      - "/usr/local/include/alsa/asoundlib.h"
+      - "/usr/local/alsa/asoundlib.h"
+      - "/usr/include/riscv64-linux-gnu/alsa/asoundlib.h"
+    found: "/usr/include/"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_INCLUDE_PATH:
+        - "/usr/include/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindALSA.cmake:85 (find_library)"
+      - "CMakeLists.txt:22 (find_package)"
+    mode: "library"
+    variable: "ALSA_LIBRARY"
+    description: "The ALSA (asound) library"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "asound"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/lib/riscv64-linux-gnu/"
+      - "/lib/"
+      - "/usr/X11R6/lib/riscv64-linux-gnu/"
+      - "/usr/X11R6/lib/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/lib/riscv64-linux-gnu/"
+      - "/usr/pkg/lib/"
+      - "/usr/pkg/"
+      - "/opt/lib/riscv64-linux-gnu/"
+      - "/opt/lib/"
+      - "/opt/"
+      - "/usr/lib/X11/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+    found: "/usr/lib/riscv64-linux-gnu/libasound.so"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindGit.cmake:111 (find_program)"
+      - "/usr/share/cmake-4.2/Modules/FetchContent.cmake:1884 (find_package)"
+      - "/usr/share/cmake-4.2/Modules/FetchContent.cmake:1619 (__FetchContent_populateSubbuild)"
+      - "/usr/share/cmake-4.2/Modules/FetchContent.cmake:2155:EVAL:2 (__FetchContent_doPopulation)"
+      - "/usr/share/cmake-4.2/Modules/FetchContent.cmake:2155 (cmake_language)"
+      - "/usr/share/cmake-4.2/Modules/FetchContent.cmake:2394 (__FetchContent_Populate)"
+      - "CMakeLists.txt:45 (FetchContent_MakeAvailable)"
+    mode: "program"
+    variable: "GIT_EXECUTABLE"
+    description: "Git command line client"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "git"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/bin/git"
+      - "/home/gexo/spacemit_robot/output/staging/sbin/git"
+      - "/home/gexo/spacemit_robot/output/staging/git"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/bin/git"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/sbin/git"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/git"
+      - "/home/gexo/spacemit_robot/output/staging/bin/git"
+      - "/opt/ros/humble/bin/git"
+      - "/usr/local/sbin/git"
+      - "/usr/local/bin/git"
+      - "/usr/sbin/git"
+    found: "/usr/bin/git"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:761 (find_library)"
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:811 (_pkg_find_libs)"
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:1149 (_pkg_recalculate)"
+      - "/usr/share/cmake-4.2/Modules/FindPkgConfig.cmake:1192 (_pkg_check_modules_internal)"
+      - "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-src/cmake_support/FindJack.cmake:20 (pkg_search_module)"
+      - "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-src/CMakeLists.txt:277 (FIND_PACKAGE)"
+    mode: "library"
+    variable: "pkgcfg_lib_JACK_jack"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "jack"
+    candidate_directories:
+      - "/usr/lib/riscv64-linux-gnu/"
+    found: "/usr/lib/riscv64-linux-gnu/libjack.so"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:240 (find_path)"
+    mode: "path"
+    variable: "ONNXRUNTIME_INCLUDE_DIR"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "onnxruntime_cxx_api.h"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/include/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/include/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/include/riscv64-linux-gnu/"
+      - "/usr/local/include/"
+      - "/usr/local/"
+      - "/usr/include/riscv64-linux-gnu/"
+      - "/usr/include/"
+      - "/usr/"
+      - "/include/riscv64-linux-gnu/"
+      - "/include/"
+      - "/usr/X11R6/include/riscv64-linux-gnu/"
+      - "/usr/X11R6/include/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/include/riscv64-linux-gnu/"
+      - "/usr/pkg/include/"
+      - "/usr/pkg/"
+      - "/opt/include/riscv64-linux-gnu/"
+      - "/opt/include/"
+      - "/opt/"
+      - "/usr/include/X11/"
+      - "/usr/local/include/"
+      - "/opt/homebrew/include/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/include/riscv64-linux-gnu/onnxruntime_cxx_api.h"
+      - "/home/gexo/spacemit_robot/output/staging/include/onnxruntime_cxx_api.h"
+      - "/home/gexo/spacemit_robot/output/staging/onnxruntime_cxx_api.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/riscv64-linux-gnu/onnxruntime_cxx_api.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/include/onnxruntime_cxx_api.h"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/onnxruntime_cxx_api.h"
+      - "/home/gexo/spacemit_robot/output/staging/bin/onnxruntime_cxx_api.h"
+      - "/opt/ros/humble/bin/onnxruntime_cxx_api.h"
+      - "/usr/local/sbin/onnxruntime_cxx_api.h"
+      - "/usr/local/bin/onnxruntime_cxx_api.h"
+      - "/usr/sbin/onnxruntime_cxx_api.h"
+      - "/usr/bin/onnxruntime_cxx_api.h"
+      - "/sbin/onnxruntime_cxx_api.h"
+      - "/bin/onnxruntime_cxx_api.h"
+      - "/usr/games/onnxruntime_cxx_api.h"
+      - "/usr/local/games/onnxruntime_cxx_api.h"
+      - "/snap/bin/onnxruntime_cxx_api.h"
+      - "/usr/local/include/riscv64-linux-gnu/onnxruntime_cxx_api.h"
+      - "/usr/local/include/onnxruntime_cxx_api.h"
+      - "/usr/local/onnxruntime_cxx_api.h"
+      - "/usr/include/riscv64-linux-gnu/onnxruntime_cxx_api.h"
+    found: "/usr/include/"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_INCLUDE_PATH:
+        - "/usr/include/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:246 (find_library)"
+    mode: "library"
+    variable: "ONNXRUNTIME_LIB"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "onnxruntime"
+    candidate_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/riscv64-linux-gnu/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/lib/riscv64-linux-gnu/"
+      - "/lib/"
+      - "/usr/X11R6/lib/riscv64-linux-gnu/"
+      - "/usr/X11R6/lib/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/lib/riscv64-linux-gnu/"
+      - "/usr/pkg/lib/"
+      - "/usr/pkg/"
+      - "/opt/lib/riscv64-linux-gnu/"
+      - "/opt/lib/"
+      - "/opt/"
+      - "/usr/lib/X11/"
+      - "/usr/local/lib/"
+      - "/opt/homebrew/lib/"
+    searched_directories:
+      - "/home/gexo/spacemit_robot/output/staging/lib/riscv64-linux-gnu/"
+      - "/home/gexo/spacemit_robot/output/staging/lib/"
+      - "/home/gexo/spacemit_robot/output/staging/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/riscv64-linux-gnu/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/lib/"
+      - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2/"
+      - "/home/gexo/spacemit_robot/output/staging/bin/"
+      - "/opt/ros/humble/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/lib/riscv64-linux-gnu/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/riscv64-linux-gnu/"
+    found: "/usr/lib/libonnxruntime.so"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "/home/gexo/spacemit_robot/output/staging"
+      ENV{CMAKE_PREFIX_PATH}:
+        - "/home/gexo/G-Exo/ros2_ws/install/ess_imu_driver2"
+      ENV{PATH}:
+        - "/home/gexo/spacemit_robot/output/staging/bin"
+        - "/opt/ros/humble/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/gexo/spacemit_robot/output/staging"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/home/gexo/spacemit_robot/output/staging"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+...

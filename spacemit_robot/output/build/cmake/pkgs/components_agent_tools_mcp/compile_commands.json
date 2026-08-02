@@ -1,0 +1,104 @@
+[
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/mcp.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/mcp.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/json_rpc.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/json_rpc.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/json_rpc.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/json_rpc.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/mcp_client.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_client.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_client.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/mcp_client.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/mcp_manager.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_manager.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_manager.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/mcp_manager.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/transport_stdio.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_stdio.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_stdio.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/transport_stdio.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/transport_unix_socket.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_unix_socket.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_unix_socket.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/transport_unix_socket.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_static.dir/src/transport_http.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_http.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_http.cpp",
+  "output": "CMakeFiles/mcp_static.dir/src/transport_http.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/mcp.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/mcp.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/json_rpc.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/json_rpc.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/json_rpc.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/json_rpc.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/mcp_client.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_client.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_client.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/mcp_client.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/mcp_manager.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_manager.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/mcp_manager.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/mcp_manager.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/transport_stdio.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_stdio.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_stdio.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/transport_stdio.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/transport_unix_socket.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_unix_socket.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_unix_socket.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/transport_unix_socket.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++ -Dmcp_shared_EXPORTS -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include/internal -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIC -DWITH_GZFILEOP -o CMakeFiles/mcp_shared.dir/src/transport_http.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_http.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/src/transport_http.cpp",
+  "output": "CMakeFiles/mcp_shared.dir/src/transport_http.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIE -o CMakeFiles/example_simple.dir/examples/simple_client.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/examples/simple_client.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/examples/simple_client.cpp",
+  "output": "CMakeFiles/example_simple.dir/examples/simple_client.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIE -o CMakeFiles/example_multi.dir/examples/multi_server.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/examples/multi_server.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/examples/multi_server.cpp",
+  "output": "CMakeFiles/example_multi.dir/examples/multi_server.cpp.o"
+},
+{
+  "directory": "/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp",
+  "command": "/usr/bin/c++  -I/home/gexo/spacemit_robot/components/agent_tools/mcp/include -I/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-src/include -std=gnu++17 -fPIE -DWITH_GZFILEOP -o CMakeFiles/llm_chat.dir/examples/llm_chat.cpp.o -c /home/gexo/spacemit_robot/components/agent_tools/mcp/examples/llm_chat.cpp",
+  "file": "/home/gexo/spacemit_robot/components/agent_tools/mcp/examples/llm_chat.cpp",
+  "output": "CMakeFiles/llm_chat.dir/examples/llm_chat.cpp.o"
+}
+]

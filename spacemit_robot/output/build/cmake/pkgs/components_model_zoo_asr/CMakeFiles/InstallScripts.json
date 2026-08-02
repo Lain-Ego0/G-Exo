@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/kaldi-native-fbank-build/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-build/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/kaldi-native-fbank-build/kaldi-native-fbank/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/kaldi-native-fbank-build/kaldi-native-fbank/csrc/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

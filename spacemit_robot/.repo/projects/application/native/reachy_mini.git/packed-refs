@@ -1,0 +1,7 @@
+# pack-refs with: peeled fully-peeled sorted 
+18c7a12b83af2aa2771cb6e54449000b1279eca8 refs/remotes/origin/chore/zhangrou/fix-bug-and-perf
+c9293448a0554ada0e1453f51264fc8b481009d6 refs/remotes/origin/docs/zhangrou/add-README-and-NOTICE
+f9521665d6f714b1449b9ea5712f3328ee2c5912 refs/remotes/origin/main
+23b2ab965b6a9f60eb0325f66b92ecadc0f90e46 refs/tags/v1.1.0-rc1
+00c8fc49a051c359993f393e2c92ad4ff0f13aff refs/tags/v1.1.0-rc2
+^8e697b5ddcef9ebf2af262bdad943306e97a7e79

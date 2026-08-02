@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/vision_opencl_geometry_test.dir/link.d CMakeFiles/vision_opencl_geometry_test.dir/opencl/image_preprocess_geometry_test.cpp.o CMakeFiles/vision_opencl_geometry_test.dir/__/__/src/operators/image_preprocess/image_preprocess_geometry.cpp.o -o vision_opencl_geometry_test

@@ -1,0 +1,1 @@
+0000000000000000000000000000000000000000 4123c7f23ff97d30370fa4862eee1f807fad4843 GZ89mid <2455682411@qq.com> 1785416205 +0800	fetch --quiet --progress origin --prune --recurse-submodules=no --tags +refs/heads/*:refs/remotes/origin/* +refs/heads/main:refs/remotes/origin/main +refs/tags/*:refs/tags/*: storing head

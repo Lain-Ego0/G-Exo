@@ -1,0 +1,12 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=url
+command=/usr/bin/cmake;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/verify-kissfft-populate.cmake;COMMAND;/usr/bin/cmake;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-subbuild/kissfft-populate-prefix/src/kissfft-populate-stamp/extract-kissfft-populate.cmake
+source_dir=/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps/kissfft-src
+work_dir=/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/_deps
+url(s)=/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_asr/kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec.zip
+hash=SHA256=497103e664168ebe39580b757adbe616f6cf85a16572af581ca7bc42d0ab13fd
+      no_extract=
+

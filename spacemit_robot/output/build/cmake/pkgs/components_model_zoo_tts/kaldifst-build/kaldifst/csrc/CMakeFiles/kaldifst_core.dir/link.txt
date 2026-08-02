@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libkaldifst_core.a "CMakeFiles/kaldifst_core.dir/context-fst.cc.o" "CMakeFiles/kaldifst_core.dir/kaldi-fst-io.cc.o" "CMakeFiles/kaldifst_core.dir/kaldi-holder.cc.o" "CMakeFiles/kaldifst_core.dir/kaldi-io.cc.o" "CMakeFiles/kaldifst_core.dir/kaldi-math.cc.o" "CMakeFiles/kaldifst_core.dir/kaldi-semaphore.cc.o" "CMakeFiles/kaldifst_core.dir/kaldi-table.cc.o" "CMakeFiles/kaldifst_core.dir/parse-options.cc.o" "CMakeFiles/kaldifst_core.dir/text-normalizer.cc.o" "CMakeFiles/kaldifst_core.dir/text-utils.cc.o"
+/usr/bin/ranlib ../../../lib/libkaldifst_core.a

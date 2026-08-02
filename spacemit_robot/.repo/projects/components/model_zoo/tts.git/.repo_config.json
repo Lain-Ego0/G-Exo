@@ -1,0 +1,23 @@
+{
+  "core.repositoryformatversion": [
+    "0"
+  ],
+  "core.filemode": [
+    "true"
+  ],
+  "filter.lfs.smudge": [
+    "git-lfs smudge --skip -- %f"
+  ],
+  "filter.lfs.process": [
+    "git-lfs filter-process --skip"
+  ],
+  "remote.origin.url": [
+    "https://gitee.com/spacemit-robotics/model-zoo-tts"
+  ],
+  "remote.origin.projectname": [
+    "model-zoo-tts"
+  ],
+  "remote.origin.fetch": [
+    "+refs/heads/*:refs/remotes/origin/*"
+  ]
+}

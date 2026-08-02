@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/CMakeFiles/webrtc_ap_ep-complete.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-build.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-configure.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-download.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-install.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-mkdir.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-patch.rule"
+		},
+		{
+			"file" : "/home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent/webrtc_ap_ep-prefix/src/webrtc_ap_ep-stamp/webrtc_ap_ep-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"webrtc_ap_ep"
+		],
+		"name" : "webrtc_ap_ep"
+	}
+}

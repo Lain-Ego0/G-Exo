@@ -1,0 +1,592 @@
+>>> cmake -S /home/gexo/spacemit_robot/application/native/omni_agent -B /home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent -DCMAKE_INSTALL_PREFIX=/home/gexo/spacemit_robot/output/staging -DCMAKE_PREFIX_PATH=/home/gexo/spacemit_robot/output/staging -DUSE_AEC=ON
+-- GCC-14 not found, using default compiler
+-- Detected RISC-V architecture, adding alignment flags
+-- kaldifst support enabled: /home/gexo/spacemit_robot/output/staging/lib/libkaldifst_core.a, /home/gexo/spacemit_robot/output/staging/lib/libkaldifst_fst.a
+-- DOA support enabled
+-- MCP support enabled
+-- Voiceprint support enabled
+-- Fetching webrtc-audio-processing to /home/gexo/.cache/thirdparty/webrtc-audio-processing ...
+正克隆到 '/home/gexo/.cache/thirdparty/webrtc-audio-processing'...
+-- WebRTC audio processing support enabled
+-- WebRTC library: /home/gexo/.cache/thirdparty/webrtc-audio-processing/build/webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so
+-- WebRTC include dirs: /home/gexo/.cache/thirdparty/webrtc-audio-processing;/home/gexo/.cache/thirdparty/webrtc-audio-processing/webrtc;/home/gexo/.cache/thirdparty/webrtc-audio-processing/build;/home/gexo/.cache/thirdparty/webrtc-audio-processing/build/webrtc;/home/gexo/.cache/thirdparty/webrtc-audio-processing/subprojects/abseil-cpp-20240722.0
+-- Building voice_chat_aec with WebRTC AEC + full-duplex audio
+--   + MCP support enabled for voice_chat_aec
+--   + Voiceprint support enabled for voice_chat_aec
+--   + DOA support enabled for voice_chat_aec
+-- Building voice_chat (no AEC, independent capture/playback)
+--   + MCP support enabled for voice_chat
+--   + Voiceprint support enabled for voice_chat
+--   + DOA support enabled for voice_chat
+-- Building voice_chat_daemon (lightweight launcher)
+-- Configuring done (3.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent
+>>> cmake --build /home/gexo/spacemit_robot/output/build/cmake/pkgs/application_native_omni_agent -j8
+[  3%] Creating directories for 'webrtc_ap_ep'
+[ 12%] Built target voice_chat_daemon
+[ 43%] Built target voice_chat
+[ 46%] No download step for 'webrtc_ap_ep'
+[ 50%] No update step for 'webrtc_ap_ep'
+[ 53%] No patch step for 'webrtc_ap_ep'
+[ 56%] Performing configure step for 'webrtc_ap_ep'
+The Meson build system
+Version: 1.10.1
+Source dir: /home/gexo/.cache/thirdparty/webrtc-audio-processing
+Build dir: /home/gexo/.cache/thirdparty/webrtc-audio-processing/build
+Build type: native build
+Project name: webrtc-audio-processing
+Project version: 2.1
+C compiler for the host machine: cc (gcc 15.2.0 "cc (Bianbu 15.2.0-16ubuntu1bb3) 15.2.0")
+C linker for the host machine: cc ld.bfd 2.46
+C++ compiler for the host machine: c++ (gcc 15.2.0 "c++ (Bianbu 15.2.0-16ubuntu1bb3) 15.2.0")
+C++ linker for the host machine: c++ ld.bfd 2.46
+Host machine cpu family: riscv64
+Host machine cpu: riscv64
+Found pkg-config: YES (/usr/bin/pkg-config) 2.5.1
+Found CMake: /usr/bin/cmake (4.2.3)
+Run-time dependency absl_base found: NO (tried pkgconfig and cmake)
+Looking for a fallback subproject for the dependency absl_base
+Downloading abseil-cpp source from https://github.com/abseil/abseil-cpp/releases/download/20240722.0/abseil-cpp-20240722.0.tar.gz
+Downloading abseil-cpp patch from https://wrapdb.mesonbuild.com/v2/abseil-cpp_20240722.0-3/get_patch
+
+Executing subproject abseil-cpp 
+
+abseil-cpp| Project name: abseil-cpp
+abseil-cpp| Project version: 20240722.0
+abseil-cpp| C++ compiler for the host machine: c++ (gcc 15.2.0 "c++ (Bianbu 15.2.0-16ubuntu1bb3) 15.2.0")
+abseil-cpp| C++ linker for the host machine: c++ ld.bfd 2.46
+abseil-cpp| Compiler for C++ supports arguments /DNOMINMAX: NO
+abseil-cpp| Compiler for C++ supports arguments -Wno-sign-compare: YES
+abseil-cpp| Compiler for C++ supports arguments -Wno-gcc-compat: NO
+abseil-cpp| Checking if "atomic builtins" links: YES
+abseil-cpp| Run-time dependency threads found: YES
+abseil-cpp| Run-time dependency appleframeworks found: NO (tried framework)
+abseil-cpp| Build targets in project: 15
+abseil-cpp| Subproject abseil-cpp finished.
+
+Dependency absl_base from subproject subprojects/abseil-cpp-20240722.0 found: YES 20240722.0
+Dependency absl_flags from subproject subprojects/abseil-cpp-20240722.0 found: YES 20240722.0
+Dependency absl_strings from subproject subprojects/abseil-cpp-20240722.0 found: YES 20240722.0
+Dependency absl_numeric from subproject subprojects/abseil-cpp-20240722.0 found: YES 20240722.0
+Dependency absl_synchronization from subproject subprojects/abseil-cpp-20240722.0 found: YES 20240722.0
+Dependency absl_bad_optional_access from subproject subprojects/abseil-cpp-20240722.0 found: YES 20240722.0
+Library rt found: YES
+Dependency threads found: YES unknown (cached)
+Fetching value of define "_MSC_VER" : (undefined) 
+Found pkg-config: YES (/usr/bin/pkg-config) 2.5.1
+Build targets in project: 24
+
+webrtc-audio-processing 2.1
+
+  Subprojects
+    abseil-cpp: YES
+
+  User defined options
+    buildtype : release
+
+Found ninja-1.13.2 at /usr/bin/ninja
+[ 59%] Performing build step for 'webrtc_ap_ep'
+ninja: Entering directory `/home/gexo/.cache/thirdparty/webrtc-audio-processing/build'
+ninja: Jobserver mode detected: s -j8 --jobserver-auth=fifo:/tmp/GMfifo247260
+[1/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_poison.cc.o
+[2/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_spinlock_wait.cc.o
+[3/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_cycleclock.cc.o
+[4/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_strerror.cc.o
+[5/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_unscaledcycleclock.cc.o
+[6/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_scoped_set_env.cc.o
+[7/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_raw_logging.cc.o
+[8/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_spinlock.cc.o
+[9/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_throw_delegate.cc.o
+[10/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_sysinfo.cc.o
+[11/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_log_severity.cc.o
+[12/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_thread_identity.cc.o
+[13/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_base.a.p/absl_base_internal_low_level_alloc.cc.o
+[14/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_profiling.a.p/absl_profiling_internal_periodic_sampler.cc.o
+[15/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_profiling.a.p/absl_profiling_internal_exponential_biased.cc.o
+[16/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_cpu_detect.cc.o
+[17/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_hash.a.p/absl_hash_internal_city.cc.o
+[18/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_hash.a.p/absl_hash_internal_low_level_hash.cc.o
+[19/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_hash.a.p/absl_hash_internal_hash.cc.o
+[20/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_crc32c.cc.o
+[21/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_crc.cc.o
+[22/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_numeric.a.p/absl_numeric_int128.cc.o
+[23/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_crc_memcpy_fallback.cc.o
+[24/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_crc_non_temporal_memcpy.cc.o
+[25/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_crc_x86_arm_combined.cc.o
+[26/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_crc_memcpy_x86_arm_combined.cc.o
+[27/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_ascii.cc.o
+[28/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_crc.a.p/absl_crc_internal_crc_cord_state.cc.o
+[29/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_cord_buffer.cc.o
+[30/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_charconv.cc.o
+[31/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_charconv_parse.cc.o
+[32/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_cord_analysis.cc.o
+[33/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cord_internal.cc.o
+[34/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_escaping.cc.o
+[35/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cord_rep_btree_navigator.cc.o
+[36/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cord_rep_consume.cc.o
+[37/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cord_rep_btree_reader.cc.o
+[38/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cord_rep_crc.cc.o
+[39/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cordz_functions.cc.o
+[40/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_charconv_bigint.cc.o
+[41/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cordz_handle.cc.o
+[42/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cordz_sample_token.cc.o
+[43/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_damerau_levenshtein_distance.cc.o
+[44/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_ostringstream.cc.o
+[45/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_escaping.cc.o
+[46/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_pow10_helper.cc.o
+[47/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cordz_info.cc.o
+[48/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_memutil.cc.o
+[49/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_cord.cc.o
+In file included from ../subprojects/abseil-cpp-20240722.0/absl/container/inlined_vector.h:53,
+                 from ../subprojects/abseil-cpp-20240722.0/absl/strings/cord.h:80,
+                 from ../subprojects/abseil-cpp-20240722.0/absl/strings/cord.cc:15:
+In member function ‘absl::lts_20240722::inlined_vector_internal::SizeType<A> absl::lts_20240722::inlined_vector_internal::Storage<T, N, A>::GetAllocatedCapacity() const [with T = absl::lts_20240722::cord_internal::CordRep*; long unsigned int N = 2; A = std::allocator<absl::lts_20240722::cord_internal::CordRep*>]’,
+    inlined from ‘void absl::lts_20240722::inlined_vector_internal::Storage<T, N, A>::DeallocateIfAllocated() [with T = absl::lts_20240722::cord_internal::CordRep*; long unsigned int N = 2; A = std::allocator<absl::lts_20240722::cord_internal::CordRep*>]’ at ../subprojects/abseil-cpp-20240722.0/absl/container/internal/inlined_vector.h:527:35,
+    inlined from ‘absl::lts_20240722::inlined_vector_internal::Storage<T, N, A>::~Storage() [with T = absl::lts_20240722::cord_internal::CordRep*; long unsigned int N = 2; A = std::allocator<absl::lts_20240722::cord_internal::CordRep*>]’ at ../subprojects/abseil-cpp-20240722.0/absl/container/internal/inlined_vector.h:357:28,
+    inlined from ‘absl::lts_20240722::InlinedVector<T, N, A>::~InlinedVector() [with T = absl::lts_20240722::cord_internal::CordRep*; long unsigned int N = 2; A = std::allocator<absl::lts_20240722::cord_internal::CordRep*>]’ at ../subprojects/abseil-cpp-20240722.0/absl/container/inlined_vector.h:296:21,
+    inlined from ‘bool absl::lts_20240722::VerifyNode(Nonnull<cord_internal::CordRep*>, Nonnull<cord_internal::CordRep*>)’ at ../subprojects/abseil-cpp-20240722.0/absl/strings/cord.cc:1554:1:
+../subprojects/abseil-cpp-20240722.0/absl/container/internal/inlined_vector.h:409:28: warning: ‘worklist.absl::lts_20240722::InlinedVector<absl::lts_20240722::cord_internal::CordRep*, 2, std::allocator<absl::lts_20240722::cord_internal::CordRep*> >::storage_.absl::lts_20240722::inlined_vector_internal::Storage<absl::lts_20240722::cord_internal::CordRep*, 2, std::allocator<absl::lts_20240722::cord_internal::CordRep*> >::data_.absl::lts_20240722::inlined_vector_internal::Storage<absl::lts_20240722::cord_internal::CordRep*, 2, std::allocator<absl::lts_20240722::cord_internal::CordRep*> >::Data::allocated.absl::lts_20240722::inlined_vector_internal::Storage<absl::lts_20240722::cord_internal::CordRep*, 2, std::allocator<absl::lts_20240722::cord_internal::CordRep*> >::Allocated::allocated_capacity’ may be used uninitialized [-Wmaybe-uninitialized]
+  409 |     return data_.allocated.allocated_capacity;
+      |                            ^~~~~~~~~~~~~~~~~~
+../subprojects/abseil-cpp-20240722.0/absl/strings/cord.cc: In function ‘bool absl::lts_20240722::VerifyNode(Nonnull<cord_internal::CordRep*>, Nonnull<cord_internal::CordRep*>)’:
+../subprojects/abseil-cpp-20240722.0/absl/strings/cord.cc:1517:51: note: ‘worklist’ declared here
+ 1517 |   absl::InlinedVector<absl::Nonnull<CordRep*>, 2> worklist;
+      |                                                   ^~~~~~~~
+[50/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_cord_rep_btree.cc.o
+[51/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_utf8.cc.o
+[52/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_str_format_output.cc.o
+[53/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_stringify_sink.cc.o
+[54/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_str_format_extension.cc.o
+[55/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_match.cc.o
+[56/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_str_format_parser.cc.o
+[57/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_str_format_bind.cc.o
+[58/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_str_cat.cc.o
+[59/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_str_split.cc.o
+[60/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_str_replace.cc.o
+[61/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_string_view.cc.o
+[62/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_str_format_arg.cc.o
+[63/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_address_is_readable.cc.o
+[64/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_failure_signal_handler.cc.o
+[65/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_numbers.cc.o
+[66/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_internal_str_format_float_conversion.cc.o
+[67/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_decode_rust_punycode.cc.o
+[68/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_leak_check.cc.o
+[69/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_strings.a.p/absl_strings_substitute.cc.o
+[70/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_elf_mem_image.cc.o
+[71/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_utf8_for_code_point.cc.o
+[72/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_stack_consumption.cc.o
+[73/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_vdso_support.cc.o
+[74/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_examine_stack.cc.o
+[75/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_stacktrace.cc.o
+[76/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_demangle_rust.cc.o
+[77/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_clock.cc.o
+[78/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_symbolize.cc.o
+[79/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_format.cc.o
+[80/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_fixed.cc.o
+[81/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_civil_time_detail.cc.o
+[82/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_debugging.a.p/absl_debugging_internal_demangle.cc.o
+[83/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_if.cc.o
+[84/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_duration.cc.o
+[85/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_civil_time.cc.o
+[86/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_impl.cc.o
+[87/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_types.a.p/absl_types_bad_any_cast.cc.o
+[88/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_lookup.cc.o
+[89/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_posix.cc.o
+[90/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_zone_info_source.cc.o
+[91/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_types.a.p/absl_types_bad_optional_access.cc.o
+[92/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_types.a.p/absl_types_bad_variant_access.cc.o
+[93/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_libc.cc.o
+[94/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_barrier.cc.o
+[95/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_blocking_counter.cc.o
+[96/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_create_thread_identity.cc.o
+[97/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_futex_waiter.cc.o
+[98/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_graphcycles.cc.o
+[99/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_per_thread_sem.cc.o
+[100/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_kernel_timeout.cc.o
+[101/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_win32_waiter.cc.o
+[102/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_time.cc.o
+[103/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_sem_waiter.cc.o
+[104/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_pthread_waiter.cc.o
+[105/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_format.cc.o
+[106/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_time.a.p/absl_time_internal_cctz_src_time_zone_info.cc.o
+[107/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_waiter_base.cc.o
+[108/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_internal_stdcpp_waiter.cc.o
+[109/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_internal_commandlineflag.cc.o
+[110/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_notification.cc.o
+[111/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_container.a.p/absl_container_internal_hashtablez_sampler_force_weak_definition.cc.o
+[112/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_container.a.p/absl_container_internal_hashtablez_sampler.cc.o
+[113/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_commandlineflag.cc.o
+[114/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_internal_private_handle_accessor.cc.o
+[115/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a.p/absl_synchronization_mutex.cc.o
+[116/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_container.a.p/absl_container_internal_raw_hash_set.cc.o
+[117/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_internal_program_name.cc.o
+[118/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_internal_flag.cc.o
+[119/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_usage.cc.o
+[120/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/checks.cc.o
+[121/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_marshalling.cc.o
+[122/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_usage_config.cc.o
+[123/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/containers_flat_tree.cc.o
+[124/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_internal_usage.cc.o
+[125/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/event.cc.o
+[126/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/platform_thread_types.cc.o
+[127/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/memory_aligned_malloc.cc.o
+[128/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/event_tracer.cc.o
+[129/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/platform_thread.cc.o
+[130/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/race_checker.cc.o
+[131/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_reflection.cc.o
+[132/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/random.cc.o
+[133/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/logging.cc.o
+[134/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/string_utils.cc.o
+[135/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/string_encode.cc.o
+[136/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/experiments_field_trial_parser.cc.o
+[137/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/string_to_number.cc.o
+[138/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_flags.a.p/absl_flags_parse.cc.o
+[139/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/synchronization_sequence_checker_internal.cc.o
+[140/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/synchronization_yield_policy.cc.o
+[141/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/strings_string_builder.cc.o
+[142/427] Compiling C++ object webrtc/api/liblibapi.a.p/audio_audio_processing_statistics.cc.o
+[143/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/system_file_wrapper.cc.o
+[144/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/system_time.cc.o
+[145/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/time_utils.cc.o
+[146/427] Compiling C++ object webrtc/rtc_base/liblibbase.a.p/zero_memory.cc.o
+[147/427] Compiling C++ object webrtc/api/liblibapi.a.p/audio_audio_frame.cc.o
+[148/427] Compiling C++ object webrtc/api/liblibapi.a.p/audio_audio_processing.cc.o
+[149/427] Compiling C++ object webrtc/api/liblibapi.a.p/audio_channel_layout.cc.o
+[150/427] Compiling C++ object webrtc/api/liblibapi.a.p/rtp_headers.cc.o
+[151/427] Compiling C++ object webrtc/api/liblibapi.a.p/video_hdr_metadata.cc.o
+[152/427] Compiling C++ object webrtc/api/liblibapi.a.p/task_queue_task_queue_base.cc.o
+[153/427] Compiling C++ object webrtc/api/liblibapi.a.p/audio_echo_canceller3_config.cc.o
+[154/427] Compiling C++ object webrtc/system_wrappers/libsystem_wrappers.a.p/source_cpu_features.cc.o
+[155/427] Compiling C++ object webrtc/api/liblibapi.a.p/rtp_packet_info.cc.o
+[156/427] Compiling C++ object webrtc/api/liblibapi.a.p/units_frequency.cc.o
+[157/427] Compiling C++ object webrtc/api/liblibapi.a.p/units_time_delta.cc.o
+[158/427] Compiling C++ object webrtc/system_wrappers/libsystem_wrappers.a.p/source_sleep.cc.o
+[159/427] Compiling C++ object webrtc/api/liblibapi.a.p/units_timestamp.cc.o
+[160/427] Compiling C++ object webrtc/api/liblibapi.a.p/video_video_content_type.cc.o
+[161/427] Compiling C++ object webrtc/api/liblibapi.a.p/video_color_space.cc.o
+[162/427] Compiling C++ object webrtc/system_wrappers/libsystem_wrappers.a.p/source_denormal_disabler.cc.o
+[163/427] Compiling C++ object webrtc/api/liblibapi.a.p/video_video_timing.cc.o
+[164/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/fir_filter_c.cc.o
+[165/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/audio_util.cc.o
+[166/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/fir_filter_factory.cc.o
+[167/427] Compiling C++ object webrtc/system_wrappers/libsystem_wrappers.a.p/source_metrics.cc.o
+[168/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/channel_buffer.cc.o
+[169/427] Compiling C++ object webrtc/system_wrappers/libsystem_wrappers.a.p/source_field_trial.cc.o
+[170/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/ring_buffer.c.o
+[171/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_auto_correlation.c.o
+[172/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/audio_converter.cc.o
+[173/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_complex_bit_reverse.c.o
+[174/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_auto_corr_to_refl_coef.c.o
+[175/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_copy_set_operations.c.o
+[176/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_cross_correlation.c.o
+[177/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/resampler_sinusoidal_linear_chirp_source.cc.o
+[178/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_complex_fft.c.o
+[179/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_division_operations.c.o
+[180/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_downsample_fast.c.o
+[181/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_filter_ar_fast_q12.c.o
+[182/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_energy.c.o
+[183/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_filter_ma_fast_q12.c.o
+[184/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_get_hanning_window.c.o
+[185/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/resampler_push_sinc_resampler.cc.o
+[186/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_filter_ar.c.o
+[187/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_get_scaling_square.c.o
+[188/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/resampler_push_resampler.cc.o
+[189/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_lpc_to_refl_coef.c.o
+[190/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_ilbc_specific_functions.c.o
+[191/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_randomization_functions.c.o
+[192/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/resampler_sinc_resampler.cc.o
+[193/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_min_max_operations.c.o
+[194/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_refl_coef_to_lpc.c.o
+[195/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_real_fft.c.o
+[196/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_resample_48khz.c.o
+[197/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_spl_init.c.o
+[198/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_levinson_durbin.c.o
+[199/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_spl_inl.c.o
+[200/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_resample_by_2.c.o
+[201/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_spl_sqrt.c.o
+[202/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_sqrt_of_one_minus_x_squared.c.o
+[203/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_resample.c.o
+[204/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_splitting_filter.c.o
+[205/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_vector_scaling_operations.c.o
+[206/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_resample_by_2_internal.c.o
+[207/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/signal_processing_resample_fractional.c.o
+[208/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/resampler_resampler.cc.o
+[209/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/third_party_spl_sqrt_floor_spl_sqrt_floor.c.o
+[210/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/vad_vad_gmm.c.o
+[211/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/signal_processing_dot_product_with_scale.cc.o
+[212/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/vad_vad_filterbank.c.o
+[213/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/vad_vad_sp.c.o
+[214/427] Compiling C++ object webrtc/third_party/rnnoise/liblibrnnoise.a.p/src_rnn_vad_weights.cc.o
+[215/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_base.a
+[216/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/vad_webrtc_vad.c.o
+[217/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_hash.a
+[218/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_numeric.a
+[219/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_profiling.a
+[220/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_crc.a
+[221/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_debugging.a
+[222/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_strings.a
+[223/427] Compiling C object webrtc/common_audio/libcommon_audio.a.p/vad_vad_core.c.o
+[224/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_types.a
+[225/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_time.a
+[226/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_container.a
+[227/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_synchronization.a
+[228/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_flags.a
+[229/427] Linking static target webrtc/rtc_base/liblibbase.a
+[230/427] Linking static target webrtc/system_wrappers/libsystem_wrappers.a
+[231/427] Linking static target webrtc/api/liblibapi.a
+[232/427] Linking static target webrtc/third_party/rnnoise/liblibrnnoise.a
+[233/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/third_party_ooura_fft_size_128_ooura_fft.cc.o
+[234/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/smoothing_filter.cc.o
+[235/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/vad_vad.cc.o
+[236/427] Compiling C++ object webrtc/common_audio/libcommon_audio.a.p/third_party_ooura_fft_size_256_fft4g.cc.o
+[237/427] Linking static target webrtc/common_audio/libcommon_audio.a
+[238/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_aec3_common.cc.o
+[239/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_adaptive_fir_filter_erl.cc.o
+[240/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec_dump_null_aec_dump_factory.cc.o
+[241/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_aec3_fft.cc.o
+[242/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_block_buffer.cc.o
+[243/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_alignment_mixer.cc.o
+[244/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_adaptive_fir_filter.cc.o
+[245/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_api_call_jitter_metrics.cc.o
+[246/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_clockdrift_detector.cc.o
+[247/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_block_delay_buffer.cc.o
+[248/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_aec_state.cc.o
+[249/427] Compiling C object webrtc/third_party/pffft/liblibpffft.a.p/src_pffft.c.o
+../webrtc/third_party/pffft/src/pffft.c:179:6: warning: #warning "building with simd disabled !\n"; [-Wcpp]
+  179 | #    warning "building with simd disabled !\n";
+      |      ^~~~~~~
+[250/427] Linking static target webrtc/third_party/pffft/liblibpffft.a
+[251/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_block_framer.cc.o
+[252/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_block_processor_metrics.cc.o
+[253/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_coarse_filter_update_gain.cc.o
+[254/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_config_selector.cc.o
+[255/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_block_processor.cc.o
+[256/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_echo_path_variability.cc.o
+[257/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_comfort_noise_generator.cc.o
+[258/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_dominant_nearend_detector.cc.o
+[259/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_decimator.cc.o
+[260/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_downsampled_render_buffer.cc.o
+[261/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_echo_audibility.cc.o
+[262/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_echo_path_delay_estimator.cc.o
+[263/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_erle_estimator.cc.o
+[264/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_echo_remover_metrics.cc.o
+[265/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_fft_buffer.cc.o
+[266/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_erl_estimator.cc.o
+[267/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_echo_remover.cc.o
+[268/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_filter_analyzer.cc.o
+[269/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_frame_blocker.cc.o
+[270/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_moving_average.cc.o
+[271/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_fullband_erle_estimator.cc.o
+[272/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_matched_filter_lag_aggregator.cc.o
+[273/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_multi_channel_content_detector.cc.o
+[274/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_refined_filter_update_gain.cc.o
+[275/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_matched_filter.cc.o
+../webrtc/modules/audio_processing/aec3/matched_filter.cc: In function ‘void webrtc::aec3::MatchedFilterCore(size_t, float, float, rtc::ArrayView<const float>, rtc::ArrayView<const float>, rtc::ArrayView<float>, bool*, float*, bool, rtc::ArrayView<float>)’:
+../webrtc/modules/audio_processing/aec3/matched_filter.cc:525:16: warning: suggest parentheses around ‘+’ in operand of ‘&’ [-Wparentheses]
+  525 |         if ((k + 1 & 0b11) == 0) {
+      |              ~~^~~
+[276/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_render_buffer.cc.o
+[277/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_render_delay_controller_metrics.cc.o
+[278/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_render_delay_controller.cc.o
+[279/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_echo_canceller3.cc.o
+[280/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_render_delay_buffer.cc.o
+[281/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_render_signal_analyzer.cc.o
+[282/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_reverb_frequency_response.cc.o
+[283/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_reverb_decay_estimator.cc.o
+[284/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_reverb_model.cc.o
+[285/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_reverb_model_estimator.cc.o
+[286/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_residual_echo_estimator.cc.o
+[287/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_spectrum_buffer.cc.o
+[288/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_stationarity_estimator.cc.o
+[289/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_subband_nearend_detector.cc.o
+[290/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_subtractor_output_analyzer.cc.o
+[291/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_subtractor_output.cc.o
+[292/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aecm_echo_control_mobile.cc.o
+[293/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_signal_dependent_erle_estimator.cc.o
+[294/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_subband_erle_estimator.cc.o
+[295/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_suppression_filter.cc.o
+[296/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_transparent_mode.cc.o
+[297/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc_agc.cc.o
+[298/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_subtractor.cc.o
+[299/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aec3_suppression_gain.cc.o
+[300/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aecm_aecm_core.cc.o
+[301/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc_utility.cc.o
+[302/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc_legacy_analog_agc.cc.o
+[303/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc_legacy_digital_agc.cc.o
+[304/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc_loudness_histogram.cc.o
+[305/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_biquad_filter.cc.o
+[306/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_agc2_testing_common.cc.o
+[307/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc_agc_manager_direct.cc.o
+[308/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_adaptive_digital_gain_controller.cc.o
+[309/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_clipping_predictor_level_buffer.cc.o
+[310/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_cpu_features.cc.o
+[311/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_clipping_predictor.cc.o
+../webrtc/modules/audio_processing/agc2/clipping_predictor.cc: In function ‘std::unique_ptr<webrtc::ClippingPredictor> webrtc::CreateClippingPredictor(int, const AudioProcessing::Config::GainController1::AnalogGainController::ClippingPredictor&)’:
+../webrtc/modules/audio_processing/agc2/clipping_predictor.cc:382:1: warning: control reaches end of non-void function [-Wreturn-type]
+  382 | }
+      | ^
+[312/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_compute_interpolated_gain_curve.cc.o
+[313/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_gain_applier.cc.o
+[314/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_fixed_digital_level_estimator.cc.o
+[315/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_input_volume_stats_reporter.cc.o
+../webrtc/modules/audio_processing/agc2/input_volume_stats_reporter.cc: In function ‘constexpr absl::lts_20240722::string_view webrtc::{anonymous}::MetricNamePrefix(InputVolumeType)’:
+../webrtc/modules/audio_processing/agc2/input_volume_stats_reporter.cc:51:1: warning: control reaches end of non-void function [-Wreturn-type]
+   51 | }
+      | ^
+[316/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_limiter_db_gain_curve.cc.o
+[317/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_interpolated_gain_curve.cc.o
+[318/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_noise_level_estimator.cc.o
+[319/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_limiter.cc.o
+[320/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_auto_correlation.cc.o
+[321/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_input_volume_controller.cc.o
+[322/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_features_extraction.cc.o
+[323/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_lp_residual.cc.o
+[324/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_pitch_search.cc.o
+[325/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_rnn.cc.o
+[326/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_pitch_search_internal.cc.o
+[327/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_rnn_fc.cc.o
+In file included from ../webrtc/modules/audio_processing/agc2/rnn_vad/rnn_fc.h:19,
+                 from ../webrtc/modules/audio_processing/agc2/rnn_vad/rnn_fc.cc:11:
+../webrtc/api/function_view.h: In instantiation of ‘rtc::FunctionView<RetT(ArgT ...)>::FunctionView(F&&) [with F = float (&)(float); typename std::enable_if<std::is_function<typename std::remove_pointer<typename std::remove_reference<_Up>::type>::type>::value>::type* <anonymous> = 0; RetT = float; ArgT = {float}]’:
+../webrtc/modules/audio_processing/agc2/rnn_vad/rnn_fc.cc:59:25:   required from here
+   59 |       return ::rnnoise::TansigApproximated;
+      |              ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../webrtc/api/function_view.h:80:17: warning: the compiler can assume that the address of ‘f’ will never be NULL [-Waddress]
+   80 |       : call_(f ? CallFunPtr<typename std::remove_pointer<F>::type> : nullptr) {
+      |               ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../webrtc/api/function_view.h:79:20: note: ‘f’ declared here
+   79 |   FunctionView(F&& f)
+      |                ~~~~^
+../webrtc/modules/audio_processing/agc2/rnn_vad/rnn_fc.cc: In function ‘rtc::FunctionView<float(float)> webrtc::rnn_vad::{anonymous}::GetActivationFunction(webrtc::rnn_vad::ActivationFunction)’:
+../webrtc/modules/audio_processing/agc2/rnn_vad/rnn_fc.cc:63:1: warning: control reaches end of non-void function [-Wreturn-type]
+   63 | }
+      | ^
+../webrtc/api/function_view.h: In constructor ‘rtc::FunctionView<RetT(ArgT ...)>::FunctionView(F&&) [with F = float (&)(float); typename std::enable_if<std::is_function<typename std::remove_pointer<typename std::remove_reference<_Up>::type>::type>::value>::type* <anonymous> = 0; RetT = float; ArgT = {float}]’:
+../webrtc/api/function_view.h:80:17: warning: ‘nonnull’ argument ‘f’ compared to NULL [-Wnonnull-compare]
+   80 |       : call_(f ? CallFunPtr<typename std::remove_pointer<F>::type> : nullptr) {
+      |               ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[328/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_spectral_features_internal.cc.o
+[329/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_rnn_gru.cc.o
+[330/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_saturation_protector_buffer.cc.o
+[331/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_rnn_vad_spectral_features.cc.o
+[332/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_saturation_protector.cc.o
+[333/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_speech_probability_buffer.cc.o
+[334/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_speech_level_estimator.cc.o
+[335/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_vector_float_frame.cc.o
+[336/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/agc2_vad_wrapper.cc.o
+[337/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/capture_levels_adjuster_audio_samples_scaler.cc.o
+[338/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/capture_levels_adjuster_capture_levels_adjuster.cc.o
+[339/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/echo_detector_circular_buffer.cc.o
+[340/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/echo_detector_mean_variance_estimator.cc.o
+[341/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/audio_buffer.cc.o
+[342/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/audio_processing_builder_impl.cc.o
+[343/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/echo_control_mobile_impl.cc.o
+[344/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/echo_detector_moving_max.cc.o
+[345/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/echo_detector_normalized_covariance_estimator.cc.o
+[346/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/high_pass_filter.cc.o
+[347/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/include_aec_dump.cc.o
+[348/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/include_audio_frame_proxies.cc.o
+[349/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/logging_apm_data_dumper.cc.o
+[350/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_fast_math.cc.o
+[351/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_prior_signal_model.cc.o
+[352/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/gain_controller2.cc.o
+[353/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/gain_control_impl.cc.o
+[354/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_signal_model.cc.o
+[355/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_histograms.cc.o
+[356/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_noise_estimator.cc.o
+[357/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_ns_fft.cc.o
+[358/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_prior_signal_model_estimator.cc.o
+[359/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_quantile_noise_estimator.cc.o
+[360/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_signal_model_estimator.cc.o
+[361/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_speech_probability_estimator.cc.o
+[362/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_suppression_params.cc.o
+[363/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_wiener_filter.cc.o
+[364/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/audio_processing_impl.cc.o
+../webrtc/modules/audio_processing/audio_processing_impl.cc: In function ‘int webrtc::{anonymous}::AudioFormatValidityToErrorCode(AudioFormatValidity)’:
+../webrtc/modules/audio_processing/audio_processing_impl.cc:172:1: warning: control reaches end of non-void function [-Wreturn-type]
+  172 | }
+      | ^
+[365/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/ns_noise_suppressor.cc.o
+[366/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/rms_level.cc.o
+[367/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_gmm.cc.o
+[368/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/residual_echo_detector.cc.o
+[369/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/splitting_filter.cc.o
+[370/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_pitch_based_vad.cc.o
+[371/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_pitch_internal.cc.o
+[372/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/three_band_filter_bank.cc.o
+[373/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/utility_delay_estimator_wrapper.cc.o
+[374/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_pole_zero_filter.cc.o
+[375/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/utility_pffft_wrapper.cc.o
+[376/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/utility_cascaded_biquad_filter.cc.o
+[377/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/utility_delay_estimator.cc.o
+[378/427] Compiling C object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/.._audio_coding_codecs_isac_main_source_filter_functions.c.o
+[379/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_vad_circular_buffer.cc.o
+[380/427] Compiling C object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/.._audio_coding_codecs_isac_main_source_isac_vad.c.o
+[381/427] Compiling C object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/.._audio_coding_codecs_isac_main_source_pitch_filter.c.o
+[382/427] Compiling C object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/.._audio_coding_codecs_isac_main_source_pitch_estimator.c.o
+[383/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_standalone_vad.cc.o
+[384/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_vad_audio_proc.cc.o
+[385/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_randen_detect.cc.o
+[386/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/vad_voice_activity_detector.cc.o
+[387/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_randen_round_keys.cc.o
+[388/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_discrete_distribution.cc.o
+[389/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_gaussian_distribution.cc.o
+[390/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_randen.cc.o
+[391/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_chi_square.cc.o
+[392/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_randen_hwaes.cc.o
+[393/427] Compiling C++ object webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/aecm_aecm_core_c.cc.o
+[394/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_seed_gen_exception.cc.o
+[395/427] Linking target webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1
+[396/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_pool_urbg.cc.o
+[397/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_randen_slow.cc.o
+[398/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_internal_seed_material.cc.o
+[399/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_random.a.p/absl_random_seed_sequences.cc.o
+[400/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_die_if_null.cc.o
+[401/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_status.a.p/absl_status_status_payload_printer.cc.o
+[402/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_initialize.cc.o
+[403/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_conditions.cc.o
+[404/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_status.a.p/absl_status_status.cc.o
+[405/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_status.a.p/absl_status_statusor.cc.o
+[406/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_flags.cc.o
+[407/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_globals.cc.o
+[408/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_status.a.p/absl_status_internal_status_internal.cc.o
+[409/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_nullguard.cc.o
+[410/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_fnmatch.cc.o
+[411/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_globals.cc.o
+[412/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_proto.cc.o
+[413/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_check_op.cc.o
+[414/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_log_format.cc.o
+[415/427] Generating symbol file webrtc/modules/audio_processing/libwebrtc-audio-processing-2.so.1.p/libwebrtc-audio-processing-2.so.1.symbols
+[416/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_random.a
+[417/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_status.a
+[418/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_log_sink_set.cc.o
+[419/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_log_entry.cc.o
+[420/427] Compiling C object webrtc/modules/third_party/fft/liblibfft.a.p/fft.c.o
+[421/427] Linking static target webrtc/modules/third_party/fft/liblibfft.a
+[422/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_log_message.cc.o
+[423/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_log_sink.cc.o
+[424/427] Compiling C++ object subprojects/abseil-cpp-20240722.0/libabsl_log.a.p/absl_log_internal_vlog_config.cc.o
+[425/427] Linking static target subprojects/abseil-cpp-20240722.0/libabsl_log.a
+[426/427] Compiling C++ object examples/run-offline.p/run-offline.cpp.o
+[427/427] Linking target examples/run-offline
+[ 62%] No install step for 'webrtc_ap_ep'
+[ 65%] Completed 'webrtc_ap_ep'
+[ 65%] Built target webrtc_ap_ep
+[ 78%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/mcp_helper.cpp.o
+[ 78%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/aec_duplex_processor.cpp.o
+[ 78%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/engine_init.cpp.o
+[ 78%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/voice_common.cpp.o
+[ 81%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/hid_wake_listener.cpp.o
+[ 84%] Building CXX object CMakeFiles/voice_chat_aec.dir/examples/voice_chat_aec.cpp.o
+[ 87%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/voice_pipeline.cpp.o
+[ 90%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/text_buffer.cpp.o
+[ 93%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/llm_health.cpp.o
+[ 96%] Building CXX object CMakeFiles/voice_chat_aec.dir/src/doa_runtime.cpp.o
+[100%] Linking CXX executable bin/voice_chat_aec
+[100%] Built target voice_chat_aec
+-- Install configuration: "Release"
+-- Installing: /home/gexo/spacemit_robot/output/staging/bin/voice_chat_aec
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/bin/voice_chat
+-- Installing: /home/gexo/spacemit_robot/output/staging/lib/libwebrtc-audio-processing-2.so.1
+-- Up-to-date: /home/gexo/spacemit_robot/output/staging/bin/voice_chat_daemon

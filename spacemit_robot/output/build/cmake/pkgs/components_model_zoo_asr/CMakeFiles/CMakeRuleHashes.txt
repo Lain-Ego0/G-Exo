@@ -1,0 +1,9 @@
+# Hashes of file build rules.
+a01dd1c4ae4d72c4c6f6385aa9ceb902 CMakeFiles/asr-install-python
+7905961395cac55d337b21e268938b96 CMakeFiles/spacemit_asr_python_package
+7905961395cac55d337b21e268938b96 CMakeFiles/stt-install-python
+a76dd7188cbaa30bc1052616b67caa41 python/spacemit_asr/__init__.py
+91a6b2793da3f577fe56bcb7c588a092 python/spacemit_asr/callback.py
+7287b296487fb42ea22dee973888b1b8 python/spacemit_asr/engine.py
+f2d293da7cefa453f3c393fa82e9e82c python/spacemit_asr/stream.py
+e99a2c5e1bfd5b164f093f1504399799 python/spacemit_asr/utils.py

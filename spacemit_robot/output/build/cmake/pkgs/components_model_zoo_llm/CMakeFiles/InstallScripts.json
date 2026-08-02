@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_llm/cmake_install.cmake",
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_llm/example/cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libsensevoice.a CMakeFiles/sensevoice.dir/src/backends/sensevoice/sensevoice_model.cpp.o CMakeFiles/sensevoice.dir/src/backends/sensevoice/feature_extractor.cpp.o CMakeFiles/sensevoice.dir/src/backends/sensevoice/tokenizer.cpp.o CMakeFiles/sensevoice.dir/src/backends/sensevoice/hotword_scorer.cpp.o
+/usr/bin/ranlib lib/libsensevoice.a

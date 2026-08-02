@@ -1,0 +1,224 @@
+{
+	"abstract" : true,
+	"artifacts" : 
+	[
+		{
+			"path" : "/opt/ros/humble/lib/librmw_dds_common__rosidl_typesupport_cpp.so"
+		}
+	],
+	"backtrace" : 28,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"find_package",
+			"get_default_rmw_implementation",
+			"set_target_properties"
+		],
+		"files" : 
+		[
+			"/opt/ros/humble/share/rmw_dds_common/cmake/rmw_dds_common__rosidl_typesupport_cppExport.cmake",
+			"/opt/ros/humble/share/rmw_dds_common/cmake/ament_cmake_export_targets-extras.cmake",
+			"/opt/ros/humble/share/rmw_dds_common/cmake/rmw_dds_commonConfig.cmake",
+			"/opt/ros/humble/share/rmw_fastrtps_cpp/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rmw_fastrtps_cpp/cmake/rmw_fastrtps_cppConfig.cmake",
+			"/opt/ros/humble/share/rmw_implementation_cmake/cmake/get_default_rmw_implementation.cmake",
+			"/opt/ros/humble/share/rmw_implementation/cmake/rmw_implementation-extras.cmake",
+			"/opt/ros/humble/share/rmw_implementation/cmake/rmw_implementationConfig.cmake",
+			"/opt/ros/humble/share/rcl/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rcl/cmake/rclConfig.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/libstatistics_collector/cmake/libstatistics_collectorConfig.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/ament_cmake_export_dependencies-extras.cmake",
+			"/opt/ros/humble/share/rclcpp/cmake/rclcppConfig.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 14
+			},
+			{
+				"command" : 2,
+				"file" : 14,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"file" : 13,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 13,
+				"line" : 41,
+				"parent" : 2
+			},
+			{
+				"file" : 12,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 12,
+				"line" : 21,
+				"parent" : 4
+			},
+			{
+				"file" : 11,
+				"parent" : 5
+			},
+			{
+				"command" : 1,
+				"file" : 11,
+				"line" : 41,
+				"parent" : 6
+			},
+			{
+				"file" : 10,
+				"parent" : 7
+			},
+			{
+				"command" : 2,
+				"file" : 10,
+				"line" : 21,
+				"parent" : 8
+			},
+			{
+				"file" : 9,
+				"parent" : 9
+			},
+			{
+				"command" : 1,
+				"file" : 9,
+				"line" : 41,
+				"parent" : 10
+			},
+			{
+				"file" : 8,
+				"parent" : 11
+			},
+			{
+				"command" : 2,
+				"file" : 8,
+				"line" : 21,
+				"parent" : 12
+			},
+			{
+				"file" : 7,
+				"parent" : 13
+			},
+			{
+				"command" : 1,
+				"file" : 7,
+				"line" : 41,
+				"parent" : 14
+			},
+			{
+				"file" : 6,
+				"parent" : 15
+			},
+			{
+				"command" : 3,
+				"file" : 6,
+				"line" : 19,
+				"parent" : 16
+			},
+			{
+				"command" : 2,
+				"file" : 5,
+				"line" : 64,
+				"parent" : 17
+			},
+			{
+				"file" : 4,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 41,
+				"parent" : 19
+			},
+			{
+				"file" : 3,
+				"parent" : 20
+			},
+			{
+				"command" : 2,
+				"file" : 3,
+				"line" : 21,
+				"parent" : 21
+			},
+			{
+				"file" : 2,
+				"parent" : 22
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 41,
+				"parent" : 23
+			},
+			{
+				"file" : 1,
+				"parent" : 24
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 9,
+				"parent" : 25
+			},
+			{
+				"file" : 0,
+				"parent" : 26
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 59,
+				"parent" : 27
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 61,
+				"parent" : 27
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "rmw_dds_common::rmw_dds_common__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"interfaceCompileDependencies" : 
+	[
+		{
+			"backtrace" : 29,
+			"id" : "rmw_dds_common::rmw_dds_common__rosidl_generator_cpp::@6890427a1f51a3e7e1df"
+		}
+	],
+	"interfaceLinkLibraries" : 
+	[
+		{
+			"backtrace" : 29,
+			"id" : "rmw_dds_common::rmw_dds_common__rosidl_generator_cpp::@6890427a1f51a3e7e1df"
+		}
+	],
+	"local" : true,
+	"name" : "rmw_dds_common::rmw_dds_common__rosidl_typesupport_cpp",
+	"nameOnDisk" : "librmw_dds_common__rosidl_typesupport_cpp.so",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "SHARED_LIBRARY"
+}

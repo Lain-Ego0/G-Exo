@@ -1,0 +1,45 @@
+[build-system]
+requires = [
+    "setuptools>=77",
+    "wheel",
+    "cmake>=3.18",
+    "pybind11>=2.6",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spacemit_vad"
+version = "1.0.0"
+description = "SpacemiT VAD (Voice Activity Detection) Python bindings"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "Apache-2.0"
+authors = [
+    {name = "SpacemiT", email = "promuggle@gmail.com"}
+]
+keywords = ["vad", "voice activity detection", "silero", "speech"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+
+dependencies = [
+    "numpy>=1.19.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "scipy>=1.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/spacemit/vad"

@@ -1,0 +1,29 @@
+{
+  "core.repositoryformatversion": [
+    "0"
+  ],
+  "core.filemode": [
+    "true"
+  ],
+  "filter.lfs.smudge": [
+    "git-lfs smudge --skip -- %f"
+  ],
+  "filter.lfs.process": [
+    "git-lfs filter-process --skip"
+  ],
+  "remote.origin.url": [
+    "https://gitee.com/spacemit-robotics/lerobot"
+  ],
+  "remote.origin.projectname": [
+    "lerobot"
+  ],
+  "remote.origin.fetch": [
+    "+refs/heads/*:refs/remotes/origin/*"
+  ],
+  "maintenance.auto": [
+    "false"
+  ],
+  "gc.auto": [
+    "0"
+  ]
+}

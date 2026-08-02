@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libvad.a CMakeFiles/vad.dir/src/vad_engine.cpp.o CMakeFiles/vad.dir/src/vad_backend_factory.cpp.o CMakeFiles/vad.dir/src/vad_presets.cpp.o
+/usr/bin/ranlib lib/libvad.a

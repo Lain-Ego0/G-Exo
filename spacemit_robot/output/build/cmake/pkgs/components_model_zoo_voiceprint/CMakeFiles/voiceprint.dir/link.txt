@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libvoiceprint.a CMakeFiles/voiceprint.dir/src/wave_reader.cpp.o CMakeFiles/voiceprint.dir/src/vp_engine.cpp.o CMakeFiles/voiceprint.dir/src/vp_presets.cpp.o CMakeFiles/voiceprint.dir/src/vp_backend_factory.cpp.o CMakeFiles/voiceprint.dir/src/common/mel_filterbank.cpp.o CMakeFiles/voiceprint.dir/src/backends/campplus/campplus_backend.cpp.o CMakeFiles/voiceprint.dir/src/backends/campplus/onnx_model.cpp.o
+/usr/bin/ranlib lib/libvoiceprint.a

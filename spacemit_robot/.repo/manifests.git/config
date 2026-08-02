@@ -1,0 +1,46 @@
+[core]
+	repositoryFormatVersion = 1
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/spacemit-robotics/manifest.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[manifest]
+	platform = auto
+[extensions]
+	preciousObjects = true
+[branch "default"]
+	remote = origin
+	merge = refs/heads/main
+[repo]
+	existingprojectcount = 0
+	newprojectcount = 71
+[repo "syncstate.main"]
+	synctime = 2026-07-30T12:57:33.690144+00:00
+	version = 1
+[repo "syncstate.sys"]
+	argv = ['/home/gexo/spacemit_robot/.repo/repo/main.py', '--repo-dir=/home/gexo/spacemit_robot/.repo', '--wrapper-version=2.54', '--wrapper-path=/usr/bin/repo', '--', 'sync', '-j4']
+[repo "syncstate.options"]
+	jobs = 4
+	outermanifest = true
+	jobsnetwork = 4
+	jobscheckout = 4
+	mpupdate = true
+	interleaved = true
+	clonebundle = true
+	retryfetches = 0
+	prune = true
+	repoverify = true
+	quiet = false
+	verbose = false
+[repo "syncstate.remote.origin"]
+	url = https://gitee.com/spacemit-robotics/manifest.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[repo "syncstate.branch.default"]
+	remote = origin
+	merge = refs/heads/main
+[repo "syncstate.repo"]
+	existingprojectcount = 0
+	newprojectcount = 71

@@ -1,0 +1,5 @@
+/home/gexo/spacemit_robot/output/staging/lib/libvad.a
+/home/gexo/spacemit_robot/output/staging/lib/libsilero_vad.a
+/home/gexo/spacemit_robot/output/staging/include/vad_service.h
+/home/gexo/spacemit_robot/output/staging/bin/vad_simple_demo
+/home/gexo/spacemit_robot/output/dist/spacemit_vad-1.0.0-cp314-cp314-linux_riscv64.whl

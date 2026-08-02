@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

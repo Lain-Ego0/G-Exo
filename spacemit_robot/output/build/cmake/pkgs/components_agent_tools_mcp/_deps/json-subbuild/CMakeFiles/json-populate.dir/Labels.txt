@@ -1,0 +1,14 @@
+# Target labels
+ json-populate
+# Source files and their labels
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/CMakeFiles/json-populate
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/CMakeFiles/json-populate.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/CMakeFiles/json-populate-complete.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-build.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-configure.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-download.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-install.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-mkdir.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-patch.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-test.rule
+/home/gexo/spacemit_robot/output/build/cmake/pkgs/components_agent_tools_mcp/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-update.rule

@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libzipformer.a CMakeFiles/zipformer.dir/src/backends/zipformer/zipformer_ctc_model.cpp.o CMakeFiles/zipformer.dir/src/backends/zipformer/zipformer_feature_extractor.cpp.o
+/usr/bin/ranlib lib/libzipformer.a

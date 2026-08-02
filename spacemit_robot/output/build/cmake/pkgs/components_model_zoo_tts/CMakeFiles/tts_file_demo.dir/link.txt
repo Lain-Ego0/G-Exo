@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/tts_file_demo.dir/link.d CMakeFiles/tts_file_demo.dir/examples/tts_file_demo.cpp.o -o bin/tts_file_demo  libtts.a /usr/lib/libonnxruntime.so /usr/lib/libspacemit_ep.so -lfftw3 -lfftw3f /usr/lib/riscv64-linux-gnu/libcurl.so /usr/lib/riscv64-linux-gnu/libcurl.so lib/libkaldifst_core.a lib/libkaldifst_fst.a

@@ -1,0 +1,5 @@
+_deps/portaudio-build/CMakeFiles/portaudio_static.dir/src/os/unix/pa_unix_hostapis.c.o: \
+ /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-src/src/os/unix/pa_unix_hostapis.c \
+ /usr/include/stdc-predef.h \
+ /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-src/src/common/pa_hostapi.h \
+ /home/gexo/spacemit_robot/output/build/cmake/pkgs/components_model_zoo_voiceprint/_deps/portaudio-src/include/portaudio.h

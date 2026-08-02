@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+setup.py
+spacemit_vad/__init__.py
+spacemit_vad.egg-info/PKG-INFO
+spacemit_vad.egg-info/SOURCES.txt
+spacemit_vad.egg-info/dependency_links.txt
+spacemit_vad.egg-info/requires.txt
+spacemit_vad.egg-info/top_level.txt

@@ -1,0 +1,6 @@
+# pack-refs with: peeled fully-peeled sorted 
+aa84b0939101fab73ac95b557d04bb1f9638c3e1 refs/remotes/origin/fix/matcha-en-lexicon-phonemes
+ce2804f5e215fcf69edd558f8a75d2e653f3ddc6 refs/remotes/origin/main
+5c7e8e49237df63b44e61e03d9da4a8c822d4ecb refs/tags/v1.1.0-rc1
+708ff5e2917f1073cb959e112d2ef75cd7c66269 refs/tags/v1.1.0-rc2
+^787106bb612fdcecbb6240a7ae08218535e529e1

@@ -1,0 +1,25 @@
+{
+  "model": "qwen3.5-4b",
+  "messages": [
+    {"role": "user", "content": "加大速度"}
+  ],
+  "max_tokens": 200,
+  "chat_template_kwargs": {"enable_thinking": false},
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "set_speed",
+        "description": "调整机器人速度",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "action": {"type": "string", "enum": ["speed_up", "slow_down", "stop"]},
+            "amount": {"type": "number", "description": "速度变化量"}
+          },
+          "required": ["action"]
+        }
+      }
+    }
+  ]
+}

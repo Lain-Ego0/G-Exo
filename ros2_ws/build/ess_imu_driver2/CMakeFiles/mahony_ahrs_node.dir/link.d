@@ -1,0 +1,376 @@
+mahony_ahrs_node: \
+  /lib/riscv64-linux-gnu/Scrt1.o \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crti.o \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o \
+  CMakeFiles/mahony_ahrs_node.dir/src/mahony_ahrs_node.cpp.o \
+  CMakeFiles/mahony_ahrs_node.dir/src/mahony.cpp.o \
+  /lib/riscv64-linux-gnu/libpthread.a \
+  /opt/ros/humble/lib/librclcpp.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_generator_py.so \
+  /opt/ros/humble/lib/liblibstatistics_collector.so \
+  /opt/ros/humble/lib/librcl.so \
+  /opt/ros/humble/lib/librmw_implementation.so \
+  /opt/ros/humble/lib/libament_index_cpp.so \
+  /opt/ros/humble/lib/librcl_logging_spdlog.so \
+  /opt/ros/humble/lib/librcl_logging_interface.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_py.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_c.so \
+  /opt/ros/humble/lib/librcl_yaml_param_parser.so \
+  /opt/ros/humble/lib/libyaml.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_generator_py.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_generator_c.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_generator_py.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/libstatistics_msgs__rosidl_generator_c.so \
+  /opt/ros/humble/lib/libtracetools.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/librosidl_typesupport_fastrtps_c.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/librosidl_typesupport_fastrtps_cpp.so \
+  /opt/ros/humble/lib/libfastcdr.so.1.0.29 \
+  /opt/ros/humble/lib/librmw.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/librosidl_typesupport_introspection_cpp.so \
+  /opt/ros/humble/lib/librosidl_typesupport_introspection_c.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_generator_c.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_py.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_c.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_generator_py.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_py.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_generator_c.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_c.so \
+  /usr/lib/riscv64-linux-gnu/libpython3.14.so \
+  /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/librosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/librosidl_typesupport_c.so \
+  /opt/ros/humble/lib/librcpputils.so \
+  /opt/ros/humble/lib/librosidl_runtime_c.so \
+  /opt/ros/humble/lib/librcutils.so \
+  /lib/riscv64-linux-gnu/libdl.a \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libatomic.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libstdc++.so \
+  /lib/riscv64-linux-gnu/libm.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /lib/riscv64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a \
+  /lib/riscv64-linux-gnu/libc.so \
+  /lib/riscv64-linux-gnu/libc.so \
+  /lib/riscv64-linux-gnu/libc.so \
+  /usr/lib/riscv64-linux-gnu/libc.so.6 \
+  /usr/lib/riscv64-linux-gnu/libc_nonshared.a \
+  /lib/ld-linux-riscv64-lp64d.so.1 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so \
+  /lib/riscv64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a \
+  /usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o \
+  /usr/lib/gcc/riscv64-linux-gnu/15/crtn.o \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/librcl_yaml_param_parser.so \
+  /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/librmw_implementation.so \
+  /opt/ros/humble/lib/libament_index_cpp.so \
+  /opt/ros/humble/lib/librcl_logging_interface.so \
+  /opt/ros/humble/lib/librcpputils.so \
+  /opt/ros/humble/lib/librcl_logging_spdlog.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_c.so \
+  /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_c.so \
+  /opt/ros/humble/lib/librosidl_runtime_c.so \
+  /opt/ros/humble/lib/librosidl_typesupport_cpp.so \
+  /opt/ros/humble/lib/libyaml.so \
+  /usr/lib/riscv64-linux-gnu/libspdlog.so.1.15 \
+  /opt/ros/humble/lib/librosidl_typesupport_c.so \
+  /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_c.so \
+  /usr/lib/riscv64-linux-gnu/libfmt.so.10
+
+/lib/riscv64-linux-gnu/Scrt1.o:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crti.o:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crtbeginS.o:
+
+CMakeFiles/mahony_ahrs_node.dir/src/mahony_ahrs_node.cpp.o:
+
+CMakeFiles/mahony_ahrs_node.dir/src/mahony.cpp.o:
+
+/lib/riscv64-linux-gnu/libpthread.a:
+
+/opt/ros/humble/lib/librclcpp.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/liblibstatistics_collector.so:
+
+/opt/ros/humble/lib/librcl.so:
+
+/opt/ros/humble/lib/librmw_implementation.so:
+
+/opt/ros/humble/lib/libament_index_cpp.so:
+
+/opt/ros/humble/lib/librcl_logging_spdlog.so:
+
+/opt/ros/humble/lib/librcl_logging_interface.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/librcl_yaml_param_parser.so:
+
+/opt/ros/humble/lib/libyaml.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/libstatistics_msgs__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/libtracetools.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_fastrtps_c.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_fastrtps_cpp.so:
+
+/opt/ros/humble/lib/libfastcdr.so.1.0.29:
+
+/opt/ros/humble/lib/librmw.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_introspection_cpp.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_introspection_c.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_py.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_c.so:
+
+/usr/lib/riscv64-linux-gnu/libpython3.14.so:
+
+/opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/librcpputils.so:
+
+/opt/ros/humble/lib/librosidl_runtime_c.so:
+
+/opt/ros/humble/lib/librcutils.so:
+
+/lib/riscv64-linux-gnu/libdl.a:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libatomic.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libstdc++.so:
+
+/lib/riscv64-linux-gnu/libm.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/lib/riscv64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a:
+
+/lib/riscv64-linux-gnu/libc.so:
+
+/lib/riscv64-linux-gnu/libc.so:
+
+/lib/riscv64-linux-gnu/libc.so:
+
+/usr/lib/riscv64-linux-gnu/libc.so.6:
+
+/usr/lib/riscv64-linux-gnu/libc_nonshared.a:
+
+/lib/ld-linux-riscv64-lp64d.so.1:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc_s.so:
+
+/lib/riscv64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/libgcc.a:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crtendS.o:
+
+/usr/lib/gcc/riscv64-linux-gnu/15/crtn.o:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/librcl_yaml_param_parser.so:
+
+/opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/librmw_implementation.so:
+
+/opt/ros/humble/lib/libament_index_cpp.so:
+
+/opt/ros/humble/lib/librcl_logging_interface.so:
+
+/opt/ros/humble/lib/librcpputils.so:
+
+/opt/ros/humble/lib/librcl_logging_spdlog.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/librcl_interfaces__rosidl_generator_c.so:
+
+/opt/ros/humble/lib/librosidl_runtime_c.so:
+
+/opt/ros/humble/lib/librosidl_typesupport_cpp.so:
+
+/opt/ros/humble/lib/libyaml.so:
+
+/usr/lib/riscv64-linux-gnu/libspdlog.so.1.15:
+
+/opt/ros/humble/lib/librosidl_typesupport_c.so:
+
+/opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_c.so:
+
+/usr/lib/riscv64-linux-gnu/libfmt.so.10:
