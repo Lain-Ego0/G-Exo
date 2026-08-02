@@ -2,7 +2,7 @@
 
 Env override examples:
     GEXO_BRIDGE__TRANSPORT=ros2
-    GEXO_LLM__BASE_URL=http://127.0.0.1:8080/v1
+    GEXO_LLM__BASE_URL=http://127.0.0.1:9193/v1
     GEXO_STATE__STALE_TIMEOUT_S=2.0
 """
 from __future__ import annotations
@@ -48,13 +48,14 @@ class SafetyConfig(BaseModel):
 
 
 class LlmConfig(BaseModel):
-    base_url: str = "http://127.0.0.1:8080/v1"
-    model: str = "Qwen_Qwen3-4B-Instruct-2507"
+    base_url: str = "http://127.0.0.1:9193/v1"
+    model: str = "Qwen3.5-0.8B-Q4_0.gguf"
     api_key: str = "none"
     temperature: float = 0.1
     timeout_s: float = 30.0
     max_tokens: int = 1024
-    force_json_fallback: bool = False
+    enable_thinking: bool = False
+    force_json_fallback: bool = True
 
 
 class RagConfig(BaseModel):

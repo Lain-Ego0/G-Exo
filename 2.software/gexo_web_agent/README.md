@@ -3,7 +3,7 @@
 外骨骼本地大模型 Web 交互与 ROS 2 控制桥接系统。
 
 手机浏览器 → FastAPI（Web/对话/安全校验）→ 单一 ROS 2 Topic（JSON）→ 控制节点。
-本地 LLM（llama.cpp + Qwen3-4B）只负责意图解析和语言组织，**从不直接控制电机**。
+本地 LLM（llama.cpp + K3 当前部署的 Qwen3.5-0.8B）只负责意图解析和语言组织，**从不直接控制电机**。
 
 ## 架构
 
@@ -40,25 +40,33 @@ python -m gexo_web_agent.main            # 默认 mock transport, 0.0.0.0:8000
 手机与电脑同一局域网，浏览器打开 `http://<电脑IP>:8000`。
 调试折叠区可切换 Mock 场景（急停/故障/CAN 离线/运动中/超时不回…）验证全部安全分支。
 
-### B. K3 设备（Ubuntu 22.04 + ROS 2 Humble）
+### B. K3 实机（Bianbu 4.0.1 + ROS 2 Humble）
+
+2026-08-02 实机核验结果：`riscv64`、系统 Python 3.14、ROS 2 Humble overlay，
+`/usr/bin/llama-server` 已在 `127.0.0.1:9193` 加载
+`~/.cache/models/llm/Qwen3.5-0.8B-Q4_0.gguf`。运行配置以 `/v1/models` 返回为准：
 
 ```bash
-# 1. 启动本地大模型（另开终端，常驻）
-MODEL_PATH=~/models/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf \
-  bash scripts/start_llama_server.sh          # 127.0.0.1:8080/v1
+# 1. 已有服务健康时不要重复启动或下载模型
+curl http://127.0.0.1:9193/v1/models
+# 仅服务未运行时，复用实机已有 GGUF 和当前参数
+bash scripts/start_llama_server.sh
 
-# 2a. pip 方式（黑客松推荐，最少步骤）
-pip install -r requirements.txt
+# 2. 虚拟环境保留系统 ROS Python 包可见性
+python3 -m venv --system-site-packages .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 source /opt/ros/humble/setup.bash
-python -m gexo_web_agent.main --transport ros2
+source /home/gexo/ros2_ws/install/setup.bash
 
-# 2b. 或 colcon 方式
-cd <ros2_ws> && ln -s <repo>/2.software/gexo_web_agent src/gexo_web_agent
-colcon build --packages-select gexo_web_agent && source install/setup.bash
-ros2 launch gexo_web_agent gexo_web_agent.launch.py use_mock_controller:=true
+# 3a. 进程内 Mock（不依赖 ROS，最安全的 Web/LLM/RAG 演示路径）
+python -m gexo_web_agent.main --transport mock --host 0.0.0.0 --port 8000
 
-# 3. 真实控制器未就绪时，用独立 Mock 节点联调真 Topic：
-python scripts/mock_controller.py --scenario normal
+# 3b. ROS 2 端到端 Mock。使用隔离 topic，避免触达未来的真实控制器。
+python scripts/mock_controller.py --topic /g_exo/mock_bridge --scenario normal
+# 另开同环境终端：
+GEXO_BRIDGE__TOPIC=/g_exo/mock_bridge \
+  python -m gexo_web_agent.main --transport ros2 --host 0.0.0.0 --port 8000
 ```
 
 ### 配置
@@ -69,7 +77,10 @@ python scripts/mock_controller.py --scenario normal
 GEXO_BRIDGE__TRANSPORT=ros2        # mock | ros2
 GEXO_BRIDGE__TOPIC=/g_exo/bridge
 GEXO_STATE__STALE_TIMEOUT_S=1.0
-GEXO_LLM__BASE_URL=http://127.0.0.1:8080/v1
+GEXO_LLM__BASE_URL=http://127.0.0.1:9193/v1
+GEXO_LLM__MODEL=Qwen3.5-0.8B-Q4_0.gguf
+GEXO_LLM__ENABLE_THINKING=false
+GEXO_LLM__FORCE_JSON_FALLBACK=true
 GEXO_DEBUG__ENABLED=false          # 真机演示时关闭调试端点
 ```
 

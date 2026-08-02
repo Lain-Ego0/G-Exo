@@ -1,23 +1,29 @@
 #!/usr/bin/env bash
-# Start llama-server with the Qwen3-4B model (OpenAI-compatible API).
+# Start the model currently deployed on the K3 (OpenAI-compatible API).
 # Usage: MODEL_PATH=/path/to/model.gguf ./start_llama_server.sh
 set -euo pipefail
 
-MODEL_PATH="${MODEL_PATH:-$HOME/models/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf}"
-PORT="${LLAMA_PORT:-8080}"
-CTX="${LLAMA_CTX:-8192}"
-THREADS="${LLAMA_THREADS:-$(nproc)}"
+LLAMA_SERVER="${LLAMA_SERVER:-/usr/bin/llama-server}"
+MODEL_PATH="${MODEL_PATH:-$HOME/.cache/models/llm/Qwen3.5-0.8B-Q4_0.gguf}"
+PORT="${LLAMA_PORT:-9193}"
+CTX="${LLAMA_CTX:-4096}"
+THREADS="${LLAMA_THREADS:-8}"
 
 if [[ ! -f "$MODEL_PATH" ]]; then
     echo "model not found: $MODEL_PATH" >&2
-    echo "set MODEL_PATH=/path/to/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf" >&2
+    echo "set MODEL_PATH to the GGUF already installed on this device" >&2
     exit 1
 fi
 
-exec llama-server \
-    --model "$MODEL_PATH" \
+if [[ ! -x "$LLAMA_SERVER" ]]; then
+    echo "llama-server not executable: $LLAMA_SERVER" >&2
+    exit 1
+fi
+
+exec "$LLAMA_SERVER" \
+    -m "$MODEL_PATH" \
     --host 127.0.0.1 \
     --port "$PORT" \
-    --ctx-size "$CTX" \
-    --threads "$THREADS" \
-    --jinja
+    -c "$CTX" \
+    -t "$THREADS" \
+    --no-webui
