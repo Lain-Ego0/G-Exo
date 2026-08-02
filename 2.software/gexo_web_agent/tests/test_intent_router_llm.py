@@ -54,8 +54,9 @@ class FakeRag:
         return {}
 
 
-def make_router(scenario="normal", hits=None):
+def make_router(scenario="normal", hits=None, force_json_fallback=False):
     settings = Settings()
+    settings.llm.force_json_fallback = force_json_fallback
     core = MockControllerCore(scenario=scenario)
     transport = MockTransport(core, state_hz=0.01, result_latency_ms=10)
     bridge = RosBridgeAdapter(transport)
@@ -106,6 +107,19 @@ async def test_llm_plain_text_becomes_clarification():
     resp = await router.handle("那个……弄一下")
     assert resp.need_clarification
     assert "调节助力" in resp.reply
+
+
+async def test_json_schema_fallback_validates_action():
+    router, llm, transport, _ = make_router(force_json_fallback=True)
+    transport.start()
+    try:
+        llm.push_text('{"action":"adjust_assist","delta":0.1}')
+        resp = await router.handle("腿有点沉，帮我调一下")
+        assert resp.intent == "adjust_assist"
+        assert resp.command is not None and resp.command.status.value == "success"
+        assert llm.calls[0]["response_format"]["type"] == "json_schema"
+    finally:
+        transport.stop()
 
 
 async def test_llm_down_degrades_gracefully():

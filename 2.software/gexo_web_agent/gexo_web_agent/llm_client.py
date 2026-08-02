@@ -49,6 +49,7 @@ class LlmClient:
             "messages": messages,
             "temperature": self._cfg.temperature if temperature is None else temperature,
             "max_tokens": self._cfg.max_tokens if max_tokens is None else max_tokens,
+            "chat_template_kwargs": {"enable_thinking": self._cfg.enable_thinking},
         }
         if tools:
             payload["tools"] = tools

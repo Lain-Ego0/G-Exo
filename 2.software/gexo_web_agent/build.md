@@ -10,8 +10,8 @@
 
 | 项 | 值 |
 |---|---|
-| 目标设备 | K3 CoM260（16GB），Ubuntu 22.04，ROS 2 Humble，Python 3.10 |
-| LLM | `Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf`，llama.cpp / llama-server（OpenAI 兼容 `/v1`） |
+| 目标设备 | K3 CoM260（16GB）；实机为 Bianbu 4.0.1、ROS 2 Humble overlay、Python 3.14 |
+| LLM | 实机 `/v1/models`：`Qwen3.5-0.8B-Q4_0.gguf`，llama-server `127.0.0.1:9193/v1` |
 | 开发机 | Windows（**无 rclpy**）——这是最重要的工程约束 |
 | 控制 Topic | 真实控制器接口**未定型**，先按 `/g_exo/bridge` + `std_msgs/String` JSON 契约实现 |
 | 用途 | 黑客松演示；优先级：安全 > 实时稳定 > 演示可靠 > 状态正确 > 可维护 > LLM/UI 打磨 |
@@ -196,8 +196,9 @@ submit(action) ───┤
 
 ### LLM 路径
 
-- 主路径：OpenAI `tools` API（llama-server 服务端把 tool schema 编译成 GBNF 约束采样，Qwen3 对 tool-call 有原生训练）。temperature 0.1。
-- 逃生口：`llm.force_json_fallback: true` → 改用 `response_format: json_schema` 单派发 schema（`_JSON_FALLBACK_SCHEMA`，含 `clarify` 动作）。**若 K3 上 llama-server 版本对 Qwen3 tool 模板有问题，开这个开关**。
+- K3 默认路径：`response_format: json_schema` 单派发 schema（`_JSON_FALLBACK_SCHEMA`，含 `clarify` 动作）。实机 0.8B 对该路径的三项意图测试均正确。
+- 可选路径：`llm.force_json_fallback: false` 使用 OpenAI `tools` API。实机 0.8B 对“助力再大一点”未稳定返回 tool call，因此不作为默认。
+- 所有请求发送 `chat_template_kwargs.enable_thinking=false`，避免 Qwen3.5 将 token 预算消耗在 reasoning content。
 - 模型无 tool call 且有 content → 视为模型自主澄清，原文返回。
 - `_validate()`：一切 LLM 输出经 `ActionEnvelope.parse_untrusted()`——编造 action 名、越界 delta、多余字段全部 ValidationError → 澄清。
 - `LlmError`（llama-server 挂了）→ 固定降级话术，提示用按钮或固定说法；控制路径不受影响。
@@ -239,8 +240,10 @@ GEXO_STATE__STALE_TIMEOUT_S=1.0
 GEXO_COMMAND__RESULT_TIMEOUT_S=3.0
 GEXO_COMMAND__CONFIRM_TTL_S=30.0
 GEXO_SAFETY__ASSIST_MIN=0.3                  # 改边界只动配置，代码无硬编码（mock core 除外）
-GEXO_LLM__BASE_URL=http://127.0.0.1:8080/v1
-GEXO_LLM__FORCE_JSON_FALLBACK=true           # llama-server tool 模板不兼容时的逃生口
+GEXO_LLM__BASE_URL=http://127.0.0.1:9193/v1
+GEXO_LLM__MODEL=Qwen3.5-0.8B-Q4_0.gguf
+GEXO_LLM__ENABLE_THINKING=false
+GEXO_LLM__FORCE_JSON_FALLBACK=true           # 实机 0.8B 的已验证默认路径
 GEXO_MOCK__SCENARIO=estop                    # normal|estop|fault|can_offline|moving|overheat|no_reply|fail
 GEXO_DEBUG__ENABLED=false                    # 真机演示务必关（关闭 /api/debug/scenario）
 ```
@@ -298,7 +301,7 @@ python -m pytest tests/ -q          # Windows/无 ROS 2：176 passed, 1 skipped
 
 **接真机前必须确认：**
 
-1. **llama-server × Qwen3 tool 模板兼容性**——K3 上第一件事：起 llama-server 后发一条非规则命中的话（如「给它整猛一些」）验证 tools 路径；失败则 `GEXO_LLM__FORCE_JSON_FALLBACK=true`。
+1. **模型配置漂移**——部署前查询 K3 的进程参数和 `/v1/models`；若模型或端口变化，先更新配置再验证 JSON Schema 路径，禁止依据旧文档猜测。
 2. **真实控制器线格式**——预期只改 `ros_bridge.py`（§4 接入路径）；`is_stationary` 若真机不提供，需和控制器方定判据。
 3. **`GEXO_DEBUG__ENABLED=false`**——真机演示必关，否则场景注入端点暴露在局域网。
 
