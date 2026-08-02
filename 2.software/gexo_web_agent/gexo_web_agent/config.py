@@ -13,7 +13,7 @@ from typing import Literal, Optional
 
 import yaml
 from pydantic import BaseModel, Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, SettingsConfigDict
 
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent  # .../2.software/gexo_web_agent
 
@@ -99,6 +99,18 @@ class Settings(BaseSettings):
     debug: DebugConfig = DebugConfig()
     logging: LoggingConfig = LoggingConfig()
 
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        # YAML is passed as init data; deployment env vars must override it.
+        return env_settings, init_settings, dotenv_settings, file_secret_settings
+
     def resolve_path(self, p: str) -> Path:
         """Resolve a config-relative path against the package root."""
         path = Path(p)
@@ -119,5 +131,4 @@ def load_settings(config_path: Optional[str] = None) -> Settings:
     if p.is_file():
         with open(p, "r", encoding="utf-8") as fh:
             data = yaml.safe_load(fh) or {}
-    # BaseSettings gives env vars precedence over init kwargs by default.
     return Settings(**data)
