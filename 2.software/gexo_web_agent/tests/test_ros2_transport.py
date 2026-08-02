@@ -74,3 +74,4 @@ def test_ros2_roundtrip(mock_node):
         assert results[0].success
     finally:
         adapter.stop()
+    assert rclpy.ok(), "transport must not shut down an externally owned ROS context"

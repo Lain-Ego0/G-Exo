@@ -125,6 +125,8 @@ class Ros2Transport:
         self._pub = None
         self._thread: Optional[threading.Thread] = None
         self._rclpy = None
+        self._executor = None
+        self._owns_context = False
         self._string_msg_cls = None
 
     def set_message_callback(self, cb: MessageCallback) -> None:
@@ -140,9 +142,12 @@ class Ros2Transport:
         self._string_msg_cls = String
         if not rclpy.ok():
             rclpy.init()
+            self._owns_context = True
         self._node = rclpy.create_node(self._node_name)
         self._pub = self._node.create_publisher(String, self._topic, 10)
         self._node.create_subscription(String, self._topic, self._on_ros_message, 10)
+        self._executor = rclpy.executors.SingleThreadedExecutor()
+        self._executor.add_node(self._node)
         self._thread = threading.Thread(target=self._spin, name="ros2-spin", daemon=True)
         self._thread.start()
         logger.info("Ros2Transport started on topic %s", self._topic)
@@ -150,15 +155,19 @@ class Ros2Transport:
     def stop(self) -> None:
         if self._rclpy is None:
             return
-        try:
-            self._rclpy.shutdown()
-        except Exception:
-            logger.exception("rclpy shutdown failed")
+        if self._executor is not None:
+            self._executor.shutdown()
         if self._thread is not None:
             self._thread.join(timeout=2.0)
             self._thread = None
+        if self._node is not None:
+            self._node.destroy_node()
+        self._executor = None
         self._node = None
         self._pub = None
+        if self._owns_context and self._rclpy.ok():
+            self._rclpy.shutdown()
+        self._owns_context = False
 
     def publish_command(self, payload: dict[str, Any]) -> None:
         if self._pub is None or self._string_msg_cls is None:
@@ -169,7 +178,7 @@ class Ros2Transport:
 
     def _spin(self) -> None:
         try:
-            self._rclpy.spin(self._node)
+            self._executor.spin()
         except Exception:
             logger.exception("rclpy spin exited abnormally")
 
