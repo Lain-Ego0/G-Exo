@@ -183,6 +183,7 @@ details.debug summary { cursor: pointer; color: var(--muted); font-size: 0.9rem;
   display: flex; align-items: center; justify-content: center;
   z-index: 100;
 }
+.overlay[hidden] { display: none; }
 .dialog {
   background: var(--card);
   border-radius: var(--radius);
