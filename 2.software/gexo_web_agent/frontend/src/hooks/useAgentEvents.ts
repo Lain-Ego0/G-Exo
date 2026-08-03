@@ -29,6 +29,7 @@ export interface AgentEventsView {
   safetyDecision: string | null;
   acknowledgementMs: number | null;
   activeLoopStage: StageId | null;
+  eventKey: string | null;
 }
 
 const LABELS: Record<AgentStageId, string> = {
@@ -113,6 +114,7 @@ function emptyView(): AgentEventsView {
     safetyDecision: null,
     acknowledgementMs: null,
     activeLoopStage: null,
+    eventKey: null,
   };
 }
 
@@ -123,14 +125,14 @@ export function useAgentEvents(activity: CommandActivity | null): AgentEventsVie
     const isSubmitting = activity.phase === "submitting";
     const intentStage = stage(
       "intent",
-      isSubmitting ? "active" : activity.phase === "network_error" ? "failed" : "passed",
+      isSubmitting ? "active" : ["network_error", "request_error"].includes(activity.phase) ? "failed" : "passed",
       activity.source === "button"
         ? `BUTTON / ${activity.action ?? "DATA UNAVAILABLE"}`
         : "USER COMMAND RECEIVED",
     );
     const parsingStage = activity.source === "button"
       ? stage("parsing", "idle", "NOT USED / DIRECT CONTROL")
-      : activity.phase === "network_error"
+      : activity.phase === "network_error" || activity.phase === "request_error"
         ? stage("parsing", "failed", activity.error ?? "BACKEND UNREACHABLE")
         : activity.intent
           ? stage("parsing", "passed", `INTENT / ${activity.intent} · SOURCE UNAVAILABLE`)
@@ -138,17 +140,25 @@ export function useAgentEvents(activity: CommandActivity | null): AgentEventsVie
 
     const command = activity.command;
     const readOnly = activity.source === "chat" && activity.phase === "complete" && !command;
-    const safety = readOnly
+    const confirmationInFlight = activity.phase === "awaiting_controller" &&
+      command?.status === "pending_confirmation";
+    const safety = confirmationInFlight
+      ? stage("safety", "active", "VALIDATING CONFIRMED REQUEST")
+      : readOnly
       ? stage("safety", "idle", "NOT APPLICABLE / READ-ONLY")
       : safetyStage(command);
-    const ros2 = readOnly
+    const ros2 = confirmationInFlight
+      ? stage("ros2", "unavailable", "BACKEND RESULT PENDING")
+      : readOnly
       ? stage("ros2", "idle", "NOT APPLICABLE / READ-ONLY")
       : rosStage(command);
-    const controller = readOnly
+    const controller = confirmationInFlight
+      ? stage("controller", "unavailable", "BACKEND RESULT PENDING")
+      : readOnly
       ? stage("controller", "idle", "NO CONTROLLER REQUEST")
       : controllerStage(command);
 
-    const controllerBound = activity.phase === "awaiting_controller" || Boolean(
+    const controllerBound = Boolean(
       command && ["sent", "success", "failed", "timeout"].includes(command.status),
     );
     const activeLoopStage: StageId = controllerBound ? "act" : "reason";
@@ -170,6 +180,7 @@ export function useAgentEvents(activity: CommandActivity | null): AgentEventsVie
         : null,
       acknowledgementMs: duration,
       activeLoopStage,
+      eventKey: `${activity.startedMs}-${activity.phase}-${command?.request_id ?? "none"}-${command?.status ?? "none"}`,
     };
   }, [activity]);
 }

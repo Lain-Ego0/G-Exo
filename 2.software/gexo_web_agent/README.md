@@ -8,7 +8,7 @@
 ## 架构
 
 ```
-浏览器 (HTML/JS, WebSocket)
+浏览器 (React + Vite build, WebSocket)
    │
 FastAPI  ── /api/chat ──▶ IntentRouter（规则优先 → LLM tools → Pydantic 校验）
    │            │                │
@@ -39,6 +39,20 @@ python -m gexo_web_agent.main            # 默认 mock transport, 0.0.0.0:8000
 
 手机与电脑同一局域网，浏览器打开 `http://<电脑IP>:8000`。
 调试折叠区可切换 Mock 场景（急停/故障/CAN 离线/运动中/超时不回…）验证全部安全分支。
+
+### 前端开发与构建
+
+FastAPI 继续托管 `static/` 中已经编译好的生产文件；K3 运行服务不需要 Node.js。
+修改 React 源码时在开发机执行：
+
+```bash
+cd 2.software/gexo_web_agent/frontend
+npm ci
+npm run dev       # 5173，/api、/health、/ws 代理到 127.0.0.1:8000
+npm run build     # TypeScript 检查后输出到 ../static
+```
+
+`frontend/src/` 是唯一手工维护的前端源码，`static/` 是需随 Python 包部署的构建产物。
 
 ### B. K3 实机（Bianbu 4.0.1 + ROS 2 Humble）
 
@@ -115,6 +129,7 @@ Mock 控制器作为权威端再次校验全部规则（双层防御）。
 python -m pytest tests/ -q        # Windows/无 ROS 2 → 176 通过，ROS 用例自动跳过
 python -m pytest tests/test_ros2_transport.py -v   # 仅 K3 设备（需 rclpy）
 python scripts/build_rag_index.py --rebuild        # 手动重建教程索引
+cd frontend && npm run build      # React 类型检查 + 生产静态构建
 ```
 
 覆盖验收标准：助力边界/步长、阻尼禁调、二次确认、运动中拒绝、急停/故障/CAN 拒绝、
@@ -126,7 +141,8 @@ python scripts/build_rag_index.py --rebuild        # 手动重建教程索引
 gexo_web_agent/   核心模块（schemas/config/state_cache/safety_guard/
                   command_manager/ros_bridge/mock_controller_core/
                   llm_client/intent_router/rag_service/api/main）
-static/           手机 Web 页面（原生 HTML/CSS/JS）
+frontend/         React + TypeScript + Vite 源码（SENSE / REASON / ACT Cockpit）
+static/           Vite 生产构建产物，由 FastAPI 静态托管
 config/           default.yaml
 launch/ scripts/  ROS 2 launch 与启动脚本
 data/docs/        RAG 补充语料（另默认索引仓库 4.document/ 的 PDF）

@@ -12,7 +12,9 @@ export function ModeConfirmDialog({
   commands: RobotCommandView;
   robot: RobotSocketView;
 }) {
+  const dialogRef = useRef<HTMLElement>(null);
   const cancelRef = useRef<HTMLButtonElement>(null);
+  const confirmRef = useRef<HTMLButtonElement>(null);
   const command = commands.lastCommand;
   const open = command?.status === "pending_confirmation" && command.action === "set_mode";
   const rawMode = command?.params.mode;
@@ -20,16 +22,37 @@ export function ModeConfirmDialog({
     ? rawMode
     : null;
   const blocker = targetMode ? modeWriteBlocker(robot, targetMode) : "MODE DATA UNAVAILABLE";
+  const { busy, confirmPending } = commands;
 
   useEffect(() => {
     if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     cancelRef.current?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !commands.busy) void commands.confirmPending(false);
+      if (event.key === "Escape" && !busy) {
+        event.preventDefault();
+        void confirmPending(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = [cancelRef.current, confirmRef.current].filter(
+        (item): item is HTMLButtonElement => Boolean(item && !item.disabled),
+      );
+      if (focusable.length === 0) return;
+      const currentIndex = focusable.indexOf(document.activeElement as HTMLButtonElement);
+      const nextIndex = event.shiftKey
+        ? (currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1)
+        : (currentIndex + 1) % focusable.length;
+      event.preventDefault();
+      focusable[nextIndex].focus();
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [commands, open]);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [busy, confirmPending, open]);
 
   if (!open || !targetMode) return null;
   const label = targetMode === "assist" ? "Assist" : "Damping";
@@ -41,6 +64,7 @@ export function ModeConfirmDialog({
         aria-labelledby="mode-dialog-title"
         aria-modal="true"
         className="mode-dialog"
+        ref={dialogRef}
         role="dialog"
       >
         <header>
@@ -72,6 +96,7 @@ export function ModeConfirmDialog({
             className="dialog-button primary"
             disabled={commands.busy || blocker !== null}
             onClick={() => void commands.confirmPending(true)}
+            ref={confirmRef}
             type="button"
           >
             <Check aria-hidden="true" size={17} />Confirm switch

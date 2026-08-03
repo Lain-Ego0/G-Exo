@@ -93,6 +93,7 @@ export function useRobotSocket(): RobotSocketView {
       socket.onclose = () => {
         if (stopped) return;
         setSocketState("closed");
+        void probeHealth();
         retryTimer = window.setTimeout(connect, retryMs);
         retryMs = Math.min(retryMs * 2, MAX_RETRY_MS);
       };

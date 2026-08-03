@@ -116,11 +116,14 @@ function connectionLabel(robot: RobotSocketView): string {
 function CommandResult({ commands }: { commands: RobotCommandView }) {
   const command = commands.lastCommand;
   const activity = commands.activity;
-  if (activity?.phase === "network_error") {
+  if (activity?.phase === "network_error" || activity?.phase === "request_error") {
     return (
       <div className="command-result-view" data-state="failed" role="status">
         <span className="status-dot" />
-        <div><strong>NETWORK ERROR</strong><span>{activity.error ?? "Backend request failed"}</span></div>
+        <div>
+          <strong>{activity.phase === "network_error" ? "NETWORK ERROR" : "REQUEST ERROR"}</strong>
+          <span>{activity.error ?? "Backend request failed"}</span>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 
-import { postAction, postChat, postConfirmation } from "../lib/api";
+import { ApiError, postAction, postChat, postConfirmation } from "../lib/api";
 import type {
   ChatMessage,
   CommandAction,
@@ -38,6 +38,10 @@ function phaseFor(command: CommandView): CommandActivity["phase"] {
   if (command.status === "pending_confirmation") return "awaiting_confirmation";
   if (command.status === "sent") return "awaiting_controller";
   return "complete";
+}
+
+function errorPhase(error: unknown): CommandActivity["phase"] {
+  return error instanceof ApiError && error.status !== null ? "request_error" : "network_error";
 }
 
 export function useRobotCommand(refreshState: () => Promise<void>): RobotCommandView {
@@ -89,7 +93,7 @@ export function useRobotCommand(refreshState: () => Promise<void>): RobotCommand
       const message = error instanceof Error ? error.message : "Backend request failed";
       setActivity({
         source: "button",
-        phase: "network_error",
+        phase: errorPhase(error),
         action,
         intent: action,
         command: null,
@@ -133,7 +137,7 @@ export function useRobotCommand(refreshState: () => Promise<void>): RobotCommand
       const message = error instanceof Error ? error.message : "Confirmation failed";
       setActivity((current) => current ? {
         ...current,
-        phase: "network_error",
+        phase: errorPhase(error),
         finishedMs: Date.now(),
         error: message,
       } : current);
@@ -191,7 +195,7 @@ export function useRobotCommand(refreshState: () => Promise<void>): RobotCommand
       }]);
       setActivity({
         source: "chat",
-        phase: "network_error",
+        phase: errorPhase(error),
         action: null,
         intent: null,
         command: null,

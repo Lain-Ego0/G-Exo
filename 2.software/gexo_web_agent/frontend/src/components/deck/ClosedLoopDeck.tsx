@@ -53,6 +53,7 @@ export function ClosedLoopDeck({
       <ClosedLoopSpine
         activeStage={agentEvents.activeLoopStage ?? (robot.connection === "online" ? "sense" : undefined)}
         connection={robot.connection}
+        eventKey={agentEvents.eventKey}
       />
 
       <div className="stage-grid">

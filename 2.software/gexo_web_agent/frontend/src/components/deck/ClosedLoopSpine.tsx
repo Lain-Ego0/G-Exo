@@ -5,9 +5,11 @@ import type { ConnectionState } from "../../types/robot";
 export function ClosedLoopSpine({
   activeStage,
   connection,
+  eventKey,
 }: {
   activeStage?: StageId;
   connection: ConnectionState;
+  eventKey: string | null;
 }) {
   return (
     <div className="closed-loop-spine" aria-label="Closed loop status">
@@ -20,7 +22,8 @@ export function ClosedLoopSpine({
             className="spine-stage"
             data-stage={stage}
             data-active={activeStage === stage || undefined}
-            key={stage}
+            data-pulse={activeStage === stage && eventKey !== null || undefined}
+            key={`${stage}-${activeStage === stage ? eventKey ?? "steady" : "idle"}`}
           >
             <span className="spine-node" />
             <span>{STAGE_LABELS[stage]}</span>
