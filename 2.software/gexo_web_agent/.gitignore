@@ -7,3 +7,5 @@ build/
 install/
 log/
 *.egg-info/
+frontend/node_modules/
+frontend/*.tsbuildinfo
