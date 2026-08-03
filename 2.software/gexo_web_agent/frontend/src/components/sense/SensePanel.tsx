@@ -7,26 +7,28 @@ import {
   WifiOff,
 } from "lucide-react";
 
+import {
+  arrayValue,
+  formatAge,
+  formatMeasurement,
+  formatPercent,
+  maximum,
+  missingLabel,
+} from "../../lib/format";
+import type { RobotSocketView, RobotState } from "../../types/robot";
 import { JOINTS } from "../../types/ui";
 
-const UNAVAILABLE = "DATA UNAVAILABLE";
-
-function PanelHeader() {
-  return (
-    <header className="stage-panel-header">
-      <div>
-        <span className="stage-kicker">01 / SENSOR BUS</span>
-        <h2>SENSE</h2>
-      </div>
-      <span className="stage-state" data-state="offline">
-        <WifiOff aria-hidden="true" size={14} />
-        NOT CONNECTED
-      </span>
-    </header>
-  );
+function connectionLabel(robot: RobotSocketView): string {
+  if (robot.connection === "online") return "LIVE";
+  if (robot.connection === "stale") return `STALE ${formatAge(robot.ageMs)}`;
+  if (robot.connection === "connecting") return "WAITING";
+  return robot.snapshot?.state ? "DISCONNECTED" : "NOT CONNECTED";
 }
 
-function JointMap() {
+function JointMap({ state }: { state: RobotState | null }) {
+  const fallback = missingLabel(Boolean(state));
+  const canOnline = state?.can_online === true;
+
   return (
     <section className="module-section joint-map-section" aria-labelledby="joint-map-title">
       <div className="section-heading">
@@ -36,25 +38,40 @@ function JointMap() {
         </div>
         <span className="section-meta">ANGLE / TEMPERATURE</span>
       </div>
-      <div className="joint-map" data-state="offline">
+      <div className="joint-map" data-state={canOnline ? "online" : "offline"}>
         <img
           src="/gexo-exoskeleton.png"
           alt="G-Exo lower-limb exoskeleton front view"
         />
-        {JOINTS.map((joint) => (
-          <div className={`joint-node joint-node-${joint.id}`} key={joint.id}>
-            <span className="joint-node-dot" />
-            <strong>{joint.short}</strong>
-            <span>-- rad</span>
-          </div>
-        ))}
-        <span className="map-offline-label">WAITING FOR JOINT STATE</span>
+        {JOINTS.map((joint, index) => {
+          const position = arrayValue(state?.joint_position, index);
+          const temperature = arrayValue(state?.motor_temperature, index);
+          const status = state ? (canOnline ? "ONLINE" : "CAN OFFLINE") : fallback;
+          return (
+            <div
+              className={`joint-node joint-node-${joint.id}`}
+              data-state={canOnline ? "online" : "offline"}
+              key={joint.id}
+              title={`${joint.name}: ${status}`}
+            >
+              <span className="joint-node-dot" />
+              <strong>{joint.short} / {status}</strong>
+              <span>
+                {formatMeasurement(position, 2, "rad", "-- rad")} / {formatMeasurement(temperature, 1, "°C", "-- °C")}
+              </span>
+            </div>
+          );
+        })}
+        <span className="map-offline-label">
+          {state ? (canOnline ? "LIVE JOINT STATE" : "CAN OFFLINE") : "WAITING FOR JOINT STATE"}
+        </span>
       </div>
     </section>
   );
 }
 
-function ImuArray() {
+function ImuArray({ state }: { state: RobotState | null }) {
+  const fallback = missingLabel(Boolean(state));
   return (
     <section className="module-section" aria-labelledby="imu-title">
       <div className="section-heading">
@@ -65,20 +82,31 @@ function ImuArray() {
         <Radio aria-hidden="true" size={16} />
       </div>
       <div className="imu-array">
-        {[1, 2, 3, 4].map((index) => (
-          <div className="imu-row" key={index}>
-            <span className="hardware-id">IMU {String(index).padStart(2, "0")}</span>
-            <span className="inline-state" data-state="offline">NOT CONNECTED</span>
-            <span className="mono-value">-- ms</span>
-          </div>
-        ))}
+        {[0, 1, 2, 3].map((index) => {
+          const online = arrayValue(state?.imu_online, index);
+          const calibrated = arrayValue(state?.imu_calibrated, index);
+          const onlineLabel = online === true ? "ONLINE" : online === false ? "OFFLINE" : fallback;
+          const calibrationLabel = calibrated === true
+            ? "CALIBRATED"
+            : calibrated === false
+              ? "CALIBRATION REQUIRED"
+              : "DATA UNAVAILABLE";
+          return (
+            <div className="imu-row" data-state={online ? "online" : "offline"} key={index}>
+              <span className="hardware-id">IMU {String(index + 1).padStart(2, "0")}</span>
+              <span className="inline-state" data-state={online ? "healthy" : "offline"}>{onlineLabel}</span>
+              <span className="mono-value">{calibrationLabel}</span>
+            </div>
+          );
+        })}
       </div>
-      <p className="section-note">Calibration / {UNAVAILABLE}</p>
+      <p className="section-note">Sample age / DATA UNAVAILABLE</p>
     </section>
   );
 }
 
-function EncoderReadout() {
+function EncoderReadout({ state }: { state: RobotState | null }) {
+  const fallback = missingLabel(Boolean(state));
   return (
     <section className="module-section" aria-labelledby="encoder-title">
       <div className="section-heading">
@@ -92,11 +120,15 @@ function EncoderReadout() {
         <div className="data-row data-head" role="row">
           <span>JOINT</span><span>POSITION</span><span>VELOCITY</span>
         </div>
-        {JOINTS.map((joint) => (
+        {JOINTS.map((joint, index) => (
           <div className="data-row" role="row" key={joint.id}>
             <span><strong>{joint.short}</strong> {joint.name}</span>
-            <span className="mono-value">-- rad</span>
-            <span className="mono-value">-- rad/s</span>
+            <span className="mono-value">
+              {formatMeasurement(arrayValue(state?.joint_position, index), 2, "rad", fallback)}
+            </span>
+            <span className="mono-value">
+              {formatMeasurement(arrayValue(state?.joint_velocity, index), 2, "rad/s", fallback)}
+            </span>
           </div>
         ))}
       </div>
@@ -104,7 +136,9 @@ function EncoderReadout() {
   );
 }
 
-function CanMotorHealth() {
+function CanMotorHealth({ state }: { state: RobotState | null }) {
+  const fallback = missingLabel(Boolean(state));
+  const maxTemperature = maximum(state?.motor_temperature);
   return (
     <section className="module-section" aria-labelledby="motor-health-title">
       <div className="section-heading">
@@ -115,23 +149,50 @@ function CanMotorHealth() {
         <Cable aria-hidden="true" size={16} />
       </div>
       <div className="hardware-metrics">
-        <div><Cable aria-hidden="true" /><span>CAN</span><strong>NOT CONNECTED</strong></div>
-        <div><Thermometer aria-hidden="true" /><span>MAX TEMP</span><strong>-- °C</strong></div>
-        <div><BatteryMedium aria-hidden="true" /><span>BUS</span><strong>-- V / -- A</strong></div>
+        <div><Cable aria-hidden="true" /><span>CAN</span><strong>{state?.can_online === true ? "ONLINE" : state?.can_online === false ? "OFFLINE" : fallback}</strong></div>
+        <div><Thermometer aria-hidden="true" /><span>MAX TEMP</span><strong>{formatMeasurement(maxTemperature, 1, "°C", fallback)}</strong></div>
+        <div><BatteryMedium aria-hidden="true" /><span>BATTERY</span><strong>{formatPercent(state?.battery_percent, fallback)}</strong></div>
+        <div><BatteryMedium aria-hidden="true" /><span>BUS</span><strong>{formatMeasurement(state?.bus_voltage, 1, "V", fallback)} / {formatMeasurement(state?.bus_current, 1, "A", fallback)}</strong></div>
       </div>
-      <p className="section-note">Fault code / {UNAVAILABLE}</p>
+      <div className="motor-temperature-strip" aria-label="Motor temperatures">
+        {JOINTS.map((joint, index) => (
+          <span key={joint.id}>
+            <small>{joint.short}</small>
+            <strong>{formatMeasurement(arrayValue(state?.motor_temperature, index), 1, "°C", "-- °C")}</strong>
+          </span>
+        ))}
+      </div>
+      <p className="section-note">
+        Fault / {state?.fault_code ? `${state.fault_code}${state.fault_message ? ` · ${state.fault_message}` : ""}` : state?.fault_code === "" ? "NONE" : fallback}
+      </p>
     </section>
   );
 }
 
-export function SensePanel({ active }: { active: boolean }) {
+export function SensePanel({
+  active,
+  robot,
+}: {
+  active: boolean;
+  robot: RobotSocketView;
+}) {
+  const state = robot.snapshot?.state ?? null;
   return (
     <article className="stage-panel sense-panel" data-stage="sense" data-mobile-active={active}>
-      <PanelHeader />
-      <JointMap />
-      <ImuArray />
-      <EncoderReadout />
-      <CanMotorHealth />
+      <header className="stage-panel-header">
+        <div>
+          <span className="stage-kicker">01 / SENSOR BUS</span>
+          <h2>SENSE</h2>
+        </div>
+        <span className="stage-state" data-state={robot.connection}>
+          {robot.connection === "online" ? <Radio aria-hidden="true" size={14} /> : <WifiOff aria-hidden="true" size={14} />}
+          {connectionLabel(robot)}
+        </span>
+      </header>
+      <JointMap state={state} />
+      <ImuArray state={state} />
+      <EncoderReadout state={state} />
+      <CanMotorHealth state={state} />
     </article>
   );
 }

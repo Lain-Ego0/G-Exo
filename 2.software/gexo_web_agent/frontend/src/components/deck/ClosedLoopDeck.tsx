@@ -4,6 +4,8 @@ import { ActPanel } from "../act/ActPanel";
 import { ReasonPanel } from "../reason/ReasonPanel";
 import { SensePanel } from "../sense/SensePanel";
 import { ClosedLoopSpine } from "./ClosedLoopSpine";
+import type { AgentEventsView } from "../../hooks/useAgentEvents";
+import type { RobotSocketView } from "../../types/robot";
 import { STAGES, STAGE_LABELS, type StageId } from "../../types/ui";
 
 const ICONS = {
@@ -14,10 +16,14 @@ const ICONS = {
 
 export function ClosedLoopDeck({
   activeStage,
+  agentEvents,
   onStageChange,
+  robot,
 }: {
   activeStage: StageId;
+  agentEvents: AgentEventsView;
   onStageChange: (stage: StageId) => void;
+  robot: RobotSocketView;
 }) {
   return (
     <section className="closed-loop-deck" aria-label="G-Exo closed loop workspace">
@@ -41,12 +47,18 @@ export function ClosedLoopDeck({
         })}
       </nav>
 
-      <ClosedLoopSpine />
+      <ClosedLoopSpine
+        activeStage={robot.connection === "online" ? "sense" : undefined}
+        connection={robot.connection}
+      />
 
       <div className="stage-grid">
-        <SensePanel active={activeStage === "sense"} />
-        <ReasonPanel active={activeStage === "reason"} />
-        <ActPanel active={activeStage === "act"} />
+        <SensePanel active={activeStage === "sense"} robot={robot} />
+        <ReasonPanel
+          active={activeStage === "reason"}
+          agentEvents={agentEvents}
+        />
+        <ActPanel active={activeStage === "act"} robot={robot} />
       </div>
     </section>
   );

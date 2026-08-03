@@ -43,6 +43,7 @@ button:not(:disabled) {
 button:disabled,
 input:disabled {
   cursor: not-allowed;
+  opacity: 0.48;
 }
 
 button:focus-visible,

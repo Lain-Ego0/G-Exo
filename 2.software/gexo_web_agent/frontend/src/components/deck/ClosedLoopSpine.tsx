@@ -1,10 +1,19 @@
 import type { StageId } from "../../types/ui";
 import { STAGES, STAGE_LABELS } from "../../types/ui";
+import type { ConnectionState } from "../../types/robot";
 
-export function ClosedLoopSpine({ activeStage }: { activeStage?: StageId }) {
+export function ClosedLoopSpine({
+  activeStage,
+  connection,
+}: {
+  activeStage?: StageId;
+  connection: ConnectionState;
+}) {
   return (
     <div className="closed-loop-spine" aria-label="Closed loop status">
-      <span className="spine-caption">CLOSED LOOP / NO LIVE EVENT</span>
+      <span className="spine-caption">
+        CLOSED LOOP / {connection === "online" ? "LIVE TELEMETRY" : connection.toUpperCase()}
+      </span>
       <div className="spine-track" aria-hidden="true">
         {STAGES.map((stage) => (
           <div

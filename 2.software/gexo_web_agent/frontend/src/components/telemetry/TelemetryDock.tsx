@@ -1,37 +1,92 @@
-import { useState } from "react";
-import { BatteryMedium, Pause, Thermometer, Waves, Zap } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Pause, Play } from "lucide-react";
+
+import { formatMeasurement, formatPercent } from "../../lib/format";
+import type { TelemetryBufferView, TelemetryPoint } from "../../hooks/useTelemetryBuffer";
+import { JOINTS } from "../../types/ui";
+import { TelemetryChart, type TelemetrySeries } from "./TelemetryChart";
 
 const CHARTS = [
-  { id: "angle", label: "Joint angle", unit: "rad", icon: Waves },
-  { id: "torque", label: "Torque", unit: "Nm", icon: Zap },
-  { id: "temperature", label: "Temperature", unit: "°C", icon: Thermometer },
-  { id: "battery", label: "Battery / Bus", unit: "% / V / A", icon: BatteryMedium },
+  { id: "angle", label: "Joint angle" },
+  { id: "torque", label: "Torque" },
+  { id: "temperature", label: "Temperature" },
+  { id: "battery", label: "Battery / Bus" },
 ] as const;
 
+const JOINT_COLORS = ["#23d8f2", "#8edde8", "#ad8fff", "#ff778b"];
 type ChartId = (typeof CHARTS)[number]["id"];
 
-function EmptyChart({ chart }: { chart: (typeof CHARTS)[number] }) {
-  const Icon = chart.icon;
-  return (
-    <section className="telemetry-chart" data-chart={chart.id} aria-labelledby={`chart-${chart.id}`}>
-      <header>
-        <div><Icon aria-hidden="true" size={16} /><h3 id={`chart-${chart.id}`}>{chart.label}</h3></div>
-        <span>{chart.unit}</span>
-      </header>
-      <div className="chart-field">
-        <div className="chart-grid" aria-hidden="true">
-          <i /><i /><i /><i />
-        </div>
-        <p>WAITING FOR CONTROLLER TELEMETRY</p>
-        <span className="chart-time-start">-60 s</span>
-        <span className="chart-time-end">NOW</span>
-      </div>
-    </section>
-  );
+function lastDataPoint(points: TelemetryPoint[]): TelemetryPoint | null {
+  for (let index = points.length - 1; index >= 0; index -= 1) {
+    if (!points[index].gap) return points[index];
+  }
+  return null;
 }
 
-export function TelemetryDock() {
+export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
   const [activeChart, setActiveChart] = useState<ChartId>("angle");
+  const [rangeSeconds, setRangeSeconds] = useState<15 | 30 | 60>(60);
+  const [selectedJoint, setSelectedJoint] = useState(0);
+  const [cursorMs, setCursorMs] = useState<number | null>(null);
+  const [pausedAt, setPausedAt] = useState<number | null>(null);
+  const endMs = pausedAt ?? Date.now();
+  const startMs = endMs - rangeSeconds * 1_000;
+  const latest = lastDataPoint(buffer.points);
+  const hasActual = buffer.points.some((point) => point.actualTorque.some((value) => value !== null));
+
+  const angleSeries = useMemo<TelemetrySeries[]>(
+    () => JOINTS.map((joint, index) => ({
+      id: joint.id,
+      label: joint.short,
+      color: JOINT_COLORS[index],
+      value: (point) => point.jointPosition[index],
+    })),
+    [],
+  );
+  const temperatureSeries = useMemo<TelemetrySeries[]>(
+    () => JOINTS.map((joint, index) => ({
+      id: joint.id,
+      label: joint.short,
+      color: JOINT_COLORS[index],
+      value: (point) => point.motorTemperature[index],
+    })),
+    [],
+  );
+  const torqueSeries = useMemo<TelemetrySeries[]>(
+    () => [
+      {
+        id: "command",
+        label: "CMD",
+        color: "#ffc424",
+        value: (point) => point.commandTorque[selectedJoint],
+      },
+      {
+        id: hasActual ? "actual" : "estimated",
+        label: hasActual ? "ACT" : "EST",
+        color: "#ad8fff",
+        value: (point) => hasActual
+          ? point.actualTorque[selectedJoint]
+          : point.estimatedTorque[selectedJoint],
+        dashed: !hasActual,
+      },
+    ],
+    [hasActual, selectedJoint],
+  );
+  const batterySeries = useMemo<TelemetrySeries[]>(
+    () => [{
+      id: "battery",
+      label: "BATTERY",
+      color: "#49d8a0",
+      value: (point) => point.batteryPercent,
+    }],
+    [],
+  );
+
+  const togglePaused = () => {
+    const next = !buffer.paused;
+    setPausedAt(next ? Date.now() : null);
+    buffer.setPaused(next);
+  };
 
   return (
     <section className="telemetry-dock" aria-labelledby="telemetry-title">
@@ -54,22 +109,104 @@ export function TelemetryDock() {
           ))}
         </nav>
         <div className="telemetry-tools">
+          <label className="joint-select">
+            <span>TORQUE JOINT</span>
+            <select
+              aria-label="Torque joint"
+              onChange={(event) => setSelectedJoint(Number(event.target.value))}
+              value={selectedJoint}
+            >
+              {JOINTS.map((joint, index) => (
+                <option key={joint.id} value={index}>{joint.short}</option>
+              ))}
+            </select>
+          </label>
           <div className="range-segment" aria-label="Telemetry range">
-            <button disabled type="button">15</button>
-            <button disabled type="button">30</button>
-            <button aria-pressed="true" disabled type="button">60</button>
+            {([15, 30, 60] as const).map((range) => (
+              <button
+                aria-pressed={rangeSeconds === range}
+                onClick={() => setRangeSeconds(range)}
+                type="button"
+                key={range}
+              >
+                {range}
+              </button>
+            ))}
           </div>
-          <button className="icon-button" aria-label="Pause telemetry" disabled title="Pause telemetry" type="button">
-            <Pause aria-hidden="true" size={17} />
+          <button
+            className="icon-button"
+            aria-label={buffer.paused ? "Resume telemetry" : "Pause telemetry"}
+            disabled={buffer.points.length === 0}
+            onClick={togglePaused}
+            title={buffer.paused ? "Resume telemetry" : "Pause telemetry"}
+            type="button"
+          >
+            {buffer.paused ? <Play aria-hidden="true" size={17} /> : <Pause aria-hidden="true" size={17} />}
           </button>
         </div>
       </header>
+
+      <div className="telemetry-summary" aria-label="Latest battery bus values">
+        <span>BATTERY <strong>{formatPercent(latest?.batteryPercent ?? undefined)}</strong></span>
+        <span>BUS VOLTAGE <strong>{formatMeasurement(latest?.busVoltage ?? undefined, 1, "V")}</strong></span>
+        <span>BUS CURRENT <strong>{formatMeasurement(latest?.busCurrent ?? undefined, 1, "A")}</strong></span>
+        <span>TORQUE SOURCE <strong>{hasActual ? "ACTUAL" : "ESTIMATED (EST)"}</strong></span>
+      </div>
+
       <div className="telemetry-grid">
-        {CHARTS.map((chart) => (
-          <div data-mobile-active={activeChart === chart.id} key={chart.id}>
-            <EmptyChart chart={chart} />
-          </div>
-        ))}
+        <div data-mobile-active={activeChart === "angle"}>
+          <TelemetryChart
+            cursorMs={cursorMs}
+            endMs={endMs}
+            id="angle"
+            onCursorChange={setCursorMs}
+            points={buffer.points}
+            series={angleSeries}
+            startMs={startMs}
+            title="Joint angle"
+            unit="rad"
+          />
+        </div>
+        <div data-mobile-active={activeChart === "torque"}>
+          <TelemetryChart
+            cursorMs={cursorMs}
+            endMs={endMs}
+            id="torque"
+            onCursorChange={setCursorMs}
+            points={buffer.points}
+            series={torqueSeries}
+            startMs={startMs}
+            title={`${JOINTS[selectedJoint].short} torque · ${hasActual ? "ACT" : "EST"}`}
+            unit="Nm"
+          />
+        </div>
+        <div data-mobile-active={activeChart === "temperature"}>
+          <TelemetryChart
+            cursorMs={cursorMs}
+            endMs={endMs}
+            id="temperature"
+            onCursorChange={setCursorMs}
+            points={buffer.points}
+            series={temperatureSeries}
+            startMs={startMs}
+            title="Motor temperature"
+            unit="°C"
+          />
+        </div>
+        <div data-mobile-active={activeChart === "battery"}>
+          <TelemetryChart
+            cursorMs={cursorMs}
+            domain={[0, 100]}
+            endMs={endMs}
+            id="battery"
+            onCursorChange={setCursorMs}
+            points={buffer.points}
+            series={batterySeries}
+            startMs={startMs}
+            title="Battery"
+            unit="%"
+          />
+        </div>
       </div>
     </section>
   );

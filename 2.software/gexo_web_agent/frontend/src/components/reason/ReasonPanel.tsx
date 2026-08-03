@@ -10,15 +10,17 @@ import {
   WifiOff,
 } from "lucide-react";
 
-const FLOW = [
-  { label: "User Intent", detail: "DATA UNAVAILABLE", icon: MessageSquareText },
-  { label: "LLM Intent Parsing", detail: "DATA UNAVAILABLE", icon: BrainCircuit },
-  { label: "Safety Validation", detail: "DATA UNAVAILABLE", icon: ShieldCheck },
-  { label: "ROS2 Service", detail: "DATA UNAVAILABLE", icon: Network },
-  { label: "Controller", detail: "DATA UNAVAILABLE", icon: Cpu },
-];
+import type { AgentEventsView, AgentStageId } from "../../hooks/useAgentEvents";
 
-function SafetyGuardFlow() {
+const FLOW_ICONS: Record<AgentStageId, typeof MessageSquareText> = {
+  intent: MessageSquareText,
+  parsing: BrainCircuit,
+  safety: ShieldCheck,
+  ros2: Network,
+  controller: Cpu,
+};
+
+function SafetyGuardFlow({ agentEvents }: { agentEvents: AgentEventsView }) {
   return (
     <section className="module-section reason-flow-section" aria-labelledby="safety-flow-title">
       <div className="section-heading">
@@ -29,19 +31,28 @@ function SafetyGuardFlow() {
         <span className="section-meta">EVENT API / UNAVAILABLE</span>
       </div>
       <ol className="safety-flow">
-        {FLOW.map(({ label, detail, icon: Icon }) => (
-          <li className="flow-node" data-state="unavailable" key={label}>
+        {agentEvents.stages.map((stage) => {
+          const Icon = FLOW_ICONS[stage.id];
+          return (
+          <li className="flow-node" data-state={stage.status} key={stage.id}>
             <span className="flow-icon"><Icon aria-hidden="true" size={17} /></span>
-            <div><strong>{label}</strong><span>{detail}</span></div>
+            <div><strong>{stage.label}</strong><span>{stage.detail}</span></div>
             <CheckCircle2 className="flow-result" aria-hidden="true" size={16} />
           </li>
-        ))}
+          );
+        })}
       </ol>
     </section>
   );
 }
 
-export function ReasonPanel({ active }: { active: boolean }) {
+export function ReasonPanel({
+  active,
+  agentEvents,
+}: {
+  active: boolean;
+  agentEvents: AgentEventsView;
+}) {
   return (
     <article className="stage-panel reason-panel" data-stage="reason" data-mobile-active={active}>
       <header className="stage-panel-header">
@@ -65,7 +76,7 @@ export function ReasonPanel({ active }: { active: boolean }) {
         <span className="inline-state" data-state="offline">UNAVAILABLE</span>
       </section>
 
-      <SafetyGuardFlow />
+      <SafetyGuardFlow agentEvents={agentEvents} />
 
       <section className="module-section event-detail" aria-labelledby="event-title">
         <div className="section-heading">
@@ -75,10 +86,10 @@ export function ReasonPanel({ active }: { active: boolean }) {
           </div>
         </div>
         <dl>
-          <div><dt>INTENT</dt><dd>DATA UNAVAILABLE</dd></div>
-          <div><dt>REQUEST ID</dt><dd>--</dd></div>
-          <div><dt>SAFETY DECISION</dt><dd>DATA UNAVAILABLE</dd></div>
-          <div><dt>ACKNOWLEDGEMENT</dt><dd>-- ms</dd></div>
+          <div><dt>INTENT</dt><dd>{agentEvents.intent ?? "DATA UNAVAILABLE"}</dd></div>
+          <div><dt>REQUEST ID</dt><dd>{agentEvents.requestId ?? "--"}</dd></div>
+          <div><dt>SAFETY DECISION</dt><dd>{agentEvents.safetyDecision ?? "DATA UNAVAILABLE"}</dd></div>
+          <div><dt>ACKNOWLEDGEMENT</dt><dd>{agentEvents.acknowledgementMs === null ? "-- ms" : `${agentEvents.acknowledgementMs} ms`}</dd></div>
         </dl>
       </section>
 
