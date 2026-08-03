@@ -9,6 +9,7 @@ import {
   Zap,
 } from "lucide-react";
 
+import type { RobotCommandView } from "../../hooks/useRobotCommand";
 import {
   arrayValue,
   formatAge,
@@ -16,6 +17,7 @@ import {
   isFiniteNumber,
   missingLabel,
 } from "../../lib/format";
+import { assistWriteBlocker, modeWriteBlocker } from "../../lib/safety";
 import type { RobotSocketView, RobotState } from "../../types/robot";
 import { JOINTS } from "../../types/ui";
 
@@ -111,11 +113,55 @@ function connectionLabel(robot: RobotSocketView): string {
   return robot.snapshot?.state ? "DISCONNECTED" : "NOT CONNECTED";
 }
 
+function CommandResult({ commands }: { commands: RobotCommandView }) {
+  const command = commands.lastCommand;
+  const activity = commands.activity;
+  if (activity?.phase === "network_error") {
+    return (
+      <div className="command-result-view" data-state="failed" role="status">
+        <span className="status-dot" />
+        <div><strong>NETWORK ERROR</strong><span>{activity.error ?? "Backend request failed"}</span></div>
+      </div>
+    );
+  }
+  if (commands.busy) {
+    return (
+      <div className="command-result-view" data-state="pending" role="status">
+        <span className="status-dot" />
+        <div><strong>COMMAND PENDING</strong><span>Waiting for backend result</span></div>
+      </div>
+    );
+  }
+  if (!command) {
+    return (
+      <div className="command-result-view" data-state="unavailable">
+        <span className="status-dot" />
+        <div><strong>DATA UNAVAILABLE</strong><span>No command result</span></div>
+      </div>
+    );
+  }
+  const duration = command.finished_ms && command.created_ms
+    ? Math.max(0, command.finished_ms - command.created_ms)
+    : null;
+  return (
+    <div className="command-result-view" data-state={command.status} role="status">
+      <span className="status-dot" />
+      <div>
+        <strong>{command.status.replaceAll("_", " ").toUpperCase()}</strong>
+        <span>{command.message || command.error_code || command.action}</span>
+        <small>{command.request_id}{duration === null ? "" : ` / ${duration} ms`}</small>
+      </div>
+    </div>
+  );
+}
+
 export function ActPanel({
   active,
+  commands,
   robot,
 }: {
   active: boolean;
+  commands: RobotCommandView;
   robot: RobotSocketView;
 }) {
   const state = robot.snapshot?.state ?? null;
@@ -123,6 +169,10 @@ export function ActPanel({
   const assistPercent = isFiniteNumber(state?.assist_ratio)
     ? Math.round(state.assist_ratio * 100)
     : null;
+  const assistModeBlocker = modeWriteBlocker(robot, "assist");
+  const dampingModeBlocker = modeWriteBlocker(robot, "damping");
+  const decreaseBlocker = assistWriteBlocker(robot, -0.1);
+  const increaseBlocker = assistWriteBlocker(robot, 0.1);
 
   return (
     <article className="stage-panel act-panel" data-stage="act" data-mobile-active={active}>
@@ -146,8 +196,20 @@ export function ActPanel({
           <SlidersHorizontal aria-hidden="true" size={16} />
         </div>
         <div className="mode-segment" aria-label="Operating mode">
-          <button aria-pressed={state?.mode === "assist"} disabled type="button"><Zap aria-hidden="true" size={16} />Assist</button>
-          <button aria-pressed={state?.mode === "damping"} disabled type="button"><Gauge aria-hidden="true" size={16} />Damping</button>
+          <button
+            aria-pressed={state?.mode === "assist"}
+            disabled={commands.busy || assistModeBlocker !== null}
+            onClick={() => void commands.executeAction("set_mode", { mode: "assist" })}
+            title={assistModeBlocker ?? "Switch to Assist mode"}
+            type="button"
+          ><Zap aria-hidden="true" size={16} />Assist</button>
+          <button
+            aria-pressed={state?.mode === "damping"}
+            disabled={commands.busy || dampingModeBlocker !== null}
+            onClick={() => void commands.executeAction("set_mode", { mode: "damping" })}
+            title={dampingModeBlocker ?? "Switch to Damping mode"}
+            type="button"
+          ><Gauge aria-hidden="true" size={16} />Damping</button>
         </div>
         <p className="section-note">
           Current mode / {state?.mode === "assist" ? "ASSIST" : state?.mode === "damping" ? "DAMPING" : fallback}
@@ -163,11 +225,23 @@ export function ActPanel({
           <span className="section-meta">RANGE 0.3–1.0 / STEP 0.1</span>
         </div>
         <div className="assist-control">
-          <button aria-label="Decrease assist by 10 percent" disabled title="Decrease assist" type="button">
+          <button
+            aria-label="Decrease assist by 10 percent"
+            disabled={commands.busy || decreaseBlocker !== null}
+            onClick={() => void commands.executeAction("adjust_assist", { delta: -0.1 })}
+            title={decreaseBlocker ?? "Decrease assist"}
+            type="button"
+          >
             <Minus aria-hidden="true" size={20} />
           </button>
           <div className="assist-value"><strong>{assistPercent ?? "--"}</strong><span>%</span></div>
-          <button aria-label="Increase assist by 10 percent" disabled title="Increase assist" type="button">
+          <button
+            aria-label="Increase assist by 10 percent"
+            disabled={commands.busy || increaseBlocker !== null}
+            onClick={() => void commands.executeAction("adjust_assist", { delta: 0.1 })}
+            title={increaseBlocker ?? "Increase assist"}
+            type="button"
+          >
             <Plus aria-hidden="true" size={20} />
           </button>
         </div>
@@ -188,7 +262,7 @@ export function ActPanel({
             <h3 id="result-title">Command result</h3>
           </div>
         </div>
-        <p><span className="status-dot" />DATA UNAVAILABLE</p>
+        <CommandResult commands={commands} />
       </section>
     </article>
   );
