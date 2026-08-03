@@ -1,101 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>G-Exo 外骨骼控制台</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>G-Exo 控制台</h1>
-    <span id="conn-badge" class="badge offline">连接中…</span>
-  </header>
-
-  <!-- 第一屏状态卡片 -->
-  <section class="card" id="status-card">
-    <div class="grid">
-      <div class="stat"><span class="label">设备</span><span id="st-online" class="value">--</span></div>
-      <div class="stat"><span class="label">模式</span><span id="st-mode" class="value">--</span></div>
-      <div class="stat"><span class="label">助力</span><span id="st-assist" class="value">--</span></div>
-      <div class="stat"><span class="label">急停</span><span id="st-estop" class="value">--</span></div>
-      <div class="stat"><span class="label">故障</span><span id="st-fault" class="value">--</span></div>
-      <div class="stat"><span class="label">CAN</span><span id="st-can" class="value">--</span></div>
-      <div class="stat"><span class="label">电池</span><span id="st-battery" class="value">--</span></div>
-      <div class="stat"><span class="label">最高温度</span><span id="st-temp" class="value">--</span></div>
-    </div>
-    <div class="meta">最后更新：<span id="st-updated">--</span></div>
-  </section>
-
-  <!-- 控制按钮 -->
-  <section class="card">
-    <h2>控制</h2>
-    <div class="controls">
-      <button id="btn-assist-mode" class="btn mode">助力模式</button>
-      <button id="btn-damping-mode" class="btn mode">阻尼训练</button>
-      <button id="btn-assist-up" class="btn step">助力 +10%</button>
-      <button id="btn-assist-down" class="btn step">助力 −10%</button>
-      <button id="btn-refresh" class="btn plain">刷新状态</button>
-    </div>
-    <div id="action-status" class="action-status" hidden></div>
-  </section>
-
-  <!-- 对话区域 -->
-  <section class="card">
-    <h2>对话</h2>
-    <div id="chat-log" class="chat-log"></div>
-    <div class="chat-input">
-      <input id="chat-text" type="text" placeholder="例如：助力再大一点 / 还有多少电？"
-             maxlength="200" autocomplete="off">
-      <button id="chat-send" class="btn">发送</button>
-    </div>
-    <div class="chat-hints">
-      <button class="hint">现在是什么模式？</button>
-      <button class="hint">助力再大一点</button>
-      <button class="hint">还有多少电？</button>
-      <button class="hint">怎么正确穿戴设备？</button>
-    </div>
-  </section>
-
-  <!-- 关节详情 -->
-  <section class="card">
-    <h2>关节详情</h2>
-    <table id="joint-table">
-      <thead>
-        <tr><th>关节</th><th>角度<br>rad</th><th>速度<br>rad/s</th><th>指令<br>Nm</th><th>估算<br>Nm</th><th>温度<br>℃</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
-
-  <!-- IMU 状态 -->
-  <section class="card">
-    <h2>IMU 状态</h2>
-    <div id="imu-grid" class="grid imu-grid"></div>
-  </section>
-
-  <!-- 调试折叠区 -->
-  <details class="card debug">
-    <summary>调试信息</summary>
-    <div class="debug-row">
-      <label for="dbg-scenario">Mock 场景</label>
-      <select id="dbg-scenario"></select>
-    </div>
-    <pre id="debug-raw">--</pre>
-  </details>
-
-  <!-- 二次确认弹窗 -->
-  <div id="confirm-overlay" class="overlay" hidden>
-    <div class="dialog">
-      <h3>确认操作</h3>
-      <p id="confirm-text">确定要切换模式吗？</p>
-      <div class="dialog-actions">
-        <button id="confirm-no" class="btn plain">取消</button>
-        <button id="confirm-yes" class="btn danger">确认切换</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071426" />
+    <meta name="color-scheme" content="dark" />
+    <title>G-Exo Physical AI Cockpit</title>
+    <script type="module" crossorigin src="/app.js"></script>
+    <link rel="stylesheet" crossorigin href="/style.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
