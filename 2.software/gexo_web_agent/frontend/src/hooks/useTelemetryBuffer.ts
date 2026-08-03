@@ -97,7 +97,7 @@ export function useTelemetryBuffer(
     if (!point || point.timestamp === lastTimestampRef.current) return;
     if (lastTimestampRef.current !== null && point.timestamp < lastTimestampRef.current) return;
     lastTimestampRef.current = point.timestamp;
-    gapOpenRef.current = false;
+    if (snapshot.online && !snapshot.stale) gapOpenRef.current = false;
     append(point);
   }, [append, snapshot]);
 

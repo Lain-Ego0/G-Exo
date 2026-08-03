@@ -29,7 +29,7 @@
 ## 2. 架构总览
 
 ```
-浏览器 (static/ 原生 HTML/CSS/JS, WebSocket)
+浏览器 (frontend/ React + Vite → static/, WebSocket)
    │
 FastAPI (api.py, create_app 工厂)
    │  /api/chat ──▶ IntentRouter (intent_router.py)
@@ -57,6 +57,28 @@ api.py ─▶ command_manager ─▶ safety_guard ─▶ schemas
    ├─▶ state_cache ────────────────────────────┤
    └─(可选注入)─ intent_router ─▶ llm_client / rag_service
 main.py 负责对象图组装（唯一知道全部模块的地方）
+```
+
+### 2.1 Web Cockpit
+
+`frontend/src/` 是前端唯一源码，`npm run build` 执行 TypeScript 检查并把生产文件写入
+`static/`；FastAPI 仍通过 `api.py` 挂载该目录，后端路由与 ROS 2 传输不因前端构建改变。
+
+前端数据边界：
+
+- `useRobotSocket`：`GET /api/state` + `WS /ws`，保留最后快照并独立判 stale。
+- `useTelemetryBuffer`：只存真实 WebSocket 快照，60 秒上限，断线插入 gap。
+- `useRobotCommand`：只调用 `/api/action`、`/api/confirm`、`/api/chat`，不重试写命令。
+- `useAgentEvents`：当前无 Agent Event API，只把可由真实 `CommandView` 证明的阶段标记为通过/失败；来源和阶段时长缺失时显示 unavailable。
+- `actual_torque` 是可选字段；缺失时 UI 明确显示 `Estimated Torque (EST)`，不得把 `estimated_torque` 标成 actual。
+
+本地开发：
+
+```bash
+cd frontend
+npm ci
+npm run dev       # API/WS 代理到 127.0.0.1:8000
+npm run build     # 输出 ../static
 ```
 
 关键原则：

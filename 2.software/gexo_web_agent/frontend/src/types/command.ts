@@ -51,6 +51,7 @@ export type ActivityPhase =
   | "awaiting_confirmation"
   | "awaiting_controller"
   | "complete"
+  | "request_error"
   | "network_error";
 
 export interface CommandActivity {
@@ -119,13 +120,16 @@ export function parseChatResponse(value: unknown): ChatResponse | null {
         }];
       })
     : [];
+  let command: CommandView | null = null;
+  if (value.command !== null && value.command !== undefined) {
+    command = parseCommandView(value.command);
+    if (!command) return null;
+  }
 
   return {
     reply: value.reply,
     intent: typeof value.intent === "string" ? value.intent : "unavailable",
-    command: value.command === null || value.command === undefined
-      ? null
-      : parseCommandView(value.command),
+    command,
     sources,
     need_confirmation: value.need_confirmation === true,
     need_clarification: value.need_clarification === true,

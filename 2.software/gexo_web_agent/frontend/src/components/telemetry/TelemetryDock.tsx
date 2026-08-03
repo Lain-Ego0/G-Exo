@@ -32,7 +32,7 @@ export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
   const endMs = pausedAt ?? Date.now();
   const startMs = endMs - rangeSeconds * 1_000;
   const latest = lastDataPoint(buffer.points);
-  const hasActual = buffer.points.some((point) => point.actualTorque.some((value) => value !== null));
+  const hasActual = latest?.actualTorque.some((value) => value !== null) === true;
 
   const angleSeries = useMemo<TelemetrySeries[]>(
     () => JOINTS.map((joint, index) => ({

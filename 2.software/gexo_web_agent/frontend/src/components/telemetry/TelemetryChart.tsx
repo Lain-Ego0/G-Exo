@@ -172,7 +172,7 @@ export function TelemetryChart({
             <line className="chart-cursor" x1={cursorX} x2={cursorX} y1={PLOT_TOP} y2={PLOT_BOTTOM} />
           ) : null}
         </svg>
-        {!hasData ? <p>{emptyLabel}</p> : null}
+        {!hasData ? <p className="chart-empty-label">{emptyLabel}</p> : null}
         <span className="chart-domain-max">{displayValue(max, unit)}</span>
         <span className="chart-domain-min">{displayValue(min, unit)}</span>
         <span className="chart-time-start">-{Math.round((endMs - startMs) / 1_000)} s</span>

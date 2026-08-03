@@ -264,6 +264,27 @@
   color: var(--gexo-act);
 }
 
+.spine-stage[data-active="true"] .spine-node {
+  background: currentColor;
+}
+
+.spine-stage[data-active="true"] span:last-child {
+  color: var(--gexo-text);
+}
+
+.spine-stage[data-pulse="true"] .spine-node {
+  animation: spine-state-pulse 620ms ease-out 1;
+}
+
+@keyframes spine-state-pulse {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
 .spine-return {
   position: absolute;
   right: 2.8%;
@@ -1525,6 +1546,10 @@
   font-family: var(--font-data);
   font-size: var(--text-xs);
   text-align: center;
+}
+
+.chart-empty-label {
+  pointer-events: none;
 }
 
 .chart-time-start,

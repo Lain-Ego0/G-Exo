@@ -38,6 +38,14 @@ button {
 
 button:not(:disabled) {
   cursor: pointer;
+  transition:
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+button:not(:disabled):hover {
+  border-color: currentColor;
 }
 
 button:disabled,
