@@ -4,9 +4,15 @@ from typing import Any
 
 import numpy as np
 
+from RL.env.actor_observation import (
+    ACTOR_FRAME_DIM,
+    RUNTIME_SENSOR_DIM,
+    build_actor_frame,
+)
 
-SENSOR_DIM = 32
-FRAME_DIM = 36
+
+SENSOR_DIM = RUNTIME_SENSOR_DIM
+FRAME_DIM = ACTOR_FRAME_DIM
 
 class SensorReader:
     def __init__(
@@ -77,6 +83,30 @@ class SensorReader:
         state: dict[str, Any],
         previous_action: np.ndarray,
     ) -> np.ndarray:
+        """Return the legacy raw 36-D frame for existing callers."""
+
+        arrays = self._read_state_arrays(state)
+        action = self._read_array(
+            previous_action,
+            name="previous_action",
+            shape=(4,),
+        )
+        runtime32 = self._assemble_runtime32(*arrays)
+        return build_actor_frame(runtime32, action)
+
+    def read_runtime32(
+        self,
+        *,
+        state: dict[str, Any],
+    ) -> np.ndarray:
+        """Read one raw frame in ``gexo_sensor32_runtime_v1`` order."""
+
+        return self._assemble_runtime32(*self._read_state_arrays(state))
+
+    def _read_state_arrays(
+        self,
+        state: dict[str, Any],
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         motor_q = self._read_array(
             state["motor_q"],
             name="motor_q",
@@ -101,11 +131,15 @@ class SensorReader:
             shape=(4, 3),
         )
 
-        action = self._read_array(
-            previous_action,
-            name="previous_action",
-            shape=(4,),
-        )
+        return motor_q, motor_dq, gyro, specific_force
+
+    def _assemble_runtime32(
+        self,
+        motor_q: np.ndarray,
+        motor_dq: np.ndarray,
+        gyro: np.ndarray,
+        specific_force: np.ndarray,
+    ) -> np.ndarray:
 
         gyro = (
             gyro
@@ -143,14 +177,13 @@ class SensorReader:
                 motor_dq,
                 gyro.reshape(-1),
                 specific_force.reshape(-1),
-                action,
             )
         ).astype(np.float32)
 
-        if frame.shape != (FRAME_DIM,):
+        if frame.shape != (SENSOR_DIM,):
             raise RuntimeError(
                 f"Sensor frame must have shape "
-                f"({FRAME_DIM},), got {frame.shape}."
+                f"({SENSOR_DIM},), got {frame.shape}."
             )
 
         return frame

@@ -1843,3 +1843,36 @@ python -m RL.runners.train_kinesis_exo \
 `--hours 3.4` 表示本次续训再运行约 3.4 小时，与已完成的 1.62 小时合计约 5 小时；`--total-timesteps` 在 `reset_num_timesteps=False` 下作为额外安全上限，不会把模型总步数重置为 0。
 
 修复验收包括：人为注入同样的 `LinAlgError` 后环境返回有限 Observation、`-10`、`terminated=True` 和 `muscle_solver_failure`；随后 reset 能正常步进；8-worker 从 1,500,000 续训 4096 transition 后到达 1,504,096，并成功保存模型，吞吐约 302 transition/s。
+
+## 21. 2026-08-02 路线覆盖：冻结 Kinesis 不再承担生理 Reward 真值
+
+本节覆盖第 20 节中“冻结 Kinesis + 肌肉 Reward 从零训练外骨骼 PPO”的执行顺序，
+但不删除已经完成的 Kinesis、动态 URDF、TCN、PPO、基线和审计文件。
+
+冻结 Kinesis 会读取受助力后的状态并继续追踪原动作，可能主动补偿外骨骼作用。
+当前肌肉变化同时混合物理卸载、`MuscleLoadSharing` 重分配和 Kinesis 反馈补偿，
+不能作为真人自然利用助力后的直接生理真值。人为删除反作用或从黑盒策略输出中
+拆分“名义动作/纠偏动作”同样不可取，因为这会把设计规则写入肌肉 Reward。
+
+当前短期主线固定为：
+
+```text
+Phase 1/2 与 Kinesis 参考运动
+        -> 固定轨迹肌肉--外骨骼联合优化
+        -> 四关节最优助力标签
+        -> 冻结 TCN + 监督学习四输出 Actor
+        -> Kinesis + 动态 URDF 只做稳定性、安全和渲染复核
+        -> 可选的小幅 residual PPO
+```
+
+TCN 负责提供 100/200 ms 未来运动特征，不能修复肌肉 Reward 的物理因果性。
+PPO 不再负责从冻结 Kinesis 的低信噪比 effort Reward 中发现完整助力规律，只能在
+监督 Actor 周围做小残差稳定性修正。首个可展示版本预计 `6--12 h`；进入 Actor
+训练前必须先用 3 条代表性 motion 完成固定轨迹优化 P0，并确认激活平方、逐肌肉
+绝对力矩成本、求解残差和电机约束同时通过。
+
+完整的有效性边界、已用/未用方案、否决理由、优化公式、验收条件和长期路线见：
+
+```text
+RL/PHYSICAL_PPO_AUDIT.md 第七至第九节
+```

@@ -13,12 +13,49 @@ DEFAULT_BASELINE_DIR = RL_ROOT / "outputs/kinesis_baseline_v4"
 DEFAULT_PHYSICAL_BASELINE_DIR = (
     RL_ROOT / "outputs/kinesis_physical_baseline_v2"
 )
+DEFAULT_CYCLE_BASELINE_DIR = RL_ROOT / "outputs/kinesis_cycle_baseline_c"
 
 
 def baseline_path(directory: Path, motion_id: int, seed: int) -> Path:
     """Return the stable on-disk name for one paired baseline rollout."""
 
     return directory / f"motion_{motion_id:03d}_seed_{seed:06d}.npz"
+
+
+def relative_rate_saving(
+    actual_total: float,
+    actual_duration: float,
+    baseline_total: float,
+    baseline_duration: float,
+) -> float:
+    """Compare cycle-integrated load after normalizing both cycle durations."""
+
+    if actual_total < 0.0 or baseline_total <= 0.0:
+        raise ValueError("Cycle loads must be non-negative with a positive baseline.")
+    if actual_duration <= 0.0 or baseline_duration <= 0.0:
+        raise ValueError("Cycle durations must be positive.")
+    actual_rate = actual_total / actual_duration
+    baseline_rate = baseline_total / baseline_duration
+    return float(np.clip(1.0 - actual_rate / baseline_rate, -1.0, 1.0))
+
+
+def cycle_duration_cost(
+    actual_duration: float,
+    baseline_duration: float,
+    *,
+    free_ratio: float,
+    scale_ratio: float,
+    cap: float,
+) -> float:
+    """Penalize cadence drift only after a configurable relative dead band."""
+
+    if actual_duration <= 0.0 or baseline_duration <= 0.0:
+        raise ValueError("Cycle durations must be positive.")
+    if free_ratio < 0.0 or scale_ratio <= 0.0 or cap <= 0.0:
+        raise ValueError("Duration-cost settings are invalid.")
+    ratio = actual_duration / baseline_duration
+    excess = max(abs(ratio - 1.0) - free_ratio, 0.0)
+    return float(min((excess / scale_ratio) ** 2, cap))
 
 
 def motion_time(environment, simulation_time: float) -> np.ndarray:
@@ -66,6 +103,16 @@ class BaselineSample:
     human_torque: np.ndarray
     tracking_mse: float
     mpjpe_mm: float
+
+
+@dataclass(frozen=True)
+class BaselineCycle:
+    """One exact zero-assist reference cycle selected by simulation time."""
+
+    cycle_id: int
+    activation_energy: float
+    torque_impulse: float
+    duration_s: float
 
 
 class BaselineReference:
@@ -126,6 +173,21 @@ class BaselineReference:
                         data["mpjpe_mm"], dtype=np.float64
                     ),
                 }
+                optional = (
+                    "phase",
+                    "phase_rate_hz",
+                    "cycle_id",
+                    "reward_cycle_id",
+                    "phase_valid",
+                    "touch",
+                    "sensor_frame",
+                )
+                for name in optional:
+                    if name in data:
+                        rollout[name] = np.asarray(data[name]).copy()
+                for name in ("control_dt", "contact_on_threshold", "contact_off_threshold"):
+                    if name in data:
+                        rollout[name] = float(np.asarray(data[name]).item())
             self._validate_rollout(path, rollout)
             self._rollouts[seed] = rollout
 
@@ -190,6 +252,58 @@ class BaselineReference:
             mpjpe_mm=interpolate_scalar("mpjpe_mm"),
         )
 
+    @property
+    def supports_exact_cycles(self) -> bool:
+        return all(
+            all(
+                name in rollout
+                for name in (
+                    "phase",
+                    "cycle_id",
+                    "reward_cycle_id",
+                    "phase_valid",
+                    "touch",
+                    "control_dt",
+                    "contact_on_threshold",
+                    "contact_off_threshold",
+                )
+            )
+            for rollout in self._rollouts.values()
+        )
+
+    def contact_thresholds(self, seed: int) -> tuple[float, float]:
+        rollout = self._rollouts[int(seed)]
+        if not self.supports_exact_cycles:
+            raise RuntimeError("Baseline directory has no exact-cycle data.")
+        return (
+            float(rollout["contact_on_threshold"]),
+            float(rollout["contact_off_threshold"]),
+        )
+
+    def cycle_at_time(self, seed: int, simulation_time: float) -> BaselineCycle | None:
+        """Return the exact reference cycle containing the queried time."""
+
+        rollout = self._rollouts[int(seed)]
+        if not self.supports_exact_cycles:
+            raise RuntimeError("Baseline directory has no exact-cycle data.")
+        time_s = rollout["time_s"]
+        index = int(np.argmin(np.abs(time_s - float(simulation_time))))
+        cycle_id = int(rollout["reward_cycle_id"][index])
+        if cycle_id < 0:
+            return None
+        selected = np.asarray(rollout["reward_cycle_id"] == cycle_id)
+        dt = float(rollout["control_dt"])
+        return BaselineCycle(
+            cycle_id=cycle_id,
+            activation_energy=float(
+                np.sum(rollout["activation_cost"][selected]) * dt
+            ),
+            torque_impulse=float(
+                np.sum(rollout["muscle_effort_torque_cost"][selected]) * dt
+            ),
+            duration_s=float(np.sum(selected) * dt),
+        )
+
     @staticmethod
     def _validate_rollout(
         path: Path,
@@ -198,14 +312,26 @@ class BaselineReference:
         length = len(rollout["time_s"])
         if length < 2:
             raise ValueError(f"Baseline is too short: {path}")
-        if any(len(values) != length for values in rollout.values()):
+        arrays = [
+            values
+            for values in rollout.values()
+            if isinstance(values, np.ndarray) and values.ndim >= 1
+        ]
+        if any(len(values) != length for values in arrays):
             raise ValueError(f"Baseline columns have different lengths: {path}")
         if rollout["human_torque"].shape != (length, 4):
             raise ValueError(
                 "Baseline human_torque must have shape "
                 f"({length}, 4): {path}"
             )
-        if not all(np.all(np.isfinite(values)) for values in rollout.values()):
+        numeric_values = [
+            values
+            for name, values in rollout.items()
+            if name not in ("phase", "phase_rate_hz")
+            if np.isscalar(values)
+            or (isinstance(values, np.ndarray) and values.dtype.kind not in "USO")
+        ]
+        if not all(np.all(np.isfinite(values)) for values in numeric_values):
             raise ValueError(f"Baseline contains NaN or Inf: {path}")
         if np.any(np.diff(rollout["time_s"]) <= 0.0):
             raise ValueError(f"Baseline time is not strictly increasing: {path}")

@@ -7,16 +7,24 @@ import json
 from functools import partial
 from pathlib import Path
 
+import torch.nn as nn
+
 from RL.env.kinesis.baseline_reference import (
+    DEFAULT_CYCLE_BASELINE_DIR,
     DEFAULT_PHYSICAL_BASELINE_DIR,
     BaselineReference,
 )
+from RL.env.kinesis.causal_phase import CausalPhaseAdapter
 from RL.env.kinesis.exo_env import (
+    CYCLE_REWARD_SETTINGS,
+    CYCLE_REWARD_WEIGHTS,
+    DEFAULT_PHASE_TCN_CHECKPOINT,
     DEFAULT_TCN_CALIBRATION,
     DEFAULT_TCN_CHECKPOINT,
     KinesisExoEnv,
     REWARD_SETTINGS,
     REWARD_WEIGHTS,
+    SCHEME_C_OBSERVATION_DIM,
     TCN_OBSERVATION_DIM,
 )
 from RL.env.kinesis.tcn_adapter import (
@@ -33,6 +41,7 @@ DEFAULT_OUTPUT = RL_ROOT / "outputs/kinesis_exo_ppo"
 # These motions passed the conservative pre-PPO stability screen.  Validation
 # motions are never assigned to a training worker.
 TRAIN_MOTIONS = (2, 8, 9, 11, 16, 38, 43, 52)
+SCHEME_C_TRAIN_MOTIONS = (2, 8, 9, 11, 16, 38, 52)
 VALIDATION_MOTIONS = (64, 82, 99)
 WARMUP_STEPS = 50
 
@@ -46,6 +55,10 @@ def make_training_factories(
     tcn_checkpoint: Path = DEFAULT_TCN_CHECKPOINT,
     tcn_calibration: Path = DEFAULT_TCN_CALIBRATION,
     tcn_device: str = "cpu",
+    use_phase_tcn: bool = False,
+    phase_tcn_checkpoint: Path = DEFAULT_PHASE_TCN_CHECKPOINT,
+    reward_mode: str = "same_state",
+    training_motions: tuple[int, ...] = TRAIN_MOTIONS,
 ) -> tuple:
     """Assign one stable motion to each subprocess."""
 
@@ -55,7 +68,7 @@ def make_training_factories(
     return tuple(
         partial(
             KinesisExoEnv,
-            motion_id=TRAIN_MOTIONS[index % len(TRAIN_MOTIONS)],
+            motion_id=training_motions[index % len(training_motions)],
             baseline_dir=baseline_dir,
             action_torque_scale_nm=action_torque_scale_nm,
             warmup_steps=WARMUP_STEPS,
@@ -63,6 +76,9 @@ def make_training_factories(
             tcn_checkpoint=tcn_checkpoint,
             tcn_calibration=tcn_calibration,
             tcn_device=tcn_device,
+            use_phase_tcn=use_phase_tcn,
+            phase_tcn_checkpoint=phase_tcn_checkpoint,
+            reward_mode=reward_mode,
         )
         for index in range(num_envs)
     )
@@ -74,7 +90,8 @@ def main() -> None:
     parser.add_argument(
         "--baseline-dir",
         type=Path,
-        default=DEFAULT_PHYSICAL_BASELINE_DIR,
+        default=None,
+        help="Defaults to the matched cycle baseline under --scheme-c.",
     )
     parser.add_argument("--resume", type=Path, default=None)
     parser.add_argument(
@@ -88,8 +105,11 @@ def main() -> None:
     parser.add_argument(
         "--action-scale-nm",
         type=float,
-        default=0.5,
-        help="Initial PPO action range; the backend hard limit remains 17 Nm.",
+        default=None,
+        help=(
+            "Normalized action scale. Defaults to 17 Nm for scheme C and "
+            "0.5 Nm for legacy experiments."
+        ),
     )
     parser.add_argument(
         "--device",
@@ -97,6 +117,13 @@ def main() -> None:
         default="cpu",
     )
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--scheme-c",
+        action="store_true",
+        help=(
+            "Use 163-D Actor input and matched complete-cycle physiology reward."
+        ),
+    )
     parser.add_argument(
         "--use-tcn",
         action="store_true",
@@ -118,7 +145,33 @@ def main() -> None:
         default="cpu",
         help="Use CPU with subprocess workers unless profiling proves otherwise.",
     )
+    parser.add_argument(
+        "--phase-tcn-checkpoint",
+        type=Path,
+        default=DEFAULT_PHASE_TCN_CHECKPOINT,
+    )
+    parser.add_argument(
+        "--log-std-init",
+        type=float,
+        default=-1.0,
+        help="Initial log standard deviation of the four PPO actions.",
+    )
     args = parser.parse_args()
+
+    if args.scheme_c:
+        args.use_tcn = True
+    if args.action_scale_nm is None:
+        args.action_scale_nm = 17.0 if args.scheme_c else 0.5
+    if args.baseline_dir is None:
+        args.baseline_dir = (
+            DEFAULT_CYCLE_BASELINE_DIR
+            if args.scheme_c
+            else DEFAULT_PHYSICAL_BASELINE_DIR
+        )
+    reward_mode = "cycle_c" if args.scheme_c else "same_state"
+    training_motions = (
+        SCHEME_C_TRAIN_MOTIONS if args.scheme_c else TRAIN_MOTIONS
+    )
 
     if not 0.0 < args.action_scale_nm <= 17.0:
         raise ValueError("--action-scale-nm must be in (0, 17].")
@@ -140,9 +193,20 @@ def main() -> None:
                 "Run RL.runners.fit_kinesis_tcn_feature_stats first."
             )
         del tcn_probe
+    if args.scheme_c:
+        phase_probe = CausalPhaseAdapter(
+            args.phase_tcn_checkpoint,
+            device=args.tcn_device,
+        )
+        del phase_probe
     # Fail before spawning workers if any motion lacks a valid paired baseline.
-    for motion_id in TRAIN_MOTIONS + VALIDATION_MOTIONS:
-        BaselineReference(args.baseline_dir, motion_id)
+    for motion_id in training_motions + VALIDATION_MOTIONS:
+        reference = BaselineReference(args.baseline_dir, motion_id)
+        if args.scheme_c and not reference.supports_exact_cycles:
+            raise RuntimeError(
+                f"Motion {motion_id} has no exact-cycle baseline in "
+                f"{args.baseline_dir}."
+            )
 
     training_factories = make_training_factories(
         args.num_envs,
@@ -152,6 +216,10 @@ def main() -> None:
         tcn_checkpoint=args.tcn_checkpoint,
         tcn_calibration=args.tcn_calibration,
         tcn_device=args.tcn_device,
+        use_phase_tcn=args.scheme_c,
+        phase_tcn_checkpoint=args.phase_tcn_checkpoint,
+        reward_mode=reward_mode,
+        training_motions=training_motions,
     )
     validation_factories = tuple(
         partial(
@@ -164,6 +232,9 @@ def main() -> None:
             tcn_checkpoint=args.tcn_checkpoint,
             tcn_calibration=args.tcn_calibration,
             tcn_device=args.tcn_device,
+            use_phase_tcn=args.scheme_c,
+            phase_tcn_checkpoint=args.phase_tcn_checkpoint,
+            reward_mode=reward_mode,
         )
         for motion_id in VALIDATION_MOTIONS
     )
@@ -185,7 +256,7 @@ def main() -> None:
                 "num_envs": args.num_envs,
                 "device": args.device,
                 "seed": args.seed,
-                "training_motions": list(TRAIN_MOTIONS),
+                "training_motions": list(training_motions),
                 "validation_motions": list(VALIDATION_MOTIONS),
                 "baseline_dir": str(args.baseline_dir.resolve()),
                 "torque_limit_nm": 17.0,
@@ -199,9 +270,15 @@ def main() -> None:
                 "cuff_time_constant_s": 0.1,
                 "passive_alignment_dofs": 4,
                 "observation_dim": (
-                    TCN_OBSERVATION_DIM if args.use_tcn else 144
+                    SCHEME_C_OBSERVATION_DIM
+                    if args.scheme_c
+                    else TCN_OBSERVATION_DIM
+                    if args.use_tcn
+                    else 144
                 ),
                 "action_dim": 4,
+                "scheme_c": args.scheme_c,
+                "reward_mode": reward_mode,
                 "tcn_enabled": args.use_tcn,
                 "tcn_checkpoint": (
                     str(args.tcn_checkpoint.expanduser().resolve())
@@ -222,12 +299,40 @@ def main() -> None:
                     if args.use_tcn
                     else []
                 ),
-                "effort_reward_reference": "same_state_no_assist",
-                "offline_baseline_role": (
-                    "tracking_final_evaluation_and_diagnostics"
+                "phase_tcn_enabled": args.scheme_c,
+                "phase_tcn_checkpoint": (
+                    str(args.phase_tcn_checkpoint.expanduser().resolve())
+                    if args.scheme_c
+                    else None
                 ),
-                "reward_weights": REWARD_WEIGHTS,
-                "reward_settings": REWARD_SETTINGS,
+                "phase_tcn_feature_dim": 3 if args.scheme_c else 0,
+                "phase_tcn_used_in_reward": False,
+                "actor_feature_layout": (
+                    "144 proprioception + 16 motion TCN + 3 phase TCN"
+                    if args.scheme_c
+                    else None
+                ),
+                "effort_reward_reference": (
+                    "matched_zero_assist_cycle"
+                    if args.scheme_c
+                    else "same_state_no_assist"
+                ),
+                "offline_baseline_role": (
+                    "cycle_reward_tracking_and_final_evaluation"
+                    if args.scheme_c
+                    else "tracking_final_evaluation_and_diagnostics"
+                ),
+                "reward_weights": (
+                    CYCLE_REWARD_WEIGHTS
+                    if args.scheme_c
+                    else REWARD_WEIGHTS
+                ),
+                "reward_settings": (
+                    CYCLE_REWARD_SETTINGS
+                    if args.scheme_c
+                    else REWARD_SETTINGS
+                ),
+                "log_std_init": args.log_std_init,
             },
             file,
             indent=2,
@@ -254,6 +359,14 @@ def main() -> None:
             "n_epochs": 5,
             "gae_lambda": 0.95,
             "ent_coef": 1.0e-3,
+            "policy_kwargs": {
+                "activation_fn": nn.ReLU,
+                "log_std_init": args.log_std_init,
+                "net_arch": {
+                    "pi": [128, 64],
+                    "vf": [128, 64],
+                },
+            },
         },
     )
 

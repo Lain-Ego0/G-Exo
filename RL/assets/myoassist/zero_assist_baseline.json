@@ -1,0 +1,255 @@
+{
+  "activation_mean": [
+    0.44139708348122575,
+    0.43745353829264105,
+    0.4290128527955556
+  ],
+  "activation_std": [
+    0.053392896027334664,
+    0.045365108959682515,
+    0.041717032715943125
+  ],
+  "gross_joint_scale_nm": [
+    235.4525247590871,
+    132.19583997495158,
+    178.2386122159397,
+    136.51810965451415
+  ],
+  "gross_median": [
+    1.0759149661413738,
+    1.0564652785821336,
+    1.0219311133460325
+  ],
+  "gross_scale": [
+    0.12645070208199638,
+    0.11971748630908519,
+    0.13399832544728885
+  ],
+  "human_joint_scale_nm": [
+    33.28573589677892,
+    30.452093690211413,
+    41.24989256116754,
+    18.383876062604475
+  ],
+  "human_torque_mean": [
+    2.1384297607319835,
+    2.508111400557446,
+    2.7909925239413758
+  ],
+  "human_torque_std": [
+    1.9564635851112147,
+    2.421232758553571,
+    2.789805225230698
+  ],
+  "joint_limit_margin_rad": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "joint_limit_transition_rad": [
+    0.11485965311527253,
+    0.1648960000276566,
+    0.11297388434410097,
+    0.13980658020824197
+  ],
+  "joint_lower_rad": [
+    -0.4270228922367096,
+    -0.09693201184272766,
+    -0.4139201521873474,
+    -0.06599743030965328
+  ],
+  "joint_upper_rad": [
+    0.7215736389160157,
+    1.552027988433838,
+    0.7158186912536622,
+    1.3320683717727662
+  ],
+  "metadata": {
+    "baseline_split": "canonical_zero_assist_training_v1",
+    "control_hz": 50,
+    "domain_randomization_enabled": false,
+    "episodes": [
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 0.8,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 1,
+        "speed_m_s": 0.8,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 2,
+        "speed_m_s": 0.8,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 1,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 2,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 1.25,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 1,
+        "speed_m_s": 1.25,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "reference_index": 0,
+        "seed": 2,
+        "speed_m_s": 1.25,
+        "steps": 500,
+        "warmup_complete": true,
+        "warmup_steps": 50
+      }
+    ],
+    "frames": 4500,
+    "human_checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/myoassist_human_adaptation_low_speed_100k/adapted_human_final.zip",
+    "human_checkpoint_sha256": "457ff4e33b62e9a1ff09e2b2aa821719fe743fc1f70234d7b4b53fb4bc01502c",
+    "model_sha256": "7127a1cb67a64782410659f73dfd752b5b490c3d8c3a4f0e2f615e5af6c331fe",
+    "physical_model": "/home/lenovo/HK_hackthon/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
+    "reset_state_contract": "canonical_full_state_v1",
+    "speed_diagnostics": {
+      "filtered_abs_error_mean_m_s": 0.09370875974015129,
+      "filtered_abs_error_p95_m_s": 0.18170996370126702,
+      "per_speed": [
+        {
+          "filtered_abs_error_mean_m_s": 0.12096361712173981,
+          "filtered_abs_error_p95_m_s": 0.3008557209611322,
+          "filtered_abs_error_std_m_s": 0.07943119338483003,
+          "frames": 1500,
+          "raw_abs_error_mean_m_s": 0.1546494611220505,
+          "raw_abs_error_p95_m_s": 0.4530611744181713,
+          "target_speed_m_s": 0.7999999999999998,
+          "transition_m_s": 0.1
+        },
+        {
+          "filtered_abs_error_mean_m_s": 0.10932868078951827,
+          "filtered_abs_error_p95_m_s": 0.14539467334013512,
+          "filtered_abs_error_std_m_s": 0.029002429708566778,
+          "frames": 1500,
+          "raw_abs_error_mean_m_s": 0.13646840591466503,
+          "raw_abs_error_p95_m_s": 0.36377571937663433,
+          "target_speed_m_s": 1.0,
+          "transition_m_s": 0.1
+        },
+        {
+          "filtered_abs_error_mean_m_s": 0.050833981309195767,
+          "filtered_abs_error_p95_m_s": 0.07498097219381779,
+          "filtered_abs_error_std_m_s": 0.018340555272007918,
+          "frames": 1500,
+          "raw_abs_error_mean_m_s": 0.09036568748933124,
+          "raw_abs_error_p95_m_s": 0.27291577484789864,
+          "target_speed_m_s": 1.25,
+          "transition_m_s": 0.1
+        }
+      ],
+      "raw_abs_error_mean_m_s": 0.12716118484201558,
+      "raw_abs_error_p95_m_s": 0.4119617868213948
+    },
+    "speed_filter": {
+      "comparison": "filtered_actual_minus_filtered_target",
+      "kind": "causal_rolling_mean",
+      "raw_signal": "forward_speed_raw",
+      "reward_signal": "forward_speed_filtered",
+      "seed": "exact_zero_assist_preroll",
+      "target_raw_signal": "target_speed_raw",
+      "target_reward_signal": "target_speed_filtered",
+      "window_steps": 50
+    },
+    "speed_window_steps": 50,
+    "statistics": {
+      "center": "mean_activation_mean_human_torque_median_gross",
+      "joint_envelope_padding_rad": 0.05,
+      "joint_envelope_percentiles": [
+        0.1,
+        99.9
+      ],
+      "minimum_height_percentile": 1.0,
+      "minimum_scale": 1e-06,
+      "minimum_scale_fraction": 0.05,
+      "pitch_free_percentile": 99.0,
+      "speed_free_error_percentile": 95.0,
+      "speed_threshold_scope": "per_speed_bin_with_interpolation",
+      "speed_threshold_source": "forward_speed_filtered_minus_target_speed_filtered"
+    },
+    "urdf_enabled": false,
+    "verified_speed_set_m_s": [
+      0.8,
+      1.0,
+      1.25
+    ],
+    "warmup_protocol": "gexo_zero_assist_preroll50_v1",
+    "warmup_steps": 50
+  },
+  "minimum_pelvis_height_m": 0.8236977437928832,
+  "pelvis_height_transition_m": 0.05,
+  "pelvis_pitch_free_rad": 0.22238481287281175,
+  "pelvis_pitch_transition_rad": 0.17453292519943295,
+  "schema": "gexo_myoassist_zero_assist_baseline_v3",
+  "speed_free_error_m_s": [
+    0.3008557209611322,
+    0.14539467334013512,
+    0.07498097219381779
+  ],
+  "speed_transition_m_s": [
+    0.1,
+    0.1,
+    0.1
+  ],
+  "speed_window_steps": 50,
+  "speeds_m_s": [
+    0.7999999999999998,
+    1.0,
+    1.25
+  ]
+}

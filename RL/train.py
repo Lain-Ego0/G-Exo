@@ -81,6 +81,12 @@ class TrainingMetricsCallback(BaseCallback):
                 "effort_raw": "effort/raw",
                 "activation_saving": "effort/activation_saving",
                 "muscle_torque_saving": "effort/muscle_torque_saving",
+                "same_state_activation_saving": (
+                    "diagnostic_same_state/activation_saving"
+                ),
+                "same_state_muscle_torque_saving": (
+                    "diagnostic_same_state/muscle_torque_saving"
+                ),
                 "offline_activation_saving": (
                     "offline/activation_saving"
                 ),
@@ -163,9 +169,28 @@ class TrainingMetricsCallback(BaseCallback):
                 "activation_overload_topk": (
                     "physiology/activation_overload_topk"
                 ),
+                "cycle_completed": "cycle/completion_per_step",
             }
             for source, destination in metric_names.items():
                 if source in reward_metrics:
+                    self.logger.record_mean(
+                        destination,
+                        float(reward_metrics[source]),
+                    )
+
+            if reward_metrics.get("cycle_completed", 0.0) > 0.5:
+                for source, destination in (
+                    ("cycle_activation_saving", "cycle/activation_energy_saving"),
+                    ("cycle_torque_saving", "cycle/muscle_torque_energy_saving"),
+                    ("cycle_activation_rate_saving", "cycle/activation_rate_saving"),
+                    ("cycle_torque_rate_saving", "cycle/muscle_torque_rate_saving"),
+                    ("cycle_actual_activation_energy", "cycle/actual_activation_energy"),
+                    ("cycle_baseline_activation_energy", "cycle/baseline_activation_energy"),
+                    ("cycle_actual_torque_impulse", "cycle/actual_torque_impulse"),
+                    ("cycle_baseline_torque_impulse", "cycle/baseline_torque_impulse"),
+                    ("cycle_duration_ratio", "cycle/duration_ratio"),
+                    ("cycle_duration_cost", "cycle/duration_cost"),
+                ):
                     self.logger.record_mean(
                         destination,
                         float(reward_metrics[source]),
@@ -231,6 +256,10 @@ class TrainingMetricsCallback(BaseCallback):
             for source, destination in (
                 ("tcn_feature_abs_max", "tcn/feature_abs_max"),
                 ("tcn_feature_rms", "tcn/feature_rms"),
+                ("phase_tcn_sin", "phase_tcn/sin"),
+                ("phase_tcn_cos", "phase_tcn/cos"),
+                ("phase_tcn_rate_hz", "phase_tcn/rate_hz"),
+                ("phase_tcn_confidence", "phase_tcn/confidence"),
             ):
                 if source in info:
                     self.logger.record_mean(
@@ -250,6 +279,7 @@ class TrainingMetricsCallback(BaseCallback):
                     "offline_muscle_torque_saving_window",
                     "tracking_mse",
                     "actual_balance_ratio",
+                    "cycle_completed",
                 ):
                     if name in reward_metrics:
                         self.logger.record_mean(
@@ -261,6 +291,19 @@ class TrainingMetricsCallback(BaseCallback):
                         f"{motion_prefix}/reward_total",
                         float(reward_terms["total"]),
                     )
+                if reward_metrics.get("cycle_completed", 0.0) > 0.5:
+                    for name in (
+                        "cycle_activation_saving",
+                        "cycle_torque_saving",
+                        "cycle_activation_rate_saving",
+                        "cycle_torque_rate_saving",
+                        "cycle_duration_ratio",
+                        "cycle_duration_cost",
+                    ):
+                        self.logger.record_mean(
+                            f"{motion_prefix}/{name}",
+                            float(reward_metrics[name]),
+                        )
                 
         return True
 
@@ -330,6 +373,7 @@ def train(
     device:str = "auto",
     ppo_parameters:dict | None = None,
     max_hours:float | None = None,
+    additional_callbacks:Sequence[BaseCallback] | None = None,
 ) -> Path:
     output_path = Path(output_dir)
     checkpoint_path = output_path / "checkpoints"
@@ -399,6 +443,14 @@ def train(
           render = False,
         )
     ]
+
+    if additional_callbacks is not None:
+        for callback in additional_callbacks:
+            if not isinstance(callback, BaseCallback):
+                raise TypeError(
+                    "Every additional callback must inherit BaseCallback."
+                )
+            callbacks.append(callback)
 
     if max_hours is not None:
         callbacks.append(WallClockStopCallback(max_hours))

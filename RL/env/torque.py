@@ -11,7 +11,7 @@ class TorqueActuator:
 
     Processing order:
         normalized action
-        -> peak torque limit
+        -> action torque scale
         -> torque rate limit
         -> first-order low-pass filter
         -> final torque limit
@@ -22,6 +22,7 @@ class TorqueActuator:
         torque_limit_nm: np.ndarray,
         torque_rate_limit_nm_s: np.ndarray,
         *,
+        action_torque_scale_nm: np.ndarray | None = None,
         control_dt: float = 0.02,
         filter_time_constant_s: float = 0.0,
     ) -> None:
@@ -34,6 +35,19 @@ class TorqueActuator:
             torque_rate_limit_nm_s,
             name="torque_rate_limit_nm_s",
         )
+
+        self.action_torque_scale_nm = (
+            self.torque_limit_nm.copy()
+            if action_torque_scale_nm is None
+            else self._validate_parameter(
+                action_torque_scale_nm,
+                name="action_torque_scale_nm",
+            )
+        )
+        if np.any(self.action_torque_scale_nm > self.torque_limit_nm):
+            raise ValueError(
+                "action_torque_scale_nm must not exceed torque_limit_nm."
+            )
 
         if control_dt <= 0.0:
             raise ValueError("control_dt must be positive.")
@@ -89,7 +103,7 @@ class TorqueActuator:
 
         action = np.clip(action, -1.0, 1.0)
 
-        target_torque = action * self.torque_limit_nm
+        target_torque = action * self.action_torque_scale_nm
 
         rate_limited_torque = self._apply_rate_limit(
             target_torque

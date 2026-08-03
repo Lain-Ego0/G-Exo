@@ -19,10 +19,15 @@ from gymnasium import spaces
 from RL.env.kinesis.assist_backend import AssistBackend
 from RL.env.kinesis.baseline_reference import (
     DEFAULT_PHYSICAL_BASELINE_DIR,
+    BaselineCycle,
     BaselineReference,
     BaselineSample,
+    cycle_duration_cost,
+    relative_rate_saving,
     tracking_metrics,
 )
+from RL.env.kinesis.causal_phase import CausalPhaseAdapter
+from RL.env.kinesis.oracle_phase import CausalContactCycleTracker
 from RL.env.kinesis.physical_exo import DynamicExoSystem
 from RL.env.kinesis.tcn_adapter import (
     TCN_DEPLOYMENT_FEATURE_DIM,
@@ -40,6 +45,8 @@ HISTORY_LENGTH = 4
 BASE_OBSERVATION_DIM = FRAME_DIM * HISTORY_LENGTH
 OBSERVATION_DIM = BASE_OBSERVATION_DIM
 TCN_OBSERVATION_DIM = BASE_OBSERVATION_DIM + TCN_DEPLOYMENT_FEATURE_DIM
+PHASE_TCN_FEATURE_DIM = CausalPhaseAdapter.FEATURE_DIM
+SCHEME_C_OBSERVATION_DIM = TCN_OBSERVATION_DIM + PHASE_TCN_FEATURE_DIM
 GRAVITY = 9.80665
 IMU_BODY_NAMES = (
     "femur_l",
@@ -53,6 +60,9 @@ DEFAULT_TCN_CHECKPOINT = (
 )
 DEFAULT_TCN_CALIBRATION = (
     RL_ROOT / "assets/tcn/kinesis_phase12_explicit_calibration.json"
+)
+DEFAULT_PHASE_TCN_CHECKPOINT = (
+    RL_ROOT / "outputs/kinesis_cycle_phase_tcn/all_baselines.pt"
 )
 
 # Raw 36-dimensional frame scales.  These constants are deployable and do not
@@ -81,6 +91,20 @@ REWARD_WEIGHTS = {
     "termination": 10.0,
 }
 
+CYCLE_REWARD_WEIGHTS = {
+    "effort": 10.0,
+    "torque_deterioration": 1.0,
+    "duration_cost": 0.5,
+    "tracking_cost": 0.5,
+    "balance_cost": 0.1,
+    "upright_cost": 0.05,
+    "alive": 0.001,
+    "torque_cost": 0.02,
+    "jerk_cost": 0.02,
+    "positive_power_cost": 0.01,
+    "termination": 10.0,
+}
+
 RATED_TORQUE_NM = 6.0
 REWARD_WINDOW_STEPS = 15
 TRACKING_THRESHOLD_RATIO = 1.5
@@ -97,6 +121,9 @@ MUSCLE_TORQUE_COST_FLOOR_NM = 0.5
 TORQUE_DETERIORATION_TOLERANCE = 0.01
 TORQUE_DETERIORATION_SCALE = 0.05
 TORQUE_DETERIORATION_CAP = 4.0
+CYCLE_DURATION_FREE_RATIO = 0.05
+CYCLE_DURATION_SCALE_RATIO = 0.10
+CYCLE_DURATION_COST_CAP = 4.0
 POSITIVE_POWER_FREE_W = 20.0
 POSITIVE_POWER_SCALE_W = 20.0
 UPRIGHT_REWARD_FLOOR = 0.2
@@ -125,6 +152,18 @@ REWARD_SETTINGS = {
     "upright_reward_floor": UPRIGHT_REWARD_FLOOR,
     "minimum_pelvis_height_m": MIN_PELVIS_HEIGHT_M,
     "maximum_torso_tilt_rad": MAX_TORSO_TILT_RAD,
+}
+
+CYCLE_REWARD_SETTINGS = {
+    **REWARD_SETTINGS,
+    "effort_reference": "matched_zero_assist_cycle",
+    "same_state_reference_role": "diagnostics_only",
+    "cycle_boundary_source": "privileged_left_foot_contact",
+    "cycle_effort_metric": "duration_normalized_load_rate",
+    "cycle_duration_free_ratio": CYCLE_DURATION_FREE_RATIO,
+    "cycle_duration_scale_ratio": CYCLE_DURATION_SCALE_RATIO,
+    "cycle_duration_cost_cap": CYCLE_DURATION_COST_CAP,
+    "phase_tcn_used_in_reward": False,
 }
 
 
@@ -156,6 +195,9 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         tcn_checkpoint: str | Path = DEFAULT_TCN_CHECKPOINT,
         tcn_calibration: str | Path = DEFAULT_TCN_CALIBRATION,
         tcn_device: str = "cpu",
+        use_phase_tcn: bool = False,
+        phase_tcn_checkpoint: str | Path = DEFAULT_PHASE_TCN_CHECKPOINT,
+        reward_mode: str = "same_state",
     ) -> None:
         super().__init__()
 
@@ -173,6 +215,11 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         self.warmup_steps = int(warmup_steps)
         self.max_episode_steps = int(max_episode_steps)
         self.strict_baseline_seed = bool(strict_baseline_seed)
+        if reward_mode not in ("same_state", "cycle_c"):
+            raise ValueError("reward_mode must be 'same_state' or 'cycle_c'.")
+        if use_phase_tcn and not use_tcn:
+            raise ValueError("Phase-TCN requires the motion TCN observation.")
+        self.reward_mode = reward_mode
         if action_torque_scale_nm is None:
             action_torque_scale_nm = torque_limit_nm
         if not 0.0 < action_torque_scale_nm <= torque_limit_nm:
@@ -181,6 +228,16 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
             )
         self.action_torque_scale_nm = float(action_torque_scale_nm)
         self.baseline = BaselineReference(baseline_dir, self.motion_id)
+        if self.reward_mode == "cycle_c" and not self.baseline.supports_exact_cycles:
+            raise RuntimeError(
+                "cycle_c requires baselines from "
+                "RL.runners.collect_kinesis_cycle_baseline."
+            )
+        self.reward_weights = (
+            CYCLE_REWARD_WEIGHTS
+            if self.reward_mode == "cycle_c"
+            else REWARD_WEIGHTS
+        )
         self.tcn_adapter: TCNInputAdapter | None = None
         if use_tcn:
             self.tcn_adapter = TCNInputAdapter(
@@ -197,11 +254,22 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
                 self.warmup_steps,
                 self.tcn_adapter.history_length,
             )
-        self.observation_dim = (
-            TCN_OBSERVATION_DIM
-            if self.tcn_adapter is not None
-            else BASE_OBSERVATION_DIM
+        self.phase_tcn_adapter = (
+            CausalPhaseAdapter(phase_tcn_checkpoint, device=tcn_device)
+            if use_phase_tcn
+            else None
         )
+        if self.phase_tcn_adapter is not None:
+            self.warmup_steps = max(
+                self.warmup_steps,
+                self.phase_tcn_adapter.history_length,
+            )
+        if self.phase_tcn_adapter is not None:
+            self.observation_dim = SCHEME_C_OBSERVATION_DIM
+        elif self.tcn_adapter is not None:
+            self.observation_dim = TCN_OBSERVATION_DIM
+        else:
+            self.observation_dim = BASE_OBSERVATION_DIM
 
         # One frozen human and one MuJoCo model live for the whole worker.
         self.agent = make_agent(
@@ -264,6 +332,10 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
             TCN_DEPLOYMENT_FEATURE_DIM,
             dtype=np.float32,
         )
+        self._latest_phase_tcn_features = np.zeros(
+            PHASE_TCN_FEATURE_DIM,
+            dtype=np.float32,
+        )
         self._body_ids = np.asarray(
             [self._body_id(name) for name in IMU_BODY_NAMES],
             dtype=np.int32,
@@ -307,6 +379,11 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         self._episode_seed = self.baseline.seeds[0]
         self._last_state: dict[str, Any] | None = None
         self._episode_steps = 0
+        self._cycle_tracker: CausalContactCycleTracker | None = None
+        self._cycle_reference: BaselineCycle | None = None
+        self._cycle_actual_activation_energy = 0.0
+        self._cycle_actual_torque_impulse = 0.0
+        self._cycle_actual_steps = 0
 
     def reset(
         self,
@@ -343,6 +420,23 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         self._latest_tcn_prediction_delta.fill(0.0)
         if self.tcn_adapter is not None:
             self.tcn_adapter.reset()
+        self._latest_phase_tcn_features.fill(0.0)
+        if self.phase_tcn_adapter is not None:
+            self.phase_tcn_adapter.reset()
+        if self.reward_mode == "cycle_c":
+            on_threshold, off_threshold = self.baseline.contact_thresholds(
+                episode_seed
+            )
+            self._cycle_tracker = CausalContactCycleTracker(
+                on_threshold=on_threshold,
+                off_threshold=off_threshold,
+            )
+        else:
+            self._cycle_tracker = None
+        self._cycle_reference = None
+        self._cycle_actual_activation_energy = 0.0
+        self._cycle_actual_torque_impulse = 0.0
+        self._cycle_actual_steps = 0
         self._actual_activation_window.clear()
         self._baseline_activation_window.clear()
         self._actual_torque_window.clear()
@@ -362,6 +456,7 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
             )
             frame = self._read_frame(state, zero_action)
             self._history.append(frame)
+            self._prime_cycle_tracker()
             baseline = self.baseline.sample(
                 episode_seed,
                 float(state["time"]),
@@ -420,7 +515,7 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         self._episode_steps += 1
 
         if bool(state.get("load_sharing_failed", False)):
-            reward = -REWARD_WEIGHTS["termination"]
+            reward = -self.reward_weights["termination"]
             info = {
                 "motion_id": self.motion_id,
                 "episode_seed": self._episode_seed,
@@ -439,7 +534,7 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
             return self._observation(), reward, True, False, info
 
         if not self._state_is_finite(state):
-            reward = -REWARD_WEIGHTS["termination"]
+            reward = -self.reward_weights["termination"]
             info = {
                 "motion_id": self.motion_id,
                 "episode_seed": self._episode_seed,
@@ -724,12 +819,21 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
             )
         )
 
+        cycle_metrics = self._update_cycle_reward(state)
+        if self.reward_mode == "cycle_c":
+            effort_raw = cycle_metrics["cycle_activation_rate_saving"]
+            selected_torque_saving = cycle_metrics[
+                "cycle_torque_rate_saving"
+            ]
+        else:
+            effort_raw = activation_saving
+            selected_torque_saving = muscle_torque_saving
+
         # Activation is the objective.  Muscle effort is a one-sided
         # constraint: improvement is not double-counted, while deterioration
         # outside the calibrated zero-assist noise band is penalized.
-        effort_raw = activation_saving
         torque_deterioration_excess = max(
-            -muscle_torque_saving
+            -selected_torque_saving
             - TORQUE_DETERIORATION_TOLERANCE,
             0.0,
         )
@@ -806,14 +910,15 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         # and unusual early truncations, but apply safety gates symmetrically
         # so zero-mean physiology noise cannot acquire a negative bias.
         reward_window_fill_ratio = (
-            len(self._actual_activation_window)
-            / REWARD_WINDOW_STEPS
+            cycle_metrics["cycle_completed"]
+            if self.reward_mode == "cycle_c"
+            else len(self._actual_activation_window) / REWARD_WINDOW_STEPS
         )
         safety_gate = tracking_gate * balance_gate
         validity = safety_gate * reward_window_fill_ratio
         valid_effort = effort_raw * validity
         valid_muscle_torque_saving = (
-            muscle_torque_saving * validity
+            selected_torque_saving * validity
         )
         valid_torque_deterioration_cost = (
             torque_deterioration_cost * reward_window_fill_ratio
@@ -857,33 +962,37 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         )
 
         terms = {
-            "effort": REWARD_WEIGHTS["effort"] * valid_effort,
+            "effort": self.reward_weights["effort"] * valid_effort,
             "torque_deterioration_penalty": (
-                -REWARD_WEIGHTS["torque_deterioration"]
+                -self.reward_weights["torque_deterioration"]
                 * valid_torque_deterioration_cost
             ),
+            "duration_penalty": (
+                -self.reward_weights.get("duration_cost", 0.0)
+                * cycle_metrics["cycle_duration_cost"]
+            ),
             "tracking_penalty": (
-                -REWARD_WEIGHTS["tracking_cost"] * tracking_cost
+                -self.reward_weights["tracking_cost"] * tracking_cost
             ),
             "balance_penalty": (
-                -REWARD_WEIGHTS["balance_cost"] * balance_cost
+                -self.reward_weights["balance_cost"] * balance_cost
             ),
             "upright_penalty": (
-                -REWARD_WEIGHTS["upright_cost"] * upright_cost
+                -self.reward_weights["upright_cost"] * upright_cost
             ),
-            "alive": REWARD_WEIGHTS["alive"],
+            "alive": self.reward_weights["alive"],
             "torque_penalty": (
-                -REWARD_WEIGHTS["torque_cost"] * torque_cost
+                -self.reward_weights["torque_cost"] * torque_cost
             ),
             "jerk_penalty": (
-                -REWARD_WEIGHTS["jerk_cost"] * jerk_cost
+                -self.reward_weights["jerk_cost"] * jerk_cost
             ),
             "positive_power_penalty": (
-                -REWARD_WEIGHTS["positive_power_cost"]
+                -self.reward_weights["positive_power_cost"]
                 * positive_power_cost
             ),
             "termination_penalty": (
-                -REWARD_WEIGHTS["termination"]
+                -self.reward_weights["termination"]
                 if terminated
                 else 0.0
             ),
@@ -893,8 +1002,10 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
 
         metrics = {
             "effort_raw": effort_raw,
-            "activation_saving": activation_saving,
-            "muscle_torque_saving": muscle_torque_saving,
+            "same_state_activation_saving": activation_saving,
+            "same_state_muscle_torque_saving": muscle_torque_saving,
+            "activation_saving": effort_raw,
+            "muscle_torque_saving": selected_torque_saving,
             "offline_activation_saving": offline_activation_saving,
             "offline_muscle_torque_saving": (
                 offline_muscle_torque_saving
@@ -972,6 +1083,7 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
                 np.mean(np.abs(exo_torque) > RATED_TORQUE_NM)
             ),
             "mpjpe_mm": 1000.0 * mpjpe_m,
+            **cycle_metrics,
         }
 
         if not np.isfinite(reward):
@@ -1022,6 +1134,125 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         self._offline_baseline_torque_window.append(
             float(baseline.muscle_effort_torque_cost)
         )
+
+    def _prime_cycle_tracker(self) -> None:
+        """Synchronize contact state during warmup without starting a cycle."""
+
+        if self._cycle_tracker is None:
+            return
+        touch = np.asarray(self.agent.env.get_touch(), dtype=np.float64)
+        if touch.size < 4:
+            raise RuntimeError("Kinesis returned fewer than four touch sensors.")
+        self._cycle_tracker.update(float(np.sum(touch[2:4])))
+
+    def _update_cycle_reward(self, state: dict[str, Any]) -> dict[str, float]:
+        """Emit one strictly paired physiology result at a complete stride."""
+
+        metrics = {
+            "cycle_completed": 0.0,
+            "cycle_activation_saving": 0.0,
+            "cycle_torque_saving": 0.0,
+            "cycle_activation_rate_saving": 0.0,
+            "cycle_torque_rate_saving": 0.0,
+            "cycle_actual_activation_energy": 0.0,
+            "cycle_baseline_activation_energy": 0.0,
+            "cycle_actual_torque_impulse": 0.0,
+            "cycle_baseline_torque_impulse": 0.0,
+            "cycle_actual_duration_s": 0.0,
+            "cycle_baseline_duration_s": 0.0,
+            "cycle_duration_ratio": 0.0,
+            "cycle_duration_cost": 0.0,
+        }
+        if self._cycle_tracker is None:
+            return metrics
+
+        touch = np.asarray(self.agent.env.get_touch(), dtype=np.float64)
+        if touch.size < 4:
+            raise RuntimeError("Kinesis returned fewer than four touch sensors.")
+        new_cycle = self._cycle_tracker.update(float(np.sum(touch[2:4])))
+
+        if new_cycle:
+            reference = self._cycle_reference
+            if reference is not None and self._cycle_actual_steps > 0:
+                actual_activation = self._cycle_actual_activation_energy
+                actual_torque = self._cycle_actual_torque_impulse
+                actual_duration = self._cycle_actual_steps * CONTROL_DT
+                duration_ratio = actual_duration / max(
+                    reference.duration_s,
+                    EPSILON,
+                )
+                metrics.update(
+                    {
+                        "cycle_completed": 1.0,
+                        "cycle_activation_saving": float(
+                            np.clip(
+                                (reference.activation_energy - actual_activation)
+                                / max(reference.activation_energy, EPSILON),
+                                -1.0,
+                                1.0,
+                            )
+                        ),
+                        "cycle_torque_saving": float(
+                            np.clip(
+                                (reference.torque_impulse - actual_torque)
+                                / max(reference.torque_impulse, EPSILON),
+                                -1.0,
+                                1.0,
+                            )
+                        ),
+                        "cycle_activation_rate_saving": (
+                            relative_rate_saving(
+                                actual_activation,
+                                actual_duration,
+                                reference.activation_energy,
+                                reference.duration_s,
+                            )
+                        ),
+                        "cycle_torque_rate_saving": relative_rate_saving(
+                            actual_torque,
+                            actual_duration,
+                            reference.torque_impulse,
+                            reference.duration_s,
+                        ),
+                        "cycle_actual_activation_energy": actual_activation,
+                        "cycle_baseline_activation_energy": (
+                            reference.activation_energy
+                        ),
+                        "cycle_actual_torque_impulse": actual_torque,
+                        "cycle_baseline_torque_impulse": (
+                            reference.torque_impulse
+                        ),
+                        "cycle_actual_duration_s": actual_duration,
+                        "cycle_baseline_duration_s": reference.duration_s,
+                        "cycle_duration_ratio": duration_ratio,
+                        "cycle_duration_cost": cycle_duration_cost(
+                            actual_duration,
+                            reference.duration_s,
+                            free_ratio=CYCLE_DURATION_FREE_RATIO,
+                            scale_ratio=CYCLE_DURATION_SCALE_RATIO,
+                            cap=CYCLE_DURATION_COST_CAP,
+                        ),
+                    }
+                )
+
+            self._cycle_reference = self.baseline.cycle_at_time(
+                self._episode_seed,
+                float(state["time"]),
+            )
+            self._cycle_actual_activation_energy = 0.0
+            self._cycle_actual_torque_impulse = 0.0
+            self._cycle_actual_steps = 0
+
+        if self._cycle_reference is not None:
+            self._cycle_actual_activation_energy += (
+                float(state["target_activation_cost"]) * CONTROL_DT
+            )
+            self._cycle_actual_torque_impulse += (
+                float(state["muscle_effort_torque_cost"]) * CONTROL_DT
+            )
+            self._cycle_actual_steps += 1
+
+        return metrics
 
     def _tracking_error(
         self,
@@ -1132,6 +1363,12 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         )
         raw_sensor_frame = raw_frame[:SENSOR_DIM].copy()
         self._raw_sensor_history.append(raw_sensor_frame)
+        if self.phase_tcn_adapter is not None:
+            self.phase_tcn_adapter.append(raw_sensor_frame)
+            if self.phase_tcn_adapter.ready:
+                self._latest_phase_tcn_features = (
+                    self.phase_tcn_adapter.features
+                )
         if self.tcn_adapter is not None:
             self.tcn_adapter.append(raw_sensor_frame)
             if self.tcn_adapter.ready:
@@ -1212,13 +1449,12 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
         )
         if base_observation.shape != (BASE_OBSERVATION_DIM,):
             raise RuntimeError("Unexpected base observation shape.")
-        observation = (
-            np.concatenate(
-                (base_observation, self._latest_tcn_features)
-            ).astype(np.float32, copy=False)
-            if self.tcn_adapter is not None
-            else base_observation
-        )
+        parts = [base_observation]
+        if self.tcn_adapter is not None:
+            parts.append(self._latest_tcn_features)
+        if self.phase_tcn_adapter is not None:
+            parts.append(self._latest_phase_tcn_features)
+        observation = np.concatenate(parts).astype(np.float32, copy=False)
         if observation.shape != (self.observation_dim,):
             raise RuntimeError("Unexpected observation shape.")
         if not np.all(np.isfinite(observation)):
@@ -1228,7 +1464,7 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
     def _tcn_info(self) -> dict[str, Any]:
         if self.tcn_adapter is None:
             return {"tcn_enabled": False}
-        return {
+        info = {
             "tcn_enabled": True,
             "tcn_history_size": self.tcn_adapter.history_size,
             "tcn_feature_abs_max": float(
@@ -1250,6 +1486,27 @@ class KinesisExoEnv(gym.Env[np.ndarray, np.ndarray]):
                 self._latest_tcn_prediction_delta[12:16].copy()
             ),
         }
+        if self.phase_tcn_adapter is not None:
+            info.update(
+                {
+                    "phase_tcn_enabled": True,
+                    "phase_tcn_sin": float(
+                        self._latest_phase_tcn_features[0]
+                    ),
+                    "phase_tcn_cos": float(
+                        self._latest_phase_tcn_features[1]
+                    ),
+                    "phase_tcn_rate_hz": float(
+                        self._latest_phase_tcn_features[2]
+                    ),
+                    "phase_tcn_confidence": (
+                        self.phase_tcn_adapter.confidence
+                    ),
+                }
+            )
+        else:
+            info["phase_tcn_enabled"] = False
+        return info
 
     @staticmethod
     def _physiology_info(state: dict[str, Any]) -> dict[str, Any]:
