@@ -5,6 +5,7 @@ import { ReasonPanel } from "../reason/ReasonPanel";
 import { SensePanel } from "../sense/SensePanel";
 import { ClosedLoopSpine } from "./ClosedLoopSpine";
 import type { AgentEventsView } from "../../hooks/useAgentEvents";
+import type { RobotCommandView } from "../../hooks/useRobotCommand";
 import type { RobotSocketView } from "../../types/robot";
 import { STAGES, STAGE_LABELS, type StageId } from "../../types/ui";
 
@@ -17,11 +18,13 @@ const ICONS = {
 export function ClosedLoopDeck({
   activeStage,
   agentEvents,
+  commands,
   onStageChange,
   robot,
 }: {
   activeStage: StageId;
   agentEvents: AgentEventsView;
+  commands: RobotCommandView;
   onStageChange: (stage: StageId) => void;
   robot: RobotSocketView;
 }) {
@@ -48,7 +51,7 @@ export function ClosedLoopDeck({
       </nav>
 
       <ClosedLoopSpine
-        activeStage={robot.connection === "online" ? "sense" : undefined}
+        activeStage={agentEvents.activeLoopStage ?? (robot.connection === "online" ? "sense" : undefined)}
         connection={robot.connection}
       />
 
@@ -57,8 +60,10 @@ export function ClosedLoopDeck({
         <ReasonPanel
           active={activeStage === "reason"}
           agentEvents={agentEvents}
+          commands={commands}
+          robot={robot}
         />
-        <ActPanel active={activeStage === "act"} robot={robot} />
+        <ActPanel active={activeStage === "act"} commands={commands} robot={robot} />
       </div>
     </section>
   );
