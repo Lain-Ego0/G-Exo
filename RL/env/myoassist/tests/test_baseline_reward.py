@@ -82,7 +82,7 @@ def compute(
     *,
     speed: float = 1.0,
     target_speed: float = 1.0,
-    torque: float = 0.0,
+    torque: float | np.ndarray = 0.0,
 ) -> dict[str, float]:
     _, diagnostics = reward.compute(
         snapshot=snapshot,
@@ -92,7 +92,10 @@ def compute(
         pelvis_pitch_rad=0.0,
         joint_q_rad=np.full(4, 0.5),
         joint_dq_rad_s=np.zeros(4),
-        exo_torque_nm=np.full(4, torque),
+        exo_torque_nm=np.broadcast_to(
+            np.asarray(torque, dtype=np.float64),
+            (4,),
+        ).copy(),
         terminated=False,
     )
     return diagnostics
@@ -272,6 +275,25 @@ class MyoAssistBaselineRewardTest(unittest.TestCase):
         third = compute(reward, snapshot, torque=1.0)
         self.assertLess(second["jerk_penalty"], 0.0)
         self.assertAlmostEqual(third["jerk_penalty"], 0.0)
+
+    def test_torque_penalty_is_hinged_and_uses_worst_joint(self) -> None:
+        reward = MyoAssistReward(make_baseline())
+        snapshot = make_snapshot()
+        safe = compute(reward, snapshot, torque=6.5)
+        warning = compute(
+            reward,
+            snapshot,
+            torque=np.asarray([7.25, 0.0, 0.0, 0.0]),
+        )
+        terminal = compute(reward, snapshot, torque=8.0)
+
+        self.assertEqual(safe["torque_overload_penalty"], 0.0)
+        self.assertAlmostEqual(safe["torque_usage_cost"], 1.0)
+        self.assertAlmostEqual(safe["torque_usage_penalty"], -0.01)
+        self.assertAlmostEqual(warning["torque_cost"], 0.25)
+        self.assertAlmostEqual(warning["torque_overload_penalty"], -0.25)
+        self.assertAlmostEqual(warning["max_absolute_exo_torque_nm"], 7.25)
+        self.assertAlmostEqual(terminal["torque_cost"], 1.0)
 
     def test_snapshot_validity_hash_and_full_mask_are_enforced(self) -> None:
         reward = MyoAssistReward(make_baseline())

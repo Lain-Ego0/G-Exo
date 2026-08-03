@@ -110,7 +110,7 @@ class ProtocolFixture:
             "model_path": self.model,
             "min_speed_m_s": 0.8,
             "max_speed_m_s": 1.25,
-            "action_scale_nm": 17.0,
+            "action_scale_nm": 8.0,
             "max_episode_steps": 1000,
             "workers": 8,
             "seed": 42,
@@ -158,6 +158,26 @@ class MyoAssistTrainingProtocolTest(unittest.TestCase):
             TRAINING_SPEED_SCHEDULE,
         )
         self.assertEqual(protocol["evaluation"]["reference_index"], 0)
+        self.assertEqual(
+            protocol["action_and_safety"]["hard_torque_limit_nm"],
+            [8.0] * 4,
+        )
+        self.assertEqual(
+            protocol["action_and_safety"]["torque_soft_threshold_nm"],
+            6.5,
+        )
+        self.assertEqual(
+            protocol["action_and_safety"]["torque_termination_threshold_nm"],
+            8.0,
+        )
+        self.assertEqual(
+            protocol["action_and_safety"]["torque_rate_limit_nm_s"],
+            [20.0] * 4,
+        )
+        self.assertEqual(
+            protocol["reward"]["jerk_scale_nm"],
+            [0.4] * 4,
+        )
         self.assertEqual(len(protocol["sha256"]), 64)
 
     def test_requested_speed_must_be_inside_both_artifacts(self) -> None:
@@ -244,7 +264,10 @@ class MyoAssistTrainingProtocolTest(unittest.TestCase):
                 "positive_power_w": 4.0,
                 "mean_absolute_human_torque_nm": 30.0,
                 "mean_absolute_exo_torque_nm": 2.0,
+                "torque_usage_cost": 0.01,
                 "torque_cost": 0.02,
+                "torque_overload": 0.1,
+                "max_absolute_exo_torque_nm": 7.0,
                 "jerk_cost": 0.03,
             },
             "target_speed_m_s": 1.0,
@@ -252,6 +275,8 @@ class MyoAssistTrainingProtocolTest(unittest.TestCase):
             "forward_speed_filtered_m_s": 1.02,
             "pelvis_height_m": 0.9,
             "pelvis_pitch_rad": 0.02,
+            "torque_overload": False,
+            "max_absolute_exo_torque_nm": 7.0,
             "joint_q_rad": np.arange(4),
             "joint_dq_rad_s": np.arange(4) + 1,
             "exo_torque": np.arange(4) + 2,
@@ -260,6 +285,9 @@ class MyoAssistTrainingProtocolTest(unittest.TestCase):
         metrics = collect_myoassist_metrics(info)
         self.assertEqual(metrics["myoassist_reward/effort"], 0.25)
         self.assertEqual(metrics["myoassist_human/gross_load_cost"], 1.1)
+        self.assertEqual(metrics["myoassist_exo/max_abs_torque_nm"], 7.0)
+        self.assertEqual(metrics["myoassist_exo/torque_usage_cost"], 0.01)
+        self.assertEqual(metrics["myoassist_safety/torque_overload"], 0.0)
         for joint in JOINT_ORDER:
             self.assertIn(f"myoassist_joint/q_rad/{joint}", metrics)
             self.assertIn(f"myoassist_joint/exo_torque_nm/{joint}", metrics)

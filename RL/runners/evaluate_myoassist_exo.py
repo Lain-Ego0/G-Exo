@@ -136,7 +136,7 @@ def run_episode(
             if render:
                 environment.render()
             if terminated:
-                reason = "terminated"
+                reason = str(info.get("termination_reason", "terminated"))
                 break
             if truncated:
                 reason = (
@@ -362,7 +362,7 @@ def main() -> None:
     parser.add_argument("--seeds", default="0,1,2")
     parser.add_argument("--reference-indices", default="0")
     parser.add_argument("--steps", type=int, default=500)
-    parser.add_argument("--action-scale-nm", type=float, default=17.0)
+    parser.add_argument("--action-scale-nm", type=float, default=8.0)
     parser.add_argument("--oracle-gain", type=float, default=0.25)
     parser.add_argument("--nondegradation-tolerance", type=float, default=0.0)
     parser.add_argument("--minimum-improvement", type=float, default=0.0)

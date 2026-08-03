@@ -16,7 +16,8 @@ class RewardConfig:
     speed_weight: float = 1.0
     upright_weight: float = 1.0
     gross_weight: float = 0.25
-    torque_weight: float = 0.03
+    torque_usage_weight: float = 0.01
+    torque_weight: float = 1.0
     jerk_weight: float = 0.02
     power_weight: float = 0.01
     fall_weight: float = 1.0
@@ -26,8 +27,10 @@ class RewardConfig:
     gross_tolerance: float = 0.1
     positive_power_free_w: float = 20.0
     positive_power_scale_w: float = 50.0
+    torque_soft_threshold_nm: float = 6.5
+    torque_termination_threshold_nm: float = 8.0
     torque_limit_nm: np.ndarray = field(
-        default_factory=lambda: np.full(4, 17.0, dtype=np.float64)
+        default_factory=lambda: np.full(4, 8.0, dtype=np.float64)
     )
     jerk_scale_nm: np.ndarray = field(
         default_factory=lambda: np.full(4, 4.0, dtype=np.float64)
@@ -44,6 +47,19 @@ class MyoAssistReward:
         self.config = config
         self.torque_limit = _positive_vector(config.torque_limit_nm, "torque_limit_nm")
         self.jerk_scale = _positive_vector(config.jerk_scale_nm, "jerk_scale_nm")
+        self.torque_soft_threshold_nm = float(config.torque_soft_threshold_nm)
+        self.torque_termination_threshold_nm = float(
+            config.torque_termination_threshold_nm
+        )
+        if not (
+            0.0
+            < self.torque_soft_threshold_nm
+            < self.torque_termination_threshold_nm
+            <= float(np.min(self.torque_limit))
+        ):
+            raise ValueError(
+                "Torque thresholds must satisfy 0 < soft < termination <= hard limit."
+            )
         if not 0.0 <= config.activation_weight <= 1.0:
             raise ValueError("activation_weight must be in [0, 1].")
         self.reset()
@@ -149,7 +165,19 @@ class MyoAssistReward:
             0.0,
             (gross_cost - gross_threshold) / reference.gross_scale,
         )
-        torque_cost = float(np.mean(np.square(torque / self.torque_limit)))
+        max_absolute_torque = float(np.max(np.abs(torque)))
+        torque_usage_cost = float(
+            np.mean(np.square(torque / self.torque_soft_threshold_nm))
+        )
+        torque_overload = max(
+            0.0,
+            (max_absolute_torque - self.torque_soft_threshold_nm)
+            / (
+                self.torque_termination_threshold_nm
+                - self.torque_soft_threshold_nm
+            ),
+        )
+        torque_cost = float(torque_overload**2)
         second_difference = (
             torque - 2.0 * self.previous_torque + self.penultimate_torque
         )
@@ -166,7 +194,10 @@ class MyoAssistReward:
             "speed_penalty": -self.config.speed_weight * speed_excess**2,
             "upright_penalty": -self.config.upright_weight * upright_excess**2,
             "gross_penalty": -self.config.gross_weight * gross_excess**2,
-            "torque_penalty": -self.config.torque_weight * torque_cost,
+            "torque_usage_penalty": (
+                -self.config.torque_usage_weight * torque_usage_cost
+            ),
+            "torque_overload_penalty": -self.config.torque_weight * torque_cost,
             "jerk_penalty": -self.config.jerk_weight * jerk_cost,
             "power_penalty": -self.config.power_weight * power_excess**2,
             "termination_penalty": -self.config.fall_weight if terminated else 0.0,
@@ -189,7 +220,10 @@ class MyoAssistReward:
             "upright_excess": float(upright_excess),
             "joint_limit_excess": float(joint_excess),
             "upright": float(np.clip(1.0 - upright_excess, 0.0, 1.0)),
+            "torque_usage_cost": torque_usage_cost,
             "torque_cost": torque_cost,
+            "torque_overload": float(torque_overload),
+            "max_absolute_exo_torque_nm": max_absolute_torque,
             "jerk_cost": jerk_cost,
             "positive_power_cost": float(power_excess**2),
             "positive_power_w": positive_power,

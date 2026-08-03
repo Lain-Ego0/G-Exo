@@ -35,12 +35,14 @@ from RL.env.myoassist.baseline import (
 from RL.env.myoassist.reward import RewardConfig
 
 
-PROTOCOL_SCHEMA = "gexo_myoassist_ppo_protocol_v3"
+PROTOCOL_SCHEMA = "gexo_myoassist_ppo_protocol_v4"
 RUN_CONFIG_SCHEMA = "gexo_myoassist_ppo_run_v2"
 CONTROL_HZ = 50
 WARMUP_STEPS = RESET_WARMUP_STEPS
-HARD_TORQUE_LIMIT_NM = 17.0
-TORQUE_RATE_LIMIT_NM_S = 50.0
+HARD_TORQUE_LIMIT_NM = 8.0
+TORQUE_SOFT_THRESHOLD_NM = 6.5
+TORQUE_TERMINATION_THRESHOLD_NM = 8.0
+TORQUE_RATE_LIMIT_NM_S = 20.0
 
 
 class ProtocolMismatchError(ValueError):
@@ -188,13 +190,17 @@ def build_training_protocol(
     if int(tcn["target_dim"]) < 8:
         raise ValueError("TCN checkpoint target must contain four q and four dq values.")
     if not 0.0 < float(action_scale_nm) <= HARD_TORQUE_LIMIT_NM:
-        raise ValueError("action_scale_nm must be in (0, 17].")
+        raise ValueError(
+            f"action_scale_nm must be in (0, {HARD_TORQUE_LIMIT_NM:g}]."
+        )
     if int(max_episode_steps) < 1 or int(workers) < 1:
         raise ValueError("max_episode_steps and workers must be positive.")
 
     reward = RewardConfig(
         torque_limit_nm=np.full(4, HARD_TORQUE_LIMIT_NM),
         jerk_scale_nm=np.full(4, TORQUE_RATE_LIMIT_NM_S / CONTROL_HZ),
+        torque_soft_threshold_nm=TORQUE_SOFT_THRESHOLD_NM,
+        torque_termination_threshold_nm=TORQUE_TERMINATION_THRESHOLD_NM,
     )
     protocol = {
         "schema": PROTOCOL_SCHEMA,
@@ -234,6 +240,8 @@ def build_training_protocol(
             "normalized_range": [-1.0, 1.0],
             "action_scale_nm": float(action_scale_nm),
             "hard_torque_limit_nm": [HARD_TORQUE_LIMIT_NM] * ACTION_DIM,
+            "torque_soft_threshold_nm": TORQUE_SOFT_THRESHOLD_NM,
+            "torque_termination_threshold_nm": TORQUE_TERMINATION_THRESHOLD_NM,
             "torque_rate_limit_nm_s": [TORQUE_RATE_LIMIT_NM_S] * ACTION_DIM,
             "filter_time_constant_s": 0.0,
             "control_hz": CONTROL_HZ,
@@ -372,7 +380,10 @@ def collect_myoassist_metrics(info: Mapping[str, Any]) -> dict[str, float]:
         "positive_power_w": "myoassist_exo/positive_power_w",
         "mean_absolute_human_torque_nm": "myoassist_human/mean_abs_torque_nm",
         "mean_absolute_exo_torque_nm": "myoassist_exo/mean_abs_torque_nm",
+        "torque_usage_cost": "myoassist_exo/torque_usage_cost",
         "torque_cost": "myoassist_exo/torque_cost",
+        "torque_overload": "myoassist_safety/torque_overload_excess",
+        "max_absolute_exo_torque_nm": "myoassist_exo/max_abs_torque_nm",
         "jerk_cost": "myoassist_exo/second_difference_cost",
     }
     for source, destination in metric_names.items():
@@ -384,6 +395,8 @@ def collect_myoassist_metrics(info: Mapping[str, Any]) -> dict[str, float]:
         "forward_speed_filtered_m_s": "myoassist_locomotion/filtered_speed_m_s",
         "pelvis_height_m": "myoassist_pose/pelvis_height_m",
         "pelvis_pitch_rad": "myoassist_pose/pelvis_pitch_rad",
+        "torque_overload": "myoassist_safety/torque_overload",
+        "max_absolute_exo_torque_nm": "myoassist_exo/max_abs_torque_nm",
     }
     for source, destination in top_level.items():
         if source in info:

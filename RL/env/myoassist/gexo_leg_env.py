@@ -33,8 +33,11 @@ from RL.runners.predictors.tcn_runtime import FrozenTCNRuntime
 
 
 CONTROL_DT = 0.02
-TORQUE_LIMIT_NM = np.full(4, 17.0, dtype=np.float32)
-TORQUE_RATE_LIMIT_NM_S = np.full(4, 50.0, dtype=np.float32)
+PLANT_TORQUE_SCALE_NM = np.full(4, 17.0, dtype=np.float32)
+TORQUE_LIMIT_NM = np.full(4, 8.0, dtype=np.float32)
+TORQUE_RATE_LIMIT_NM_S = np.full(4, 20.0, dtype=np.float32)
+TORQUE_SOFT_THRESHOLD_NM = 6.5
+TORQUE_TERMINATION_THRESHOLD_NM = 8.0
 
 
 class GexoMyoAssistEnv(gym.Env):
@@ -51,7 +54,7 @@ class GexoMyoAssistEnv(gym.Env):
         max_episode_steps: int = 1000,
         min_speed_m_s: float = 0.8,
         max_speed_m_s: float = 1.25,
-        action_torque_scale_nm: float = 17.0,
+        action_torque_scale_nm: float = 8.0,
         tcn_device: str = "cpu",
         human_device: str = "cpu",
         model_path: str | Path | None = None,
@@ -116,6 +119,8 @@ class GexoMyoAssistEnv(gym.Env):
             RewardConfig(
                 torque_limit_nm=TORQUE_LIMIT_NM,
                 jerk_scale_nm=TORQUE_RATE_LIMIT_NM_S * CONTROL_DT,
+                torque_soft_threshold_nm=TORQUE_SOFT_THRESHOLD_NM,
+                torque_termination_threshold_nm=TORQUE_TERMINATION_THRESHOLD_NM,
             ),
         )
         self.action_torque_scale_nm = action_scale
@@ -199,7 +204,7 @@ class GexoMyoAssistEnv(gym.Env):
         if self._human_observation is None:
             raise RuntimeError("Environment must be reset before step().")
         human_action = self.human_policy(self._human_observation)
-        exo_action = exo_torque_nm / TORQUE_LIMIT_NM
+        exo_action = exo_torque_nm / PLANT_TORQUE_SCALE_NM
         combined = np.concatenate((human_action, exo_action)).astype(np.float32)
         observation, _, terminated, truncated, info = self.human_environment.step(
             combined
@@ -304,6 +309,11 @@ class GexoMyoAssistEnv(gym.Env):
     ) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
         applied_torque = self.actuator.process(action)
         _, terminated, truncated, inner_info = self._combined_step(applied_torque)
+        max_absolute_torque = float(np.max(np.abs(applied_torque)))
+        torque_overload = max_absolute_torque >= TORQUE_TERMINATION_THRESHOLD_NM
+        if torque_overload:
+            terminated = True
+            inner_info["termination_reason"] = "exo_torque_overload"
         previous_action = applied_torque / self.action_torque_scale_nm
         observation = self._build_observation(previous_action)
         snapshot = self.muscle_adapter.snapshot()
@@ -343,7 +353,8 @@ class GexoMyoAssistEnv(gym.Env):
                     "speed_penalty",
                     "upright_penalty",
                     "gross_penalty",
-                    "torque_penalty",
+                    "torque_usage_penalty",
+                    "torque_overload_penalty",
                     "jerk_penalty",
                     "power_penalty",
                     "termination_penalty",
@@ -353,6 +364,8 @@ class GexoMyoAssistEnv(gym.Env):
             "reward_metrics": diagnostics,
             "applied_exo_torque_nm": applied_torque.copy(),
             "exo_torque": applied_torque.copy(),
+            "max_absolute_exo_torque_nm": max_absolute_torque,
+            "torque_overload": torque_overload,
             "muscle_activation": snapshot.activation.copy(),
             "target_speed_m_s": filtered_target_speed,
             "target_speed_raw_m_s": raw_target_speed,

@@ -88,7 +88,7 @@ def main() -> None:
     parser.add_argument("--max-episode-steps", type=int, default=1000)
     parser.add_argument("--min-speed", type=float, default=0.8)
     parser.add_argument("--max-speed", type=float, default=1.25)
-    parser.add_argument("--action-scale-nm", type=float, default=17.0)
+    parser.add_argument("--action-scale-nm", type=float, default=8.0)
     parser.add_argument("--learning-rate", type=float, default=3.0e-4)
     parser.add_argument("--n-steps", type=int, default=512)
     parser.add_argument("--batch-size", type=int, default=256)
