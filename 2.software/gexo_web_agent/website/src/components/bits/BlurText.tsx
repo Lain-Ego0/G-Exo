@@ -13,7 +13,9 @@ export function BlurText({
   delay?: number;
 }) {
   const [ref, inView] = useInView<HTMLSpanElement>(0.4);
-  const words = text.split(" ");
+  // Latin text staggers per word; CJK text (no spaces) staggers per 6-char chunk.
+  const hasSpaces = text.includes(" ");
+  const words = hasSpaces ? text.split(" ") : text.match(/.{1,6}/gs) ?? [text];
 
   return (
     <span ref={ref} className={`blur-text ${className ?? ""}`} aria-label={text}>
@@ -26,7 +28,7 @@ export function BlurText({
           key={`${word}-${index}`}
         >
           {word}
-          {index < words.length - 1 ? " " : ""}
+          {hasSpaces && index < words.length - 1 ? " " : ""}
         </span>
       ))}
     </span>
