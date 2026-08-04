@@ -12,6 +12,7 @@ import {
   PauseCircle,
   Send,
   ShieldCheck,
+  Wifi,
   WifiOff,
   XCircle,
 } from "lucide-react";
@@ -44,7 +45,13 @@ function FlowResult({ status }: { status: AgentStageStatus }) {
   return <Circle aria-label={status === "idle" ? "Idle" : "Unavailable"} size={14} />;
 }
 
-function SafetyGuardFlow({ agentEvents }: { agentEvents: AgentEventsView }) {
+function SafetyGuardFlow({
+  agentEvents,
+  available,
+}: {
+  agentEvents: AgentEventsView;
+  available: boolean;
+}) {
   return (
     <section className="module-section reason-flow-section" aria-labelledby="safety-flow-title">
       <div className="section-heading">
@@ -52,7 +59,7 @@ function SafetyGuardFlow({ agentEvents }: { agentEvents: AgentEventsView }) {
           <span className="section-index">R.02</span>
           <h3 id="safety-flow-title">安全校验流程 <small aria-hidden="true">SAFETYGUARD FLOW</small></h3>
         </div>
-        <span className="section-meta">EVENT API / UNAVAILABLE</span>
+        <span className="section-meta">{available ? "EVENT API / ONLINE" : "EVENT API / UNAVAILABLE"}</span>
       </div>
       <ol className="safety-flow">
         {agentEvents.stages.map((stage) => {
@@ -174,6 +181,8 @@ export function ReasonPanel({
   commands: RobotCommandView;
   robot: RobotSocketView;
 }) {
+  const engineOnline = robot.apiReachable;
+
   return (
     <article className="stage-panel reason-panel" data-stage="reason" data-mobile-active={active}>
       <header className="stage-panel-header">
@@ -181,9 +190,13 @@ export function ReasonPanel({
           <span className="stage-kicker">02 / 决策路径 / DECISION PATH</span>
           <h2><span>推理</span><small aria-hidden="true">REASON</small></h2>
         </div>
-        <span className="stage-state" data-state="unavailable">
-          <WifiOff aria-hidden="true" size={14} />
-          分析引擎离线 / ANALYSIS ENGINE OFFLINE
+        <span className="stage-state" data-state={engineOnline ? "online" : "offline"}>
+          {engineOnline
+            ? <Wifi aria-hidden="true" size={14} />
+            : <WifiOff aria-hidden="true" size={14} />}
+          {engineOnline
+            ? "分析引擎在线 / ANALYSIS ENGINE ONLINE"
+            : "分析引擎离线 / ANALYSIS ENGINE OFFLINE"}
         </span>
       </header>
 
@@ -191,13 +204,21 @@ export function ReasonPanel({
         <div className="agent-mark"><Bot aria-hidden="true" size={24} /></div>
         <div>
           <span className="section-index">R.01 / 分析引擎 / ANALYSIS ENGINE</span>
-          <h3 id="agent-title">分析引擎离线 <small aria-hidden="true">ANALYSIS ENGINE OFFLINE</small></h3>
-          <p>未连接真实 AI 推理接口 / NO INFERENCE INTERFACE</p>
+          <h3 id="agent-title">
+            {engineOnline ? "分析引擎在线" : "分析引擎离线"}
+            {" "}
+            <small aria-hidden="true">{engineOnline ? "ANALYSIS ENGINE ONLINE" : "ANALYSIS ENGINE OFFLINE"}</small>
+          </h3>
+          <p>{engineOnline
+            ? "已连接 AI 推理接口 / INFERENCE INTERFACE CONNECTED"
+            : "未连接真实 AI 推理接口 / NO INFERENCE INTERFACE"}</p>
         </div>
-        <span className="inline-state" data-state="unavailable">离线 OFFLINE</span>
+        <span className="inline-state" data-state={engineOnline ? "healthy" : "unavailable"}>
+          {engineOnline ? "在线 ONLINE" : "离线 OFFLINE"}
+        </span>
       </section>
 
-      <SafetyGuardFlow agentEvents={agentEvents} />
+      <SafetyGuardFlow agentEvents={agentEvents} available={engineOnline} />
 
       <section className="module-section event-detail" aria-labelledby="event-title">
         <div className="section-heading">

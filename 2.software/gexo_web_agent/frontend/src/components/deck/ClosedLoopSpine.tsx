@@ -12,7 +12,7 @@ export function ClosedLoopSpine({
   eventKey: string | null;
 }) {
   return (
-    <div className="closed-loop-spine" aria-label="Closed loop status">
+    <div className="closed-loop-spine" aria-label="Closed loop status" data-flow={connection === "online" ? "true" : undefined}>
       <span className="spine-caption">
         闭环 / CLOSED LOOP · {connection === "online" ? "实时遥测 / LIVE TELEMETRY" : connection.toUpperCase()}
       </span>

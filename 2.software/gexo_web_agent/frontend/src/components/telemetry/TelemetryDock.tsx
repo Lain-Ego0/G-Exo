@@ -13,7 +13,22 @@ const CHARTS = [
   { id: "battery", label: "电量 / 母线 BATTERY / BUS" },
 ] as const;
 
-const JOINT_COLORS = ["#23d8f2", "#8edde8", "#ad8fff", "#ff778b"];
+function tokenColor(name: string, fallback: string): string {
+  if (typeof window === "undefined") return fallback;
+  const value = window.getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return value || fallback;
+}
+
+// Chart colors resolve from tokens.css so the dock always follows the theme.
+const JOINT_COLORS = [
+  tokenColor("--joint-lh", "#23d8f2"),
+  tokenColor("--joint-lk", "#8edde8"),
+  tokenColor("--joint-rh", "#ad8fff"),
+  tokenColor("--joint-rk", "#ff778b"),
+];
+const ACT_COLOR = tokenColor("--gexo-act", "#ffc424");
+const REASON_COLOR = tokenColor("--gexo-reason", "#ad8fff");
+const SUCCESS_COLOR = tokenColor("--gexo-success", "#49d8a0");
 type ChartId = (typeof CHARTS)[number]["id"];
 
 function lastDataPoint(points: TelemetryPoint[]): TelemetryPoint | null {
@@ -57,13 +72,13 @@ export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
       {
         id: "command",
         label: "CMD",
-        color: "#ffc424",
+        color: ACT_COLOR,
         value: (point) => point.commandTorque[selectedJoint],
       },
       {
         id: hasActual ? "actual" : "estimated",
         label: hasActual ? "ACT" : "EST",
-        color: "#ad8fff",
+        color: REASON_COLOR,
         value: (point) => hasActual
           ? point.actualTorque[selectedJoint]
           : point.estimatedTorque[selectedJoint],
@@ -76,7 +91,7 @@ export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
     () => [{
       id: "battery",
       label: "BATTERY",
-      color: "#49d8a0",
+      color: SUCCESS_COLOR,
       value: (point) => point.batteryPercent,
     }],
     [],

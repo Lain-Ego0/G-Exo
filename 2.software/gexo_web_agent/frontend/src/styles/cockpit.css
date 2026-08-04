@@ -163,11 +163,21 @@
 }
 
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: var(--gexo-text);
   font-family: var(--font-display);
   font-size: 1.65rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
   line-height: 0.9;
+}
+
+.wordmark-loop {
+  width: 0.8em;
+  height: 0.8em;
+  color: var(--gexo-sense);
 }
 
 .product-label {
@@ -306,9 +316,22 @@
 }
 
 .cockpit-main {
+  position: relative;
   width: min(100%, 1680px);
   margin: 0 auto;
   padding: 14px;
+}
+
+/* Depth glow: restrained cyan/amber field lights behind the panels */
+.cockpit-main::before {
+  position: absolute;
+  z-index: -1;
+  background:
+    radial-gradient(620px 320px at 10% 0%, rgba(35, 216, 242, 0.07), transparent 70%),
+    radial-gradient(620px 320px at 90% 0%, rgba(255, 196, 36, 0.05), transparent 70%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
 }
 
 .closed-loop-deck {
@@ -350,6 +373,37 @@
   left: 0;
   border-top: 1px solid var(--gexo-border);
   content: "";
+}
+
+/* Live data flow along the closed-loop track (online only; ends fade to
+   transparent so the looping sweep wraps seamlessly) */
+.closed-loop-spine[data-flow="true"] .spine-track::after {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  animation: spine-flow 7s linear infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gexo-sense) 25%,
+    var(--gexo-reason) 55%,
+    var(--gexo-act) 85%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  content: "";
+  opacity: 0.55;
+}
+
+@keyframes spine-flow {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
 }
 
 .spine-stage {
@@ -406,6 +460,21 @@
 
 .spine-stage[data-pulse="true"] .spine-node {
   animation: spine-state-pulse 620ms ease-out 1;
+}
+
+/* Gentle breathing on the active node while no event pulse is running */
+.spine-stage[data-active="true"]:not([data-pulse="true"]) .spine-node {
+  animation: spine-node-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes spine-node-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 0 0 5px 0 currentColor;
+  }
 }
 
 @keyframes spine-state-pulse {
@@ -640,15 +709,23 @@
   overflow: hidden;
   border-top: 1px solid var(--gexo-rule);
   border-bottom: 1px solid var(--gexo-rule);
-  background: var(--gexo-bg-deep);
+  background:
+    linear-gradient(rgba(137, 165, 214, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(137, 165, 214, 0.05) 1px, transparent 1px),
+    var(--gexo-bg-deep);
+  background-size: 28px 28px, 28px 28px, auto;
 }
 
+/* Edge-fade mask lets the non-cutout product photo blend into the
+   blueprint field instead of showing a hard rectangle */
 .joint-map img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   opacity: 0.72;
   filter: saturate(0.78) contrast(1.06);
+  -webkit-mask-image: radial-gradient(ellipse 76% 88% at 50% 47%, #000 60%, transparent 96%);
+  mask-image: radial-gradient(ellipse 76% 88% at 50% 47%, #000 60%, transparent 96%);
 }
 
 .joint-node {
@@ -694,8 +771,19 @@
 }
 
 .joint-node[data-state="online"] .joint-node-dot {
+  animation: joint-node-breathe 2.8s ease-in-out infinite;
   border-color: var(--gexo-success);
   background: var(--gexo-success);
+}
+
+@keyframes joint-node-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(73, 216, 160, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(73, 216, 160, 0);
+  }
 }
 
 .joint-node-lh {
