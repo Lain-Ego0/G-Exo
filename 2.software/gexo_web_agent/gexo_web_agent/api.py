@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Awaitable, Callable, Optional
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from .command_manager import CommandManager
@@ -243,6 +243,11 @@ def create_app(
 
     static_dir = Path(__file__).resolve().parent.parent / "static"
     if (static_dir / "index.html").is_file():
+        @app.get("/ring", include_in_schema=False)
+        @app.get("/cockpit", include_in_schema=False)
+        async def frontend_entry() -> FileResponse:
+            return FileResponse(static_dir / "index.html")
+
         app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="static")
 
     return app
