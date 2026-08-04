@@ -1,0 +1,49 @@
+{
+  "rpc": [
+    {
+      "id": "measure-start-1",
+      "method": "startSpo2Verification",
+      "params": { "deviceId": "ring-example-1" }
+    },
+    {
+      "id": "measure-stop-1",
+      "method": "stopMeasurement",
+      "params": { "deviceId": "ring-example-1" }
+    }
+  ],
+  "events": [
+    {
+      "event": "spo2Result",
+      "data": {
+        "deviceId": "ring-example-1",
+        "spo2": 98,
+        "hr": 67,
+        "success": true,
+        "isVerified": false
+      }
+    },
+    {
+      "event": "ppgWave",
+      "data": {
+        "deviceId": "ring-example-1",
+        "packCount": 7,
+        "captureTime": 1234,
+        "samples": [
+          { "ledG": 1, "ledGAmb": 2, "ledRedAmb": 3, "ledIr": 4 },
+          { "ledG": 5, "ledGAmb": 6, "ledRedAmb": 7, "ledIr": 8 }
+        ]
+      }
+    },
+    {
+      "event": "accWave",
+      "data": {
+        "deviceId": "ring-example-1",
+        "packCount": 8,
+        "captureTime": 1235,
+        "samples": [
+          { "x": -1, "y": 2, "z": 3 }
+        ]
+      }
+    }
+  ]
+}

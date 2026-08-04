@@ -1,0 +1,21 @@
+# Build configuration for JSON serialization code generation
+targets:
+  $default:
+    builders:
+      json_serializable:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**/*.dart
+          exclude:
+            - lib/**/*.g.dart
+        options:
+          any_map: false
+          checked: false  # 性能优先 - 跳过类型检查
+          create_factory: true
+          create_to_json: true
+          disallow_unrecognized_keys: false
+          explicit_to_json: false
+          field_rename: none
+          generic_argument_factories: false
+          include_if_null: true

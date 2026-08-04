@@ -1,0 +1,46 @@
+{
+  "events": [
+    {
+      "event": "historyProgress",
+      "data": {
+        "deviceId": "android-sdk-id",
+        "syncId": "history-example-1",
+        "phase": "typeStarted",
+        "type": "measurement",
+        "total": 1
+      }
+    },
+    {
+      "event": "historyRecord",
+      "data": {
+        "deviceId": "android-sdk-id",
+        "syncId": "history-example-1",
+        "type": "measurement",
+        "index": 0,
+        "total": 1,
+        "record": {
+          "unixSec": 1785787200,
+          "hr": 61,
+          "hrv": 32,
+          "spo2": 98,
+          "respRate": 14,
+          "hrSuccess": true,
+          "spo2Success": true
+        }
+      }
+    },
+    {
+      "event": "historyProgress",
+      "data": {
+        "deviceId": "android-sdk-id",
+        "syncId": "history-example-1",
+        "phase": "allCompleted",
+        "counts": {
+          "measurement": 1,
+          "sport": 0,
+          "activity": 0
+        }
+      }
+    }
+  ]
+}

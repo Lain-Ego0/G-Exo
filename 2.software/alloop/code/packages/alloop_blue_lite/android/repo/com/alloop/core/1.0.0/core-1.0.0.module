@@ -1,0 +1,90 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.alloop",
+    "module": "core",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.9"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "core-1.0.0.aar",
+          "url": "core-1.0.0.aar",
+          "size": 117921,
+          "sha512": "5de994593ae2cee80c2a5d738831e24bfc13e9e5d3aae1261ed411c9782e3f854f57c9cd3bec8ce86b5446c7d6bc52ee637aae6bff13de3189ca16d6dc074edb",
+          "sha256": "345fa2f7b34bbd8180d6c4c4581b602ab523e746e2892aa63771fec23d2f5fc2",
+          "sha1": "55f01ab7c441ba745d38d5cc95d49bc1262f4ccd",
+          "md5": "8f94bf40cff40f002350a768d9555785"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.bouncycastle",
+          "module": "bcprov-jdk18on",
+          "version": {
+            "requires": "1.78.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.8.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "core-1.0.0.aar",
+          "url": "core-1.0.0.aar",
+          "size": 117921,
+          "sha512": "5de994593ae2cee80c2a5d738831e24bfc13e9e5d3aae1261ed411c9782e3f854f57c9cd3bec8ce86b5446c7d6bc52ee637aae6bff13de3189ca16d6dc074edb",
+          "sha256": "345fa2f7b34bbd8180d6c4c4581b602ab523e746e2892aa63771fec23d2f5fc2",
+          "sha1": "55f01ab7c441ba745d38d5cc95d49bc1262f4ccd",
+          "md5": "8f94bf40cff40f002350a768d9555785"
+        }
+      ]
+    }
+  ]
+}
