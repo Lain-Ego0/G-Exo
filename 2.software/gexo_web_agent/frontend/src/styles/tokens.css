@@ -23,8 +23,8 @@
   --joint-rh: #ad8fff;
   --joint-rk: #ff778b;
 
-  --font-display: "Barlow Condensed", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
-  --font-ui: "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  --font-display: "Barlow Condensed", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-ui: "Noto Sans SC", "Microsoft YaHei", sans-serif;
   --font-data: "IBM Plex Mono", Consolas, monospace;
 
   --text-xs: 0.6875rem;

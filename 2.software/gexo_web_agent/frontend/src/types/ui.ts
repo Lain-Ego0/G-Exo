@@ -3,9 +3,9 @@ export const STAGES = ["sense", "reason", "act"] as const;
 export type StageId = (typeof STAGES)[number];
 
 export const STAGE_LABELS: Record<StageId, string> = {
-  sense: "SENSE",
-  reason: "REASON",
-  act: "ACT",
+  sense: "感知 SENSE",
+  reason: "推理 REASON",
+  act: "执行 ACT",
 };
 
 export const JOINTS = [

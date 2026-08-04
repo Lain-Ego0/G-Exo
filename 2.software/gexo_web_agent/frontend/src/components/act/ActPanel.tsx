@@ -63,7 +63,7 @@ function JointTorqueMatrix({ state }: { state: RobotState | null }) {
       <div className="section-heading">
         <div>
           <span className="section-index">A.03</span>
-          <h3 id="torque-title">Four-joint torque</h3>
+          <h3 id="torque-title">四关节扭矩 <small aria-hidden="true">FOUR-JOINT TORQUE</small></h3>
         </div>
         <span className="est-badge">{observedShort}</span>
       </div>
@@ -107,10 +107,10 @@ function JointTorqueMatrix({ state }: { state: RobotState | null }) {
 }
 
 function connectionLabel(robot: RobotSocketView): string {
-  if (robot.connection === "online") return "LIVE";
-  if (robot.connection === "stale") return `STALE ${formatAge(robot.ageMs)}`;
-  if (robot.connection === "connecting") return "WAITING";
-  return robot.snapshot?.state ? "DISCONNECTED" : "NOT CONNECTED";
+  if (robot.connection === "online") return "在线 ONLINE";
+  if (robot.connection === "stale") return `陈旧 STALE ${formatAge(robot.ageMs)}`;
+  if (robot.connection === "connecting") return "等待 WAITING";
+  return robot.snapshot?.state ? "已断开 DISCONNECTED" : "未连接 NOT CONNECTED";
 }
 
 function CommandResult({ commands }: { commands: RobotCommandView }) {
@@ -181,8 +181,8 @@ export function ActPanel({
     <article className="stage-panel act-panel" data-stage="act" data-mobile-active={active}>
       <header className="stage-panel-header">
         <div>
-          <span className="stage-kicker">03 / ACTUATOR OUTPUT</span>
-          <h2>ACT</h2>
+          <span className="stage-kicker">03 / 执行器输出 / ACTUATOR OUTPUT</span>
+          <h2><span>执行</span><small aria-hidden="true">ACT</small></h2>
         </div>
         <span className="stage-state" data-state={robot.connection}>
           {robot.connection === "online" ? <Radio aria-hidden="true" size={14} /> : <WifiOff aria-hidden="true" size={14} />}
@@ -190,11 +190,15 @@ export function ActPanel({
         </span>
       </header>
 
+      <div className="stage-disclaimer" role="note">
+        <strong>仅提供建议</strong><span aria-hidden="true">Recommendation Only</span>
+      </div>
+
       <section className="module-section mode-section" aria-labelledby="mode-title">
         <div className="section-heading">
           <div>
             <span className="section-index">A.01</span>
-            <h3 id="mode-title">Operating mode</h3>
+            <h3 id="mode-title">运行模式 <small aria-hidden="true">OPERATING MODE</small></h3>
           </div>
           <SlidersHorizontal aria-hidden="true" size={16} />
         </div>
@@ -205,14 +209,14 @@ export function ActPanel({
             onClick={() => void commands.executeAction("set_mode", { mode: "assist" })}
             title={assistModeBlocker ?? "Switch to Assist mode"}
             type="button"
-          ><Zap aria-hidden="true" size={16} />Assist</button>
+          ><Zap aria-hidden="true" size={16} />助力 ASSIST</button>
           <button
             aria-pressed={state?.mode === "damping"}
             disabled={commands.busy || dampingModeBlocker !== null}
             onClick={() => void commands.executeAction("set_mode", { mode: "damping" })}
             title={dampingModeBlocker ?? "Switch to Damping mode"}
             type="button"
-          ><Gauge aria-hidden="true" size={16} />Damping</button>
+          ><Gauge aria-hidden="true" size={16} />阻尼 DAMPING</button>
         </div>
         <p className="section-note">
           Current mode / {state?.mode === "assist" ? "ASSIST" : state?.mode === "damping" ? "DAMPING" : fallback}
@@ -223,7 +227,7 @@ export function ActPanel({
         <div className="section-heading">
           <div>
             <span className="section-index">A.02</span>
-            <h3 id="assist-title">Global assist ratio</h3>
+            <h3 id="assist-title">全局助力比例 <small aria-hidden="true">GLOBAL ASSIST RATIO</small></h3>
           </div>
           <span className="section-meta">RANGE 0.3–1.0 / STEP 0.1</span>
         </div>
@@ -262,7 +266,7 @@ export function ActPanel({
         <div className="section-heading">
           <div>
             <span className="section-index">A.04</span>
-            <h3 id="result-title">Command result</h3>
+            <h3 id="result-title">命令结果 <small aria-hidden="true">COMMAND RESULT</small></h3>
           </div>
         </div>
         <CommandResult commands={commands} />

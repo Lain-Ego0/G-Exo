@@ -7,10 +7,10 @@ import { JOINTS } from "../../types/ui";
 import { TelemetryChart, type TelemetrySeries } from "./TelemetryChart";
 
 const CHARTS = [
-  { id: "angle", label: "Joint angle" },
-  { id: "torque", label: "Torque" },
-  { id: "temperature", label: "Temperature" },
-  { id: "battery", label: "Battery / Bus" },
+  { id: "angle", label: "关节角度 ANGLE" },
+  { id: "torque", label: "扭矩 TORQUE" },
+  { id: "temperature", label: "温度 TEMP" },
+  { id: "battery", label: "电量 / 母线 BATTERY / BUS" },
 ] as const;
 
 const JOINT_COLORS = ["#23d8f2", "#8edde8", "#ad8fff", "#ff778b"];
@@ -92,8 +92,8 @@ export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
     <section className="telemetry-dock" aria-labelledby="telemetry-title">
       <header className="telemetry-toolbar">
         <div>
-          <span className="section-index">LIVE BUFFER / 60 SECONDS</span>
-          <h2 id="telemetry-title">TELEMETRY</h2>
+          <span className="section-index">实时缓存 / LIVE BUFFER · 60 SECONDS</span>
+          <h2 id="telemetry-title"><span>实时遥测</span><small aria-hidden="true">LIVE TELEMETRY</small></h2>
         </div>
         <nav className="chart-tabs" aria-label="Telemetry chart">
           {CHARTS.map((chart) => (
@@ -110,7 +110,7 @@ export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
         </nav>
         <div className="telemetry-tools">
           <label className="joint-select">
-            <span>TORQUE JOINT</span>
+            <span>扭矩关节 TORQUE JOINT</span>
             <select
               aria-label="Torque joint"
               onChange={(event) => setSelectedJoint(Number(event.target.value))}
@@ -147,10 +147,10 @@ export function TelemetryDock({ buffer }: { buffer: TelemetryBufferView }) {
       </header>
 
       <div className="telemetry-summary" aria-label="Latest battery bus values">
-        <span>BATTERY <strong>{formatPercent(latest?.batteryPercent ?? undefined)}</strong></span>
-        <span>BUS VOLTAGE <strong>{formatMeasurement(latest?.busVoltage ?? undefined, 1, "V")}</strong></span>
-        <span>BUS CURRENT <strong>{formatMeasurement(latest?.busCurrent ?? undefined, 1, "A")}</strong></span>
-        <span>TORQUE SOURCE <strong>{hasActual ? "ACTUAL" : "ESTIMATED (EST)"}</strong></span>
+        <span>电量 BATTERY <strong>{formatPercent(latest?.batteryPercent ?? undefined)}</strong></span>
+        <span>母线电压 BUS VOLTAGE <strong>{formatMeasurement(latest?.busVoltage ?? undefined, 1, "V")}</strong></span>
+        <span>母线电流 BUS CURRENT <strong>{formatMeasurement(latest?.busCurrent ?? undefined, 1, "A")}</strong></span>
+        <span>扭矩来源 TORQUE SOURCE <strong>{hasActual ? "ACTUAL" : "ESTIMATED (EST)"}</strong></span>
       </div>
 
       <div className="telemetry-grid">

@@ -41,8 +41,9 @@ export function App() {
       <ProductNavigation activeView={activeView} onNavigate={navigate} />
       <section className="product-view" data-visible={activeView === "ring"} aria-hidden={activeView !== "ring"}>
         <iframe
+          allow="bluetooth"
           className="ring-page-frame"
-          title="Alloop Ring"
+          title="Alloop 戒指遥测"
           src="/alloop/index.html"
         />
       </section>

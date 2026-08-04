@@ -19,10 +19,10 @@ import type { RobotSocketView, RobotState } from "../../types/robot";
 import { JOINTS } from "../../types/ui";
 
 function connectionLabel(robot: RobotSocketView): string {
-  if (robot.connection === "online") return "LIVE";
-  if (robot.connection === "stale") return `STALE ${formatAge(robot.ageMs)}`;
-  if (robot.connection === "connecting") return "WAITING";
-  return robot.snapshot?.state ? "DISCONNECTED" : "NOT CONNECTED";
+  if (robot.connection === "online") return "在线 ONLINE";
+  if (robot.connection === "stale") return `陈旧 STALE ${formatAge(robot.ageMs)}`;
+  if (robot.connection === "connecting") return "等待 WAITING";
+  return robot.snapshot?.state ? "已断开 DISCONNECTED" : "未连接 NOT CONNECTED";
 }
 
 function JointMap({ state }: { state: RobotState | null }) {
@@ -34,7 +34,7 @@ function JointMap({ state }: { state: RobotState | null }) {
       <div className="section-heading">
         <div>
           <span className="section-index">S.01</span>
-          <h3 id="joint-map-title">Four-joint body map</h3>
+          <h3 id="joint-map-title">四关节人体映射 <small aria-hidden="true">FOUR-JOINT BODY MAP</small></h3>
         </div>
         <span className="section-meta">ANGLE / TEMPERATURE</span>
       </div>
@@ -77,7 +77,7 @@ function ImuArray({ state }: { state: RobotState | null }) {
       <div className="section-heading">
         <div>
           <span className="section-index">S.02</span>
-          <h3 id="imu-title">IMU array</h3>
+          <h3 id="imu-title">IMU 阵列 <small aria-hidden="true">IMU ARRAY</small></h3>
         </div>
         <Radio aria-hidden="true" size={16} />
       </div>
@@ -112,13 +112,13 @@ function EncoderReadout({ state }: { state: RobotState | null }) {
       <div className="section-heading">
         <div>
           <span className="section-index">S.03</span>
-          <h3 id="encoder-title">Encoder state</h3>
+          <h3 id="encoder-title">编码器状态 <small aria-hidden="true">ENCODER STATE</small></h3>
         </div>
         <Gauge aria-hidden="true" size={16} />
       </div>
       <div className="data-table encoder-table" role="table" aria-label="Encoder state">
         <div className="data-row data-head" role="row">
-          <span>JOINT</span><span>POSITION</span><span>VELOCITY</span>
+          <span>关节 JOINT</span><span>位置 POSITION</span><span>速度 VELOCITY</span>
         </div>
         {JOINTS.map((joint, index) => (
           <div className="data-row" role="row" key={joint.id}>
@@ -144,14 +144,14 @@ function CanMotorHealth({ state }: { state: RobotState | null }) {
       <div className="section-heading">
         <div>
           <span className="section-index">S.04</span>
-          <h3 id="motor-health-title">CAN &amp; motor health</h3>
+          <h3 id="motor-health-title">CAN 与电机状态 <small aria-hidden="true">MOTOR HEALTH</small></h3>
         </div>
         <Cable aria-hidden="true" size={16} />
       </div>
       <div className="hardware-metrics">
         <div><Cable aria-hidden="true" /><span>CAN</span><strong>{state?.can_online === true ? "ONLINE" : state?.can_online === false ? "OFFLINE" : fallback}</strong></div>
-        <div><Thermometer aria-hidden="true" /><span>MAX TEMP</span><strong>{formatMeasurement(maxTemperature, 1, "°C", fallback)}</strong></div>
-        <div><BatteryMedium aria-hidden="true" /><span>BATTERY</span><strong>{formatPercent(state?.battery_percent, fallback)}</strong></div>
+        <div><Thermometer aria-hidden="true" /><span>最高温度 MAX TEMP</span><strong>{formatMeasurement(maxTemperature, 1, "°C", fallback)}</strong></div>
+        <div><BatteryMedium aria-hidden="true" /><span>电量 BATTERY</span><strong>{formatPercent(state?.battery_percent, fallback)}</strong></div>
         <div><BatteryMedium aria-hidden="true" /><span>BUS</span><strong>{formatMeasurement(state?.bus_voltage, 1, "V", fallback)} / {formatMeasurement(state?.bus_current, 1, "A", fallback)}</strong></div>
       </div>
       <div className="motor-temperature-strip" aria-label="Motor temperatures">
@@ -181,8 +181,8 @@ export function SensePanel({
     <article className="stage-panel sense-panel" data-stage="sense" data-mobile-active={active}>
       <header className="stage-panel-header">
         <div>
-          <span className="stage-kicker">01 / SENSOR BUS</span>
-          <h2>SENSE</h2>
+          <span className="stage-kicker">01 / 传感器总线 / SENSOR BUS</span>
+          <h2><span>感知</span><small aria-hidden="true">SENSE</small></h2>
         </div>
         <span className="stage-state" data-state={robot.connection}>
           {robot.connection === "online" ? <Radio aria-hidden="true" size={14} /> : <WifiOff aria-hidden="true" size={14} />}

@@ -50,7 +50,7 @@ function SafetyGuardFlow({ agentEvents }: { agentEvents: AgentEventsView }) {
       <div className="section-heading">
         <div>
           <span className="section-index">R.02</span>
-          <h3 id="safety-flow-title">SafetyGuard flow</h3>
+          <h3 id="safety-flow-title">安全校验流程 <small aria-hidden="true">SAFETYGUARD FLOW</small></h3>
         </div>
         <span className="section-meta">EVENT API / UNAVAILABLE</span>
       </div>
@@ -123,7 +123,7 @@ function AgentCommandSurface({
       <div className="section-heading">
         <div>
           <span className="section-index">R.04</span>
-          <h3 id="command-title">Agent command</h3>
+          <h3 id="command-title">智能体命令 <small aria-hidden="true">AGENT COMMAND</small></h3>
         </div>
         <span className="section-meta">{available ? "API REACHABLE" : "NOT CONNECTED"}</span>
       </div>
@@ -178,23 +178,23 @@ export function ReasonPanel({
     <article className="stage-panel reason-panel" data-stage="reason" data-mobile-active={active}>
       <header className="stage-panel-header">
         <div>
-          <span className="stage-kicker">02 / DECISION PATH</span>
-          <h2>REASON</h2>
+          <span className="stage-kicker">02 / 决策路径 / DECISION PATH</span>
+          <h2><span>推理</span><small aria-hidden="true">REASON</small></h2>
         </div>
         <span className="stage-state" data-state="unavailable">
           <WifiOff aria-hidden="true" size={14} />
-          EVENT DATA UNAVAILABLE
+          分析引擎离线 / ANALYSIS ENGINE OFFLINE
         </span>
       </header>
 
       <section className="module-section agent-identity" aria-labelledby="agent-title">
         <div className="agent-mark"><Bot aria-hidden="true" size={24} /></div>
         <div>
-          <span className="section-index">R.01 / LOCAL AGENT</span>
-          <h3 id="agent-title">Qwen Local Agent</h3>
-          <p>Model ID / DATA UNAVAILABLE</p>
+          <span className="section-index">R.01 / 分析引擎 / ANALYSIS ENGINE</span>
+          <h3 id="agent-title">分析引擎离线 <small aria-hidden="true">ANALYSIS ENGINE OFFLINE</small></h3>
+          <p>未连接真实 AI 推理接口 / NO INFERENCE INTERFACE</p>
         </div>
-        <span className="inline-state" data-state="unavailable">STATUS UNAVAILABLE</span>
+        <span className="inline-state" data-state="unavailable">离线 OFFLINE</span>
       </section>
 
       <SafetyGuardFlow agentEvents={agentEvents} />
@@ -203,7 +203,7 @@ export function ReasonPanel({
         <div className="section-heading">
           <div>
             <span className="section-index">R.03</span>
-            <h3 id="event-title">Tool event detail</h3>
+            <h3 id="event-title">工具事件详情 <small aria-hidden="true">TOOL EVENT DETAIL</small></h3>
           </div>
         </div>
         <dl>
