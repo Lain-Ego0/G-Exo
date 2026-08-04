@@ -1,0 +1,53 @@
+:root {
+  --gexo-bg: #071426;
+  --gexo-bg-deep: #030f27;
+  --gexo-surface: rgba(13, 19, 35, 0.78);
+  --gexo-surface-solid: #0d1323;
+  --gexo-surface-raised: rgba(18, 28, 49, 0.92);
+  --gexo-border: rgba(137, 165, 214, 0.2);
+  --gexo-rule: rgba(137, 165, 214, 0.12);
+
+  --gexo-text: #f4f7ff;
+  --gexo-text-muted: #91a3c6;
+  --gexo-text-dim: #647696;
+  --gexo-sense: #23d8f2;
+  --gexo-reason: #ad8fff;
+  --gexo-act: #ffc424;
+  --gexo-human: #ff778b;
+  --gexo-success: #49d8a0;
+  --gexo-warning: #ff9f43;
+  --gexo-danger: #ff5c72;
+
+  --joint-lh: #23d8f2;
+  --joint-lk: #8edde8;
+  --joint-rh: #ad8fff;
+  --joint-rk: #ff778b;
+
+  --font-display: "Barlow Condensed", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-ui: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-data: "IBM Plex Mono", Consolas, monospace;
+
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-panel: 8px;
+  --radius-control: 6px;
+  --panel-blur: 16px;
+  --control-height: 44px;
+  --icon-control-size: 44px;
+  --header-height: 64px;
+  --chart-height: 168px;
+
+  --motion-fast: 120ms;
+  --motion-state: 240ms;
+}

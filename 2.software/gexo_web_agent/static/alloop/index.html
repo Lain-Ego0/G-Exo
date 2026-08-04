@@ -1,0 +1,2594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alloop 戒指控制台 / RING COCKPIT</title>
+<style>
+  @font-face {
+    font-family: "Barlow Condensed";
+    src: url("/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2") format("woff2");
+    font-display: swap;
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2") format("woff2");
+    font-display: swap;
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2") format("woff2");
+    font-display: swap;
+    font-weight: 600;
+  }
+  :root {
+    color-scheme: dark;
+    --bg: #030f27;
+    --surface: #0d1323;
+    --surface-raised: #121c31;
+    --border: rgba(137, 165, 214, 0.22);
+    --rule: rgba(137, 165, 214, 0.13);
+    --fg: #f4f7ff;
+    --dim: #91a3c6;
+    --muted: #647696;
+    --sense: #23d8f2;
+    --reason: #ad8fff;
+    --act: #ffc424;
+    --human: #ff778b;
+    --ok: #49d8a0;
+    --warn: #ff9f43;
+    --err: #ff5c72;
+    --display: "Barlow Condensed", "Microsoft YaHei", sans-serif;
+    --ui: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    --mono: "IBM Plex Mono", "Cascadia Code", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { min-width: 320px; background: var(--bg); }
+  [hidden] { display: none !important; }
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 14px/1.5 var(--ui);
+  }
+  header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: end;
+    padding: 22px clamp(16px, 3vw, 34px) 18px;
+    border-bottom: 1px solid var(--border);
+    background: #071426;
+  }
+  .brand-kicker,
+  .system-code,
+  .stage-label,
+  section.card h2,
+  h3.sub {
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .brand-kicker {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--sense);
+    font: 600 11px/1.2 var(--mono);
+  }
+  header h1 {
+    margin: 0;
+    font: 700 clamp(24px, 3vw, 38px)/0.95 var(--display);
+  }
+  header h1 .hint {
+    display: block;
+    margin-top: 7px;
+    color: var(--dim);
+    font: 400 11px/1.4 var(--mono);
+  }
+  .system-code {
+    align-self: center;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: right;
+  }
+  .system-code strong {
+    display: block;
+    color: var(--fg);
+    font: 600 12px/1.5 var(--mono);
+  }
+  header .banner {
+    grid-column: 1 / -1;
+    margin-top: 2px;
+  }
+  .loop-status {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+    background: #071426;
+  }
+  .stage-status {
+    min-width: 0;
+    padding: 13px clamp(16px, 3vw, 34px);
+    border-right: 1px solid var(--rule);
+  }
+  .stage-status:last-child { border-right: 0; }
+  .stage-status[data-stage="sense"] { border-top: 2px solid var(--sense); }
+  .stage-status[data-stage="reason"] { border-top: 2px solid var(--reason); }
+  .stage-status[data-stage="act"] { border-top: 2px solid var(--act); }
+  .stage-label { display: block; margin-bottom: 3px; font-size: 12px; }
+  [data-stage="sense"] .stage-label { color: var(--sense); }
+  [data-stage="reason"] .stage-label { color: var(--reason); }
+  [data-stage="act"] .stage-label { color: var(--act); }
+  .stage-value {
+    display: block;
+    overflow-wrap: anywhere;
+    color: var(--fg);
+    font: 600 12px/1.4 var(--mono);
+  }
+  .stage-meta { display: block; margin-top: 2px; color: var(--muted); font: 400 10px/1.4 var(--mono); }
+  main {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 12px;
+    width: min(1320px, 100%);
+    margin: 0 auto;
+    padding: 16px clamp(12px, 2vw, 24px) 28px;
+  }
+  section.card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+  #sec-transport { grid-column: span 7; }
+  #sec-scan { grid-column: span 5; }
+  #sec-device,
+  #sec-spo2,
+  #sec-history,
+  #sec-log { grid-column: 1 / -1; }
+  section.card h2 {
+    display: flex;
+    min-height: 28px;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--sense);
+    font-size: 16px;
+  }
+  section.card h2::before {
+    width: 3px;
+    height: 13px;
+    flex: 0 0 auto;
+    background: currentColor;
+    content: "";
+  }
+  section.card h2 .tag {
+    min-width: 0;
+    margin-left: auto;
+    overflow-wrap: anywhere;
+    color: var(--muted);
+    font: 400 10px/1.35 var(--mono);
+    text-align: right;
+    text-transform: none;
+  }
+  button,
+  input[type=text],
+  input[type=password],
+  input[type=number] { min-height: 44px; border-radius: 6px; font-family: var(--ui); }
+  button {
+    padding: 9px 14px;
+    border: 1px solid rgba(35, 216, 242, 0.72);
+    background: rgba(35, 216, 242, 0.1);
+    color: var(--sense);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:hover:not(:disabled) { background: rgba(35, 216, 242, 0.17); }
+  button:disabled { opacity: 0.42; cursor: not-allowed; }
+  button.secondary { border-color: var(--border); background: var(--surface-raised); color: var(--fg); }
+  button.danger { border-color: rgba(255, 92, 114, 0.7); background: rgba(255, 92, 114, 0.1); color: var(--err); }
+  input[type=text], input[type=password], input[type=number] {
+    width: 220px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    background: #071426;
+    color: var(--fg);
+    font: 400 13px/1.4 var(--mono);
+  }
+  input::placeholder { color: var(--muted); }
+  input:focus-visible, button:focus-visible {
+    outline: 2px solid var(--sense);
+    outline-offset: 2px;
+  }
+  .banner {
+    padding: 9px 11px;
+    border: 1px solid rgba(255, 159, 67, 0.38);
+    border-radius: 6px;
+    background: rgba(255, 159, 67, 0.08);
+    color: var(--warn);
+    font-size: 12px;
+  }
+  .banner.err { border-color: rgba(255, 92, 114, 0.45); background: rgba(255, 92, 114, 0.09); color: var(--err); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 9px 0; }
+  .hint { color: var(--dim); font-size: 12px; }
+  #deviceList { min-height: 52px; margin: 10px 0 0; padding: 0; list-style: none; }
+  #deviceList:empty::before {
+    display: grid;
+    min-height: 52px;
+    place-items: center;
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    content: "NO RING DISCOVERED";
+    font: 600 11px/1.4 var(--mono);
+  }
+  #deviceList li {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono);
+    overflow-wrap: anywhere;
+  }
+  .kv { display: grid; grid-template-columns: minmax(120px, 160px) minmax(0, 1fr); gap: 0 16px; margin: 10px 0; }
+  .kv .k, .kv .v { min-width: 0; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  .kv .k { color: var(--dim); }
+  .kv .v { overflow-wrap: anywhere; color: var(--fg); font-family: var(--mono); }
+  .pill {
+    display: inline-flex;
+    min-height: 26px;
+    align-items: center;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface-raised);
+    color: var(--dim);
+    font: 600 11px/1.2 var(--mono);
+  }
+  .pill.ok { border-color: rgba(73, 216, 160, 0.6); color: var(--ok); }
+  .pill.err { border-color: rgba(255, 92, 114, 0.7); color: var(--err); }
+  .pill.warn { border-color: rgba(255, 159, 67, 0.7); color: var(--warn); }
+  .tabs { display: flex; gap: 4px; margin: 10px 0; overflow-x: auto; }
+  .tabs button { flex: 0 0 auto; border-color: var(--border); background: transparent; color: var(--dim); }
+  .tabs button.active { border-color: var(--sense); background: rgba(35, 216, 242, 0.1); color: var(--sense); }
+  .wave-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .wave-item { min-width: 0; padding: 8px; border: 1px solid var(--rule); border-radius: 6px; background: #071426; }
+  .wave-item .lbl { margin-bottom: 4px; font: 600 11px/1.2 var(--mono); }
+  canvas.wave { display: block; width: 100%; height: 104px; border-radius: 3px; background: #030b1d; }
+  .tbl-wrap { max-height: 260px; margin-top: 7px; overflow: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table.data { width: 100%; border-collapse: collapse; font: 400 11px/1.4 var(--mono); }
+  table.data th, table.data td { padding: 6px 8px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; }
+  table.data th { position: sticky; top: 0; z-index: 1; background: #121c31; color: var(--dim); font-weight: 600; text-align: center; }
+  .big { min-width: 5ch; color: var(--fg); font: 600 28px/1 var(--mono); font-variant-numeric: tabular-nums; }
+  .rt-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin: 12px 0; background: var(--rule); }
+  .rt-grid .item { min-width: 0; padding: 12px; background: var(--surface); }
+  .rt-grid .item .lbl { margin-bottom: 8px; color: var(--dim); font: 600 10px/1.2 var(--mono); text-transform: uppercase; }
+  #logPanel {
+    height: 250px;
+    padding: 10px 12px;
+    overflow-y: auto;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: #030b1d;
+    font: 400 11px/1.55 var(--mono);
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  #logPanel:empty::before { color: var(--muted); content: "WAITING FOR SYSTEM EVENTS"; }
+  #logPanel .time { color: var(--muted); }
+  #logPanel .info { color: var(--fg); }
+  #logPanel .ok { color: var(--ok); }
+  #logPanel .warn { color: var(--warn); }
+  #logPanel .err { color: var(--err); }
+  #logPanel .tx { color: var(--sense); }
+  #logPanel .rx { color: var(--reason); }
+  .prog { font-variant-numeric: tabular-nums; }
+  h3.sub { margin: 16px 0 6px; color: var(--dim); font-size: 12px; }
+  .mode-switch { display: inline-flex; max-width: 100%; gap: 3px; padding: 3px; border: 1px solid var(--border); border-radius: 6px; background: #071426; }
+  .mode-switch button { min-height: 38px; border-color: transparent; background: transparent; color: var(--dim); }
+  .mode-switch button.active { border-color: var(--sense); background: rgba(35, 216, 242, 0.1); color: var(--sense); }
+  .connection-path {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1fr);
+    align-items: center;
+    margin: 14px 0;
+    padding: 0;
+    list-style: none;
+  }
+  .connection-path li { min-width: 0; padding: 9px 6px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); color: var(--fg); font: 600 11px/1.3 var(--mono); text-align: center; }
+  .connection-path .arrow { border: 0; color: var(--sense); }
+  .bridge-grid { display: grid; grid-template-columns: minmax(140px, 1fr) 110px minmax(180px, 1.3fr); gap: 9px; align-items: end; }
+  .field { display: grid; gap: 4px; min-width: 0; color: var(--dim); font: 600 10px/1.3 var(--mono); text-transform: uppercase; }
+  .field input { width: 100%; }
+  .bridge-actions { margin-top: 12px; }
+  @media (max-width: 860px) {
+    header { grid-template-columns: 1fr; align-items: start; }
+    .system-code { text-align: left; }
+    .loop-status { grid-template-columns: 1fr; }
+    .stage-status { border-right: 0; border-bottom: 1px solid var(--rule); }
+    main { grid-template-columns: 1fr; }
+    #sec-transport, #sec-scan, #sec-device, #sec-spo2, #sec-history, #sec-log { grid-column: 1; }
+    .bridge-grid { grid-template-columns: 1fr; }
+    .rt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    header { padding: 18px 14px 14px; }
+    header h1 { font-size: 27px; }
+    .loop-status { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stage-status { padding: 10px 8px; }
+    .stage-value { font-size: 9px; }
+    .stage-meta { display: none; }
+    main { padding: 10px 8px 20px; }
+    section.card { padding: 12px; }
+    section.card h2 { align-items: flex-start; flex-wrap: wrap; }
+    section.card h2 .tag { width: 100%; margin-left: 11px; text-align: left; }
+    .mode-switch { display: grid; width: 100%; grid-template-columns: 1fr 1fr; }
+    .mode-switch button { min-width: 0; padding: 8px 6px; overflow-wrap: anywhere; }
+    .connection-path { grid-template-columns: 1fr; gap: 3px; }
+    .connection-path .arrow { transform: rotate(90deg); }
+    .row > button { flex: 1 1 140px; }
+    #deviceList li { align-items: stretch; flex-direction: column; }
+    .kv { grid-template-columns: 1fr; }
+    .kv .k { padding-bottom: 2px; border-bottom: 0; }
+    .kv .v { padding-top: 0; }
+    .rt-grid, .wave-grid { grid-template-columns: 1fr; }
+    .big { font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  }
+</style>
+</head>
+<body data-mode="bridge">
+<header>
+  <div>
+    <span class="brand-kicker">G-EXO / 可穿戴感知节点 / WEARABLE SENSE NODE</span>
+    <h1>戒指座舱 <span class="hint">ALLOOP RING TELEMETRY · ANDROID BRIDGE · WEB BLUETOOTH · LOCAL DATA LINK</span></h1>
+  </div>
+  <div class="system-code">PHYSICAL AI COCKPIT<strong>BIO-LINK / 01</strong></div>
+  <div class="banner" id="envBanner">
+    支持 Web Bluetooth 直连，也可切换到 Android Bridge。
+  </div>
+</header>
+<section class="loop-status" aria-label="SENSE REASON ACT status">
+  <div class="stage-status" data-stage="sense">
+    <span class="stage-label">感知 SENSE</span>
+    <span class="stage-value">戒指遥测 / RING TELEMETRY</span>
+    <span class="stage-meta">连接后显示真实数据 / REAL DATA WHEN CONNECTED</span>
+  </div>
+  <div class="stage-status" data-stage="reason">
+    <span class="stage-label">推理 REASON</span>
+    <span class="stage-value">分析引擎离线 / ANALYSIS ENGINE OFFLINE</span>
+    <span class="stage-meta">未连接推理接口 / NO INFERENCE INTERFACE</span>
+  </div>
+  <div class="stage-status" data-stage="act">
+    <span class="stage-label">执行 ACT</span>
+    <span class="stage-value">仅提供建议 / Recommendation Only</span>
+    <span class="stage-meta">无反馈动作链路 / NO FEEDBACK ACTION LINK</span>
+  </div>
+</section>
+<main>
+  <section class="card" id="sec-transport">
+    <h2>连接传输 / LINK TRANSPORT <span class="tag">Android Bridge / Web Bluetooth</span></h2>
+    <div class="mode-switch" role="group" aria-label="连接方式">
+      <button id="modeBridge" class="active" aria-pressed="true">安卓桥接 ANDROID BRIDGE</button>
+      <button id="modeBluetooth" aria-pressed="false">直连 WEB BLUETOOTH</button>
+    </div>
+
+    <div id="bridgePanel">
+      <ol class="connection-path" aria-label="桥接连接路径">
+        <li>Alloop Ring</li><li class="arrow" aria-hidden="true">→</li>
+        <li>Android App</li><li class="arrow" aria-hidden="true">→</li>
+        <li>Windows Web</li>
+      </ol>
+      <div class="bridge-grid">
+        <label class="field">Android 地址 / IPv4
+          <input id="bridgeHost" type="text" inputmode="decimal" placeholder="192.168.1.23" autocomplete="off">
+        </label>
+        <label class="field">端口 / PORT
+          <input id="bridgePort" type="number" min="1" max="65535" value="8766">
+        </label>
+        <label class="field">四位临时令牌 / TOKEN
+          <input id="bridgeToken" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="0000" autocomplete="one-time-code">
+        </label>
+      </div>
+      <div class="row bridge-actions">
+        <button id="btnBridgeConnect">连接 CONNECT</button>
+        <button class="danger" id="btnBridgeDisconnect" disabled>断开 DISCONNECT</button>
+        <span>状态 STATUS：</span><span class="pill" id="bridgeConnState" aria-live="polite">离线 OFFLINE</span>
+      </div>
+      <div class="kv">
+        <div class="k">桥接版本 / BRIDGE VERSION</div><div class="v" id="bridgeVersion">-</div>
+        <div class="k">Ping 延迟 / LATENCY</div><div class="v" id="bridgeLatency">-</div>
+        <div class="k">网页客户端 / WEB CLIENT</div><div class="v" id="bridgeWebState">-</div>
+        <div class="k">戒指连接 / RING LINK</div><div class="v" id="bridgeRingState">-</div>
+      </div>
+      <div class="banner" id="bridgeHelp">
+        手机与电脑必须位于同一可信局域网。请保持 Android App 在前台，并确认路由器未启用 AP 隔离。
+      </div>
+    </div>
+    <div id="bluetoothHelp" class="banner" hidden>
+      浏览器将直接完成 GATT、Notify、SM3 认证、测量和历史同步。
+    </div>
+  </section>
+
+  <!-- ==================== 1. 目标戒指 ==================== -->
+  <section class="card diagnostic-section" id="sec-scan">
+    <h2>戒指发现 / RING DISCOVERY <span class="tag" id="scanModeLabel">Android SDK 扫描 SCAN</span></h2>
+    <div class="row">
+      <button id="btnScan">扫描 SCAN</button>
+      <span class="hint" id="scanHelp">设备列表来自 Android SDK，请从扫描结果中选择要连接的戒指。</span>
+    </div>
+    <ul id="deviceList"></ul>
+  </section>
+
+  <!-- ==================== 2. 连接 / 设备信息 ==================== -->
+  <section class="card diagnostic-section" id="sec-device">
+    <h2>设备握手 / DEVICE HANDSHAKE <span class="tag" id="deviceModeLabel">绑定 BIND · Notify · 认证 AUTH</span></h2>
+    <div class="row">
+      <span>状态 STATUS：</span><span class="pill" id="connState" aria-live="polite">离线 OFFLINE</span>
+      <button class="danger" id="btnDisconnect" disabled>断开 DISCONNECT</button>
+    </div>
+    <div class="banner warn" id="connHelp" hidden></div>
+    <div class="kv">
+      <div class="k">固件 / FIRMWARE</div><div class="v" id="dvFirmware">-</div>
+      <div class="k">System ID</div><div class="v" id="dvSysId">-</div>
+      <div class="k auth-device-info" hidden>电量 / BATTERY</div><div class="v auth-device-info" id="dvBattery" hidden>-</div>
+      <div class="k auth-device-info" hidden>设备状态 / DEVICE STATUS</div><div class="v auth-device-info" id="dvState" hidden>-</div>
+      <div class="k auth-device-info" hidden>历史数据标志 / HISTORY FLAGS</div><div class="v auth-device-info" id="dvHistory" hidden>-</div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. 血氧验证 ==================== -->
+  <section class="card diagnostic-section" id="sec-spo2" hidden>
+    <h2>实时感知流 / LIVE SENSE STREAM <span class="tag" id="measurementModeLabel">Android SDK 实时流 LIVE STREAM</span></h2>
+    <div class="row">
+      <button id="btnEnterSpo2" disabled>开始验证 START</button>
+      <button id="btnExitSpo2" disabled>停止验证 STOP</button>
+      <span class="pill" id="spo2State" aria-live="polite">等待数据 WAITING</span>
+      <span class="hint" id="streamStats"></span>
+    </div>
+    <div class="rt-grid">
+      <div class="item"><div class="lbl">血氧饱和度 / SpO₂ (%)</div><div class="big" id="rtSpo2">--</div></div>
+      <div class="item"><div class="lbl">心率 / HEART RATE (bpm)</div><div class="big" id="rtHr">--</div></div>
+      <div class="item"><div class="lbl">有效标志 / VALID</div><div class="big" id="rtOk" style="font-size:16px">--</div></div>
+      <div class="item"><div class="lbl">更新时间 / UPDATED</div><div class="big" id="rtTime" style="font-size:16px">--</div></div>
+    </div>
+    <h3 class="sub">验证样本 / VERIFICATION SAMPLES（0x17，共 <span id="verifyCount">0</span> 条）</h3>
+    <div class="tbl-wrap">
+      <table class="data" id="tblVerify">
+        <thead><tr><th>时间</th><th>SpO2</th><th>success</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <h3 class="sub">实时波形 / LIVE WAVEFORMS</h3>
+    <div class="tabs">
+      <button id="tabPpg" class="active">PPG（4 通道 / CHANNELS）</button>
+      <button id="tabAcc">ACC（3 轴 / AXES）</button>
+    </div>
+    <div class="wave-grid" id="wavePpg"></div>
+    <div class="wave-grid" id="waveAcc" style="display:none"></div>
+  </section>
+
+  <!-- ==================== 4. 历史数据同步 ==================== -->
+  <section class="card diagnostic-section" id="sec-history" hidden>
+    <h2>历史遥测 / HISTORY TELEMETRY <span class="tag" id="historyModeLabel">Android SDK 事件流 EVENT STREAM</span></h2>
+    <div class="row">
+      <button id="btnSync" disabled>同步 SYNC</button>
+      <button class="secondary" id="btnSyncCancel" disabled>取消 CANCEL</button>
+      <button class="secondary" id="btnExpM" disabled>导出 EXPORT Measurement CSV</button>
+      <button class="secondary" id="btnExpS" disabled>导出 EXPORT Sport CSV</button>
+      <button class="secondary" id="btnExpA" disabled>导出 EXPORT Activity CSV</button>
+    </div>
+    <div class="kv">
+      <div class="k">Measurement</div><div class="v prog" id="progM" aria-live="polite">-</div>
+      <div class="k">Sport</div><div class="v prog" id="progS" aria-live="polite">-</div>
+      <div class="k">Activity</div><div class="v prog" id="progA" aria-live="polite">-</div>
+    </div>
+    <div class="tabs">
+      <button id="htabM" class="active">测量记录 MEASUREMENT</button>
+      <button id="htabS">运动记录 SPORT</button>
+      <button id="htabA">活动记录 ACTIVITY</button>
+    </div>
+    <div class="tbl-wrap" id="wrapM">
+      <table class="data" id="tblM">
+        <thead><tr><th>time</th><th>hr</th><th>hrv</th><th>spo2</th><th>respRate</th><th>hrSuccess</th><th>spo2Success</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap" id="wrapS" style="display:none">
+      <table class="data" id="tblS">
+        <thead><tr><th>time</th><th>hr</th><th>steps</th><th>activityCount</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap" id="wrapA" style="display:none">
+      <table class="data" id="tblA">
+        <thead><tr><th>time</th><th>batteryPercent</th><th>steps</th><th>activeSeconds</th><th>temperaturesC</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================== 日志 ==================== -->
+  <section class="card" id="sec-log">
+    <h2>系统事件日志 / SYSTEM EVENT LOG <span class="tag">连接 LINK / 认证 AUTH / 命令 COMMAND / 通知 NOTIFY / 错误 ERROR</span></h2>
+    <div class="row">
+      <button class="secondary" id="btnClearLog">清空日志 CLEAR</button>
+      <button class="secondary" id="btnCopyLog">复制日志 COPY</button>
+      <label class="hint"><input type="checkbox" id="logRaw"> 打印原始帧字节 RAW FRAME</label>
+    </div>
+    <div id="logPanel" role="log" aria-live="polite"></div>
+  </section>
+</main>
+
+<script>
+'use strict';
+/* ================================================================
+ * Alloop Kit Web Client —— 纯原生 JS 单文件实现
+ * 模块：Utils / SM3 / Frame / CommandQueue / Protocol /
+ *       Reassembler / HistoryEngine / Waveform / BLE+UI
+ * 协议来源：Android APK 逆向（javap 字节码 + 常量池字符串），
+ * 历史记录字段偏移已对照 d.h（073.txt）字节码逐字段确认。
+ * ================================================================ */
+
+// ==================== Utils ====================
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const hex2 = b => b.toString(16).padStart(2, '0').toUpperCase();
+const bytesToHex = arr => Array.from(arr, hex2).join(' ');
+const u32be = (b, o) => (((b[o] << 24) | (b[o+1] << 16) | (b[o+2] << 8) | b[o+3]) >>> 0);
+const u16be = (b, o) => ((b[o] << 8) | b[o+1]);
+const EPOCH = 1577808000; // 2020-01-01T00:00:00Z，设备时间纪元
+const isoOf = unixSec => new Date(unixSec * 1000).toISOString();
+
+const logPanel = $('logPanel');
+let logRawEnabled = false;
+function log(msg, level = 'info') {
+  const t = new Date();
+  const ts = t.toTimeString().slice(0, 8) + '.' + String(t.getMilliseconds()).padStart(3, '0');
+  const line = document.createElement('div');
+  line.innerHTML = `<span class="time">[${ts}]</span> <span class="${level}"></span>`;
+  line.children[1].textContent = msg;
+  logPanel.appendChild(line);
+  while (logPanel.childElementCount > 800) logPanel.removeChild(logPanel.firstChild);
+  logPanel.scrollTop = logPanel.scrollHeight;
+  console.log(`[${ts}][${level}] ${msg}`);
+}
+
+// ==================== Transport abstraction ====================
+class RingTransport {
+  scan() { throw new Error('scan is not implemented'); }
+  connect(deviceId) { throw new Error(`connect is not implemented: ${deviceId}`); }
+  disconnect(deviceId) { throw new Error(`disconnect is not implemented: ${deviceId}`); }
+  getDeviceInfo(deviceId) { throw new Error(`getDeviceInfo is not implemented: ${deviceId}`); }
+  queryDeviceStatus(deviceId) { throw new Error(`queryDeviceStatus is not implemented: ${deviceId}`); }
+  startSpo2Verification(deviceId) { throw new Error(`startSpo2Verification is not implemented: ${deviceId}`); }
+  stopMeasurement(deviceId) { throw new Error(`stopMeasurement is not implemented: ${deviceId}`); }
+  syncHistory(deviceId) { throw new Error(`syncHistory is not implemented: ${deviceId}`); }
+  onEvent(handler) { throw new Error(`onEvent is not implemented: ${handler}`); }
+}
+
+class AndroidBridgeTransport extends RingTransport {
+  constructor(url, token, requestTimeoutMs = 8000) {
+    super();
+    this.url = url;
+    this.token = token;
+    this.requestTimeoutMs = requestTimeoutMs;
+    this.socket = null;
+    this.sequence = 0;
+    this.pending = new Map();
+    this.eventHandlers = new Set();
+  }
+
+  async open() {
+    if (this.socket) this.close();
+    const socket = new WebSocket(this.url);
+    this.socket = socket;
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error('Bridge connection timed out')), this.requestTimeoutMs);
+      socket.addEventListener('open', () => { clearTimeout(timer); resolve(); }, { once: true });
+      socket.addEventListener('error', () => { clearTimeout(timer); reject(new Error('Unable to reach Android bridge')); }, { once: true });
+    });
+    socket.addEventListener('message', event => this._handleMessage(event.data));
+    socket.addEventListener('close', event => this._handleClose(event));
+    await this.request('authenticate', { token: this.token });
+  }
+
+  close() {
+    const socket = this.socket;
+    this.socket = null;
+    if (socket && socket.readyState < WebSocket.CLOSING) socket.close(1000, 'Web client closed');
+    this._rejectPending(new Error('Bridge disconnected'));
+  }
+
+  request(method, params = {}, timeoutMs = this.requestTimeoutMs) {
+    if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
+      return Promise.reject(new Error('Bridge is not connected'));
+    }
+    const id = `web-${Date.now()}-${++this.sequence}`;
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`${method} timed out after ${timeoutMs}ms`));
+      }, timeoutMs);
+      this.pending.set(id, { resolve, reject, timer, method });
+      this.socket.send(JSON.stringify({ id, method, params }));
+    });
+  }
+
+  ping() { return this.request('ping'); }
+  getBridgeState() { return this.request('getBridgeState'); }
+  scan(params = {}) { return this.request('startScan', params); }
+  stopScan() { return this.request('stopScan'); }
+  connect(deviceId) { return this.request('connect', { deviceId }); }
+  disconnect(deviceId) { return this.request('disconnect', { deviceId }); }
+  getDeviceInfo(deviceId) { return this.request('getDeviceInfo', { deviceId }); }
+  queryDeviceStatus(deviceId) { return this.request('queryDeviceStatus', { deviceId }); }
+  startSpo2Verification(deviceId) { return this.request('startSpo2Verification', { deviceId }); }
+  stopMeasurement(deviceId) { return this.request('stopMeasurement', { deviceId }); }
+  syncHistory(deviceId) { return this.request('syncHistory', { deviceId }); }
+
+  onEvent(handler) {
+    this.eventHandlers.add(handler);
+    return () => this.eventHandlers.delete(handler);
+  }
+
+  _handleMessage(raw) {
+    let message;
+    try { message = JSON.parse(raw); }
+    catch { this._emit('bridgeError', { code: 'BRIDGE_INVALID_JSON', message: 'Android sent invalid JSON' }); return; }
+    if (typeof message.id === 'string' && this.pending.has(message.id)) {
+      const pending = this.pending.get(message.id);
+      this.pending.delete(message.id);
+      clearTimeout(pending.timer);
+      if (message.ok) pending.resolve(message.result);
+      else {
+        const error = new Error(message.error?.message || `${pending.method} failed`);
+        error.code = message.error?.code || 'BRIDGE_UNKNOWN_ERROR';
+        pending.reject(error);
+      }
+      return;
+    }
+    if (typeof message.event === 'string') this._emit(message.event, message.data);
+  }
+
+  _handleClose(event) {
+    this.socket = null;
+    this._rejectPending(new Error(`Bridge closed (${event.code})`));
+    this._emit('transportClosed', { code: event.code, reason: event.reason });
+  }
+
+  _rejectPending(error) {
+    for (const pending of this.pending.values()) {
+      clearTimeout(pending.timer);
+      pending.reject(error);
+    }
+    this.pending.clear();
+  }
+
+  _emit(event, data) {
+    for (const handler of this.eventHandlers) handler({ event, data });
+  }
+}
+
+class BridgeHistoryStore {
+  constructor() {
+    this.reset();
+  }
+
+  reset(syncId = null, deviceId = null) {
+    this.syncId = syncId;
+    this.deviceId = deviceId;
+    this.active = false;
+    this.waiting = false;
+    this.completed = false;
+    this.counts = null;
+    this.error = null;
+    this.records = { measurement: [], sport: [], activity: [] };
+    this.recordsByIndex = {
+      measurement: new Map(), sport: new Map(), activity: new Map(),
+    };
+    this.status = {
+      measurement: { received: 0, total: null, completed: false },
+      sport: { received: 0, total: null, completed: false },
+      activity: { received: 0, total: null, completed: false },
+    };
+  }
+
+  beginRequest(deviceId) {
+    this.reset(null, deviceId);
+    this.active = true;
+    this.waiting = false;
+  }
+
+  failRequest(error) {
+    this.active = false;
+    this.waiting = false;
+    this.error = { code: error.code || 'BRIDGE_UNKNOWN_ERROR', message: error.message || String(error) };
+  }
+
+  applyRecord(data) {
+    const newSync = this._accept(data);
+    if (newSync == null) return { newSync: false, added: false };
+    if (!Object.hasOwn(this.records, data.type) || !Number.isInteger(data.index) ||
+        data.index < 0 || !data.record || typeof data.record !== 'object') {
+      this._integrityError('History record has an invalid type, index, or payload');
+      return { newSync, added: false };
+    }
+    if (Number.isInteger(data.total) && (data.total < 0 || data.index >= data.total)) {
+      this._integrityError(`History ${data.type} index ${data.index} exceeds total ${data.total}`);
+      return { newSync, added: false };
+    }
+    const indexed = this.recordsByIndex[data.type];
+    const previous = indexed.get(data.index);
+    if (previous) {
+      if (JSON.stringify(previous) !== JSON.stringify(data.record)) {
+        this._integrityError(`History ${data.type} index ${data.index} changed during replay`);
+      }
+      return { newSync, added: false };
+    }
+    indexed.set(data.index, data.record);
+    this.records[data.type] = [...indexed.entries()]
+      .sort(([left], [right]) => left - right)
+      .map(([, record]) => record);
+    const status = this.status[data.type];
+    status.received = this.records[data.type].length;
+    if (Number.isInteger(data.total)) status.total = data.total;
+    this.active = true;
+    this.waiting = false;
+    this.completed = false;
+    this.error = null;
+    return { newSync, added: true };
+  }
+
+  applyProgress(data) {
+    const newSync = this._accept(data);
+    if (newSync == null) return { newSync: false, completed: false };
+    if (data.phase === 'typeStarted' && Object.hasOwn(this.status, data.type)) {
+      const status = this.status[data.type];
+      status.total = Number.isInteger(data.total) ? data.total : null;
+      status.completed = false;
+      this.active = true;
+      this.waiting = false;
+      this.completed = false;
+      this.counts = null;
+      this.error = null;
+    } else if (data.phase === 'typeCompleted' && Object.hasOwn(this.status, data.type)) {
+      const status = this.status[data.type];
+      status.completed = true;
+      if (Number.isInteger(data.count)) status.received = data.count;
+      this.active = true;
+    } else if (data.phase === 'allCompleted') {
+      const counts = data.counts && typeof data.counts === 'object' ? data.counts : {};
+      const problem = this._completionProblem(counts);
+      if (problem) {
+        this._integrityError(problem);
+        return { newSync, completed: false };
+      }
+      for (const type of Object.keys(this.status)) {
+        this.status[type].received = counts[type];
+        this.status[type].completed = true;
+      }
+      this.active = false;
+      this.waiting = false;
+      this.completed = true;
+      this.counts = counts;
+      this.error = null;
+    }
+    return { newSync, completed: this.completed };
+  }
+
+  applyError(data) {
+    const newSync = this._accept(data);
+    if (newSync == null) return { newSync: false };
+    this.active = false;
+    this.waiting = false;
+    this.completed = false;
+    this.error = { code: data.code || 'BRIDGE_UNKNOWN_ERROR', message: data.message || '' };
+    return { newSync };
+  }
+
+  _accept(data) {
+    if (!data || typeof data.syncId !== 'string' || !data.syncId) return null;
+    if (this.syncId !== data.syncId) {
+      this.reset(data.syncId, data.deviceId || null);
+      return true;
+    }
+    if (!this.deviceId && data.deviceId) this.deviceId = data.deviceId;
+    return false;
+  }
+
+  _completionProblem(counts) {
+    for (const type of Object.keys(this.status)) {
+      const count = counts[type];
+      if (!Number.isInteger(count) || count < 0) return `History completion omitted a valid ${type} count`;
+      const indexes = [...this.recordsByIndex[type].keys()];
+      if (indexes.length !== count || indexes.some(index => index < 0 || index >= count)) {
+        return `History ${type} is incomplete: received indexes [${indexes.sort((a, b) => a - b)}], reported count ${count}`;
+      }
+    }
+    return null;
+  }
+
+  _integrityError(message) {
+    this.active = false;
+    this.waiting = false;
+    this.completed = false;
+    this.error = { code: 'BRIDGE_HISTORY_INCOMPLETE', message };
+  }
+}
+
+class WebBluetoothTransport extends RingTransport {
+  scan() { return selectAndConnectTarget(); }
+  connect(deviceId) {
+    const target = knownDevices.get(deviceId);
+    if (!target) throw new Error('Select the ring in the browser first');
+    return connect(target);
+  }
+  disconnect() { return cleanupBle(); }
+  getDeviceInfo() { return Promise.resolve({ firmware, systemId: sysId }); }
+  queryDeviceStatus() { throw new Error('Web Bluetooth diagnostic mode does not provide device status'); }
+  startSpo2Verification() { throw new Error('Web Bluetooth diagnostic mode does not provide measurement'); }
+  stopMeasurement() { throw new Error('Web Bluetooth diagnostic mode does not provide measurement'); }
+  syncHistory() { throw new Error('Web Bluetooth diagnostic mode does not provide history sync'); }
+  onEvent() { return () => {}; }
+}
+
+function historyRowsForCsv(type, records, toIso = isoOf) {
+  if (type === 'measurement') {
+    return records.map(r => [toIso(r.unixSec), r.hr, r.hrv, r.spo2, r.respRate, r.hrSuccess, r.spo2Success]);
+  }
+  if (type === 'sport') {
+    return records.map(r => [toIso(r.unixSec), r.hr, r.steps, r.activityCount]);
+  }
+  if (type === 'activity') {
+    return records.map(r => [toIso(r.unixSec), r.batteryPercent, r.steps, r.activeSeconds,
+      r.temperaturesC.map(t => t.toFixed(1)).join(';')]);
+  }
+  throw new Error(`Unknown history type: ${type}`);
+}
+
+let bridgeTransport = null;
+const bridgeDevices = new Map();
+let activeBridgeDeviceId = null;
+const bridgeHistory = new BridgeHistoryStore();
+
+function setBridgeConnectionState(text, level = '') {
+  const state = $('bridgeConnState');
+  state.textContent = text;
+  state.className = `pill ${level}`.trim();
+}
+
+function renderBridgeState(state) {
+  $('bridgeWebState').textContent = state.webClientConnected ? '在线 ONLINE' : '离线 OFFLINE';
+  $('bridgeRingState').textContent = state.ringConnected ? '在线 ONLINE' : '离线 OFFLINE';
+  if (state.activeOperation === 'syncHistory') {
+    bridgeHistory.active = true;
+    renderBridgeHistoryProgress();
+  }
+  setSpo2Active(state.activeOperation === 'spo2Measurement');
+  if (state.activeOperation === 'spo2Measurement') {
+    log('已恢复 Android SDK 正在进行的血氧测量', 'ok');
+  }
+}
+
+function resetBridgeDetails() {
+  $('bridgeVersion').textContent = '-';
+  $('bridgeLatency').textContent = '-';
+  $('bridgeWebState').textContent = '-';
+  $('bridgeRingState').textContent = '-';
+}
+
+async function connectAndroidBridge() {
+  const host = $('bridgeHost').value.trim();
+  const port = Number($('bridgePort').value);
+  const token = $('bridgeToken').value.trim();
+  if (!host || !Number.isInteger(port) || port < 1 || port > 65535 || !/^\d{4}$/.test(token)) {
+    log('请输入 Android IPv4、有效端口和四位数字临时令牌', 'warn');
+    return;
+  }
+  if (location.protocol === 'https:') {
+    log('HTTPS 页面会阻止 ws:// 混合内容，请通过 http://localhost 打开本页', 'err');
+    return;
+  }
+
+  $('btnBridgeConnect').disabled = true;
+  setBridgeConnectionState('连接中 CONNECTING', 'warn');
+  resetBridgeDetails();
+  try {
+    bridgeTransport?.close();
+    const transport = new AndroidBridgeTransport(`ws://${host}:${port}/ws`, token);
+    bridgeTransport = transport;
+    transport.onEvent(({ event, data }) => {
+      if (event === 'transportClosed' && bridgeTransport === transport) {
+        setBridgeConnectionState('已断开 DISCONNECTED', 'err');
+        $('btnBridgeConnect').disabled = false;
+        $('btnBridgeDisconnect').disabled = true;
+        if (bridgeHistory.active) {
+          bridgeHistory.waiting = true;
+          renderBridgeHistoryProgress();
+        }
+        if (spo2Active) {
+          $('spo2State').textContent = '测量中 MEASURING（Bridge 断开）';
+          $('spo2State').className = 'pill warn';
+          $('btnEnterSpo2').disabled = true;
+          $('btnExitSpo2').disabled = true;
+        }
+        log(`Android Bridge 已断开（${data.code}${data.reason ? `: ${data.reason}` : ''}）`, 'warn');
+      } else if (event === 'scanState') {
+        const scanning = Boolean(data.scanning);
+        $('btnScan').disabled = scanning;
+        $('btnScan').textContent = scanning ? '扫描中 SCANNING…' : '重新扫描 RESCAN';
+        log(data.scanning ? 'Android SDK 开始扫描戒指' : 'Android SDK 扫描结束');
+      } else if (event === 'deviceDiscovered') {
+        bridgeDevices.set(data.deviceId, data);
+        renderDeviceList();
+      } else if (event === 'connectionState') {
+        handleBridgeConnectionState(data);
+      } else if (event === 'deviceStatus') {
+        handleBridgeDeviceStatus(data);
+      } else if (event === 'spo2Result') {
+        handleBridgeSpo2Result(data);
+      } else if (event === 'ppgWave') {
+        handleBridgePpgWave(data);
+      } else if (event === 'accWave') {
+        handleBridgeAccWave(data);
+      } else if (event === 'historyProgress') {
+        handleBridgeHistoryProgress(data);
+      } else if (event === 'historyRecord') {
+        handleBridgeHistoryRecord(data);
+      } else if (event === 'bridgeError') {
+        if (data.operation === 'syncHistory') handleBridgeHistoryError(data);
+        if (data.operation === 'spo2Measurement') setSpo2Active(false);
+        log(`Android Bridge 事件错误：${data.code} ${data.message || ''}`, 'err');
+      }
+    });
+    await transport.open();
+    const started = performance.now();
+    const ping = await transport.ping();
+    const latency = Math.round(performance.now() - started);
+    const state = await transport.getBridgeState();
+    localStorage.setItem('alloopBridgeHost', host);
+    localStorage.setItem('alloopBridgePort', String(port));
+    $('bridgeVersion').textContent = ping.bridgeVersion;
+    $('bridgeLatency').textContent = `${latency} ms`;
+    renderBridgeState(state);
+    setBridgeConnectionState('在线 ONLINE', 'ok');
+    $('btnBridgeDisconnect').disabled = false;
+    log(`Android Bridge 已连接，版本 ${ping.bridgeVersion}，延迟 ${latency}ms`, 'ok');
+    if (!state.ringConnected) {
+      await startAndroidScan();
+    } else {
+      log('已恢复戒指连接状态，保留 Android 缓存的设备列表', 'ok');
+    }
+  } catch (error) {
+    bridgeTransport?.close();
+    bridgeTransport = null;
+    setBridgeConnectionState('错误 ERROR', 'err');
+    $('btnBridgeConnect').disabled = false;
+    $('btnBridgeDisconnect').disabled = true;
+    log(`Android Bridge 连接失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
+  }
+}
+
+function disconnectAndroidBridge() {
+  bridgeTransport?.close();
+  bridgeTransport = null;
+  bridgeDevices.clear();
+  activeBridgeDeviceId = null;
+  clearAndroidDeviceInfo();
+  setUiConnected(false);
+  setBridgeConnectionState('离线 OFFLINE');
+  resetBridgeDetails();
+  $('btnBridgeConnect').disabled = false;
+  $('btnBridgeDisconnect').disabled = true;
+  log('已断开 Android Bridge');
+}
+
+function setTransportMode(mode) {
+  const bridgeMode = mode === 'bridge';
+  document.body.dataset.mode = mode;
+  $('modeBridge').classList.toggle('active', bridgeMode);
+  $('modeBridge').setAttribute('aria-pressed', String(bridgeMode));
+  $('modeBluetooth').classList.toggle('active', !bridgeMode);
+  $('modeBluetooth').setAttribute('aria-pressed', String(!bridgeMode));
+  $('bridgePanel').hidden = !bridgeMode;
+  $('bluetoothHelp').hidden = bridgeMode;
+  $('scanModeLabel').textContent = bridgeMode ? 'Android SDK 扫描 SCAN' : 'Web Bluetooth 直连 DIRECT';
+  $('deviceModeLabel').textContent = '绑定 BIND · Notify · 认证 AUTH';
+  $('scanHelp').textContent = bridgeMode
+    ? '设备列表来自 Android SDK，请从扫描结果中选择要连接的戒指。'
+    : `目标：${TARGET_DEVICE_NAME}。浏览器选择器将直接连接并认证戒指。`;
+  $('btnScan').textContent = bridgeMode ? '扫描 SCAN' : '连接 CONNECT';
+  $('historyModeLabel').textContent = bridgeMode ? 'Android SDK 事件流 EVENT STREAM' : 'Web Bluetooth 通知流 NOTIFY STREAM';
+  $('measurementModeLabel').textContent = bridgeMode
+    ? 'Android SDK 实时流 LIVE STREAM'
+    : 'Web Bluetooth 实时流 LIVE STREAM';
+  $('btnSyncCancel').textContent = bridgeMode ? '不可取消 NO CANCEL' : '取消 CANCEL';
+  $('sec-history').hidden = !connected;
+  renderDeviceList();
+
+  const banner = $('envBanner');
+  banner.classList.remove('err');
+  if (bridgeMode) {
+    banner.textContent = location.protocol === 'https:'
+      ? '当前 HTTPS 页面不能连接 Android 的 ws:// 服务，请通过 http://localhost 打开本页。'
+      : 'Android Bridge 和 Web Bluetooth 均支持完整戒指工作流。';
+    banner.classList.toggle('err', location.protocol === 'https:');
+  } else if (!window.isSecureContext || !navigator.bluetooth) {
+    banner.textContent = '当前环境不支持 Web Bluetooth，请使用 localhost 上的桌面版 Chrome / Edge。';
+    banner.classList.add('err');
+  } else {
+    banner.textContent = 'Web Bluetooth 直连模式：完成 Notify、SM3 认证后开放测量和历史同步。';
+  }
+}
+
+
+// ==================== SM3（国密哈希，256 位，纯 JS 实现） ====================
+// ==== SM3 BEGIN ====
+// 标准：GB/T 32905-2016。T_j = 0x79CC4519 (0<=j<=15) / 0x7A879D8A (16<=j<=63)
+function sm3Digest(msg) { // msg: Uint8Array -> Uint8Array(32)
+  const IV = [0x7380166f, 0x4914b2b9, 0x172442d7, 0xda8a0600,
+              0xa96f30bc, 0x163138aa, 0xe38dee4d, 0xb0fb0e4e];
+  const rotl = (x, n) => { n &= 31; return ((x << n) | (x >>> (32 - n))) >>> 0; };
+  const P0 = x => (x ^ rotl(x, 9) ^ rotl(x, 17)) >>> 0;
+  const P1 = x => (x ^ rotl(x, 15) ^ rotl(x, 23)) >>> 0;
+  // ---- 消息填充：append 0x80 + zeros + 64bit 大端位长 ----
+  const bitLenHi = Math.floor(msg.length * 8 / 0x100000000);
+  const bitLenLo = (msg.length * 8) >>> 0;
+  const padded = Array.from(msg);
+  padded.push(0x80);
+  while (padded.length % 64 !== 56) padded.push(0);
+  for (let i = 3; i >= 0; i--) padded.push((bitLenHi >>> (8 * i)) & 0xff);
+  for (let i = 3; i >= 0; i--) padded.push((bitLenLo >>> (8 * i)) & 0xff);
+  // ---- 迭代压缩 ----
+  let V = IV.slice();
+  const W = new Array(68), W1 = new Array(64);
+  for (let off = 0; off < padded.length; off += 64) {
+    for (let i = 0; i < 16; i++) {
+      W[i] = ((padded[off + 4*i] << 24) | (padded[off + 4*i + 1] << 16) |
+              (padded[off + 4*i + 2] << 8) | padded[off + 4*i + 3]) >>> 0;
+    }
+    for (let j = 16; j < 68; j++) {
+      W[j] = (P1((W[j-16] ^ W[j-9] ^ rotl(W[j-3], 15)) >>> 0) ^ rotl(W[j-13], 7) ^ W[j-6]) >>> 0;
+    }
+    for (let j = 0; j < 64; j++) W1[j] = (W[j] ^ W[j+4]) >>> 0;
+    let A = V[0], B = V[1], C = V[2], D = V[3],
+        E = V[4], F = V[5], G = V[6], H = V[7];
+    for (let j = 0; j < 64; j++) {
+      const T = j < 16 ? 0x79cc4519 : 0x7a879d8a;
+      const SS1 = rotl((rotl(A, 12) + E + rotl(T, j)) >>> 0, 7);
+      const SS2 = (SS1 ^ rotl(A, 12)) >>> 0;
+      const FF = j < 16 ? (A ^ B ^ C) >>> 0 : (((A & B) | (A & C) | (B & C)) >>> 0);
+      const GG = j < 16 ? (E ^ F ^ G) >>> 0 : (((E & F) | (((~E) >>> 0) & G)) >>> 0);
+      const TT1 = (FF + D + SS2 + W1[j]) >>> 0;
+      const TT2 = (GG + H + SS1 + W[j]) >>> 0;
+      D = C; C = rotl(B, 9); B = A; A = TT1;
+      H = G; G = rotl(F, 19); F = E; E = P0(TT2);
+    }
+    V = [(A ^ V[0]) >>> 0, (B ^ V[1]) >>> 0, (C ^ V[2]) >>> 0, (D ^ V[3]) >>> 0,
+         (E ^ V[4]) >>> 0, (F ^ V[5]) >>> 0, (G ^ V[6]) >>> 0, (H ^ V[7]) >>> 0];
+  }
+  const out = new Uint8Array(32);
+  V.forEach((w, i) => {
+    out[4*i] = (w >>> 24) & 0xff; out[4*i+1] = (w >>> 16) & 0xff;
+    out[4*i+2] = (w >>> 8) & 0xff; out[4*i+3] = w & 0xff;
+  });
+  return out;
+}
+function sm3Hex(msg) { return Array.from(sm3Digest(msg), b => hex2(b).toLowerCase()).join(''); }
+// ==== SM3 END ====
+
+// ==================== Frame（帧组包/解析） ====================
+// 免校验类型集合：这些 type 的帧不带 XOR 尾字节
+const NO_CHECK_TYPES = new Set([0x50, 0x55, 0xA0, 0xD0, 0xD5]);
+
+function buildFrame(type, content = []) {
+  const body = [type, ...content];
+  if (NO_CHECK_TYPES.has(type)) return new Uint8Array(body);
+  let xor = 0;
+  for (const b of body) xor ^= b;
+  return new Uint8Array([...body, xor]);
+}
+
+// 通知帧解析：首字节 type；免校验类型 content=其余全部；
+// 否则末字节须等于前面字节的 XOR，content=中间部分。失败返回 null。
+function parseFrame(bytes) {
+  if (!bytes || bytes.length < 1) return null;
+  const type = bytes[0];
+  if (NO_CHECK_TYPES.has(type)) return { type, content: bytes.slice(1) };
+  if (bytes.length < 2) return null;
+  let xor = 0;
+  for (let i = 0; i < bytes.length - 1; i++) xor ^= bytes[i];
+  if (xor !== bytes[bytes.length - 1]) return null;
+  return { type, content: bytes.slice(1, bytes.length - 1) };
+}
+
+// 50ms 内重复通知去重
+const dedup = { key: null, ts: 0 };
+function isDuplicate(type, content) {
+  const key = type + ':' + bytesToHex(content);
+  const now = performance.now();
+  if (key === dedup.key && now - dedup.ts < 50) return true;
+  dedup.key = key; dedup.ts = now;
+  return false;
+}
+
+// ==================== CommandQueue（命令队列） ====================
+// 每命令 5000ms 超时 + 重试，命令间隔 400ms；响应 type = 命令 type | 0x80
+const CMD_TIMEOUT = 5000, CMD_RETRIES = 1, CMD_GAP = 400;
+
+class CommandQueue {
+  constructor() {
+    this.q = [];
+    this.processing = false;
+    this.pending = null;   // 当前等待响应的命令
+    this.writer = null;    // async (frame:Uint8Array)=>void
+  }
+  setWriter(fn) { this.writer = fn; }
+  exec(type, content = [], opts = {}) {
+    return new Promise((resolve, reject) => {
+      this.q.push({ type, content, opts, resolve, reject });
+      this._pump();
+    });
+  }
+  async _pump() {
+    if (this.processing) return;
+    this.processing = true;
+    while (this.q.length) {
+      const cmd = this.q.shift();
+      try { cmd.resolve(await this._run(cmd)); }
+      catch (e) { cmd.reject(e); }
+      if (this.q.length) await sleep(CMD_GAP); // 命令间隔
+    }
+    this.processing = false;
+  }
+  async _run(cmd) {
+    const attempts = 1 + (cmd.opts.retries ?? CMD_RETRIES);
+    let lastErr = null;
+    for (let i = 0; i < attempts; i++) {
+      try { return await this._attempt(cmd); }
+      catch (e) {
+        lastErr = e;
+        if (i < attempts - 1) log(`命令 0x${hex2(cmd.type)} 第 ${i+1} 次尝试失败（${e.message}），重试…`, 'warn');
+      }
+    }
+    throw lastErr;
+  }
+  async _attempt(cmd) {
+    const timeout = cmd.opts.timeout ?? CMD_TIMEOUT;
+    const respType = cmd.type | 0x80;
+    const frame = buildFrame(cmd.type, cmd.content);
+    log(`TX 命令 0x${hex2(cmd.type)} [${bytesToHex(cmd.content)}]` + (logRawEnabled ? ` 帧:${bytesToHex(frame)}` : ''), 'tx');
+    return new Promise((resolve, reject) => {
+      this.pending = { respType, resolve, reject, timer: null };
+      this.writer(frame).catch(e => {
+        if (this.pending && this.pending.respType === respType) {
+          this.pending = null;
+          reject(new Error('写入失败: ' + e.message));
+        }
+      });
+      this.pending.timer = setTimeout(() => {
+        if (this.pending && this.pending.respType === respType) {
+          this.pending = null;
+          reject(new Error(`命令 0x${hex2(cmd.type)} 超时（${timeout}ms 无响应 0x${hex2(respType)}）`));
+        }
+      }, timeout);
+    });
+  }
+  // 返回 true 表示该通知被命令队列消费（0x80 响应）
+  handleNotify(type, content) {
+    if (!(type & 0x80)) return false;
+    if (this.pending && type === this.pending.respType) {
+      const p = this.pending;
+      this.pending = null;
+      clearTimeout(p.timer);
+      log(`RX 响应 0x${hex2(type)} [${bytesToHex(content)}]`, 'rx');
+      p.resolve(content);
+    } else {
+      log(`RX 未匹配的响应 0x${hex2(type)} [${bytesToHex(content)}]（无等待中的命令）`, 'warn');
+    }
+    return true;
+  }
+  cancelAll(reason) {
+    this.q.length = 0;
+    if (this.pending) {
+      clearTimeout(this.pending.timer);
+      this.pending.reject(new Error(reason));
+      this.pending = null;
+    }
+  }
+}
+
+// ==================== Protocol（GATT / 通知解析） ====================
+const UUIDS = {
+  service:  '8327ad99-2d87-4a22-a8ce-6dd7971c0437', // 主 Service
+  write:    '8327ad98-2d87-4a22-a8ce-6dd7971c0437', // 命令下发
+  notify:   '8327ad97-2d87-4a22-a8ce-6dd7971c0437', // 唯一通知源
+  dis:      'device_information',                    // 0x180A
+  systemId: 'system_id',                             // 0x2A23（8 字节，认证种子）
+  firmware: 'firmware_revision_string',              // 0x2A26
+};
+
+// 设备状态（0x10 推送 / 认证最终响应共用布局）
+// d.c 字节码确认：battery=[0], state=[1], flags 字节 bit0=measurement bit1=activity bit2=sport
+function parseDeviceStatus(c, flagOffset) {
+  const st = {
+    battery: c[0], state: c[1],
+    hasMeasurement: null, hasActivity: null, hasSport: null,
+  };
+  if (c.length > flagOffset) {
+    const f = c[flagOffset];
+    st.hasMeasurement = (f & 1) !== 0;
+    st.hasActivity   = (f & 2) !== 0;
+    st.hasSport      = (f & 4) !== 0;
+  }
+  return st;
+}
+const DEVICE_STATE_NAMES = { 5: '工厂模式' }; // 其余取值未公开，显示原始数值
+const stateName = s => DEVICE_STATE_NAMES[s] ? `${s}（${DEVICE_STATE_NAMES[s]}）` : String(s);
+
+// 0x15 实时 SpO2/HR 结果（两种形态；字段偏移按逆向结论，必要时真机校准）
+function parseRealtime(c) {
+  if (c.length >= 15 && (c[0] === 0x01 || c[0] === 0x11)) {
+    return { spo2: c[13], hr: c[14], spo2Success: null, hrSuccess: null, form: c[0] };
+  }
+  if (c.length >= 5 && c[0] === 0x10) {
+    // [1]=spo2, [2]=hr, [3]=spo2Success, [4]=hrSuccess（success 语义：非 0 视为有效，待真机校准）
+    return { spo2: c[1], hr: c[2], spo2Success: c[3] !== 0, hrSuccess: c[4] !== 0, form: c[0] };
+  }
+  return null;
+}
+
+// 0x17 血氧验证样本：[0..3] u32BE 时间偏移 + EPOCH；[4]=spo2；[5]&1=success
+function parseVerifySample(c) {
+  if (c.length < 6) return null;
+  return { unixSec: u32be(c, 0) + EPOCH, spo2: c[4], success: (c[5] & 1) !== 0 };
+}
+
+// ---- 历史记录解析（字段偏移已对照 d.h 字节码逐字段确认）----
+// 公共拆包 helper：content[0..1]=packSeq u16BE，其后为定长记录数组，(len-2) 须整除 recSize
+function splitRecords(c, recSize) {
+  if (c.length < 2) return null;
+  const packSeq = u16be(c, 0);
+  const bodyLen = c.length - 2;
+  if (bodyLen === 0 || bodyLen % recSize !== 0) return null;
+  const recs = [];
+  for (let o = 2; o + recSize <= c.length; o += recSize) recs.push(c.slice(o, o + recSize));
+  return { packSeq, recs };
+}
+
+// Measurement (0x40)，记录 18 字节：
+//   [0..3] u32BE 时间偏移+EPOCH；[4]=hr；[5]=hrv；[8]=spo2；[7]=respRate（×10 存储）；
+//   [17] 低 4 位：bit0 置位→hrSuccess=false，bit1 置位→spo2Success=false（字节码为反向标志）
+function parseMeasurementRecords(c) {
+  const p = splitRecords(c, 18);
+  if (!p) return null;
+  p.recs = p.recs.map(b => ({
+    unixSec: u32be(b, 0) + EPOCH,
+    hr: b[4], hrv: b[5], spo2: b[8], respRate: b[7],
+    hrSuccess: (b[17] & 1) === 0, spo2Success: (b[17] & 2) === 0,
+  }));
+  return p;
+}
+
+// Sport (0x41)，记录 10 字节：
+//   [0..3] u32BE 时间偏移+EPOCH；[4]=hr；[5]=steps；[6..7] u16BE activityCount
+function parseSportRecords(c) {
+  const p = splitRecords(c, 10);
+  if (!p) return null;
+  p.recs = p.recs.map(b => ({
+    unixSec: u32be(b, 0) + EPOCH,
+    hr: b[4], steps: b[5], activityCount: u16be(b, 6),
+  }));
+  return p;
+}
+
+// Activity (0x47)，记录 47 字节：
+//   [0..3] u32BE 时间偏移+EPOCH；[5..8] u32BE 打包字段：
+//     batteryPercent=(v>>>25)&127, steps=(v>>>11)&8191, activeSeconds=v&2047；
+//   [9..43] 7 组 × 5 字节（40bit 大端），每组 4 个 10bit 温度；
+//   [44..46] 3 字节再取 2 个 10bit 温度；共 30 个，temp=(raw-300)/10 ℃。
+//   注：字节码解析出 30 个温度；sample_data 的 Activity.csv 为 15 个（固件/版本差异），
+//   此处按字节码实现，导出全部解析值（CSV 仍为分号连接，格式一致）。
+function parseActivityRecords(c) {
+  const p = splitRecords(c, 47);
+  if (!p) return null;
+  p.recs = p.recs.map(b => {
+    const v = u32be(b, 5);
+    const temps = [];
+    for (let g = 0; g < 7; g++) {
+      const o = 9 + g * 5; // 5 字节 40bit 大端（Number 精度足够，< 2^53）
+      const t = b[o] * 2**32 + b[o+1] * 2**24 + b[o+2] * 2**16 + b[o+3] * 2**8 + b[o+4];
+      temps.push((Math.floor(t / 2**30) % 1024 - 300) / 10,
+                 (Math.floor(t / 2**20) % 1024 - 300) / 10,
+                 (Math.floor(t / 2**10) % 1024 - 300) / 10,
+                 (t % 1024 - 300) / 10);
+    }
+    const u = (b[44] << 16) | (b[45] << 8) | b[46];
+    temps.push((((u >>> 10) & 1023) - 300) / 10, ((u & 1023) - 300) / 10);
+    return {
+      unixSec: u32be(b, 0) + EPOCH,
+      batteryPercent: (v >>> 25) & 127,
+      steps: (v >>> 11) & 8191,
+      activeSeconds: v & 2047,
+      temperaturesC: temps,
+    };
+  });
+  return p;
+}
+
+// ==================== Reassembler（PPG/ACC 分片重组） ====================
+// 0x12/0x13 content：[0..1]=packCount u16BE，[2]=总片数，[3]=片序号，[4]=标志，[5..]=分片数据
+// 集齐一个 pack 所有片后重组并回 ACK 92/93 [packHi,packLo,00]；支持乱序/丢片（16 深度缓存）
+class Reassembler {
+  constructor(name, ackType, sendAck, onPack) {
+    this.name = name; this.ackType = ackType;
+    this.sendAck = sendAck; this.onPack = onPack;
+    this.packs = new Map(); // packCount -> {total, frames:Map(seq->data), ts}
+    this.maxDepth = 16;
+  }
+  push(content) {
+    if (content.length < 5) return;
+    const packCount = u16be(content, 0);
+    const total = content[2], seq = content[3];
+    const data = content.slice(5);
+    let entry = this.packs.get(packCount);
+    if (!entry) {
+      entry = { total, frames: new Map(), ts: Date.now() };
+      this.packs.set(packCount, entry);
+      // 超出 16 深度，淘汰最旧
+      if (this.packs.size > this.maxDepth) {
+        let oldestKey = null, oldestTs = Infinity;
+        for (const [k, v] of this.packs) if (v.ts < oldestTs) { oldestTs = v.ts; oldestKey = k; }
+        if (oldestKey !== null && oldestKey !== packCount) {
+          this.packs.delete(oldestKey);
+          log(`${this.name}: 分片缓存超深，丢弃未完成 pack ${oldestKey}`, 'warn');
+        }
+      }
+    }
+    if (total !== entry.total) {
+      log(`${this.name}: pack ${packCount} 总片数不一致（${entry.total}→${total}），重置`, 'warn');
+      entry.frames.clear(); entry.total = total;
+    }
+    entry.frames.set(seq, data);
+    entry.ts = Date.now();
+    if (entry.frames.size >= entry.total) {
+      const parts = [];
+      for (let i = 0; i < entry.total; i++) parts.push(entry.frames.get(i) || new Uint8Array(0));
+      const len = parts.reduce((s, p) => s + p.length, 0);
+      const full = new Uint8Array(len);
+      let off = 0;
+      for (const p of parts) { full.set(p, off); off += p.length; }
+      this.packs.delete(packCount);
+      this.sendAck(this.ackType, [(packCount >> 8) & 0xff, packCount & 0xff, 0x00]);
+      this.onPack(packCount, full);
+    }
+  }
+  reset() { this.packs.clear(); }
+}
+
+// PPG pack（重组后 len≥25）：跳前 5 字节头；每样本 12 字节 = 4 通道 × 3 字节大端
+// 20bit 有符号（bit19 符号位扩展），通道顺序 ledG, ledGAmb, ledRedAmb, ledIr；
+// 样本数=(len−13)/12；末尾 [len-4..len-2] 3 字节大端 = captureTime
+function parsePpgPack(buf) {
+  if (buf.length < 25) return null;
+  const n = Math.floor((buf.length - 13) / 12);
+  const samples = [];
+  for (let i = 0; i < n; i++) {
+    const o = 5 + i * 12, s = {};
+    ['ledG', 'ledGAmb', 'ledRedAmb', 'ledIr'].forEach((k, ch) => {
+      let v = ((buf[o + ch*3] << 16) | (buf[o + ch*3 + 1] << 8) | buf[o + ch*3 + 2]) & 0xFFFFF;
+      if (v & 0x80000) v -= 0x100000; // 20bit 符号扩展（bit19 为符号位）
+      s[k] = v;
+    });
+    samples.push(s);
+  }
+  const L = buf.length;
+  const captureTime = (buf[L-4] << 16) | (buf[L-3] << 8) | buf[L-2];
+  return { samples, captureTime };
+}
+
+// ACC pack（len≥14）：跳前 5 字节头；每样本 6 字节 = x,y,z int16 大端；
+// 样本数=(len−8)/6；末尾 [len-3..len-1] 3 字节大端 = captureTime
+function parseAccPack(buf) {
+  if (buf.length < 14) return null;
+  const n = Math.floor((buf.length - 8) / 6);
+  const samples = [];
+  for (let i = 0; i < n; i++) {
+    const o = 5 + i * 6;
+    const s16 = (hi, lo) => { let v = (hi << 8) | lo; return v >= 0x8000 ? v - 0x10000 : v; };
+    samples.push({ x: s16(buf[o], buf[o+1]), y: s16(buf[o+2], buf[o+3]), z: s16(buf[o+4], buf[o+5]) });
+  }
+  const L = buf.length;
+  const captureTime = (buf[L-3] << 16) | (buf[L-2] << 8) | buf[L-1];
+  return { samples, captureTime };
+}
+
+// ==================== HistoryEngine（历史同步引擎） ====================
+// 配置（逆向值）：maxAttempts=3, nextTypeTimeout=3000ms, idleTimeout=60000ms,
+//                retransWait=5000ms, maxRetransRounds=3
+// 流程：0x07 查询状态（副作用触发设备上传历史）→ 设备推 0x49（类型开始，回 C9）→
+//   0x40/0x41/0x47 记录包（packSeq 索引）→ 收齐或 retransWait 后缺包重传
+//   0x4B [code,0x01,cnt,idxHi,idxLo...]（最多 127 个，最多 3 轮）→
+//   正常完成后 0x4B [code,0x00,0x00]，放弃缺包时用 0xFF；0x50 设备侧控制回 D0 [00]。
+const HISTORY_TYPES = {
+  measurement: { code: 0,  notify: 0x40, label: 'Measurement', parse: parseMeasurementRecords },
+  sport:       { code: 1,  notify: 0x41, label: 'Sport',       parse: parseSportRecords },
+  activity:    { code: 16, notify: 0x47, label: 'Activity',    parse: parseActivityRecords },
+};
+const HISTORY_BY_NOTIFY = Object.fromEntries(
+  Object.entries(HISTORY_TYPES).map(([k, v]) => [v.notify, { key: k, def: v }]));
+const HISTORY_BY_CODE = Object.fromEntries(
+  Object.entries(HISTORY_TYPES).map(([k, v]) => [v.code, { key: k, def: v }]));
+
+class HistoryEngine {
+  constructor({ execCmd, sendAck, onProgress, onRecord, onDone }) {
+    this.execCmd = execCmd; this.sendAck = sendAck;
+    this.onProgress = onProgress; this.onRecord = onRecord; this.onDone = onDone;
+    this.cfg = { maxAttempts: 3, nextTypeTimeout: 3000, idleTimeout: 60000,
+                 retransWait: 5000, maxRetransRounds: 3 };
+    this.active = false;
+    this.cur = null;          // {key, def, total, packs:Map, records:[], rounds, retransTimer}
+    this.wantNext = null;     // 等待 0x49 的 timer
+    this.idleTimer = null;
+    this.queue = [];          // 待同步类型 key 列表
+  }
+  _log(m, l = 'info') { log('[History] ' + m, l); }
+  _resetIdle() {
+    clearTimeout(this.idleTimer);
+    this.idleTimer = setTimeout(() => this._abort('空闲超过 60s，同步超时'), this.cfg.idleTimeout);
+  }
+  async start(flags) {
+    if (this.active) return;
+    this.active = true;
+    // 依据设备状态历史标志决定同步哪些类型；标志未知则全部尝试
+    this.queue = Object.keys(HISTORY_TYPES).filter(k => {
+      const f = k === 'measurement' ? flags?.hasMeasurement : k === 'sport' ? flags?.hasSport : flags?.hasActivity;
+      return f !== false;
+    });
+    this._log(`开始同步，类型队列：${this.queue.join(', ') || '(空)'}`);
+    this._resetIdle();
+    try {
+      await this.execCmd(0x07, [0x00]); // 查询设备状态，副作用：触发设备上传历史数据
+      this._log('已发送 0x07 状态查询（触发历史上传）');
+    } catch (e) { this._log('0x07 状态查询失败：' + e.message + '（继续等待设备推送）', 'warn'); }
+    // 若设备未主动推 0x49，超时后主动请求第一个类型
+    this.wantNext = setTimeout(() => this._requestNextExplicit(), this.cfg.nextTypeTimeout);
+  }
+  _requestNextExplicit() {
+    if (!this.active || this.cur || !this.queue.length) { if (!this.queue.length) this._finish(); return; }
+    const key = this.queue[0], def = HISTORY_TYPES[key];
+    this._log(`设备未推送 0x49，主动请求类型 ${key}（0x4B sub=0x00，第 1 次）`);
+    this._sendRaw(0x4B, [def.code, 0x00, 0x00]);
+    this.wantNext = setTimeout(() => {
+      if (!this.active || this.cur) return;
+      this._log(`类型 ${key} 无响应，跳过`, 'warn');
+      this.queue.shift();
+      this.queue.length ? this._requestNextExplicit() : this._finish();
+    }, this.cfg.nextTypeTimeout);
+  }
+  handleNotify(type, content) {
+    if (!this.active) return false;
+    this._resetIdle();
+    if (type === 0x49) { // 历史类型开始：[0]=类型码，[1..2] u16BE total
+      const code = content[0], total = u16be(content, 1);
+      const found = HISTORY_BY_CODE[code];
+      this.sendAck(0xC9, [0x00]);
+      if (!found) { this._log(`0x49 未知类型码 ${code}`, 'warn'); return true; }
+      clearTimeout(this.wantNext);
+      clearTimeout(this.cur?.retransTimer);
+      this.cur = { key: found.key, def: found.def, total, packs: new Map(),
+                   records: [], rounds: 0, retransTimer: null };
+      this._log(`类型开始：${found.key}，total=${total} 包`);
+      this.onProgress(found.key, 0, total, 'syncing');
+      if (total === 0) this._finishType();
+      return true;
+    }
+    if (type === 0x50) { // 设备侧历史同步控制
+      this.sendAck(0xD0, [0x00]);
+      this._log('0x50 设备侧控制，已回 D0');
+      return true;
+    }
+    const rec = HISTORY_BY_NOTIFY[type];
+    if (rec) {
+      const parsed = rec.def.parse(content);
+      if (!parsed) { this._log(`${rec.key} 记录包解析失败（长度 ${content.length}）`, 'warn'); return true; }
+      if (!this.cur || this.cur.key !== rec.key) { // 容错：未收到 0x49 也接收
+        this._log(`未收到 0x49 即开始接收 ${rec.key} 记录`, 'warn');
+        clearTimeout(this.wantNext);
+        this.cur = { key: rec.key, def: rec.def, total: 0, packs: new Map(),
+                     records: [], rounds: 0, retransTimer: null };
+      }
+      const cur = this.cur;
+      if (!cur.packs.has(parsed.packSeq)) {
+        cur.packs.set(parsed.packSeq, true);
+        cur.records.push(...parsed.recs);
+        for (const r of parsed.recs) this.onRecord(rec.key, r);
+      }
+      this.onProgress(rec.key, cur.packs.size, cur.total, 'syncing');
+      // 收齐 或 距离上一包 retransWait 后做缺包检查
+      clearTimeout(cur.retransTimer);
+      cur.retransTimer = setTimeout(() => this._retransCheck(), this.cfg.retransWait);
+      if (cur.total > 0 && cur.packs.size >= cur.total) this._retransCheck();
+      return true;
+    }
+    return false;
+  }
+  _retransCheck() {
+    const cur = this.cur;
+    if (!this.active || !cur) return;
+    const missing = [];
+    for (let i = 0; i < cur.total; i++) if (!cur.packs.has(i)) missing.push(i);
+    if (missing.length === 0) { this._finishType(); return; }
+    if (cur.rounds >= this.cfg.maxRetransRounds) {
+      this._log(`${cur.key} 缺 ${missing.length} 包且已达最大重传轮次，放弃补齐`, 'warn');
+      this._finishType(true);
+      return;
+    }
+    cur.rounds++;
+    const req = missing.slice(0, 127); // 字节码：take(127)
+    const content = [cur.def.code, 0x01, req.length];
+    for (const idx of req) content.push((idx >> 8) & 0xff, idx & 0xff);
+    this._log(`${cur.key} 第 ${cur.rounds} 轮重传请求，缺包 ${req.length}/${missing.length}`);
+    this._sendRaw(0x4B, content);
+    cur.retransTimer = setTimeout(() => this._retransCheck(), this.cfg.retransWait);
+  }
+  _finishType(abandoned = false) {
+    const cur = this.cur;
+    if (!cur) return;
+    clearTimeout(cur.retransTimer);
+    this._log(
+      `类型${abandoned ? '放弃缺包并结束' : '完成'}：${cur.key}，${cur.packs.size}/${cur.total} 包，${cur.records.length} 条记录`,
+      abandoned ? 'warn' : 'ok',
+    );
+    this.onProgress(cur.key, cur.packs.size, cur.total, 'done');
+    this.queue = this.queue.filter(k => k !== cur.key);
+    this.cur = null;
+    // 官方协议：0x00 表示正常完成当前类型；0xFF 仅用于重传耗尽后放弃该类型。
+    this._sendRaw(0x4B, [cur.def.code, abandoned ? 0xFF : 0x00, 0x00]);
+    if (!this.queue.length) { this._finish(); return; }
+    // 等待设备推送下一类型；超时后再显式请求队首类型。
+    this.wantNext = setTimeout(() => this._requestNextExplicit(), this.cfg.nextTypeTimeout);
+  }
+  // 0x4B 控制帧为即发即弃（原生实现走队列免等待通道），直接写特征
+  _sendRaw(type, content) { this.sendAck(type, content); }
+  _finish() {
+    if (!this.active) return;
+    this._log('全部类型同步完成', 'ok');
+    this._teardown();
+    this.onDone(true, '同步完成');
+  }
+  _abort(reason) {
+    this._log('同步中止：' + reason, 'err');
+    this._teardown();
+    this.onDone(false, reason);
+  }
+  cancel() { if (this.active) this._abort('用户取消'); }
+  _teardown() {
+    this.active = false;
+    clearTimeout(this.idleTimer);
+    clearTimeout(this.wantNext);
+    clearTimeout(this.cur?.retransTimer);
+    this.cur = null;
+  }
+}
+
+// ==================== Waveform（Canvas 滚动波形） ====================
+// requestAnimationFrame 批量绘制；每通道保留最近 WINDOW 个样本（约最近 N 秒窗口）
+const WAVE_WINDOW = 1500;
+class WaveChannel {
+  constructor(container, name, color) {
+    this.name = name; this.color = color;
+    this.data = []; // 环形窗口（数组 + shift 截断，样本率不高，足够）
+    const div = document.createElement('div');
+    div.className = 'wave-item';
+    div.innerHTML = `<div class="lbl" style="color:${color}">${name}</div>`;
+    this.canvas = document.createElement('canvas');
+    this.canvas.className = 'wave';
+    div.appendChild(this.canvas);
+    container.appendChild(div);
+    this.minMax = null;
+  }
+  pushBatch(values) {
+    for (const v of values) this.data.push(v);
+    if (this.data.length > WAVE_WINDOW) this.data.splice(0, this.data.length - WAVE_WINDOW);
+  }
+  draw() {
+    const cv = this.canvas;
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    const ctx = cv.getContext('2d');
+    ctx.clearRect(0, 0, w, h);
+    const d = this.data;
+    if (d.length < 2) return;
+    let min = Infinity, max = -Infinity;
+    for (const v of d) { if (v < min) min = v; if (v > max) max = v; }
+    if (max - min < 1e-6) { max = min + 1; }
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    const n = d.length;
+    for (let i = 0; i < n; i++) {
+      const x = i / (WAVE_WINDOW - 1) * w;
+      const y = h - 3 - (d[i] - min) / (max - min) * (h - 6);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.fillStyle = '#93a0b8';
+    ctx.font = '10px monospace';
+    ctx.fillText(`${min} .. ${max}`, 6, 12);
+  }
+}
+
+const PPG_CHANNELS = [
+  ['ledG', '#4caf50'], ['ledGAmb', '#8bc34a'], ['ledRedAmb', '#f44336'], ['ledIr', '#ce93d8'],
+];
+const ACC_CHANNELS = [['x', '#4f8cff'], ['y', '#f0a832'], ['z', '#f0584a']];
+const ppgWaves = PPG_CHANNELS.map(([n, c]) => new WaveChannel($('wavePpg'), n, c));
+const accWaves = ACC_CHANNELS.map(([n, c]) => new WaveChannel($('waveAcc'), n, c));
+const stats = { ppgPacks: 0, ppgSamples: 0, accPacks: 0, accSamples: 0 };
+let activeWaveTab = 'ppg';
+let streamStatsDirty = true;
+let lastStreamStatsRender = 0;
+(function waveLoop() {
+  requestAnimationFrame(waveLoop);
+  (activeWaveTab === 'ppg' ? ppgWaves : accWaves).forEach(w => w.draw());
+  const now = performance.now();
+  if (streamStatsDirty && now - lastStreamStatsRender >= 250) {
+    renderStreamStats();
+    streamStatsDirty = false;
+    lastStreamStatsRender = now;
+  }
+})();
+
+// ==================== BLE 连接管理 + UI ====================
+const queue = new CommandQueue();
+let device = null, server = null, writeChar = null, notifyChar = null;
+let sysId = null, firmware = '-', deviceStatus = null;
+let connected = false, connecting = false, spo2Active = false;
+const knownDevices = new Map(); // id -> BluetoothDevice
+const observedDevices = new WeakSet();
+const intentionalDisconnects = new WeakSet();
+
+const CONNECT_ATTEMPTS = 3;
+const RECONNECT_DELAYS = [3000, 5000];
+const SERVICE_RETRY_DELAYS = [1200, 2500, 4000];
+const TARGET_DEVICE_NAME = 'AlloopRing-4555';
+
+class NotifySetupError extends Error {
+  constructor(cause) {
+    super(cause?.message || 'Notify subscription failed');
+    this.name = 'NotifySetupError';
+    this.cause = cause;
+  }
+}
+
+function isTransientGattError(error) {
+  if (error?.name !== 'NetworkError') return false;
+  const message = String(error.message || '').toLowerCase();
+  return message.includes('connection already in progress') ||
+    message.includes('operation already in progress') ||
+    message.includes('gatt operation failed');
+}
+
+async function retryGattOperation(label, operation, delays = SERVICE_RETRY_DELAYS) {
+  let lastError;
+  for (let attempt = 0; attempt <= delays.length; attempt++) {
+    if (!device?.gatt?.connected) {
+      throw new DOMException('GATT Server is disconnected.', 'NetworkError');
+    }
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      if (!isTransientGattError(error) || attempt === delays.length || !device.gatt.connected) throw error;
+      const delay = delays[attempt];
+      log(`${label}仍在进行，保持当前连接并等待 ${delay}ms 后重试（${error.message}）`, 'warn');
+      await sleep(delay);
+    }
+  }
+  throw lastError;
+}
+
+function isTargetDevice(d) {
+  // Web Bluetooth 的 device.id 是按 Origin 生成的浏览器私有标识，不能作为硬件固定 ID。
+  // 这里只做广播名称初筛；后续 Service/Characteristic 发现和 SM3 握手负责确认设备。
+  return Boolean(d && d.name === TARGET_DEVICE_NAME);
+}
+
+function rememberTargetDevice(d) {
+  if (!isTargetDevice(d)) return false;
+  knownDevices.clear();
+  knownDevices.set(d.id, d);
+  if (!observedDevices.has(d)) {
+    d.addEventListener('gattserverdisconnected', onDisconnected);
+    observedDevices.add(d);
+  }
+  renderDeviceList();
+  return true;
+}
+
+function waitForGattDisconnected(d, timeout = 3000) {
+  if (!d?.gatt?.connected) return Promise.resolve();
+  return new Promise(resolve => {
+    let timer;
+    const done = () => {
+      clearTimeout(timer);
+      d.removeEventListener('gattserverdisconnected', done);
+      resolve();
+    };
+    d.addEventListener('gattserverdisconnected', done);
+    timer = setTimeout(done, timeout);
+  });
+}
+
+// ---- 发送 ACK / 控制帧（直接写，不进命令队列）----
+async function sendAck(type, content) {
+  if (!writeChar) return;
+  const frame = buildFrame(type, content);
+  try {
+    await writeChar.writeValueWithoutResponse(frame);
+    if (logRawEnabled) log(`TX ACK 0x${hex2(type)} 帧:${bytesToHex(frame)}`, 'tx');
+  } catch (e) { log(`ACK 0x${hex2(type)} 写入失败：${e.message}`, 'warn'); }
+}
+
+// ---- 统计 ----
+function updateStreamStats() {
+  streamStatsDirty = true;
+}
+function renderStreamStats() {
+  $('streamStats').textContent =
+    `PPG: ${stats.ppgPacks} 包/${stats.ppgSamples} 样本 · ACC: ${stats.accPacks} 包/${stats.accSamples} 样本`;
+}
+
+function resetRealtimeView() {
+  for (const key of Object.keys(stats)) stats[key] = 0;
+  for (const wave of [...ppgWaves, ...accWaves]) wave.data.length = 0;
+  $('rtSpo2').textContent = '--';
+  $('rtHr').textContent = '--';
+  $('rtOk').textContent = '--';
+  $('rtTime').textContent = '--';
+  $('verifyCount').textContent = '0';
+  $('tblVerify').tBodies[0].textContent = '';
+  updateStreamStats();
+}
+
+function setSpo2Active(active) {
+  spo2Active = active;
+  $('spo2State').textContent = active ? '测量中 MEASURING' : '等待数据 WAITING';
+  $('spo2State').className = active ? 'pill ok' : 'pill';
+  $('btnEnterSpo2').disabled = !connected || active || bridgeHistory.active;
+  $('btnExitSpo2').disabled = !connected || !active;
+  renderBridgeHistoryProgress();
+}
+
+function isCurrentMeasurementDevice(data) {
+  return !data.deviceId || data.deviceId === activeBridgeDeviceId;
+}
+
+function handleBridgeSpo2Result(data) {
+  if (!isCurrentMeasurementDevice(data)) return;
+  $('rtSpo2').textContent = data.spo2 ?? '--';
+  $('rtHr').textContent = data.hr ?? '--';
+  $('rtOk').textContent = data.success == null ? '--' : (data.success ? '有效 VALID' : '无效 INVALID');
+  $('rtTime').textContent = data.measuredAt
+    ? new Date(data.measuredAt).toLocaleTimeString()
+    : new Date().toLocaleTimeString();
+  if (data.isVerified) {
+    const tbody = $('tblVerify').tBodies[0];
+    const tr = tbody.insertRow(0);
+    [data.measuredAt || new Date().toISOString(), data.spo2 ?? '--', data.success ?? '--']
+      .forEach(value => { tr.insertCell().textContent = value; });
+    while (tbody.rows.length > 100) tbody.deleteRow(-1);
+    $('verifyCount').textContent = String(Number($('verifyCount').textContent) + 1);
+  }
+}
+
+function handleBridgePpgWave(data) {
+  if (!isCurrentMeasurementDevice(data) || !Array.isArray(data.samples)) return;
+  for (let channel = 0; channel < PPG_CHANNELS.length; channel++) {
+    const field = PPG_CHANNELS[channel][0];
+    ppgWaves[channel].pushBatch(data.samples.map(sample => sample[field]));
+  }
+  stats.ppgPacks++;
+  stats.ppgSamples += data.samples.length;
+  updateStreamStats();
+}
+
+function handleBridgeAccWave(data) {
+  if (!isCurrentMeasurementDevice(data) || !Array.isArray(data.samples)) return;
+  for (let channel = 0; channel < ACC_CHANNELS.length; channel++) {
+    const field = ACC_CHANNELS[channel][0];
+    accWaves[channel].pushBatch(data.samples.map(sample => sample[field]));
+  }
+  stats.accPacks++;
+  stats.accSamples += data.samples.length;
+  updateStreamStats();
+}
+
+// ---- 重组器 ----
+const ppgReasm = new Reassembler('PPG', 0x92, sendAck, (packCount, buf) => {
+  const p = parsePpgPack(buf);
+  if (!p) { log(`PPG pack ${packCount} 长度不足（${buf.length}），忽略`, 'warn'); return; }
+  stats.ppgPacks++; stats.ppgSamples += p.samples.length;
+  for (const s of p.samples) {
+    ppgWaves[0].data.push(s.ledG); ppgWaves[1].data.push(s.ledGAmb);
+    ppgWaves[2].data.push(s.ledRedAmb); ppgWaves[3].data.push(s.ledIr);
+  }
+  ppgWaves.forEach(w => { if (w.data.length > WAVE_WINDOW) w.data.splice(0, w.data.length - WAVE_WINDOW); });
+  updateStreamStats();
+});
+const accReasm = new Reassembler('ACC', 0x93, sendAck, (packCount, buf) => {
+  const p = parseAccPack(buf);
+  if (!p) { log(`ACC pack ${packCount} 长度不足（${buf.length}），忽略`, 'warn'); return; }
+  stats.accPacks++; stats.accSamples += p.samples.length;
+  for (const s of p.samples) { accWaves[0].data.push(s.x); accWaves[1].data.push(s.y); accWaves[2].data.push(s.z); }
+  accWaves.forEach(w => { if (w.data.length > WAVE_WINDOW) w.data.splice(0, w.data.length - WAVE_WINDOW); });
+  updateStreamStats();
+});
+
+// ---- 历史数据存储 ----
+const historyData = { measurement: [], sport: [], activity: [] };
+const HISTORY_UI_CAP = 200; // 表格最多渲染行数（全量数据始终在内存中，可完整导出）
+
+const history = new HistoryEngine({
+  execCmd: (t, c) => queue.exec(t, c),
+  sendAck,
+  onProgress(key, x, total, state) {
+    const el = { measurement: $('progM'), sport: $('progS'), activity: $('progA') }[key];
+    el.textContent = `${x} / ${total || '?'} 包 · ${historyData[key].length} 条 · ${state === 'done' ? '已完成 COMPLETE' : '同步中 SYNCING…'}`;
+  },
+  onRecord(key, r) {
+    historyData[key].push(r);
+    renderHistoryRow(key, r);
+    updateExportButtons();
+  },
+  onDone(ok, msg) {
+    $('btnSync').disabled = !connected;
+    $('btnSyncCancel').disabled = true;
+    log(`历史同步结束：${msg}`, ok ? 'ok' : 'err');
+  },
+});
+
+function renderHistoryRow(key, r) {
+  const tbody = { measurement: $('tblM'), sport: $('tblS'), activity: $('tblA') }[key].tBodies[0];
+  if (tbody.rows.length >= HISTORY_UI_CAP) return;
+  const tr = tbody.insertRow(0);
+  const cells = key === 'measurement'
+    ? [isoOf(r.unixSec), r.hr, r.hrv, r.spo2, r.respRate, r.hrSuccess, r.spo2Success]
+    : key === 'sport'
+    ? [isoOf(r.unixSec), r.hr, r.steps, r.activityCount]
+    : [isoOf(r.unixSec), r.batteryPercent, r.steps, r.activeSeconds,
+       r.temperaturesC.map(t => t.toFixed(1)).join(';')];
+  for (const c of cells) tr.insertCell().textContent = c;
+}
+function updateExportButtons() {
+  $('btnExpM').disabled = !historyData.measurement.length;
+  $('btnExpS').disabled = !historyData.sport.length;
+  $('btnExpA').disabled = !historyData.activity.length;
+}
+
+function bindBridgeHistoryData() {
+  historyData.measurement = bridgeHistory.records.measurement;
+  historyData.sport = bridgeHistory.records.sport;
+  historyData.activity = bridgeHistory.records.activity;
+}
+
+function clearHistoryView() {
+  bindBridgeHistoryData();
+  for (const tableId of ['tblM', 'tblS', 'tblA']) {
+    $(tableId).tBodies[0].textContent = '';
+  }
+  $('progM').textContent = '-';
+  $('progS').textContent = '-';
+  $('progA').textContent = '-';
+  updateExportButtons();
+}
+
+function isCurrentHistoryDevice(data) {
+  return !data.deviceId || data.deviceId === activeBridgeDeviceId ||
+    data.deviceId === bridgeHistory.deviceId;
+}
+
+function handleBridgeHistoryRecord(data) {
+  if (!isCurrentHistoryDevice(data)) return;
+  const result = bridgeHistory.applyRecord(data);
+  if (result.newSync) clearHistoryView();
+  else bindBridgeHistoryData();
+  if (!result.added) return;
+  renderHistoryRow(data.type, data.record);
+  renderBridgeHistoryProgress();
+  updateExportButtons();
+}
+
+function handleBridgeHistoryProgress(data) {
+  if (!isCurrentHistoryDevice(data)) return;
+  const result = bridgeHistory.applyProgress(data);
+  if (result.newSync) clearHistoryView();
+  else bindBridgeHistoryData();
+  if (data.phase === 'allCompleted' && result.completed) {
+    const counts = data.counts && typeof data.counts === 'object' ? data.counts : {};
+    if (deviceStatus) {
+      applyCompletedHistoryFlags(deviceStatus, data.deviceId);
+      renderDeviceStatus();
+    }
+    log(`历史同步完成：measurement=${counts.measurement ?? 0}，sport=${counts.sport ?? 0}，activity=${counts.activity ?? 0}`, 'ok');
+  } else if (data.phase === 'allCompleted' && bridgeHistory.error) {
+    log(`${bridgeHistory.error.code}: ${bridgeHistory.error.message}`, 'err');
+  }
+  renderBridgeHistoryProgress();
+  updateExportButtons();
+}
+
+function handleBridgeHistoryError(data) {
+  if (!isCurrentHistoryDevice(data)) return;
+  const result = bridgeHistory.applyError(data);
+  if (result.newSync) clearHistoryView();
+  else bindBridgeHistoryData();
+  renderBridgeHistoryProgress();
+  updateExportButtons();
+}
+
+function renderBridgeHistoryProgress() {
+  if (document.body.dataset.mode !== 'bridge') return;
+  const labels = { measurement: $('progM'), sport: $('progS'), activity: $('progA') };
+  for (const [type, status] of Object.entries(bridgeHistory.status)) {
+    const total = status.total == null ? '?' : status.total;
+    let state = '等待同步 WAITING';
+    if (status.completed) state = '已完成 COMPLETE';
+    else if (bridgeHistory.error) state = `错误 ERROR：${bridgeHistory.error.code}`;
+    else if (bridgeHistory.waiting) state = '等待 Bridge 重连 WAITING';
+    else if (bridgeHistory.active) state = '同步中 SYNCING…';
+    labels[type].textContent = `${status.received} / ${total} 条 · ${state}`;
+  }
+  const hasHistory = Boolean(deviceStatus && (
+    deviceStatus.hasMeasurement || deviceStatus.hasActivity || deviceStatus.hasSport
+  ));
+  $('btnSync').disabled = !connected || !hasHistory || bridgeHistory.active || spo2Active;
+  $('btnEnterSpo2').disabled = !connected || spo2Active || bridgeHistory.active;
+  $('btnSyncCancel').disabled = true;
+}
+
+// ---- 通知分发 ----
+function onNotify(event) {
+  const raw = new Uint8Array(event.target.value.buffer, event.target.value.byteOffset, event.target.value.byteLength);
+  if (logRawEnabled) log(`RX RAW [${bytesToHex(raw)}]`, 'rx');
+  const frame = parseFrame(raw);
+  if (!frame) { log(`通知帧校验失败，丢弃：[${bytesToHex(raw)}]`, 'warn'); return; }
+  const { type, content } = frame;
+  if (isDuplicate(type, content)) return;
+  // 1) 命令响应（type 带 0x80 位）
+  if (type & 0x80) { queue.handleNotify(type, content); return; }
+  // 2) 历史引擎（0x49/0x50/0x40/0x41/0x47）
+  if (history.handleNotify(type, content)) return;
+  // 3) 主动推送
+  switch (type) {
+    case 0x10: { // 设备状态
+      sendAck(0x90, [0x00]);
+      if (content.length < 2) return;
+      deviceStatus = parseDeviceStatus(content, 15); // len>15 时历史标志=[15]
+      renderDeviceStatus();
+      log(`设备状态推送：电量=${deviceStatus.battery}% 状态=${stateName(deviceStatus.state)}`, 'info');
+      break;
+    }
+    case 0x12: ppgReasm.push(content); break;
+    case 0x13: accReasm.push(content); break;
+    case 0x15: { // 实时 SpO2/HR
+      sendAck(0x95, [0x00]);
+      const r = parseRealtime(content);
+      if (r) {
+        $('rtSpo2').textContent = r.spo2 ?? '--';
+        $('rtHr').textContent = r.hr ?? '--';
+        $('rtOk').textContent = r.spo2Success == null ? `form=0x${hex2(r.form)}`
+          : `spo2:${r.spo2Success ? '✓' : '✗'} hr:${r.hrSuccess ? '✓' : '✗'}`;
+        $('rtTime').textContent = new Date().toLocaleTimeString();
+      } else log(`0x15 实时结果长度/形态未知（${content.length} 字节）：[${bytesToHex(content)}]`, 'warn');
+      break;
+    }
+    case 0x17: { // 血氧验证样本
+      sendAck(0x97, [0x00]);
+      const s = parseVerifySample(content);
+      if (s) {
+        const tbody = $('tblVerify').tBodies[0];
+        const tr = tbody.insertRow(0);
+        [isoOf(s.unixSec), s.spo2, s.success].forEach(v => tr.insertCell().textContent = v);
+        while (tbody.rows.length > 100) tbody.deleteRow(-1);
+        const n = +$('verifyCount').textContent + 1;
+        $('verifyCount').textContent = n;
+        log(`验证样本：${isoOf(s.unixSec)} spo2=${s.spo2} success=${s.success}`, 'info');
+      }
+      break;
+    }
+    default:
+      log(`未识别通知 0x${hex2(type)} [${bytesToHex(content)}]`, 'warn');
+  }
+}
+
+// ---- UI 渲染 ----
+function setConnPill(text, cls) {
+  const el = $('connState');
+  el.textContent = text;
+  el.className = 'pill' + (cls ? ' ' + cls : '');
+}
+function setConnHelp(text = '') {
+  const el = $('connHelp');
+  el.textContent = text;
+  el.hidden = !text;
+}
+function setAuthenticatedInfoVisible(visible) {
+  document.querySelectorAll('.auth-device-info').forEach(el => { el.hidden = !visible; });
+  if (!visible) {
+    deviceStatus = null;
+    $('dvBattery').textContent = '-';
+    $('dvState').textContent = '-';
+    $('dvHistory').textContent = '-';
+  }
+}
+function renderDeviceStatus() {
+  if (!deviceStatus) return;
+  setAuthenticatedInfoVisible(true);
+  $('dvBattery').textContent = deviceStatus.battery + ' %';
+  $('dvState').textContent = stateName(deviceStatus.state);
+  const f = v => v == null ? '?' : (v ? '有' : '无');
+  $('dvHistory').textContent =
+    `measurement:${f(deviceStatus.hasMeasurement)} activity:${f(deviceStatus.hasActivity)} sport:${f(deviceStatus.hasSport)}`;
+  if (document.body.dataset.mode === 'bridge') renderBridgeHistoryProgress();
+}
+
+function clearAndroidDeviceInfo() {
+  firmware = '-';
+  sysId = null;
+  $('dvFirmware').textContent = '-';
+  $('dvSysId').textContent = '-';
+  setAuthenticatedInfoVisible(false);
+}
+
+function handleBridgeDeviceStatus(data) {
+  if (data.deviceId !== activeBridgeDeviceId) return;
+  deviceStatus = {
+    battery: data.battery,
+    state: data.state,
+    hasMeasurement: data.hasMeasurement,
+    hasActivity: data.hasActivity,
+    hasSport: data.hasSport,
+  };
+  applyCompletedHistoryFlags(deviceStatus, data.deviceId);
+  renderDeviceStatus();
+}
+
+function applyCompletedHistoryFlags(status, deviceId) {
+  if (!status || !bridgeHistory.completed || bridgeHistory.deviceId !== deviceId || !bridgeHistory.counts) return;
+  if (Object.hasOwn(bridgeHistory.counts, 'measurement')) status.hasMeasurement = false;
+  if (Object.hasOwn(bridgeHistory.counts, 'activity')) status.hasActivity = false;
+  if (Object.hasOwn(bridgeHistory.counts, 'sport')) status.hasSport = false;
+}
+
+async function loadAndroidDeviceInfo(deviceId) {
+  const transport = bridgeTransport;
+  if (!transport || deviceId !== activeBridgeDeviceId) return;
+  $('dvFirmware').textContent = '读取中…';
+  $('dvSysId').textContent = '不可用（Android SDK 未提供）';
+  try {
+    const info = await transport.getDeviceInfo(deviceId);
+    if (transport !== bridgeTransport || deviceId !== activeBridgeDeviceId) return;
+    firmware = info.firmwareVersion || '-';
+    $('dvFirmware').textContent = firmware;
+    $('dvSysId').textContent = info.systemId || '不可用（Android SDK 未提供）';
+    handleBridgeDeviceStatus({
+      deviceId,
+      battery: info.batteryPercent,
+      state: info.deviceState,
+      hasMeasurement: info.hasMeasurementHistory,
+      hasActivity: info.hasActivityHistory,
+      hasSport: info.hasSportHistory,
+    });
+    log(`Android SDK 设备信息：固件=${firmware}，System ID 未通过公开 API 提供`, 'ok');
+  } catch (error) {
+    if (transport !== bridgeTransport || deviceId !== activeBridgeDeviceId) return;
+    $('dvFirmware').textContent = '不可用';
+    log(`设备信息读取失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
+  }
+}
+function renderDeviceList() {
+  const ul = $('deviceList');
+  ul.innerHTML = '';
+  const bridgeMode = document.body.dataset.mode === 'bridge';
+  const devices = bridgeMode ? bridgeDevices.values() : knownDevices.values();
+  for (const d of devices) {
+    const li = document.createElement('li');
+    const name = document.createElement('span');
+    const deviceId = bridgeMode ? d.deviceId : d.id;
+    const signal = bridgeMode && Number.isInteger(d.rssi) ? ` · ${d.rssi} dBm` : '';
+    name.textContent = `${d.name || '(未命名设备)'} · id: ${deviceId}${signal}`;
+    const btn = document.createElement('button');
+    btn.textContent = bridgeMode ? '连接 CONNECT' : '重新选择并连接 RECONNECT';
+    btn.disabled = connected || connecting;
+    btn.onclick = bridgeMode
+      ? () => connectAndroidRing(deviceId)
+      : selectAndConnectTarget;
+    li.append(name, btn);
+    ul.appendChild(li);
+  }
+}
+function setUiConnected(v) {
+  connected = v;
+  if (v) setConnHelp();
+  $('btnScan').disabled = v || connecting;
+  $('btnDisconnect').disabled = !v;
+  $('btnEnterSpo2').disabled = !v || spo2Active || bridgeHistory.active;
+  $('btnExitSpo2').disabled = !v || !spo2Active;
+  const bridgeMode = document.body.dataset.mode === 'bridge';
+  $('sec-spo2').hidden = !v;
+  $('sec-history').hidden = !v;
+  const hasHistory = Boolean(deviceStatus && (
+    deviceStatus.hasMeasurement || deviceStatus.hasActivity || deviceStatus.hasSport
+  ));
+  $('btnSync').disabled = !v || spo2Active || (bridgeMode ? !hasHistory || bridgeHistory.active : history.active);
+  $('btnSyncCancel').disabled = bridgeMode || !history.active;
+  renderDeviceList();
+}
+
+async function startAndroidScan() {
+  if (!bridgeTransport) {
+    log('请先连接 Android Bridge', 'warn');
+    return;
+  }
+  bridgeDevices.clear();
+  renderDeviceList();
+  $('btnScan').disabled = true;
+  $('btnScan').textContent = '扫描中 SCANNING…';
+  try {
+    // Match the Android app's default scan path: discover first, then let the
+    // user choose from SDK results. A native exact-name filter can hide rings
+    // whose advertised name differs across firmware revisions.
+    await bridgeTransport.scan({ timeoutMs: 15000 });
+  } catch (error) {
+    $('btnScan').disabled = false;
+    $('btnScan').textContent = '重新扫描 RESCAN';
+    log(`Android SDK 扫描启动失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
+  }
+}
+
+async function connectAndroidRing(deviceId) {
+  if (!bridgeTransport || connecting || connected) return;
+  connecting = true;
+  activeBridgeDeviceId = deviceId;
+  setConnPill('连接中 CONNECTING…', 'warn');
+  renderDeviceList();
+  try {
+    await bridgeTransport.connect(deviceId);
+    log(`已请求 Android SDK 连接 ${deviceId}，等待绑定、Notify 和认证结果`);
+  } catch (error) {
+    connecting = false;
+    activeBridgeDeviceId = null;
+    setConnPill('错误 ERROR', 'err');
+    renderDeviceList();
+    log(`戒指连接请求失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
+  }
+}
+
+function handleBridgeConnectionState(data) {
+  if (data.state === 'connecting') {
+    connecting = true;
+    activeBridgeDeviceId = data.deviceId;
+    setConnPill('连接中 CONNECTING…', 'warn');
+  } else if (data.state === 'connected') {
+    connecting = false;
+    activeBridgeDeviceId = data.deviceId;
+    setUiConnected(true);
+    setConnPill('在线 ONLINE', 'ok');
+    $('bridgeRingState').textContent = '在线 ONLINE';
+    log(`Android SDK 已完成戒指连接和认证：${data.deviceId}`, 'ok');
+    loadAndroidDeviceInfo(data.deviceId);
+  } else if (data.state === 'disconnected') {
+    connecting = false;
+    setSpo2Active(false);
+    clearAndroidDeviceInfo();
+    activeBridgeDeviceId = null;
+    setUiConnected(false);
+    setConnPill(data.errorCode ? '错误 ERROR' : '离线 OFFLINE', data.errorCode ? 'err' : '');
+    $('bridgeRingState').textContent = data.errorCode ? '错误 ERROR' : '离线 OFFLINE';
+    log(`戒指已断开${data.errorCode ? `：${data.errorCode}` : ''}`, data.errorCode ? 'err' : 'warn');
+  }
+  renderDeviceList();
+}
+
+// ---- 连接指定戒指：每次重新扫描以刷新 Windows 的 GATT 设备句柄 ----
+async function selectAndConnectTarget() {
+  if (!navigator.bluetooth) { log('此浏览器不支持 Web Bluetooth', 'err'); return; }
+  try {
+    log(`打开目标戒指选择器（名称=${TARGET_DEVICE_NAME}）…`);
+    const d = await navigator.bluetooth.requestDevice({
+      filters: [{ name: TARGET_DEVICE_NAME }],
+      optionalServices: [UUIDS.service, UUIDS.dis],
+    });
+    if (!rememberTargetDevice(d)) {
+      throw new Error(`设备名称不匹配：name=${d.name || '(未命名)'}，browserId=${d.id}`);
+    }
+    log(`已选择目标戒指：${d.name} · id: ${d.id}，开始连接`, 'ok');
+    await connect(d);
+  } catch (e) {
+    if (e.name === 'NotFoundError') log('用户取消了设备选择（或未找到目标戒指）', 'warn');
+    else log('选择/连接目标戒指失败：' + e.message, 'err');
+  }
+}
+$('btnScan').onclick = () => document.body.dataset.mode === 'bridge'
+  ? startAndroidScan()
+  : selectAndConnectTarget();
+
+// ---- 连接流程（Windows Web Bluetooth 需要等待断连完成后再退避重连）----
+async function connect(d) {
+  if (connecting || connected) return;
+  connecting = true;
+  $('btnScan').disabled = true;
+  setConnPill('连接中 CONNECTING…', 'warn');
+  setConnHelp();
+  setAuthenticatedInfoVisible(false);
+  renderDeviceList();
+  try {
+    // 清理可能的残留系统级连接
+    if (d.gatt && d.gatt.connected) {
+      log('检测到残留连接，先断开…', 'warn');
+      device = d;
+      await cleanupBle({ settleMs: RECONNECT_DELAYS[0] });
+    }
+    let lastErr = null;
+    for (let attempt = 1; attempt <= CONNECT_ATTEMPTS; attempt++) {
+      try {
+        await connectOnce(d);
+        return; // 成功
+      } catch (e) {
+        lastErr = e;
+        if (e instanceof NotifySetupError) {
+          const raw = e.cause || e;
+          log(`Notify 订阅失败：${raw.name}: ${raw.message}`, 'err');
+          log('官方 Android SDK 会在此步骤前发起系统绑定；Web Bluetooth 无法调用 createBond()。请先在 Windows“蓝牙和设备”中添加并配对 AlloopRing-4555，再返回页面重新连接。', 'warn');
+          await cleanupBle();
+          setConnPill('仅设备信息 AVAILABLE', 'warn');
+          setConnHelp('已读取固件版本和 System ID，但 Notify/认证不可用。当前 GATT 已释放；请先在 Windows“蓝牙和设备”中配对 AlloopRing-4555，再重新连接。');
+          return;
+        }
+        log(`连接第 ${attempt} 次尝试失败：${friendlyError(e)}（原始：${e.name}: ${e.message}）`, attempt >= CONNECT_ATTEMPTS ? 'err' : 'warn');
+        const retryDelay = RECONNECT_DELAYS[attempt - 1] || 0;
+        await cleanupBle({ settleMs: attempt < CONNECT_ATTEMPTS ? retryDelay : 0 });
+      }
+    }
+    log(`连接失败（已尝试 ${CONNECT_ATTEMPTS} 次）：` + friendlyError(lastErr), 'err');
+    setConnPill('错误 ERROR', 'err');
+  } finally {
+    connecting = false;
+    $('btnScan').disabled = connected;
+    renderDeviceList();
+  }
+}
+
+async function connectOnce(d) {
+  try {
+    log(`GATT 连接 ${d.name || d.id} …`);
+    device = d;
+    server = await d.gatt.connect(); // 连接失败（如 Android 133 类错误）在此抛出
+    log('GATT 已连接，读取 Device Information…');
+
+    const dis = await retryGattOperation('Device Information Service 发现', () => server.getPrimaryService(UUIDS.dis));
+    const systemIdChar = await retryGattOperation('System ID 特征发现', () => dis.getCharacteristic(UUIDS.systemId));
+    const firmwareChar = await retryGattOperation('固件版本特征发现', () => dis.getCharacteristic(UUIDS.firmware));
+    sysId = new Uint8Array((await retryGattOperation('System ID 读取', () => systemIdChar.readValue())).buffer);
+    const fwValue = await retryGattOperation('固件版本读取', () => firmwareChar.readValue());
+    firmware = new TextDecoder().decode(new Uint8Array(fwValue.buffer, fwValue.byteOffset, fwValue.byteLength));
+    $('dvSysId').textContent = bytesToHex(sysId);
+    $('dvFirmware').textContent = firmware;
+    log(`System ID=${bytesToHex(sysId)} 固件=${firmware}`, 'ok');
+
+    log('获取主 Service / 特征…');
+    let svc;
+    try {
+      svc = await retryGattOperation('Alloop 主 Service 发现', () => server.getPrimaryService(UUIDS.service));
+    } catch (e) {
+      // 诊断：枚举全部可见服务，帮助判断是配对/加密问题还是 UUID 问题
+      log('获取主 Service 失败：' + e.name + ': ' + e.message + '，枚举可见服务…', 'warn');
+      try {
+        const svcs = await server.getPrimaryServices();
+        log('可见服务：' + (svcs.length ? svcs.map(s => s.uuid).join(', ') : '（空——很可能是需要先在 Windows 系统配对）'), 'warn');
+      } catch (e2) {
+        log('枚举服务也失败：' + e2.name + ': ' + e2.message, 'warn');
+      }
+      throw e;
+    }
+    writeChar = await retryGattOperation('Write 特征发现', () => svc.getCharacteristic(UUIDS.write));
+    notifyChar = await retryGattOperation('Notify 特征发现', () => svc.getCharacteristic(UUIDS.notify));
+    const np = notifyChar.properties;
+    log(`Notify 特征能力：notify=${np.notify} indicate=${np.indicate} read=${np.read}`, np.notify || np.indicate ? 'ok' : 'err');
+    if (!np.notify && !np.indicate) throw new DOMException('目标特征不支持 Notify 或 Indicate。', 'NotSupportedError');
+    notifyChar.addEventListener('characteristicvaluechanged', onNotify);
+    try {
+      await notifyChar.startNotifications();
+    } catch (e) {
+      throw new NotifySetupError(e);
+    }
+    queue.setWriter(frame => writeChar.writeValueWithoutResponse(frame));
+    log('已订阅 Notify 特征', 'ok');
+    await sleep(100); // 对齐 Android SDK：CCCD 成功后短暂等待再开始认证
+
+    // ---- SM3 认证握手 ----
+    log('认证步骤 1：发送 01 00');
+    const r1 = await queue.exec(0x01, [0x00]);
+    if (!(r1.length >= 3 && r1[1] === 0x00)) throw new Error('认证步骤 1 被拒绝（content=' + bytesToHex(r1) + '）');
+    const key = sysId[3] ^ sysId[4] ^ sysId[5];
+    const digest = sm3Digest(new Uint8Array([r1[1], key])); // 取摘要最后 3 字节 digest[29..31]
+    log(`认证步骤 2：key=0x${hex2(key)}，SM3 末 3 字节=${bytesToHex(digest.slice(29))}`);
+    const r2 = await queue.exec(0x01, [0x01, digest[29], digest[30], digest[31]]);
+    if (r2.length < 31) throw new Error(`认证步骤 2 响应过短（${r2.length} 字节）`);
+    if (r2[1] !== 0x00) {
+      throw new Error(`认证被拒绝（AUTH_FAILED，code=0x${hex2(r2[1])}）`);
+    } // 官方 AAR：content[1]==0 为成功
+    deviceStatus = parseDeviceStatus(r2, 29); // 历史标志在 content[29] bit0/1/2
+    // 认证响应布局：content[1]=结果，battery=[2]，state=[3]
+    deviceStatus.battery = r2[2]; deviceStatus.state = r2[3];
+    log(`认证成功：电量=${deviceStatus.battery}% 状态=${stateName(deviceStatus.state)}`, 'ok');
+    renderDeviceStatus();
+
+    // ---- 工厂模式退出 ----
+    if (deviceStatus.state === 5) {
+      log('设备处于工厂模式，发送 0x20 [01] 退出…', 'warn');
+      await queue.exec(0x20, [0x01]);
+      await sleep(500);
+      log('已退出工厂模式', 'ok');
+    }
+
+    // ---- 时间同步（mode=0 正常模式）----
+    await syncTime(0);
+
+    setUiConnected(true);
+    setConnPill('在线 ONLINE', 'ok');
+    log('连接流程完成 🎉', 'ok');
+  } catch (e) {
+    throw e; // 交给上层 connect() 重试
+  }
+}
+
+async function syncTime(mode) {
+  const offset = (Math.floor(Date.now() / 1000) - EPOCH) >>> 0;
+  // 官方 AAR f.c：workMode 在首字节，末字节是 heartbeat（当前固定为 0）。
+  const content = [mode & 0xff, (offset >>> 24) & 0xff, (offset >>> 16) & 0xff,
+                   (offset >>> 8) & 0xff, offset & 0xff, 0x00];
+  log(`时间同步：mode=${mode}（${mode === 2 ? '血氧验证' : '正常'}）`);
+  const r = await queue.exec(0x02, content);
+  if (!(r.length === 2 && r[0] === 0 && r[1] === 0)) {
+    throw new Error(`WORK_MODE_FAILED：时间同步响应异常 [${bytesToHex(r)}]`);
+  }
+  log('时间同步成功', 'ok');
+}
+
+function friendlyError(e) {
+  if (e instanceof NotifySetupError) return 'Notify 订阅失败，可能尚未完成 Windows 系统配对：' + e.message;
+  if (e.name === 'NotFoundError') return '用户取消选择或设备未找到';
+  if (e.name === 'NetworkError') return 'GATT 连接失败（设备不可达/已断开，类似 Android status 133）：' + e.message;
+  if (e.name === 'SecurityError') return '安全错误：页面需在 https 或 localhost 下运行';
+  if (e.name === 'NotSupportedError') return '设备不包含所需的 GATT Service/特征：' + e.message;
+  return e.message || String(e);
+}
+
+// ---- 断开 ----
+function resetBleState() {
+  history.cancel();
+  queue.cancelAll('连接已断开');
+  ppgReasm.reset(); accReasm.reset();
+  if (spo2Active) { spo2Active = false; $('spo2State').textContent = '等待数据 WAITING'; $('spo2State').className = 'pill'; }
+  writeChar = notifyChar = null;
+  server = null;
+  setAuthenticatedInfoVisible(false);
+  setUiConnected(false);
+}
+
+async function cleanupBle({ settleMs = 0 } = {}) {
+  resetBleState();
+  const activeDevice = device;
+  if (activeDevice?.gatt?.connected) {
+    intentionalDisconnects.add(activeDevice);
+    const disconnected = waitForGattDisconnected(activeDevice);
+    try { activeDevice.gatt.disconnect(); } catch (_) {}
+    await disconnected;
+    intentionalDisconnects.delete(activeDevice);
+  }
+  if (settleMs > 0) {
+    log(`等待蓝牙栈恢复 ${settleMs}ms 后重试…`, 'warn');
+    await sleep(settleMs);
+  }
+}
+function onDisconnected(event) {
+  const disconnectedDevice = event.target;
+  const wasIntentional = intentionalDisconnects.has(disconnectedDevice);
+  intentionalDisconnects.delete(disconnectedDevice);
+  log(wasIntentional ? 'GATT 已完成主动断开' : '设备意外断开（gattserverdisconnected）', wasIntentional ? 'info' : 'warn');
+  resetBleState();
+  if (!connecting && !wasIntentional) setConnPill('离线 OFFLINE', '');
+}
+$('btnDisconnect').onclick = async () => {
+  log('用户主动断开');
+  if (document.body.dataset.mode === 'bridge') {
+    if (bridgeTransport && activeBridgeDeviceId) {
+      try {
+        await bridgeTransport.disconnect(activeBridgeDeviceId);
+      } catch (error) {
+        log(`戒指断开请求失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
+        return;
+      }
+    }
+  } else {
+    await cleanupBle();
+  }
+  setConnPill('离线 OFFLINE', '');
+  setConnHelp();
+};
+
+// ---- 血氧验证 ----
+$('btnEnterSpo2').onclick = async () => {
+  try {
+    $('btnEnterSpo2').disabled = true;
+    if (document.body.dataset.mode === 'bridge') {
+      if (!bridgeTransport || !activeBridgeDeviceId || bridgeHistory.active) return;
+      resetRealtimeView();
+      await bridgeTransport.startSpo2Verification(activeBridgeDeviceId);
+      setSpo2Active(true);
+      log('Android SDK 血氧测量流已开启', 'ok');
+    } else {
+      await syncTime(2);                    // 时间同步 mode=2（血氧验证）
+      await queue.exec(0x06, [0x11]);       // 开始实时测量流
+      setSpo2Active(true);
+      log('已进入血氧验证模式，测量流已开启', 'ok');
+    }
+  } catch (e) {
+    log('进入血氧验证失败：' + e.message, 'err');
+  } finally {
+    $('btnEnterSpo2').disabled = !connected || spo2Active;
+    $('btnExitSpo2').disabled = !connected || !spo2Active;
+  }
+};
+$('btnExitSpo2').onclick = async () => {
+  try {
+    $('btnExitSpo2').disabled = true;
+    if (document.body.dataset.mode === 'bridge') {
+      if (!bridgeTransport || !activeBridgeDeviceId) return;
+      await bridgeTransport.stopMeasurement(activeBridgeDeviceId);
+      setSpo2Active(false);
+      log('Android SDK 血氧测量流已停止', 'ok');
+    } else {
+      await queue.exec(0x06, [0x00]);       // 停止测量流
+      await syncTime(0);                    // 恢复 mode=0 正常模式
+      setSpo2Active(false);
+      log('已退出血氧验证模式', 'ok');
+    }
+  } catch (e) {
+    log('退出血氧验证失败：' + e.message, 'err');
+  } finally {
+    $('btnEnterSpo2').disabled = !connected || spo2Active;
+    $('btnExitSpo2').disabled = !connected || !spo2Active;
+  }
+};
+
+// ---- 历史同步 ----
+$('btnSync').onclick = async () => {
+  if (document.body.dataset.mode === 'bridge') {
+    if (!bridgeTransport || !activeBridgeDeviceId || bridgeHistory.active) return;
+    bridgeHistory.beginRequest(activeBridgeDeviceId);
+    bindBridgeHistoryData();
+    clearHistoryView();
+    renderBridgeHistoryProgress();
+    try {
+      await bridgeTransport.syncHistory(activeBridgeDeviceId);
+      log('Android SDK 已接受历史同步请求，等待记录事件');
+    } catch (error) {
+      bridgeHistory.failRequest(error);
+      renderBridgeHistoryProgress();
+      log(`历史同步启动失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
+    }
+    return;
+  }
+  $('btnSync').disabled = true;
+  $('btnSyncCancel').disabled = false;
+  history.start(deviceStatus);
+};
+$('btnSyncCancel').onclick = () => {
+  if (document.body.dataset.mode === 'bridge') {
+    log('Android SDK 未提供历史同步取消接口', 'warn');
+    return;
+  }
+  history.cancel();
+};
+
+// ---- CSV 导出（格式与 sample_data 一致：BOM + 表头 + ISO 时间 + true/false）----
+function downloadCsv(filename, headers, rows) {
+  const csv = '\uFEFF' + headers.join(',') + '\n' + rows.map(r => r.join(',')).join('\n') + '\n';
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  log(`已导出 ${filename}（${rows.length} 行）`, 'ok');
+}
+const tsName = () => new Date().toISOString().replace(/[:.]/g, '-');
+$('btnExpM').onclick = () => downloadCsv(`history_${tsName()}_Measurement.csv`,
+  ['time', 'hr', 'hrv', 'spo2', 'respRate', 'hrSuccess', 'spo2Success'],
+  historyRowsForCsv('measurement', historyData.measurement));
+$('btnExpS').onclick = () => downloadCsv(`history_${tsName()}_Sport.csv`,
+  ['time', 'hr', 'steps', 'activityCount'],
+  historyRowsForCsv('sport', historyData.sport));
+$('btnExpA').onclick = () => downloadCsv(`history_${tsName()}_Activity.csv`,
+  ['time', 'batteryPercent', 'steps', 'activeSeconds', 'temperaturesC'],
+  historyRowsForCsv('activity', historyData.activity));
+
+// ---- Tab 切换 ----
+$('tabPpg').onclick = () => { activeWaveTab = 'ppg'; $('wavePpg').style.display = ''; $('waveAcc').style.display = 'none'; $('tabPpg').classList.add('active'); $('tabAcc').classList.remove('active'); };
+$('tabAcc').onclick = () => { activeWaveTab = 'acc'; $('wavePpg').style.display = 'none'; $('waveAcc').style.display = ''; $('tabAcc').classList.add('active'); $('tabPpg').classList.remove('active'); };
+$('htabM').onclick = () => switchHistTab('M');
+$('htabS').onclick = () => switchHistTab('S');
+$('htabA').onclick = () => switchHistTab('A');
+$('modeBridge').onclick = async () => {
+  if (device?.gatt?.connected) await cleanupBle();
+  setTransportMode('bridge');
+};
+$('modeBluetooth').onclick = () => {
+  disconnectAndroidBridge();
+  setTransportMode('bluetooth');
+};
+$('btnBridgeConnect').onclick = connectAndroidBridge;
+$('btnBridgeDisconnect').onclick = disconnectAndroidBridge;
+function switchHistTab(k) {
+  for (const x of ['M', 'S', 'A']) {
+    $('wrap' + x).style.display = x === k ? '' : 'none';
+    $('htab' + x).classList.toggle('active', x === k);
+  }
+}
+
+// ---- 日志面板 ----
+$('btnClearLog').onclick = () => { logPanel.innerHTML = ''; };
+$('btnCopyLog').onclick = async () => {
+  try {
+    await navigator.clipboard.writeText(logPanel.innerText);
+    log('日志已复制到剪贴板 ✔', 'ok');
+  } catch (e) {
+    // 剪贴板 API 失败时退化为全选日志，用户手动 Ctrl+C
+    const sel = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(logPanel);
+    sel.removeAllRanges(); sel.addRange(range);
+    log('剪贴板不可用，已全选日志，请按 Ctrl+C', 'warn');
+  }
+};
+$('logRaw').onchange = e => { logRawEnabled = e.target.checked; };
+
+// ---- 初始化：环境检查 + SM3 自检 ----
+(function init() {
+  $('bridgeHost').value = localStorage.getItem('alloopBridgeHost') || '';
+  $('bridgePort').value = localStorage.getItem('alloopBridgePort') || '8766';
+  setTransportMode('bluetooth');
+  log('Alloop Kit Bridge Console 已加载');
+  // SM3 已知测试向量自检："abc" → 66c7f0f4…8f4ba8e0
+  const expect = '66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0';
+  const got = sm3Hex(new Uint8Array([0x61, 0x62, 0x63]));
+  if (got === expect) log('SM3 自检通过 ✔（"abc" → ' + got.slice(0, 16) + '…）', 'ok');
+  else log('SM3 自检失败 ✘ got=' + got + ' expect=' + expect, 'err');
+  console.assert(got === expect, 'SM3 self-test failed');
+
+  if (location.protocol === 'https:') log('HTTPS 页面无法连接明文 ws:// Android Bridge', 'warn');
+  if (!navigator.bluetooth) log('Web Bluetooth 在当前浏览器不可用', 'warn');
+})();
+</script>
+</body>
+</html>
