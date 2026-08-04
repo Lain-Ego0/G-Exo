@@ -44,12 +44,14 @@ vm.runInContext(
   `${html.slice(start, end)}\n` +
   'globalThis.AndroidBridgeTransportForTest = AndroidBridgeTransport;\n' +
   'globalThis.BridgeHistoryStoreForTest = BridgeHistoryStore;\n' +
-  'globalThis.historyRowsForCsvForTest = historyRowsForCsv;',
+  'globalThis.historyRowsForCsvForTest = historyRowsForCsv;\n' +
+  'globalThis.isBridgeTargetDeviceForTest = isBridgeTargetDevice;',
   context,
 );
 const AndroidBridgeTransport = context.AndroidBridgeTransportForTest;
 const BridgeHistoryStore = context.BridgeHistoryStoreForTest;
 const historyRowsForCsv = context.historyRowsForCsvForTest;
+const isBridgeTargetDevice = context.isBridgeTargetDeviceForTest;
 
 function createTransport(timeoutMs = 100) {
   const transport = new AndroidBridgeTransport('ws://127.0.0.1:8766/ws', 'token', timeoutMs);
@@ -136,9 +138,20 @@ test('bridge UI consumes Android scan and connection events', () => {
   assert.match(html, /bridgeTransport\.scan\(\{ timeoutMs: 15000 \}\)/);
   assert.doesNotMatch(html, /startAndroidScan[\s\S]*?nameFilter: 'AlloopRing'[\s\S]*?\n\}/);
   assert.match(html, /bridgeDevices\.set\(data\.deviceId, data\)/);
+  assert.match(html, /isBridgeTargetDevice\(data\)[\s\S]*?connectAndroidRing\(data\.deviceId\)/);
   assert.match(html, /handleBridgeConnectionState\(data\)/);
   assert.match(html, /bridgeTransport\.connect\(deviceId\)/);
   assert.match(html, /if \(!state\.ringConnected\) \{\s*await startAndroidScan\(\)/);
+});
+
+test('bridge auto-connect target matches the configured ring suffix', () => {
+  assert.equal(isBridgeTargetDevice({ name: 'AlloopRing-4555' }), true);
+  assert.equal(isBridgeTargetDevice({ deviceId: '22:2B:80:21:45:55', name: 'Unknown' }), true);
+  assert.equal(isBridgeTargetDevice({ deviceId: '22:2b:80:21:45:55', name: '' }), true);
+  assert.equal(isBridgeTargetDevice({ name: 'AlloopRing-1234' }), false);
+  assert.equal(isBridgeTargetDevice({ deviceId: '22:2B:80:21:45:54', name: 'Unknown' }), false);
+  assert.equal(isBridgeTargetDevice({ name: '' }), false);
+  assert.equal(isBridgeTargetDevice({}), false);
 });
 
 test('bridge UI loads device info and consumes status events', () => {
