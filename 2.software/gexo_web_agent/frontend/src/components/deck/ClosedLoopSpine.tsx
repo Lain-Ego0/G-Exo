@@ -14,7 +14,7 @@ export function ClosedLoopSpine({
   return (
     <div className="closed-loop-spine" aria-label="Closed loop status">
       <span className="spine-caption">
-        CLOSED LOOP / {connection === "online" ? "LIVE TELEMETRY" : connection.toUpperCase()}
+        闭环 / CLOSED LOOP · {connection === "online" ? "实时遥测 / LIVE TELEMETRY" : connection.toUpperCase()}
       </span>
       <div className="spine-track" aria-hidden="true">
         {STAGES.map((stage) => (
@@ -31,7 +31,7 @@ export function ClosedLoopSpine({
         ))}
       </div>
       <div className="spine-return" aria-hidden="true">
-        <span>TELEMETRY TIME AXIS</span>
+        <span>遥测时间轴 / TELEMETRY TIME AXIS</span>
       </div>
     </div>
   );

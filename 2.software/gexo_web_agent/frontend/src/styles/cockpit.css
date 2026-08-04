@@ -1,5 +1,5 @@
 .app-shell {
-  --product-navigation-height: 58px;
+  --product-navigation-height: 62px;
   min-height: 100vh;
   background: var(--gexo-bg);
 }
@@ -9,7 +9,7 @@
   top: 0;
   z-index: 50;
   display: flex;
-  min-height: 58px;
+  min-height: var(--product-navigation-height);
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -54,7 +54,7 @@
 
 .product-navigation-tab {
   display: inline-flex;
-  min-height: 36px;
+  min-height: 44px;
   align-items: center;
   gap: 8px;
   padding: 7px 12px;
@@ -74,9 +74,24 @@
 }
 
 .product-navigation-tab span {
+  display: grid;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+}
+
+.product-navigation-tab b {
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.15;
+}
+
+.product-navigation-tab small {
+  color: currentColor;
+  font-family: var(--font-data);
+  font-size: 0.52rem;
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .product-view[data-visible="false"] {
@@ -98,8 +113,10 @@
   display: block;
   width: 100%;
   height: calc(100vh - var(--product-navigation-height));
+  height: calc(100dvh - var(--product-navigation-height));
   border: 0;
-  background: #0f1420;
+  background: var(--gexo-bg-deep);
+  color-scheme: dark;
 }
 
 .cockpit-header {
@@ -490,6 +507,49 @@
   font-size: var(--text-xl);
   font-weight: 700;
   line-height: 1;
+}
+
+.stage-panel-header h2,
+.telemetry-toolbar h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.stage-panel-header h2 small,
+.telemetry-toolbar h2 small,
+.section-heading h3 small,
+.agent-identity h3 small {
+  color: var(--gexo-text-dim);
+  font-family: var(--font-data);
+  font-size: 0.56rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.stage-panel-header h2 small,
+.telemetry-toolbar h2 small {
+  font-size: 0.62rem;
+}
+
+.stage-disclaimer {
+  display: flex;
+  min-height: 34px;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 16px;
+  border-bottom: 1px solid rgba(255, 196, 36, 0.22);
+  color: var(--gexo-act);
+}
+
+.stage-disclaimer strong {
+  font-size: var(--text-sm);
+}
+
+.stage-disclaimer span {
+  color: var(--gexo-text-muted);
+  font-family: var(--font-data);
+  font-size: 0.58rem;
 }
 
 .stage-state,
@@ -2131,6 +2191,12 @@
 
   .stage-panel-header {
     min-height: 72px;
+  }
+
+  .stage-panel-header h2,
+  .telemetry-toolbar h2 {
+    flex-wrap: wrap;
+    gap: 3px 6px;
   }
 
   .stage-state {

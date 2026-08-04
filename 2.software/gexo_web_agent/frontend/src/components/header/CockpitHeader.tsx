@@ -80,31 +80,31 @@ export function CockpitHeader({ robot }: { robot: RobotSocketView }) {
     <header className="cockpit-header" data-alert={alert ? "critical" : undefined}>
       <div className="identity-block" aria-label="G-Exo Physical AI Cockpit">
         <span className="wordmark">G-EXO</span>
-        <span className="product-label">PHYSICAL AI COCKPIT</span>
+        <span className="product-label">物理智能座舱 / PHYSICAL AI COCKPIT</span>
       </div>
 
       <div className="robot-safety-rail" aria-label="Robot safety status">
         <RailItem
           icon={Activity}
-          label="MODE"
+          label="模式 MODE"
           state={state?.mode ? "healthy" : "unavailable"}
           value={mode}
         />
         <RailItem
           icon={RadioTower}
-          label="MOTION"
+          label="运动 MOTION"
           state={state?.is_stationary === false ? "warning" : state ? "healthy" : "unavailable"}
           value={motion}
         />
         <RailItem
           icon={CircleStop}
-          label="E-STOP"
+          label="急停 E-STOP"
           state={eStopActive ? "critical" : state ? "healthy" : "unavailable"}
           value={emergencyStop}
         />
         <RailItem
           icon={AlertTriangle}
-          label="FAULT"
+          label="故障 FAULT"
           state={faultActive ? "critical" : state ? "healthy" : "unavailable"}
           value={fault}
         />
@@ -116,7 +116,7 @@ export function CockpitHeader({ robot }: { robot: RobotSocketView }) {
         />
         <RailItem
           icon={Clock3}
-          label="STATE AGE"
+          label="状态时效 STATE AGE"
           state={robot.connection === "online" ? "healthy" : robot.snapshot ? "warning" : "unavailable"}
           value={formatAge(robot.ageMs)}
         />
@@ -125,7 +125,7 @@ export function CockpitHeader({ robot }: { robot: RobotSocketView }) {
       <div className="connection-block" data-state={robot.apiReachable ? "online" : "offline"}>
         <Cpu aria-hidden="true" size={18} strokeWidth={1.8} />
         <div>
-          <strong>{robot.apiReachable ? "K3 CONNECTED" : "K3 NOT CONNECTED"}</strong>
+          <strong>{robot.apiReachable ? "K3 已连接 CONNECTED" : "K3 未连接 NOT CONNECTED"}</strong>
           <span>{transport} / {latency}</span>
         </div>
       </div>
