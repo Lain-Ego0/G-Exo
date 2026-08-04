@@ -151,3 +151,134 @@ export function parseHealthResponse(value: unknown): HealthResponse | null {
     stateOnline: typeof value.state_online === "boolean" ? value.state_online : null,
   };
 }
+
+export const JOINT_IDS = ["left_hip", "left_knee", "right_hip", "right_knee"] as const;
+export type JointId = (typeof JOINT_IDS)[number];
+export type ImuStatus = "online" | "stale" | "offline";
+export type OverallStatus = "online" | "degraded" | "offline";
+
+export interface Vector3Data {
+  x: number;
+  y: number;
+  z: number;
+}
+
+export interface QuaternionData extends Vector3Data {
+  w: number;
+}
+
+export interface ImuTelemetry {
+  joint: JointId;
+  topic: string;
+  frame_id: string | null;
+  expected_frame_id: string;
+  mapping_valid: boolean;
+  timestamp_ms: number | null;
+  received_at_ms: number | null;
+  orientation: QuaternionData | null;
+  angular_velocity: Vector3Data | null;
+  linear_acceleration: Vector3Data | null;
+  orientation_covariance_known: boolean;
+  status: ImuStatus;
+  online: boolean;
+  stale: boolean;
+  age_ms: number | null;
+  frequency_hz: number | null;
+  latency_ms: number | null;
+}
+
+export interface ImuTelemetryEnvelope {
+  schema_version: "imu.v1";
+  generated_at_ms: number;
+  overall_status: OverallStatus;
+  imus: ImuTelemetry[];
+}
+
+export interface ImuHealthResponse {
+  status: string;
+  mode: string | null;
+  transport: string | null;
+  overallStatus: OverallStatus | null;
+}
+
+export interface ImuSocketView {
+  snapshot: ImuTelemetryEnvelope | null;
+  connection: ConnectionState;
+  ageMs: number | null;
+  apiReachable: boolean;
+  health: ImuHealthResponse | null;
+  roundTripMs: number | null;
+  refresh: () => Promise<void>;
+}
+
+function nullableFinite(value: unknown): number | null {
+  return finiteNumber(value) ?? null;
+}
+
+function parseVector(value: unknown): Vector3Data | null {
+  if (!isRecord(value)) return null;
+  const x = finiteNumber(value.x);
+  const y = finiteNumber(value.y);
+  const z = finiteNumber(value.z);
+  return x === undefined || y === undefined || z === undefined ? null : { x, y, z };
+}
+
+function parseQuaternion(value: unknown): QuaternionData | null {
+  const vector = parseVector(value);
+  if (!vector || !isRecord(value)) return null;
+  const w = finiteNumber(value.w);
+  return w === undefined ? null : { ...vector, w };
+}
+
+function parseImu(value: unknown): ImuTelemetry | null {
+  if (!isRecord(value)) return null;
+  if (!JOINT_IDS.includes(value.joint as JointId)) return null;
+  if (value.status !== "online" && value.status !== "stale" && value.status !== "offline") return null;
+  if (typeof value.topic !== "string" || typeof value.expected_frame_id !== "string") return null;
+  if (typeof value.mapping_valid !== "boolean" || typeof value.online !== "boolean" || typeof value.stale !== "boolean") return null;
+  return {
+    joint: value.joint as JointId,
+    topic: value.topic,
+    frame_id: typeof value.frame_id === "string" ? value.frame_id : null,
+    expected_frame_id: value.expected_frame_id,
+    mapping_valid: value.mapping_valid,
+    timestamp_ms: nullableFinite(value.timestamp_ms),
+    received_at_ms: nullableFinite(value.received_at_ms),
+    orientation: parseQuaternion(value.orientation),
+    angular_velocity: parseVector(value.angular_velocity),
+    linear_acceleration: parseVector(value.linear_acceleration),
+    orientation_covariance_known: value.orientation_covariance_known === true,
+    status: value.status,
+    online: value.online,
+    stale: value.stale,
+    age_ms: nullableFinite(value.age_ms),
+    frequency_hz: nullableFinite(value.frequency_hz),
+    latency_ms: nullableFinite(value.latency_ms),
+  };
+}
+
+export function parseImuTelemetryEnvelope(value: unknown): ImuTelemetryEnvelope | null {
+  if (!isRecord(value) || value.schema_version !== "imu.v1") return null;
+  if (value.overall_status !== "online" && value.overall_status !== "degraded" && value.overall_status !== "offline") return null;
+  const generatedAt = finiteNumber(value.generated_at_ms);
+  if (generatedAt === undefined || !Array.isArray(value.imus)) return null;
+  const imus = value.imus.map(parseImu);
+  if (imus.some((imu) => imu === null) || new Set(imus.map((imu) => imu?.joint)).size !== 4) return null;
+  return {
+    schema_version: "imu.v1",
+    generated_at_ms: generatedAt,
+    overall_status: value.overall_status,
+    imus: imus as ImuTelemetry[],
+  };
+}
+
+export function parseImuHealthResponse(value: unknown): ImuHealthResponse | null {
+  if (!isRecord(value) || typeof value.status !== "string" || value.mode !== "telemetry_only") return null;
+  const overall = value.overall_status;
+  return {
+    status: value.status,
+    mode: typeof value.mode === "string" ? value.mode : null,
+    transport: typeof value.transport === "string" ? value.transport : null,
+    overallStatus: overall === "online" || overall === "degraded" || overall === "offline" ? overall : null,
+  };
+}

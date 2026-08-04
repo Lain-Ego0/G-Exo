@@ -2,6 +2,27 @@ server:
   host: 0.0.0.0
   port: 8000
 
+telemetry:
+  enabled: true
+  channels:
+    - joint: left_hip
+      topic: /A1/ahrs
+      expected_frame_id: A1_link
+    - joint: left_knee
+      topic: /A2/ahrs
+      expected_frame_id: A2_link
+    - joint: right_hip
+      topic: /B1/ahrs
+      expected_frame_id: B1_link
+    - joint: right_knee
+      topic: /B2/ahrs
+      expected_frame_id: B2_link
+  stale_after_ms: 100
+  offline_after_ms: 1000
+  frequency_window_s: 2.0
+  ws_publish_hz: 20.0
+  heartbeat_ms: 250
+
 bridge:
   transport: mock          # mock | ros2
   topic: /g_exo/bridge

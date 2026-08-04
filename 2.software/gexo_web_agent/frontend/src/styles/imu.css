@@ -1,0 +1,99 @@
+.imu-header {
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 14px clamp(16px, 4vw, 48px);
+  border-bottom: 1px solid var(--gexo-border);
+  background: var(--gexo-surface-solid);
+}
+
+.imu-kicker,
+.section-index,
+.imu-card-index,
+.imu-source,
+.imu-readout-grid small,
+.imu-card footer,
+.imu-dashboard-heading > span {
+  font-family: var(--font-data);
+  letter-spacing: .04em;
+}
+
+.imu-kicker { color: var(--gexo-sense); font-size: var(--text-xs); }
+.imu-title-block h1 { margin-top: 3px; font: 700 var(--text-xl) var(--font-display); }
+.imu-title-block h1 small,
+.imu-dashboard-heading h2 small { color: var(--gexo-text-muted); font: 600 var(--text-xs) var(--font-data); margin-left: 8px; }
+.imu-header-rail { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.imu-header-rail span { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--gexo-border); padding: 7px 9px; color: var(--gexo-text-muted); font: 600 var(--text-xs) var(--font-data); }
+.imu-header-rail span[data-state="online"] { color: var(--gexo-success); }
+.imu-header-rail span[data-state="degraded"], .imu-header-rail span[data-state="stale"] { color: var(--gexo-warning); }
+.imu-header-rail span[data-state="offline"] { color: var(--gexo-danger); }
+
+.imu-main { display: grid; gap: var(--space-6); max-width: 1600px; margin: 0 auto; padding: clamp(16px, 3vw, 32px); }
+.sim-control { border: 2px solid var(--gexo-act); border-radius: var(--radius-panel); background: var(--gexo-surface-solid); box-shadow: 0 0 28px rgba(255, 196, 36, .1); overflow: hidden; }
+.sim-control > header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid rgba(255, 196, 36, .28); background: rgba(255, 196, 36, .06); }
+.sim-control-kicker, .sim-control-body > div > span, .sim-control-status { font: 600 var(--text-xs) var(--font-data); }
+.sim-control-kicker { color: var(--gexo-act); }
+.sim-control h2 { margin-top: 4px; font: 700 var(--text-xl) var(--font-display); }
+.sim-control-status { display: inline-flex; align-items: center; gap: 6px; color: var(--gexo-warning); }
+.sim-control-status[data-state="online"] { color: var(--gexo-success); }
+.sim-control-body { display: grid; grid-template-columns: minmax(360px, 1.5fr) minmax(250px, .8fr) minmax(220px, .7fr); gap: 1px; background: var(--gexo-rule); }
+.sim-control-body > div { min-width: 0; padding: 18px 20px; background: var(--gexo-surface-raised); }
+.sim-control-body > div > span { display: block; margin-bottom: 10px; color: var(--gexo-text-muted); }
+.sim-mode-segment { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sim-mode-segment button { min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--gexo-border); border-radius: var(--radius-control); background: transparent; color: var(--gexo-text-muted); font-weight: 700; }
+.sim-mode-segment button small { font: 600 10px var(--font-data); }
+.sim-mode-segment button[aria-pressed="true"] { border-color: var(--gexo-act); background: rgba(255, 196, 36, .14); color: var(--gexo-act); }
+.sim-mode-segment button:disabled:not([aria-pressed="true"]), .sim-assist-stepper button:disabled { opacity: .42; cursor: not-allowed; }
+.sim-assist-stepper { display: grid; grid-template-columns: 44px minmax(90px, 1fr) 44px; align-items: center; gap: 8px; }
+.sim-assist-stepper button { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--gexo-border); border-radius: var(--radius-control); background: transparent; color: var(--gexo-text); }
+.sim-assist-stepper strong { text-align: center; color: var(--gexo-act); font: 700 2rem var(--font-data); }
+.sim-assist-stepper strong small { margin-left: 4px; font-size: var(--text-sm); }
+.sim-command-state strong, .sim-command-state small { display: block; overflow-wrap: anywhere; }
+.sim-command-state strong { color: var(--gexo-success); font: 700 var(--text-lg) var(--font-display); }
+.sim-command-state small { margin-top: 6px; color: var(--gexo-text-dim); font-size: var(--text-xs); }
+.sim-confirm-actions { display: flex; gap: 8px; margin-top: 8px; }
+.sim-confirm-actions button { min-height: 36px; padding: 0 12px; border: 1px solid var(--gexo-act); border-radius: var(--radius-control); background: rgba(255, 196, 36, .14); color: var(--gexo-act); font-weight: 700; }
+.sim-confirm-actions button:last-child { border-color: var(--gexo-border); background: transparent; color: var(--gexo-text-muted); }
+.sim-control-note { padding: 10px 20px; color: var(--gexo-warning); font-size: var(--text-xs); }
+.imu-dashboard, .imu-telemetry-dock { border: 1px solid var(--gexo-border); background: var(--gexo-surface); border-radius: var(--radius-panel); }
+.imu-dashboard-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--gexo-rule); }
+.imu-dashboard-heading h2 { margin-top: 3px; font: 700 var(--text-lg) var(--font-display); }
+.imu-dashboard-heading > span { display: flex; align-items: center; gap: 6px; color: var(--gexo-text-muted); font-size: var(--text-xs); }
+.imu-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 14px; }
+.imu-card { min-width: 0; padding: 16px; border: 1px solid var(--gexo-border); border-left: 3px solid var(--gexo-text-dim); background: var(--gexo-surface-raised); }
+.imu-card[data-status="online"] { border-left-color: var(--gexo-success); }
+.imu-card[data-status="stale"] { border-left-color: var(--gexo-warning); }
+.imu-card[data-status="offline"] { border-left-color: var(--gexo-danger); }
+.imu-card > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.imu-card-index { color: var(--gexo-sense); font-size: var(--text-xs); }
+.imu-card h2 { margin-top: 2px; font: 700 var(--text-lg) var(--font-display); }
+.imu-status { display: inline-flex; align-items: center; gap: 4px; color: var(--gexo-text-muted); font: 600 var(--text-xs) var(--font-data); }
+.imu-card[data-status="online"] .imu-status { color: var(--gexo-success); }
+.imu-card[data-status="stale"] .imu-status { color: var(--gexo-warning); }
+.imu-card[data-status="offline"] .imu-status { color: var(--gexo-danger); }
+.imu-source { display: flex; justify-content: space-between; gap: 12px; margin: 14px 0; color: var(--gexo-text-dim); font-size: var(--text-xs); overflow-wrap: anywhere; }
+.imu-readout-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.imu-readout-grid > div { min-width: 0; padding-top: 9px; border-top: 1px solid var(--gexo-rule); }
+.imu-readout-grid small { display: block; color: var(--gexo-text-dim); font-size: 10px; }
+.imu-readout-grid strong { display: block; margin-top: 4px; color: var(--gexo-text); font: 400 var(--text-sm) var(--font-data); overflow-wrap: anywhere; }
+.imu-card footer { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; color: var(--gexo-text-dim); font-size: 10px; }
+.imu-card footer b { color: var(--gexo-text-muted); font-weight: 600; }
+.imu-warning, .imu-note, .imu-disclaimer { display: flex; align-items: center; gap: 6px; color: var(--gexo-warning); font-size: var(--text-xs); }
+.imu-warning { margin-top: 12px; }
+.imu-note { margin-top: 10px; color: var(--gexo-text-dim); }
+.imu-disclaimer { margin: 0; padding: 0 20px 18px; color: var(--gexo-text-dim); }
+.imu-telemetry-dock { overflow: hidden; }
+.imu-telemetry-dock .telemetry-chart { margin: 0 14px 14px; }
+
+@media (max-width: 800px) {
+  .imu-header { align-items: flex-start; flex-direction: column; }
+  .imu-header-rail { justify-content: flex-start; }
+  .imu-cards { grid-template-columns: 1fr; }
+  .imu-dashboard-heading { align-items: flex-start; flex-direction: column; }
+  .imu-readout-grid { grid-template-columns: 1fr; }
+  .sim-control > header { align-items: flex-start; flex-direction: column; }
+  .sim-control-body { grid-template-columns: 1fr; }
+  .sim-mode-segment { grid-template-columns: 1fr; }
+}

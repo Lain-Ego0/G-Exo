@@ -56,7 +56,7 @@ export async function postAction(
   params: Record<string, unknown>,
 ): Promise<CommandView> {
   const response = await timedFetch(
-    "/api/action",
+    "/control/api/action",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -78,7 +78,7 @@ export async function postConfirmation(
   approve: boolean,
 ): Promise<CommandView> {
   const response = await timedFetch(
-    "/api/confirm",
+    "/control/api/confirm",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -97,7 +97,7 @@ export async function postConfirmation(
 
 export async function postChat(text: string): Promise<ChatResponse> {
   const response = await timedFetch(
-    "/api/chat",
+    "/control/api/chat",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

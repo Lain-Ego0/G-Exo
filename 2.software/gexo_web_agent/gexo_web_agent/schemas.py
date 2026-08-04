@@ -273,3 +273,60 @@ class StateResponse(BaseModel):
     stale: bool
     state: Optional[StateData] = None
     last_update_ms: Optional[int] = None
+
+
+# ---------------------------------------------------------------------------
+# 4. Read-only IMU telemetry API
+# ---------------------------------------------------------------------------
+
+JointId = Literal["left_hip", "left_knee", "right_hip", "right_knee"]
+ImuStatus = Literal["online", "stale", "offline"]
+
+
+class Vector3Data(BaseModel):
+    x: float
+    y: float
+    z: float
+
+
+class QuaternionData(BaseModel):
+    x: float
+    y: float
+    z: float
+    w: float
+
+
+class ImuReading(BaseModel):
+    frame_id: str
+    timestamp_ms: float
+    orientation: QuaternionData
+    angular_velocity: Vector3Data
+    linear_acceleration: Vector3Data
+    orientation_covariance_known: bool
+
+
+class ImuTelemetry(BaseModel):
+    joint: JointId
+    topic: str
+    frame_id: Optional[str] = None
+    expected_frame_id: str
+    mapping_valid: bool = False
+    timestamp_ms: Optional[float] = None
+    received_at_ms: Optional[float] = None
+    orientation: Optional[QuaternionData] = None
+    angular_velocity: Optional[Vector3Data] = None
+    linear_acceleration: Optional[Vector3Data] = None
+    orientation_covariance_known: bool = False
+    status: ImuStatus = "offline"
+    online: bool = False
+    stale: bool = True
+    age_ms: Optional[float] = None
+    frequency_hz: Optional[float] = None
+    latency_ms: Optional[float] = None
+
+
+class ImuTelemetryEnvelope(BaseModel):
+    schema_version: Literal["imu.v1"] = "imu.v1"
+    generated_at_ms: int = Field(default_factory=now_ms)
+    overall_status: Literal["online", "degraded", "offline"]
+    imus: list[ImuTelemetry]
