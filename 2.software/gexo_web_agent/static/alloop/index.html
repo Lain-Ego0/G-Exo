@@ -151,8 +151,8 @@
   <section class="card diagnostic-section" id="sec-scan">
     <h2>1. 选择戒指 <span class="tag" id="scanModeLabel">Android SDK 扫描</span></h2>
     <div class="row">
-      <button id="btnScan">扫描戒指</button>
-      <span class="hint" id="scanHelp">设备列表来自 Android SDK，本页不会使用 Web Bluetooth 设备 ID。</span>
+      <button id="btnScan">扫描并连接 AlloopRing-4555</button>
+      <span class="hint" id="scanHelp">Android SDK 发现 22:2B:80:21:45:55 后会自动连接。</span>
     </div>
     <ul id="deviceList"></ul>
   </section>
@@ -584,9 +584,19 @@ function historyRowsForCsv(type, records, toIso = isoOf) {
   throw new Error(`Unknown history type: ${type}`);
 }
 
+const BRIDGE_TARGET_NAME = 'AlloopRing-4555';
+const BRIDGE_TARGET_DEVICE_ID = '22:2b:80:21:45:55';
+
+function isBridgeTargetDevice(device) {
+  const deviceId = typeof device?.deviceId === 'string' ? device.deviceId.trim().toLowerCase() : '';
+  const name = typeof device?.name === 'string' ? device.name.trim() : '';
+  return deviceId === BRIDGE_TARGET_DEVICE_ID || name === BRIDGE_TARGET_NAME;
+}
+
 let bridgeTransport = null;
 const bridgeDevices = new Map();
 let activeBridgeDeviceId = null;
+let bridgeTargetScanActive = false;
 const bridgeHistory = new BridgeHistoryStore();
 
 function setBridgeConnectionState(text, level = '') {
@@ -652,12 +662,23 @@ async function connectAndroidBridge() {
         }
         log(`Android Bridge 已断开（${data.code}${data.reason ? `: ${data.reason}` : ''}）`, 'warn');
       } else if (event === 'scanState') {
-        $('btnScan').disabled = Boolean(data.scanning);
-        $('btnScan').textContent = data.scanning ? '扫描中…' : '重新扫描';
+        const scanning = Boolean(data.scanning);
+        const targetScanFinished = bridgeTargetScanActive && !scanning;
+        bridgeTargetScanActive = scanning;
+        $('btnScan').disabled = scanning;
+        $('btnScan').textContent = scanning ? '正在查找 AlloopRing-4555…' : '重新扫描并连接';
         log(data.scanning ? 'Android SDK 开始扫描戒指' : 'Android SDK 扫描结束');
+        if (targetScanFinished && !connecting && !connected &&
+            !Array.from(bridgeDevices.values()).some(isBridgeTargetDevice)) {
+          log('未发现 AlloopRing-4555（22:2B:80:21:45:55），请确认戒指有电、在手机附近且未被其他设备连接', 'warn');
+        }
       } else if (event === 'deviceDiscovered') {
         bridgeDevices.set(data.deviceId, data);
         renderDeviceList();
+        if (isBridgeTargetDevice(data) && !connecting && !connected) {
+          log(`已发现目标戒指 ${data.name}，正在自动连接`, 'ok');
+          connectAndroidRing(data.deviceId);
+        }
       } else if (event === 'connectionState') {
         handleBridgeConnectionState(data);
       } else if (event === 'deviceStatus') {
@@ -732,9 +753,9 @@ function setTransportMode(mode) {
   $('scanModeLabel').textContent = bridgeMode ? 'Android SDK 扫描' : 'Web Bluetooth 诊断';
   $('deviceModeLabel').textContent = bridgeMode ? '绑定 · Notify · 认证' : '固件版本 · System ID';
   $('scanHelp').textContent = bridgeMode
-    ? '设备列表来自 Android SDK，本页不会使用 Web Bluetooth 设备 ID。'
+    ? 'Android SDK 发现 22:2B:80:21:45:55 后会自动连接。'
     : `目标：${TARGET_DEVICE_NAME}。浏览器选择器仅用于受限诊断。`;
-  $('btnScan').textContent = bridgeMode ? '扫描戒指' : '选择目标戒指';
+  $('btnScan').textContent = bridgeMode ? '扫描并连接 AlloopRing-4555' : '选择目标戒指';
   $('historyModeLabel').textContent = bridgeMode ? 'Android SDK 事件流' : 'Web Bluetooth 诊断不可用';
   $('measurementModeLabel').textContent = bridgeMode
     ? 'Android SDK 实时流'
@@ -1873,15 +1894,17 @@ async function startAndroidScan() {
   bridgeDevices.clear();
   renderDeviceList();
   $('btnScan').disabled = true;
-  $('btnScan').textContent = '扫描中…';
+  $('btnScan').textContent = '正在查找 AlloopRing-4555…';
+  bridgeTargetScanActive = true;
   try {
     // Match the Android app's default scan path: discover first, then let the
     // user choose from SDK results. A native exact-name filter can hide rings
     // whose advertised name differs across firmware revisions.
     await bridgeTransport.scan({ timeoutMs: 15000 });
   } catch (error) {
+    bridgeTargetScanActive = false;
     $('btnScan').disabled = false;
-    $('btnScan').textContent = '重新扫描';
+    $('btnScan').textContent = '重新扫描并连接';
     log(`Android SDK 扫描启动失败：${error.code ? `${error.code} ` : ''}${error.message}`, 'err');
   }
 }
