@@ -1875,7 +1875,7 @@ async function startAndroidScan() {
   $('btnScan').disabled = true;
   $('btnScan').textContent = '扫描中…';
   try {
-    await bridgeTransport.scan({ timeoutMs: 15000, nameFilter: 'AlloopRing' });
+    await bridgeTransport.scan({ timeoutMs: 15000 });
   } catch (error) {
     $('btnScan').disabled = false;
     $('btnScan').textContent = '重新扫描';
