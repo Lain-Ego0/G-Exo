@@ -61,6 +61,18 @@ async def test_health_and_state():
         assert body["last_update_ms"] is not None
 
 
+async def test_frontend_routes_and_ring_page_are_served():
+    async with running_app(make_settings()) as client:
+        for path in ("/", "/ring", "/cockpit"):
+            response = await client.get(path)
+            assert response.status_code == 200
+            assert '<div id="root"></div>' in response.text
+
+        ring_page = await client.get("/alloop/index.html")
+        assert ring_page.status_code == 200
+        assert "Alloop Kit Bridge Console" in ring_page.text
+
+
 async def test_adjust_assist_via_button():
     async with running_app(make_settings()) as client:
         r = await client.post("/api/action", json={"action": "adjust_assist", "params": {"delta": 0.1}})

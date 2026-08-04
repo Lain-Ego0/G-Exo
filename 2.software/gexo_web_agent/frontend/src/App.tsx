@@ -23,6 +23,7 @@ export function App() {
   const { activeStage, setActiveStage } = useResponsiveDeck();
 
   const navigate = (view: ProductView) => {
+    if (view === activeView) return;
     const path = view === "ring" ? "/ring" : "/cockpit";
     window.history.pushState({ view }, "", path);
     setActiveView(view);
@@ -59,7 +60,7 @@ export function App() {
           <DebugDrawer robot={robot} />
         </main>
       </section>
-      <ModeConfirmDialog commands={commands} robot={robot} />
+      {activeView === "cockpit" ? <ModeConfirmDialog commands={commands} robot={robot} /> : null}
     </div>
   );
 }
