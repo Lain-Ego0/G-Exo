@@ -1875,7 +1875,10 @@ async function startAndroidScan() {
   $('btnScan').disabled = true;
   $('btnScan').textContent = '扫描中…';
   try {
-    await bridgeTransport.scan({ timeoutMs: 15000, nameFilter: 'AlloopRing' });
+    // Match the Android app's default scan path: discover first, then let the
+    // user choose from SDK results. A native exact-name filter can hide rings
+    // whose advertised name differs across firmware revisions.
+    await bridgeTransport.scan({ timeoutMs: 15000 });
   } catch (error) {
     $('btnScan').disabled = false;
     $('btnScan').textContent = '重新扫描';

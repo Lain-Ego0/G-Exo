@@ -133,6 +133,8 @@ test('maps Stage 2 through Stage 5 RPC calls', async () => {
 });
 
 test('bridge UI consumes Android scan and connection events', () => {
+  assert.match(html, /bridgeTransport\.scan\(\{ timeoutMs: 15000 \}\)/);
+  assert.doesNotMatch(html, /startAndroidScan[\s\S]*?nameFilter: 'AlloopRing'[\s\S]*?\n\}/);
   assert.match(html, /bridgeDevices\.set\(data\.deviceId, data\)/);
   assert.match(html, /handleBridgeConnectionState\(data\)/);
   assert.match(html, /bridgeTransport\.connect\(deviceId\)/);
