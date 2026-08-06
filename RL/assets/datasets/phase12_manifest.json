@@ -1,0 +1,1788 @@
+{
+  "dataset_root": "/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼/Phase1And2_Parsed/Parsed",
+  "input_columns": [
+    "hip_angle_l",
+    "knee_angle_l",
+    "hip_angle_r",
+    "knee_angle_r",
+    "hip_angle_l_velocity_filt",
+    "knee_angle_l_velocity_filt",
+    "hip_angle_r_velocity_filt",
+    "knee_angle_r_velocity_filt",
+    "thigh_imu_l_gyro_x",
+    "thigh_imu_l_gyro_y",
+    "thigh_imu_l_gyro_z",
+    "thigh_imu_l_accel_x",
+    "thigh_imu_l_accel_y",
+    "thigh_imu_l_accel_z",
+    "shank_imu_l_gyro_x",
+    "shank_imu_l_gyro_y",
+    "shank_imu_l_gyro_z",
+    "shank_imu_l_accel_x",
+    "shank_imu_l_accel_y",
+    "shank_imu_l_accel_z",
+    "thigh_imu_r_gyro_x",
+    "thigh_imu_r_gyro_y",
+    "thigh_imu_r_gyro_z",
+    "thigh_imu_r_accel_x",
+    "thigh_imu_r_accel_y",
+    "thigh_imu_r_accel_z",
+    "shank_imu_r_gyro_x",
+    "shank_imu_r_gyro_y",
+    "shank_imu_r_gyro_z",
+    "shank_imu_r_accel_x",
+    "shank_imu_r_accel_y",
+    "shank_imu_r_accel_z"
+  ],
+  "target_columns": {
+    "angle": [
+      "hip_flexion_l",
+      "knee_angle_l",
+      "hip_flexion_r",
+      "knee_angle_r"
+    ],
+    "velocity": [
+      "hip_flexion_l_velocity",
+      "knee_angle_l_velocity",
+      "hip_flexion_r_velocity",
+      "knee_angle_r_velocity"
+    ],
+    "moment": [
+      "hip_flexion_l_moment",
+      "knee_angle_l_moment",
+      "hip_flexion_r_moment",
+      "knee_angle_r_moment"
+    ]
+  },
+  "subjects": [
+    "BT01",
+    "BT02",
+    "BT03",
+    "BT06",
+    "BT07",
+    "BT08",
+    "BT09",
+    "BT10",
+    "BT11",
+    "BT12",
+    "BT13",
+    "BT14",
+    "BT15",
+    "BT16",
+    "BT17"
+  ],
+  "validation_subjects": [
+    "BT15",
+    "BT16",
+    "BT17"
+  ],
+  "trials": [
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_1_0-6_on/BT01_normal_walk_1_0-6_on_exo.csv",
+        "angle": "BT01/normal_walk_1_0-6_on/BT01_normal_walk_1_0-6_on_angle_filt.csv",
+        "velocity": "BT01/normal_walk_1_0-6_on/BT01_normal_walk_1_0-6_on_velocity.csv",
+        "moment": "BT01/normal_walk_1_0-6_on/BT01_normal_walk_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_1_1-2_on/BT01_normal_walk_1_1-2_on_exo.csv",
+        "angle": "BT01/normal_walk_1_1-2_on/BT01_normal_walk_1_1-2_on_angle_filt.csv",
+        "velocity": "BT01/normal_walk_1_1-2_on/BT01_normal_walk_1_1-2_on_velocity.csv",
+        "moment": "BT01/normal_walk_1_1-2_on/BT01_normal_walk_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_1_1-8_on/BT01_normal_walk_1_1-8_on_exo.csv",
+        "angle": "BT01/normal_walk_1_1-8_on/BT01_normal_walk_1_1-8_on_angle_filt.csv",
+        "velocity": "BT01/normal_walk_1_1-8_on/BT01_normal_walk_1_1-8_on_velocity.csv",
+        "moment": "BT01/normal_walk_1_1-8_on/BT01_normal_walk_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_1_2-0_on/BT01_normal_walk_1_2-0_on_exo.csv",
+        "angle": "BT01/normal_walk_1_2-0_on/BT01_normal_walk_1_2-0_on_angle_filt.csv",
+        "velocity": "BT01/normal_walk_1_2-0_on/BT01_normal_walk_1_2-0_on_velocity.csv",
+        "moment": "BT01/normal_walk_1_2-0_on/BT01_normal_walk_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_1_2-5_on/BT01_normal_walk_1_2-5_on_exo.csv",
+        "angle": "BT01/normal_walk_1_2-5_on/BT01_normal_walk_1_2-5_on_angle_filt.csv",
+        "velocity": "BT01/normal_walk_1_2-5_on/BT01_normal_walk_1_2-5_on_velocity.csv",
+        "moment": "BT01/normal_walk_1_2-5_on/BT01_normal_walk_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_3_0-6_off/BT01_normal_walk_3_0-6_off_exo.csv",
+        "angle": "BT01/normal_walk_3_0-6_off/BT01_normal_walk_3_0-6_off_angle_filt.csv",
+        "velocity": "BT01/normal_walk_3_0-6_off/BT01_normal_walk_3_0-6_off_velocity.csv",
+        "moment": "BT01/normal_walk_3_0-6_off/BT01_normal_walk_3_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_3_1-2_off/BT01_normal_walk_3_1-2_off_exo.csv",
+        "angle": "BT01/normal_walk_3_1-2_off/BT01_normal_walk_3_1-2_off_angle_filt.csv",
+        "velocity": "BT01/normal_walk_3_1-2_off/BT01_normal_walk_3_1-2_off_velocity.csv",
+        "moment": "BT01/normal_walk_3_1-2_off/BT01_normal_walk_3_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_3_1-8_off/BT01_normal_walk_3_1-8_off_exo.csv",
+        "angle": "BT01/normal_walk_3_1-8_off/BT01_normal_walk_3_1-8_off_angle_filt.csv",
+        "velocity": "BT01/normal_walk_3_1-8_off/BT01_normal_walk_3_1-8_off_velocity.csv",
+        "moment": "BT01/normal_walk_3_1-8_off/BT01_normal_walk_3_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_3_2-0_off/BT01_normal_walk_3_2-0_off_exo.csv",
+        "angle": "BT01/normal_walk_3_2-0_off/BT01_normal_walk_3_2-0_off_angle_filt.csv",
+        "velocity": "BT01/normal_walk_3_2-0_off/BT01_normal_walk_3_2-0_off_velocity.csv",
+        "moment": "BT01/normal_walk_3_2-0_off/BT01_normal_walk_3_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT01/normal_walk_3_2-5_off/BT01_normal_walk_3_2-5_off_exo.csv",
+        "angle": "BT01/normal_walk_3_2-5_off/BT01_normal_walk_3_2-5_off_angle_filt.csv",
+        "velocity": "BT01/normal_walk_3_2-5_off/BT01_normal_walk_3_2-5_off_velocity.csv",
+        "moment": "BT01/normal_walk_3_2-5_off/BT01_normal_walk_3_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_1_0-6_on/BT02_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT02/normal_walk_1_1_0-6_on/BT02_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_1_0-6_on/BT02_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT02/normal_walk_1_1_0-6_on/BT02_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_1_1-2_on/BT02_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT02/normal_walk_1_1_1-2_on/BT02_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_1_1-2_on/BT02_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT02/normal_walk_1_1_1-2_on/BT02_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_1_1-8_on/BT02_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT02/normal_walk_1_1_1-8_on/BT02_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_1_1-8_on/BT02_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT02/normal_walk_1_1_1-8_on/BT02_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_1_2-0_on/BT02_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT02/normal_walk_1_1_2-0_on/BT02_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_1_2-0_on/BT02_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT02/normal_walk_1_1_2-0_on/BT02_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_2_0-6_off/BT02_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT02/normal_walk_1_2_0-6_off/BT02_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_2_0-6_off/BT02_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT02/normal_walk_1_2_0-6_off/BT02_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_2_1-2_off/BT02_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT02/normal_walk_1_2_1-2_off/BT02_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_2_1-2_off/BT02_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT02/normal_walk_1_2_1-2_off/BT02_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_2_1-8_off/BT02_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT02/normal_walk_1_2_1-8_off/BT02_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_2_1-8_off/BT02_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT02/normal_walk_1_2_1-8_off/BT02_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_3_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_3_2-5_on/BT02_normal_walk_1_3_2-5_on_exo.csv",
+        "angle": "BT02/normal_walk_1_3_2-5_on/BT02_normal_walk_1_3_2-5_on_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_3_2-5_on/BT02_normal_walk_1_3_2-5_on_velocity.csv",
+        "moment": "BT02/normal_walk_1_3_2-5_on/BT02_normal_walk_1_3_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_4_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_4_2-0_off/BT02_normal_walk_1_4_2-0_off_exo.csv",
+        "angle": "BT02/normal_walk_1_4_2-0_off/BT02_normal_walk_1_4_2-0_off_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_4_2-0_off/BT02_normal_walk_1_4_2-0_off_velocity.csv",
+        "moment": "BT02/normal_walk_1_4_2-0_off/BT02_normal_walk_1_4_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_4_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT02/normal_walk_1_4_2-5_off/BT02_normal_walk_1_4_2-5_off_exo.csv",
+        "angle": "BT02/normal_walk_1_4_2-5_off/BT02_normal_walk_1_4_2-5_off_angle_filt.csv",
+        "velocity": "BT02/normal_walk_1_4_2-5_off/BT02_normal_walk_1_4_2-5_off_velocity.csv",
+        "moment": "BT02/normal_walk_1_4_2-5_off/BT02_normal_walk_1_4_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_1_0-6_on/BT03_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT03/normal_walk_1_1_0-6_on/BT03_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_1_0-6_on/BT03_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT03/normal_walk_1_1_0-6_on/BT03_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_1_1-2_on/BT03_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT03/normal_walk_1_1_1-2_on/BT03_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_1_1-2_on/BT03_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT03/normal_walk_1_1_1-2_on/BT03_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_1_1-8_on/BT03_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT03/normal_walk_1_1_1-8_on/BT03_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_1_1-8_on/BT03_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT03/normal_walk_1_1_1-8_on/BT03_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_1_2-0_on/BT03_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT03/normal_walk_1_1_2-0_on/BT03_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_1_2-0_on/BT03_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT03/normal_walk_1_1_2-0_on/BT03_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_1_2-5_on/BT03_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT03/normal_walk_1_1_2-5_on/BT03_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_1_2-5_on/BT03_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT03/normal_walk_1_1_2-5_on/BT03_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_2_0-6_off/BT03_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT03/normal_walk_1_2_0-6_off/BT03_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_2_0-6_off/BT03_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT03/normal_walk_1_2_0-6_off/BT03_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_2_1-2_off/BT03_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT03/normal_walk_1_2_1-2_off/BT03_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_2_1-2_off/BT03_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT03/normal_walk_1_2_1-2_off/BT03_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_2_1-8_off/BT03_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT03/normal_walk_1_2_1-8_off/BT03_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_2_1-8_off/BT03_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT03/normal_walk_1_2_1-8_off/BT03_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_2_2-0_off/BT03_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT03/normal_walk_1_2_2-0_off/BT03_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_2_2-0_off/BT03_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT03/normal_walk_1_2_2-0_off/BT03_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT03/normal_walk_1_2_2-5_off/BT03_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT03/normal_walk_1_2_2-5_off/BT03_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT03/normal_walk_1_2_2-5_off/BT03_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT03/normal_walk_1_2_2-5_off/BT03_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_1_0-6_on/BT06_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT06/normal_walk_1_1_0-6_on/BT06_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_1_0-6_on/BT06_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT06/normal_walk_1_1_0-6_on/BT06_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_1_1-2_on/BT06_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT06/normal_walk_1_1_1-2_on/BT06_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_1_1-2_on/BT06_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT06/normal_walk_1_1_1-2_on/BT06_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_1_1-8_on/BT06_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT06/normal_walk_1_1_1-8_on/BT06_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_1_1-8_on/BT06_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT06/normal_walk_1_1_1-8_on/BT06_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_1_2-0_on/BT06_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT06/normal_walk_1_1_2-0_on/BT06_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_1_2-0_on/BT06_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT06/normal_walk_1_1_2-0_on/BT06_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_1_2-5_on/BT06_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT06/normal_walk_1_1_2-5_on/BT06_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_1_2-5_on/BT06_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT06/normal_walk_1_1_2-5_on/BT06_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_2_0-6_off/BT06_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT06/normal_walk_1_2_0-6_off/BT06_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_2_0-6_off/BT06_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT06/normal_walk_1_2_0-6_off/BT06_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_2_1-2_off/BT06_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT06/normal_walk_1_2_1-2_off/BT06_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_2_1-2_off/BT06_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT06/normal_walk_1_2_1-2_off/BT06_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_2_1-8_off/BT06_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT06/normal_walk_1_2_1-8_off/BT06_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_2_1-8_off/BT06_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT06/normal_walk_1_2_1-8_off/BT06_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_2_2-0_off/BT06_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT06/normal_walk_1_2_2-0_off/BT06_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_2_2-0_off/BT06_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT06/normal_walk_1_2_2-0_off/BT06_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT06/normal_walk_1_2_2-5_off/BT06_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT06/normal_walk_1_2_2-5_off/BT06_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT06/normal_walk_1_2_2-5_off/BT06_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT06/normal_walk_1_2_2-5_off/BT06_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_1_0-6_on/BT07_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT07/normal_walk_1_1_0-6_on/BT07_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_1_0-6_on/BT07_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT07/normal_walk_1_1_0-6_on/BT07_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_1_1-2_on/BT07_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT07/normal_walk_1_1_1-2_on/BT07_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_1_1-2_on/BT07_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT07/normal_walk_1_1_1-2_on/BT07_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_1_1-8_on/BT07_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT07/normal_walk_1_1_1-8_on/BT07_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_1_1-8_on/BT07_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT07/normal_walk_1_1_1-8_on/BT07_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_1_2-0_on/BT07_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT07/normal_walk_1_1_2-0_on/BT07_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_1_2-0_on/BT07_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT07/normal_walk_1_1_2-0_on/BT07_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_1_2-5_on/BT07_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT07/normal_walk_1_1_2-5_on/BT07_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_1_2-5_on/BT07_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT07/normal_walk_1_1_2-5_on/BT07_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_2_0-6_off/BT07_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT07/normal_walk_1_2_0-6_off/BT07_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_2_0-6_off/BT07_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT07/normal_walk_1_2_0-6_off/BT07_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_2_1-2_off/BT07_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT07/normal_walk_1_2_1-2_off/BT07_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_2_1-2_off/BT07_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT07/normal_walk_1_2_1-2_off/BT07_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_2_1-8_off/BT07_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT07/normal_walk_1_2_1-8_off/BT07_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_2_1-8_off/BT07_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT07/normal_walk_1_2_1-8_off/BT07_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_2_2-0_off/BT07_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT07/normal_walk_1_2_2-0_off/BT07_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_2_2-0_off/BT07_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT07/normal_walk_1_2_2-0_off/BT07_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT07/normal_walk_1_2_2-5_off/BT07_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT07/normal_walk_1_2_2-5_off/BT07_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT07/normal_walk_1_2_2-5_off/BT07_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT07/normal_walk_1_2_2-5_off/BT07_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_1_0-6_on/BT08_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT08/normal_walk_1_1_0-6_on/BT08_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_1_0-6_on/BT08_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT08/normal_walk_1_1_0-6_on/BT08_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_1_1-2_on/BT08_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT08/normal_walk_1_1_1-2_on/BT08_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_1_1-2_on/BT08_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT08/normal_walk_1_1_1-2_on/BT08_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_1_1-8_on/BT08_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT08/normal_walk_1_1_1-8_on/BT08_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_1_1-8_on/BT08_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT08/normal_walk_1_1_1-8_on/BT08_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_1_2-0_on/BT08_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT08/normal_walk_1_1_2-0_on/BT08_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_1_2-0_on/BT08_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT08/normal_walk_1_1_2-0_on/BT08_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_1_2-5_on/BT08_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT08/normal_walk_1_1_2-5_on/BT08_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_1_2-5_on/BT08_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT08/normal_walk_1_1_2-5_on/BT08_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_2_0-6_off/BT08_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT08/normal_walk_1_2_0-6_off/BT08_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_2_0-6_off/BT08_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT08/normal_walk_1_2_0-6_off/BT08_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_2_1-2_off/BT08_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT08/normal_walk_1_2_1-2_off/BT08_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_2_1-2_off/BT08_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT08/normal_walk_1_2_1-2_off/BT08_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_2_1-8_off/BT08_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT08/normal_walk_1_2_1-8_off/BT08_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_2_1-8_off/BT08_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT08/normal_walk_1_2_1-8_off/BT08_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_2_2-0_off/BT08_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT08/normal_walk_1_2_2-0_off/BT08_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_2_2-0_off/BT08_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT08/normal_walk_1_2_2-0_off/BT08_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT08/normal_walk_1_2_2-5_off/BT08_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT08/normal_walk_1_2_2-5_off/BT08_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT08/normal_walk_1_2_2-5_off/BT08_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT08/normal_walk_1_2_2-5_off/BT08_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_1_0-6_on/BT09_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT09/normal_walk_1_1_0-6_on/BT09_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_1_0-6_on/BT09_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT09/normal_walk_1_1_0-6_on/BT09_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_1_1-2_on/BT09_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT09/normal_walk_1_1_1-2_on/BT09_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_1_1-2_on/BT09_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT09/normal_walk_1_1_1-2_on/BT09_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_1_1-8_on/BT09_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT09/normal_walk_1_1_1-8_on/BT09_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_1_1-8_on/BT09_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT09/normal_walk_1_1_1-8_on/BT09_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_1_2-0_on/BT09_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT09/normal_walk_1_1_2-0_on/BT09_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_1_2-0_on/BT09_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT09/normal_walk_1_1_2-0_on/BT09_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_1_2-5_on/BT09_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT09/normal_walk_1_1_2-5_on/BT09_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_1_2-5_on/BT09_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT09/normal_walk_1_1_2-5_on/BT09_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_2_0-6_off/BT09_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT09/normal_walk_1_2_0-6_off/BT09_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_2_0-6_off/BT09_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT09/normal_walk_1_2_0-6_off/BT09_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_2_1-2_off/BT09_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT09/normal_walk_1_2_1-2_off/BT09_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_2_1-2_off/BT09_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT09/normal_walk_1_2_1-2_off/BT09_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_2_1-8_off/BT09_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT09/normal_walk_1_2_1-8_off/BT09_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_2_1-8_off/BT09_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT09/normal_walk_1_2_1-8_off/BT09_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_2_2-0_off/BT09_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT09/normal_walk_1_2_2-0_off/BT09_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_2_2-0_off/BT09_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT09/normal_walk_1_2_2-0_off/BT09_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT09/normal_walk_1_2_2-5_off/BT09_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT09/normal_walk_1_2_2-5_off/BT09_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT09/normal_walk_1_2_2-5_off/BT09_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT09/normal_walk_1_2_2-5_off/BT09_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_1_0-6_on/BT10_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT10/normal_walk_1_1_0-6_on/BT10_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_1_0-6_on/BT10_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT10/normal_walk_1_1_0-6_on/BT10_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_1_1-2_on/BT10_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT10/normal_walk_1_1_1-2_on/BT10_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_1_1-2_on/BT10_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT10/normal_walk_1_1_1-2_on/BT10_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_1_1-8_on/BT10_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT10/normal_walk_1_1_1-8_on/BT10_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_1_1-8_on/BT10_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT10/normal_walk_1_1_1-8_on/BT10_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_1_2-0_on/BT10_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT10/normal_walk_1_1_2-0_on/BT10_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_1_2-0_on/BT10_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT10/normal_walk_1_1_2-0_on/BT10_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_1_2-5_on/BT10_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT10/normal_walk_1_1_2-5_on/BT10_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_1_2-5_on/BT10_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT10/normal_walk_1_1_2-5_on/BT10_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_2_0-6_off/BT10_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT10/normal_walk_1_2_0-6_off/BT10_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_2_0-6_off/BT10_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT10/normal_walk_1_2_0-6_off/BT10_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_2_1-2_off/BT10_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT10/normal_walk_1_2_1-2_off/BT10_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_2_1-2_off/BT10_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT10/normal_walk_1_2_1-2_off/BT10_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_2_1-8_off/BT10_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT10/normal_walk_1_2_1-8_off/BT10_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_2_1-8_off/BT10_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT10/normal_walk_1_2_1-8_off/BT10_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_2_2-0_off/BT10_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT10/normal_walk_1_2_2-0_off/BT10_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_2_2-0_off/BT10_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT10/normal_walk_1_2_2-0_off/BT10_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT10/normal_walk_1_2_2-5_off/BT10_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT10/normal_walk_1_2_2-5_off/BT10_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT10/normal_walk_1_2_2-5_off/BT10_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT10/normal_walk_1_2_2-5_off/BT10_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_1_0-6_on/BT11_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT11/normal_walk_1_1_0-6_on/BT11_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_1_0-6_on/BT11_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT11/normal_walk_1_1_0-6_on/BT11_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_1_1-2_on/BT11_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT11/normal_walk_1_1_1-2_on/BT11_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_1_1-2_on/BT11_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT11/normal_walk_1_1_1-2_on/BT11_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_1_1-8_on/BT11_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT11/normal_walk_1_1_1-8_on/BT11_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_1_1-8_on/BT11_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT11/normal_walk_1_1_1-8_on/BT11_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_1_2-0_on/BT11_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT11/normal_walk_1_1_2-0_on/BT11_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_1_2-0_on/BT11_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT11/normal_walk_1_1_2-0_on/BT11_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_1_2-5_on/BT11_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT11/normal_walk_1_1_2-5_on/BT11_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_1_2-5_on/BT11_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT11/normal_walk_1_1_2-5_on/BT11_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_2_0-6_off/BT11_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT11/normal_walk_1_2_0-6_off/BT11_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_2_0-6_off/BT11_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT11/normal_walk_1_2_0-6_off/BT11_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_2_1-2_off/BT11_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT11/normal_walk_1_2_1-2_off/BT11_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_2_1-2_off/BT11_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT11/normal_walk_1_2_1-2_off/BT11_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_2_1-8_off/BT11_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT11/normal_walk_1_2_1-8_off/BT11_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_2_1-8_off/BT11_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT11/normal_walk_1_2_1-8_off/BT11_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_2_2-0_off/BT11_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT11/normal_walk_1_2_2-0_off/BT11_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_2_2-0_off/BT11_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT11/normal_walk_1_2_2-0_off/BT11_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT11/normal_walk_1_2_2-5_off/BT11_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT11/normal_walk_1_2_2-5_off/BT11_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT11/normal_walk_1_2_2-5_off/BT11_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT11/normal_walk_1_2_2-5_off/BT11_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_1_0-6_on/BT12_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT12/normal_walk_1_1_0-6_on/BT12_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_1_0-6_on/BT12_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT12/normal_walk_1_1_0-6_on/BT12_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_1_1-2_on/BT12_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT12/normal_walk_1_1_1-2_on/BT12_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_1_1-2_on/BT12_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT12/normal_walk_1_1_1-2_on/BT12_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_0-6_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_2_0-6_off/BT12_normal_walk_1_2_0-6_off_exo.csv",
+        "angle": "BT12/normal_walk_1_2_0-6_off/BT12_normal_walk_1_2_0-6_off_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_2_0-6_off/BT12_normal_walk_1_2_0-6_off_velocity.csv",
+        "moment": "BT12/normal_walk_1_2_0-6_off/BT12_normal_walk_1_2_0-6_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_1-2_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_2_1-2_off/BT12_normal_walk_1_2_1-2_off_exo.csv",
+        "angle": "BT12/normal_walk_1_2_1-2_off/BT12_normal_walk_1_2_1-2_off_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_2_1-2_off/BT12_normal_walk_1_2_1-2_off_velocity.csv",
+        "moment": "BT12/normal_walk_1_2_1-2_off/BT12_normal_walk_1_2_1-2_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_1-8_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_2_1-8_off/BT12_normal_walk_1_2_1-8_off_exo.csv",
+        "angle": "BT12/normal_walk_1_2_1-8_off/BT12_normal_walk_1_2_1-8_off_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_2_1-8_off/BT12_normal_walk_1_2_1-8_off_velocity.csv",
+        "moment": "BT12/normal_walk_1_2_1-8_off/BT12_normal_walk_1_2_1-8_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_2-0_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_2_2-0_off/BT12_normal_walk_1_2_2-0_off_exo.csv",
+        "angle": "BT12/normal_walk_1_2_2-0_off/BT12_normal_walk_1_2_2-0_off_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_2_2-0_off/BT12_normal_walk_1_2_2-0_off_velocity.csv",
+        "moment": "BT12/normal_walk_1_2_2-0_off/BT12_normal_walk_1_2_2-0_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_2-5_off",
+      "condition": "off",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_1_2_2-5_off/BT12_normal_walk_1_2_2-5_off_exo.csv",
+        "angle": "BT12/normal_walk_1_2_2-5_off/BT12_normal_walk_1_2_2-5_off_angle_filt.csv",
+        "velocity": "BT12/normal_walk_1_2_2-5_off/BT12_normal_walk_1_2_2-5_off_velocity.csv",
+        "moment": "BT12/normal_walk_1_2_2-5_off/BT12_normal_walk_1_2_2-5_off_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_2_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_2_1_0-6_on/BT12_normal_walk_2_1_0-6_on_exo.csv",
+        "angle": "BT12/normal_walk_2_1_0-6_on/BT12_normal_walk_2_1_0-6_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_2_1_0-6_on/BT12_normal_walk_2_1_0-6_on_velocity.csv",
+        "moment": "BT12/normal_walk_2_1_0-6_on/BT12_normal_walk_2_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_2_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_2_1_1-2_on/BT12_normal_walk_2_1_1-2_on_exo.csv",
+        "angle": "BT12/normal_walk_2_1_1-2_on/BT12_normal_walk_2_1_1-2_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_2_1_1-2_on/BT12_normal_walk_2_1_1-2_on_velocity.csv",
+        "moment": "BT12/normal_walk_2_1_1-2_on/BT12_normal_walk_2_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_2_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_2_1_1-8_on/BT12_normal_walk_2_1_1-8_on_exo.csv",
+        "angle": "BT12/normal_walk_2_1_1-8_on/BT12_normal_walk_2_1_1-8_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_2_1_1-8_on/BT12_normal_walk_2_1_1-8_on_velocity.csv",
+        "moment": "BT12/normal_walk_2_1_1-8_on/BT12_normal_walk_2_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_2_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_2_1_2-0_on/BT12_normal_walk_2_1_2-0_on_exo.csv",
+        "angle": "BT12/normal_walk_2_1_2-0_on/BT12_normal_walk_2_1_2-0_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_2_1_2-0_on/BT12_normal_walk_2_1_2-0_on_velocity.csv",
+        "moment": "BT12/normal_walk_2_1_2-0_on/BT12_normal_walk_2_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_2_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT12/normal_walk_2_1_2-5_on/BT12_normal_walk_2_1_2-5_on_exo.csv",
+        "angle": "BT12/normal_walk_2_1_2-5_on/BT12_normal_walk_2_1_2-5_on_angle_filt.csv",
+        "velocity": "BT12/normal_walk_2_1_2-5_on/BT12_normal_walk_2_1_2-5_on_velocity.csv",
+        "moment": "BT12/normal_walk_2_1_2-5_on/BT12_normal_walk_2_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT13/normal_walk_1_1_0-6_on/BT13_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT13/normal_walk_1_1_0-6_on/BT13_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT13/normal_walk_1_1_0-6_on/BT13_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT13/normal_walk_1_1_0-6_on/BT13_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT13/normal_walk_1_1_1-2_on/BT13_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT13/normal_walk_1_1_1-2_on/BT13_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT13/normal_walk_1_1_1-2_on/BT13_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT13/normal_walk_1_1_1-2_on/BT13_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT13/normal_walk_1_1_1-8_on/BT13_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT13/normal_walk_1_1_1-8_on/BT13_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT13/normal_walk_1_1_1-8_on/BT13_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT13/normal_walk_1_1_1-8_on/BT13_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT13/normal_walk_1_1_2-0_on/BT13_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT13/normal_walk_1_1_2-0_on/BT13_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT13/normal_walk_1_1_2-0_on/BT13_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT13/normal_walk_1_1_2-0_on/BT13_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT13/normal_walk_1_1_2-5_on/BT13_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT13/normal_walk_1_1_2-5_on/BT13_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT13/normal_walk_1_1_2-5_on/BT13_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT13/normal_walk_1_1_2-5_on/BT13_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT14/normal_walk_1_1_0-6_on/BT14_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT14/normal_walk_1_1_0-6_on/BT14_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT14/normal_walk_1_1_0-6_on/BT14_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT14/normal_walk_1_1_0-6_on/BT14_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT14/normal_walk_1_1_1-2_on/BT14_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT14/normal_walk_1_1_1-2_on/BT14_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT14/normal_walk_1_1_1-2_on/BT14_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT14/normal_walk_1_1_1-2_on/BT14_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT14/normal_walk_1_1_1-8_on/BT14_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT14/normal_walk_1_1_1-8_on/BT14_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT14/normal_walk_1_1_1-8_on/BT14_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT14/normal_walk_1_1_1-8_on/BT14_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_3_1_2-0_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT14/normal_walk_3_1_2-0_on/BT14_normal_walk_3_1_2-0_on_exo.csv",
+        "angle": "BT14/normal_walk_3_1_2-0_on/BT14_normal_walk_3_1_2-0_on_angle_filt.csv",
+        "velocity": "BT14/normal_walk_3_1_2-0_on/BT14_normal_walk_3_1_2-0_on_velocity.csv",
+        "moment": "BT14/normal_walk_3_1_2-0_on/BT14_normal_walk_3_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_3_1_2-5_on",
+      "condition": "on",
+      "split": "train",
+      "files": {
+        "exo": "BT14/normal_walk_3_1_2-5_on/BT14_normal_walk_3_1_2-5_on_exo.csv",
+        "angle": "BT14/normal_walk_3_1_2-5_on/BT14_normal_walk_3_1_2-5_on_angle_filt.csv",
+        "velocity": "BT14/normal_walk_3_1_2-5_on/BT14_normal_walk_3_1_2-5_on_velocity.csv",
+        "moment": "BT14/normal_walk_3_1_2-5_on/BT14_normal_walk_3_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT15/normal_walk_1_1_0-6_on/BT15_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT15/normal_walk_1_1_0-6_on/BT15_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT15/normal_walk_1_1_0-6_on/BT15_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT15/normal_walk_1_1_0-6_on/BT15_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT15/normal_walk_1_1_1-2_on/BT15_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT15/normal_walk_1_1_1-2_on/BT15_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT15/normal_walk_1_1_1-2_on/BT15_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT15/normal_walk_1_1_1-2_on/BT15_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT15/normal_walk_1_1_1-8_on/BT15_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT15/normal_walk_1_1_1-8_on/BT15_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT15/normal_walk_1_1_1-8_on/BT15_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT15/normal_walk_1_1_1-8_on/BT15_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT15/normal_walk_1_1_2-0_on/BT15_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT15/normal_walk_1_1_2-0_on/BT15_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT15/normal_walk_1_1_2-0_on/BT15_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT15/normal_walk_1_1_2-0_on/BT15_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT15/normal_walk_1_1_2-5_on/BT15_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT15/normal_walk_1_1_2-5_on/BT15_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT15/normal_walk_1_1_2-5_on/BT15_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT15/normal_walk_1_1_2-5_on/BT15_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_2_1_0-6_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT16/normal_walk_2_1_0-6_on/BT16_normal_walk_2_1_0-6_on_exo.csv",
+        "angle": "BT16/normal_walk_2_1_0-6_on/BT16_normal_walk_2_1_0-6_on_angle_filt.csv",
+        "velocity": "BT16/normal_walk_2_1_0-6_on/BT16_normal_walk_2_1_0-6_on_velocity.csv",
+        "moment": "BT16/normal_walk_2_1_0-6_on/BT16_normal_walk_2_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_2_1_1-2_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT16/normal_walk_2_1_1-2_on/BT16_normal_walk_2_1_1-2_on_exo.csv",
+        "angle": "BT16/normal_walk_2_1_1-2_on/BT16_normal_walk_2_1_1-2_on_angle_filt.csv",
+        "velocity": "BT16/normal_walk_2_1_1-2_on/BT16_normal_walk_2_1_1-2_on_velocity.csv",
+        "moment": "BT16/normal_walk_2_1_1-2_on/BT16_normal_walk_2_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_2_1_1-8_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT16/normal_walk_2_1_1-8_on/BT16_normal_walk_2_1_1-8_on_exo.csv",
+        "angle": "BT16/normal_walk_2_1_1-8_on/BT16_normal_walk_2_1_1-8_on_angle_filt.csv",
+        "velocity": "BT16/normal_walk_2_1_1-8_on/BT16_normal_walk_2_1_1-8_on_velocity.csv",
+        "moment": "BT16/normal_walk_2_1_1-8_on/BT16_normal_walk_2_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_2_1_2-0_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT16/normal_walk_2_1_2-0_on/BT16_normal_walk_2_1_2-0_on_exo.csv",
+        "angle": "BT16/normal_walk_2_1_2-0_on/BT16_normal_walk_2_1_2-0_on_angle_filt.csv",
+        "velocity": "BT16/normal_walk_2_1_2-0_on/BT16_normal_walk_2_1_2-0_on_velocity.csv",
+        "moment": "BT16/normal_walk_2_1_2-0_on/BT16_normal_walk_2_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_2_1_2-5_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT16/normal_walk_2_1_2-5_on/BT16_normal_walk_2_1_2-5_on_exo.csv",
+        "angle": "BT16/normal_walk_2_1_2-5_on/BT16_normal_walk_2_1_2-5_on_angle_filt.csv",
+        "velocity": "BT16/normal_walk_2_1_2-5_on/BT16_normal_walk_2_1_2-5_on_velocity.csv",
+        "moment": "BT16/normal_walk_2_1_2-5_on/BT16_normal_walk_2_1_2-5_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_0-6_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT17/normal_walk_1_1_0-6_on/BT17_normal_walk_1_1_0-6_on_exo.csv",
+        "angle": "BT17/normal_walk_1_1_0-6_on/BT17_normal_walk_1_1_0-6_on_angle_filt.csv",
+        "velocity": "BT17/normal_walk_1_1_0-6_on/BT17_normal_walk_1_1_0-6_on_velocity.csv",
+        "moment": "BT17/normal_walk_1_1_0-6_on/BT17_normal_walk_1_1_0-6_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_1-2_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT17/normal_walk_1_1_1-2_on/BT17_normal_walk_1_1_1-2_on_exo.csv",
+        "angle": "BT17/normal_walk_1_1_1-2_on/BT17_normal_walk_1_1_1-2_on_angle_filt.csv",
+        "velocity": "BT17/normal_walk_1_1_1-2_on/BT17_normal_walk_1_1_1-2_on_velocity.csv",
+        "moment": "BT17/normal_walk_1_1_1-2_on/BT17_normal_walk_1_1_1-2_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_1-8_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT17/normal_walk_1_1_1-8_on/BT17_normal_walk_1_1_1-8_on_exo.csv",
+        "angle": "BT17/normal_walk_1_1_1-8_on/BT17_normal_walk_1_1_1-8_on_angle_filt.csv",
+        "velocity": "BT17/normal_walk_1_1_1-8_on/BT17_normal_walk_1_1_1-8_on_velocity.csv",
+        "moment": "BT17/normal_walk_1_1_1-8_on/BT17_normal_walk_1_1_1-8_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_2-0_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT17/normal_walk_1_1_2-0_on/BT17_normal_walk_1_1_2-0_on_exo.csv",
+        "angle": "BT17/normal_walk_1_1_2-0_on/BT17_normal_walk_1_1_2-0_on_angle_filt.csv",
+        "velocity": "BT17/normal_walk_1_1_2-0_on/BT17_normal_walk_1_1_2-0_on_velocity.csv",
+        "moment": "BT17/normal_walk_1_1_2-0_on/BT17_normal_walk_1_1_2-0_on_moment_filt_bio.csv"
+      }
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_2-5_on",
+      "condition": "on",
+      "split": "validation",
+      "files": {
+        "exo": "BT17/normal_walk_1_1_2-5_on/BT17_normal_walk_1_1_2-5_on_exo.csv",
+        "angle": "BT17/normal_walk_1_1_2-5_on/BT17_normal_walk_1_1_2-5_on_angle_filt.csv",
+        "velocity": "BT17/normal_walk_1_1_2-5_on/BT17_normal_walk_1_1_2-5_on_velocity.csv",
+        "moment": "BT17/normal_walk_1_1_2-5_on/BT17_normal_walk_1_1_2-5_on_moment_filt_bio.csv"
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT01",
+      "trial": "normal_walk_3_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_4_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT02",
+      "trial": "normal_walk_1_4_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT03",
+      "trial": "normal_walk_1_3_1-2_hilo",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT06",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT07",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT08",
+      "trial": "normal_walk_1_3_1-2_hilo",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT09",
+      "trial": "normal_walk_1_3_1-2_hilo",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT10",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT11",
+      "trial": "normal_walk_1_3_1-2_hilo",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_shuffle_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_2_skip_off",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT12",
+      "trial": "normal_walk_1_3_1-2_hilo",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_shuffle_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT13",
+      "trial": "normal_walk_1_1_skip_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_3_1_shuffle_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT14",
+      "trial": "normal_walk_3_1_skip_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_shuffle_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT15",
+      "trial": "normal_walk_1_1_skip_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_3_1_shuffle_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT16",
+      "trial": "normal_walk_3_1_skip_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_shuffle_on",
+      "reason": "unsupported_normal_walk_variant"
+    },
+    {
+      "subject": "BT17",
+      "trial": "normal_walk_1_1_skip_on",
+      "reason": "unsupported_normal_walk_variant"
+    }
+  ],
+  "summary": {
+    "subjects": 15,
+    "train_trials": 112,
+    "validation_trials": 15,
+    "skipped_trials": 35
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "actor_feature_normalization": {
+    "clip": 5.0,
+    "horizon_steps": [
+      5,
+      10
+    ],
+    "mean": [
+      -0.007341972409338548,
+      -0.001872401332196893,
+      -0.0113558857430699,
+      -0.017566016697812648,
+      0.17365338655297088,
+      0.20270522776005603,
+      0.10041421965237647,
+      0.5974980137710061,
+      0.01807823076489426,
+      0.0184416327398842,
+      -0.002848809920054264,
+      0.007744251233008172,
+      0.06322947266713652,
+      -0.3594296459975854,
+      0.0465737547350939,
+      -0.061331948349203066
+    ],
+    "minimum_std": 0.0001,
+    "samples": 756,
+    "source": "myoassist_zero_assist_complete_rollouts",
+    "std": [
+      0.2719840872283564,
+      0.5362081382728716,
+      0.2531228489507183,
+      0.3686266056937777,
+      2.610044172098235,
+      6.348699641331216,
+      2.176553100005817,
+      3.8181606143916738,
+      0.45097041599993,
+      0.7007857003561914,
+      0.40960543544696587,
+      0.510581953979025,
+      3.715460323576191,
+      8.131090575928079,
+      3.198906437312964,
+      5.843727337729069
+    ]
+  },
+  "domain_randomization_enabled": false,
+  "fit": {
+    "calibrated_input_distribution": {
+      "fraction_above_3_sigma": 0.009897563676633444,
+      "fraction_above_5_sigma": 0.0025263012181616835,
+      "mean_absolute_z": 0.5632081773377435,
+      "p95_absolute_z": 1.917580932378769
+    },
+    "complete_trajectories": 3,
+    "direct_tcn_to_myoassist": [
+      {
+        "position_correlation": 0.9344483237768592,
+        "position_offset": -0.09451827504480131,
+        "position_rmse_rad": 0.12970034891504914,
+        "position_scale": 1.2577849278393531,
+        "velocity_correlation": 0.7672364130559257,
+        "velocity_rmse_rad_s": 1.697561360187346
+      },
+      {
+        "position_correlation": -0.8451844198298184,
+        "position_offset": -0.22136198409552482,
+        "position_rmse_rad": 0.2645459498237875,
+        "position_scale": -1.3165123787151893,
+        "velocity_correlation": -0.6970480358020172,
+        "velocity_rmse_rad_s": 3.4686133068250466
+      },
+      {
+        "position_correlation": 0.9133471079988835,
+        "position_offset": -0.014001921185296445,
+        "position_rmse_rad": 0.13274313689772133,
+        "position_scale": 1.0375647535563195,
+        "velocity_correlation": 0.7272496022420789,
+        "velocity_rmse_rad_s": 1.6305702553805865
+      },
+      {
+        "position_correlation": -0.8298780515102024,
+        "position_offset": 0.005283505673520702,
+        "position_rmse_rad": 0.18979235108991946,
+        "position_scale": -0.8712683928897587,
+        "velocity_correlation": -0.7848555388499042,
+        "velocity_rmse_rad_s": 2.152701591980677
+      }
+    ],
+    "episodes": [
+      {
+        "complete": true,
+        "frames": 301,
+        "reason": "time_limit",
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 0.8,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "frames": 301,
+        "reason": "time_limit",
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 1.0,
+        "warmup_steps": 50
+      },
+      {
+        "complete": true,
+        "frames": 301,
+        "reason": "time_limit",
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 1.25,
+        "warmup_steps": 50
+      }
+    ],
+    "imu_rotation_cost": [
+      {
+        "best_candidate_cost": 2.323544968740124,
+        "identity_cost": 2.323544968740124,
+        "non_identity_accepted": false,
+        "selected_cost": 2.323544968740124
+      },
+      {
+        "best_candidate_cost": 3.0182137098177106,
+        "identity_cost": 3.0182137098177106,
+        "non_identity_accepted": false,
+        "selected_cost": 3.0182137098177106
+      },
+      {
+        "best_candidate_cost": 2.3002149915771226,
+        "identity_cost": 2.3002149915771226,
+        "non_identity_accepted": false,
+        "selected_cost": 2.3002149915771226
+      },
+      {
+        "best_candidate_cost": 3.9365405945930405,
+        "identity_cost": 3.9365405945930405,
+        "non_identity_accepted": false,
+        "selected_cost": 3.9365405945930405
+      }
+    ],
+    "phase_frames": 17588,
+    "reset_state_contract": "canonical_full_state_v1",
+    "runtime_frames": 903,
+    "warmup_protocol": "gexo_zero_assist_preroll50_v1",
+    "warmup_steps": 50
+  },
+  "human_checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/myoassist_human_adaptation_low_speed_100k/adapted_human_final.zip",
+  "human_checkpoint_sha256": "457ff4e33b62e9a1ff09e2b2aa821719fe743fc1f70234d7b4b53fb4bc01502c",
+  "input": {
+    "imu_rotation": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    ],
+    "motor_position_offset": [
+      -0.1420255344046138,
+      -0.0017563125647764855,
+      -0.09730101729547175,
+      0.023510803539805558
+    ],
+    "motor_position_scale": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "motor_velocity_scale": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ]
+  },
+  "method": "train_phase_input_moments_and_direct_zero_assist_output_affine",
+  "output": {
+    "target_position_offset": [
+      -0.09451827504480131,
+      -0.22136198409552482,
+      -0.014001921185296445,
+      0.005283505673520702
+    ],
+    "target_position_scale": [
+      1.2577849278393531,
+      -1.3165123787151893,
+      1.0375647535563195,
+      -0.8712683928897587
+    ],
+    "target_velocity_scale": [
+      1.2577849278393531,
+      -1.3165123787151893,
+      1.0375647535563195,
+      -0.8712683928897587
+    ]
+  },
+  "phase_input_source": "local_phase_train_npz",
+  "phase_root": "/home/lenovo/HK_hackthon/G-Exo/tmp/tcn50_variable_speed_smoke/train",
+  "physical_model": "/home/lenovo/HK_hackthon/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
+  "physical_model_sha256": "7127a1cb67a64782410659f73dfd752b5b490c3d8c3a4f0e2f615e5af6c331fe",
+  "protocol": "gexo_myoassist_phase12_tcn_calibration_v1",
+  "schema_version": 1,
+  "tcn_checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
+  "tcn_checkpoint_sha256": "fc6f552a00b17c5f98a4ee03ade4862eda1ce2f9724b25b3fe41739f1e8beb98",
+  "urdf_enabled": false,
+  "verified_speed_set_m_s": [
+    0.8,
+    1.0,
+    1.25
+  ]
+}
