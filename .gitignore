@@ -9,6 +9,13 @@
 # SpaceMIT K3 SDK (third-party, synced via repo, not distributed)
 spacemit_robot/
 
+# Alloop hackathon kit (third-party, restricted license, kept local only)
+2.software/alloop/
+
+# RL training artifacts (kept local only, not distributed)
+RL/outputs/
+RL/papers/
+
 # Python
 __pycache__/
 *.py[cod]

@@ -4,6 +4,8 @@ Physical AI 黑客松作品预研发仓库 — Ghost-Exoskeleton
 
 > 🦾 消费级四自由度主动式下肢外骨骼 · 6S LiPo 双电热插拔 · 户外徒步助力
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 ---
 
 ## 项目状态
@@ -51,8 +53,7 @@ G-Exo/
 │   └── vector/              # 参考 CAD 文件
 ├── 2.software/              # 软件
 │   ├── imu_driver/          # ROS2 IMU 驱动 + Mahony AHRS（G354 + ess_imu_driver2）
-│   ├── gexo_web_agent/      # 板载 Web Agent（FastAPI + WebSocket + LLM）
-│   ├── alloop/              # Alloop Ring 网页桥接
+│   ├── gexo_web_agent/      # 板载 Web Agent（FastAPI + WebSocket + LLM + React Cockpit）
 │   └── voice_tools/         # 语音控制测试脚本
 ├── 3.paper/                 # 参考论文
 ├── 4.document/              # 硬件文档与数据手册
@@ -62,4 +63,8 @@ G-Exo/
 └── deploy/k3/               # K3 板载部署说明（SDK 获取方式）
 ```
 
-> 远端分支 `origin/sanholy` 包含 RL 训练框架（MyoSuite + MuJoCo + PPO），后续将合并入 main。
+## 许可证
+
+- 项目代码（自有部分）以 [MIT License](LICENSE) 发布。
+- 仓库内第三方组件、厂商资料与论文的版权归属见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+- Alloop 套件因第三方受限许可未包含在公开仓库中。
