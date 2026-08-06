@@ -35,6 +35,33 @@ class StateConfig(BaseModel):
     ws_min_interval_ms: int = 200
 
 
+class ImuChannelConfig(BaseModel):
+    joint: Literal["left_hip", "left_knee", "right_hip", "right_knee"]
+    topic: str
+    expected_frame_id: str
+
+
+def _default_imu_channels() -> list[ImuChannelConfig]:
+    return [
+        ImuChannelConfig(joint="left_hip", topic="/A1/ahrs", expected_frame_id="A1_link"),
+        ImuChannelConfig(joint="left_knee", topic="/A2/ahrs", expected_frame_id="A2_link"),
+        ImuChannelConfig(joint="right_hip", topic="/B1/ahrs", expected_frame_id="B1_link"),
+        ImuChannelConfig(joint="right_knee", topic="/B2/ahrs", expected_frame_id="B2_link"),
+    ]
+
+
+class TelemetryConfig(BaseModel):
+    # Kept false in bare Settings() for legacy unit tests. The shipped YAML
+    # explicitly enables the real ROS IMU application.
+    enabled: bool = False
+    channels: list[ImuChannelConfig] = Field(default_factory=_default_imu_channels)
+    stale_after_ms: int = 100
+    offline_after_ms: int = 1000
+    frequency_window_s: float = 2.0
+    ws_publish_hz: float = 20.0
+    heartbeat_ms: int = 250
+
+
 class CommandConfig(BaseModel):
     result_timeout_s: float = 3.0
     confirm_ttl_s: float = 30.0
@@ -91,6 +118,7 @@ class Settings(BaseSettings):
     server: ServerConfig = ServerConfig()
     bridge: BridgeConfig = BridgeConfig()
     state: StateConfig = StateConfig()
+    telemetry: TelemetryConfig = TelemetryConfig()
     command: CommandConfig = CommandConfig()
     safety: SafetyConfig = SafetyConfig()
     llm: LlmConfig = LlmConfig()

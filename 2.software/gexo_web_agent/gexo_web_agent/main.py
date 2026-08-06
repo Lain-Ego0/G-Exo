@@ -27,10 +27,28 @@ logger = logging.getLogger(__name__)
 
 def build_app(settings: Settings):
     """Construct the full object graph and return the FastAPI app."""
+    if settings.telemetry.enabled:
+        from .imu_cache import ImuTelemetryCache
+        from .imu_transport import ImuRos2Transport
+        from .telemetry_api import create_telemetry_app
+
+        telemetry_cache = ImuTelemetryCache(settings.telemetry)
+        telemetry_transport = ImuRos2Transport(settings.telemetry.channels)
+        control_app = _build_legacy_app(settings, force_mock=True)
+        return create_telemetry_app(
+            settings, telemetry_cache, telemetry_transport, control_app=control_app
+        )
+
+    return _build_legacy_app(settings)
+
+
+def _build_legacy_app(settings: Settings, force_mock: bool = False):
+    """Build the preserved command stack, optionally as a namespaced mock UI."""
+
     cache = StateCache(stale_timeout_s=settings.state.stale_timeout_s)
 
     mock_core: Optional[MockControllerCore] = None
-    if settings.bridge.transport == "mock":
+    if force_mock or settings.bridge.transport == "mock":
         mock_core = MockControllerCore(scenario=settings.mock.scenario)
         transport = MockTransport(
             mock_core,
@@ -83,6 +101,9 @@ def main() -> None:
 
     settings = load_settings(args.config)
     if args.transport:
+        # An explicit legacy transport selection is also the opt-out from the
+        # telemetry-only application configured by the shipped YAML.
+        settings.telemetry.enabled = False
         settings.bridge.transport = args.transport
     if args.host:
         settings.server.host = args.host
@@ -90,11 +111,17 @@ def main() -> None:
         settings.server.port = args.port
 
     setup_logging(settings.logging.level, settings.logging.file)
-    logger.info(
-        "starting gexo_web_agent transport=%s topic=%s",
-        settings.bridge.transport,
-        settings.bridge.topic,
-    )
+    if settings.telemetry.enabled:
+        logger.info(
+            "starting read-only IMU telemetry on %s",
+            [channel.topic for channel in settings.telemetry.channels],
+        )
+    else:
+        logger.info(
+            "starting legacy gexo_web_agent transport=%s topic=%s",
+            settings.bridge.transport,
+            settings.bridge.topic,
+        )
 
     app = build_app(settings)
     uvicorn.run(app, host=settings.server.host, port=settings.server.port, log_level="info")

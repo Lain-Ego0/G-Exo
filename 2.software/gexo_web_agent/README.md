@@ -1,5 +1,24 @@
 # gexo_web_agent
 
+> 当前生产入口是只读 IMU 遥测：直接订阅 `/A1/ahrs`、`/A2/ahrs`、
+> `/B1/ahrs`、`/B2/ahrs`，通过 `/api/telemetry` 和 `/ws` 提供网页数据。
+> 它不依赖 `/g_exo/bridge`，也不会用 mock 值填充关节、扭矩、温度、电池或 CAN 状态。
+
+```bash
+source /opt/ros/humble/setup.bash
+python -m gexo_web_agent.main --host 0.0.0.0 --port 8000
+# 或安装为 ROS 包后：
+ros2 launch gexo_web_agent gexo_web_agent.launch.py
+```
+
+四路映射、frame_id、新鲜度阈值和 WebSocket 推送频率位于
+`config/default.yaml` 的 `telemetry` 段。旧控制桥和 mock controller 仅作为
+尚未接入真实控制器时的兼容/测试代码保留，不由默认配置启动。
+
+## 旧控制桥（非生产默认）
+
+以下内容记录尚未接入真实控制器的兼容实现和测试方式，不是当前 IMU cockpit 的数据源。
+
 外骨骼本地大模型 Web 交互与 ROS 2 控制桥接系统。
 
 手机浏览器 → FastAPI（Web/对话/安全校验）→ 单一 ROS 2 Topic（JSON）→ 控制节点。
@@ -34,7 +53,7 @@ LLM 只允许 4 个意图：`query_status` / `set_mode` / `adjust_assist` / `doc
 ```bash
 cd 2.software/gexo_web_agent
 pip install -r requirements.txt
-python -m gexo_web_agent.main            # 默认 mock transport, 0.0.0.0:8000
+python -m gexo_web_agent.main --transport mock  # 显式进入旧 mock 控制桥
 ```
 
 手机与电脑同一局域网，浏览器打开 `http://<电脑IP>:8000`。

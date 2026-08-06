@@ -1,37 +1,30 @@
 import { useEffect, useState } from "react";
 
-import { CockpitHeader } from "./components/header/CockpitHeader";
-import { ClosedLoopDeck } from "./components/deck/ClosedLoopDeck";
-import { TelemetryDock } from "./components/telemetry/TelemetryDock";
-import { DebugDrawer } from "./components/debug/DebugDrawer";
-import { ModeConfirmDialog } from "./components/dialog/ModeConfirmDialog";
+import { ImuDashboard } from "./components/imu/ImuDashboard";
+import { ImuHeader } from "./components/imu/ImuHeader";
+import { SimulatedModeControl } from "./components/control/SimulatedModeControl";
 import { ProductNavigation, type ProductView } from "./components/navigation/ProductNavigation";
-import { useAgentEvents } from "./hooks/useAgentEvents";
-import { useResponsiveDeck } from "./hooks/useResponsiveDeck";
-import { useRobotCommand } from "./hooks/useRobotCommand";
+import { TelemetryDock } from "./components/telemetry/TelemetryDock";
 import { useRobotSocket } from "./hooks/useRobotSocket";
+import { useRobotCommand } from "./hooks/useRobotCommand";
+import { useSimulatedControl } from "./hooks/useSimulatedControl";
 import { useTelemetryBuffer } from "./hooks/useTelemetryBuffer";
 
 export function App() {
-  const [activeView, setActiveView] = useState<ProductView>(() =>
-    window.location.pathname === "/ring" ? "ring" : "cockpit",
-  );
+  const [activeView, setActiveView] = useState<ProductView>(() => window.location.pathname === "/ring" ? "ring" : "cockpit");
   const robot = useRobotSocket();
+  const simulatedControl = useSimulatedControl();
+  const commands = useRobotCommand(simulatedControl.refresh);
   const telemetry = useTelemetryBuffer(robot.snapshot, robot.connection);
-  const commands = useRobotCommand(robot.refresh);
-  const agentEvents = useAgentEvents(commands.activity);
-  const { activeStage, setActiveStage } = useResponsiveDeck();
 
   const navigate = (view: ProductView) => {
     if (view === activeView) return;
-    const path = view === "ring" ? "/ring" : "/cockpit";
-    window.history.pushState({ view }, "", path);
+    window.history.pushState({ view }, "", view === "ring" ? "/ring" : "/cockpit");
     setActiveView(view);
   };
 
   useEffect(() => {
-    const handlePopState = () =>
-      setActiveView(window.location.pathname === "/ring" ? "ring" : "cockpit");
+    const handlePopState = () => setActiveView(window.location.pathname === "/ring" ? "ring" : "cockpit");
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
@@ -40,28 +33,16 @@ export function App() {
     <div className="app-shell" data-connection={robot.connection}>
       <ProductNavigation activeView={activeView} onNavigate={navigate} />
       <section className="product-view" data-visible={activeView === "ring"} aria-hidden={activeView !== "ring"}>
-        <iframe
-          allow="bluetooth"
-          className="ring-page-frame"
-          title="Alloop 戒指遥测"
-          src="/alloop/index.html"
-        />
+        <iframe allow="bluetooth" className="ring-page-frame" title="Alloop Ring Telemetry" src="/alloop/index.html" />
       </section>
       <section className="product-view cockpit-view" data-visible={activeView === "cockpit"} aria-hidden={activeView !== "cockpit"}>
-        <CockpitHeader robot={robot} />
-        <main className="cockpit-main">
-          <ClosedLoopDeck
-            activeStage={activeStage}
-            agentEvents={agentEvents}
-            commands={commands}
-            onStageChange={setActiveStage}
-            robot={robot}
-          />
+        <ImuHeader robot={robot} />
+        <main className="cockpit-main imu-main">
+          <SimulatedModeControl commands={commands} robot={simulatedControl} />
+          <ImuDashboard robot={robot} />
           <TelemetryDock buffer={telemetry} />
-          <DebugDrawer robot={robot} />
         </main>
       </section>
-      {activeView === "cockpit" ? <ModeConfirmDialog commands={commands} robot={robot} /> : null}
     </div>
   );
 }
