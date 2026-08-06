@@ -2,15 +2,12 @@
 .DS_Store
 
 # ROS2 / colcon build artifacts
-ros2_ws/build/
-ros2_ws/install/
-ros2_ws/log/
+2.software/imu_driver/build/
+2.software/imu_driver/install/
+2.software/imu_driver/log/
 
-# SpaceMIT K3 SDK build output (regenerable)
-spacemit_robot/output/
-spacemit_robot/build/
-spacemit_robot/target/
-spacemit_robot/.repo/
+# SpaceMIT K3 SDK (third-party, synced via repo, not distributed)
+spacemit_robot/
 
 # Python
 __pycache__/

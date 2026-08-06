@@ -46,25 +46,20 @@ G-Exo/
 ├── Q&A.md                   # 5 轮产品定位 Q&A 全记录
 ├── 1.hardware/              # 硬件设计
 │   ├── BOM.md               # 物料清单 V2.0
-│   ├── G-Exo V1/            # V1 机械设计（SolidWorks）
-│   ├── G-Exo V2/            # V2 机械设计（碳纤维 + 3D 打印）
+│   ├── G-Exo V1 ~ V4/       # 机械设计迭代（SolidWorks / STEP）
 │   ├── G-exo_URDF/          # ROS URDF 仿真模型 + STL 网格
 │   └── vector/              # 参考 CAD 文件
-├── 2.software/              # 软件入口（IMU 驱动参考）
+├── 2.software/              # 软件
+│   ├── imu_driver/          # ROS2 IMU 驱动 + Mahony AHRS（G354 + ess_imu_driver2）
+│   ├── gexo_web_agent/      # 板载 Web Agent（FastAPI + WebSocket + LLM）
+│   ├── alloop/              # Alloop Ring 网页桥接
+│   └── voice_tools/         # 语音控制测试脚本
 ├── 3.paper/                 # 参考论文
-│   ├── Task-agnostic exoskeleton control via biological joint moment estimation.pdf
-│   ├── Task-agnostic exoskeleton control via biological joint moment estimation-中文翻译与注释.md
-│   └── 基于运动预测的髋关节外骨骼实时助力控制.pdf
 ├── 4.document/              # 硬件文档与数据手册
+│   ├── RS02/  RS06/         # 执行器数据手册
 │   ├── DM-J4340-2EC/        # 原候选电机（已放弃）
-│   ├── RS02/                # 当前选型 RS02 手册
-│   ├── RS06/                # 备选 RS06 手册
-│   ├── K3 260com kit/       # K3 COM 套件文档
-│   └── K3 Pico-ITX/         # K3 Pico-ITX 文档
-└── specs/                   # 项目规划文档
-    ├── 论文复现方案-Nature2024.md
-    └── 进迭时空赞助申请-项目策划书.md
+│   └── K3 260com kit/  K3 Pico-ITX/   # K3 计算平台文档
+└── deploy/k3/               # K3 板载部署说明（SDK 获取方式）
 ```
 
-> 远端分支 `origin/sanholy` 包含 RL 训练框架（MyoSuite + MuJoCo + PPO）和 V2 硬件完整设计。
-> 远端分支 `origin/ROS2_IMU_WJH` 包含 ROS2 IMU 驱动 + Mahony AHRS 姿态解算。
+> 远端分支 `origin/sanholy` 包含 RL 训练框架（MyoSuite + MuJoCo + PPO），后续将合并入 main。
