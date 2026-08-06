@@ -79,7 +79,13 @@ export function CockpitHeader({ robot }: { robot: RobotSocketView }) {
   return (
     <header className="cockpit-header" data-alert={alert ? "critical" : undefined}>
       <div className="identity-block" aria-label="G-Exo Physical AI Cockpit">
-        <span className="wordmark">G-EXO</span>
+        <span className="wordmark">
+          G-EXO
+          <svg aria-hidden="true" className="wordmark-loop" focusable="false" viewBox="0 0 24 24">
+            <path d="M12 4.5a7.5 7.5 0 1 1-7.3 5.6" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2.2" />
+            <path d="M3.6 7.2l1.5 4 3.6-1.6z" fill="currentColor" />
+          </svg>
+        </span>
         <span className="product-label">物理智能座舱 / PHYSICAL AI COCKPIT</span>
       </div>
 
