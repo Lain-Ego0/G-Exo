@@ -9,8 +9,9 @@
 # SpaceMIT K3 SDK (third-party, synced via repo, not distributed)
 spacemit_robot/
 
-# Alloop hackathon kit (third-party, restricted license, kept local only)
-2.software/alloop/
+# Alloop hackathon kit (third-party, restricted license — code kept local only)
+2.software/alloop/*
+!2.software/alloop/README.md
 
 # RL training artifacts (kept local only, not distributed)
 RL/outputs/

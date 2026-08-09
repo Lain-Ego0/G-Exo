@@ -67,4 +67,6 @@ G-Exo/
 
 - 项目代码（自有部分）以 [MIT License](LICENSE) 发布。
 - 仓库内第三方组件、厂商资料与论文的版权归属见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
-- Alloop 套件因第三方受限许可未包含在公开仓库中。
+- Alloop 套件代码因第三方受限许可**未包含在公开仓库中**（本地保留）；其使用范围
+  （仅授权黑客松参赛者在本次赛事期间及参赛作品范围内使用，未经书面许可不得再分发）
+  见 [2.software/alloop/README.md](2.software/alloop/README.md)。
