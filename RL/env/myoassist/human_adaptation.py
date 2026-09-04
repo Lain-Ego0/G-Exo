@@ -185,6 +185,8 @@ def make_human_adaptation_env(
     default_target_speed_m_s: float | None = None,
     random_reference_index: bool = False,
     model_path: str | Path = DEFAULT_PHYSICAL_OUTPUT_PATH,
+    qpos_imitation_weight: float = 0.0,
+    qvel_imitation_weight: float = 0.0,
 ) -> HumanAdaptationEnv:
     """Create the physical-model human environment with no exoskeleton authority."""
 
@@ -196,6 +198,8 @@ def make_human_adaptation_env(
         min_target_speed_m_s=min_target_speed_m_s,
         max_target_speed_m_s=max_target_speed_m_s,
         random_reference_index=random_reference_index,
+        qpos_imitation_weight=qpos_imitation_weight,
+        qvel_imitation_weight=qvel_imitation_weight,
     )
     return HumanAdaptationEnv(
         runtime,

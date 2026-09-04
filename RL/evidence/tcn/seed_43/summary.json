@@ -1,0 +1,5 @@
+{
+  "best_epoch": 18,
+  "best_validation_loss": 0.07444620867079522,
+  "checkpoint": "<PROJECT_ROOT>/RL/outputs/tcn_runs/seed_43/best_model.pt"
+}

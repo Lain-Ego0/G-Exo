@@ -1,0 +1,31 @@
+gexo_control_node:
+  ros__parameters:
+    policy_mode: rl_tcn
+    rl_model_directory: ""
+    tcn_pd_model_directory: ""
+    # Confirmed K3 binding: A1 left thigh, A2 left shank, B1 right thigh,
+    # B2 right shank.
+    imu_topics: [/A1/ahrs, /A2/ahrs, /B1/ahrs, /B2/ahrs]
+    imu_timeout_ms: 30
+    # Inverse of the axis remap already applied by ess_imu_driver2 /ahrs.
+    imu_axis_rotation:
+      [0.0, 0.0, -1.0, -1.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+       0.0, 0.0, -1.0, -1.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+       0.0, 0.0, -1.0, -1.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+       0.0, 0.0, -1.0, -1.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+    motor.hardware_enabled: false
+    motor.mapping_confirmed: false
+    motor.zero_offset_calibrated: false
+    motor.safe_output_mode: zero_torque
+    motor.zero_offset_rad: [0.0, 0.0, 0.0, 0.0]
+    motor.feedback_timeout_ms: 30
+    motor.can_timeout_ticks: 600
+    motor.protocol_torque_limit_nm: 6.0
+
+    dry_run.position_rad: [0.0, 0.0, 0.0, 0.0]
+    dry_run.velocity_rad_s: [0.0, 0.0, 0.0, 0.0]
+
+    # Training normalization remains 8 Nm; applied motor torque is capped at 6 Nm.
+    safety.allow_nonzero_output: false
+    safety.torque_limit_nm: [6.0, 6.0, 6.0, 6.0]

@@ -6,7 +6,7 @@ from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 import gymnasium as gym
 import numpy as np
@@ -29,13 +29,20 @@ from RL.env.actor_observation import (
 )
 from RL.env.myoassist.baseline import (
     BASELINE_SCHEMA,
+    NAKED_REFERENCE_CONDITION,
     SPEED_WINDOW_STEPS,
     TRAINING_SPEED_SCHEDULE,
 )
+from RL.env.myoassist.domain_randomization import DeploymentRandomizationConfig
+from RL.env.myoassist.motion_reference import (
+    MOTION_REFERENCE_SCHEMA,
+    URDF_ZERO_ASSIST_CONDITION,
+)
 from RL.env.myoassist.reward import RewardConfig
+from RL.env.myoassist.speed_curriculum import SpeedCurriculumConfig
 
 
-PROTOCOL_SCHEMA = "gexo_myoassist_ppo_protocol_v4"
+PROTOCOL_SCHEMA = "gexo_myoassist_ppo_protocol_v8"
 RUN_CONFIG_SCHEMA = "gexo_myoassist_ppo_run_v2"
 CONTROL_HZ = 50
 WARMUP_STEPS = RESET_WARMUP_STEPS
@@ -92,6 +99,7 @@ def build_training_protocol(
     *,
     human_checkpoint: str | Path,
     baseline_path: str | Path,
+    motion_reference_path: str | Path,
     tcn_checkpoint: str | Path,
     tcn_calibration_path: str | Path,
     model_path: str | Path,
@@ -104,47 +112,89 @@ def build_training_protocol(
     ppo_parameters: Mapping[str, Any],
     evaluation_speed_m_s: float,
     evaluation_seed: int,
+    domain_randomization_enabled: bool = False,
+    evaluation_speeds_m_s: Sequence[float] | None = None,
+    anchor_min_speed_m_s: float | None = None,
+    anchor_max_speed_m_s: float | None = None,
+    lower_speed_probability: float = 0.25,
+    anchor_speed_probability: float = 0.50,
+    upper_speed_probability: float = 0.25,
 ) -> dict[str, Any]:
     """Load every artifact and return the exact immutable PPO contract."""
 
     paths = {
         "human_checkpoint": _path(human_checkpoint),
         "baseline": _path(baseline_path),
+        "motion_reference": _path(motion_reference_path),
         "tcn_checkpoint": _path(tcn_checkpoint),
         "tcn_calibration": _path(tcn_calibration_path),
         "physical_model": _path(model_path),
     }
     baseline = _json_object(paths["baseline"])
+    motion_reference = _json_object(paths["motion_reference"])
     calibration = _json_object(paths["tcn_calibration"])
     tcn = _load_tcn_metadata(paths["tcn_checkpoint"])
     hashes = {name: file_sha256(path) for name, path in paths.items()}
 
     baseline_metadata = _mapping(baseline.get("metadata"), "baseline.metadata")
+    motion_metadata = _mapping(
+        motion_reference.get("metadata"), "motion_reference.metadata"
+    )
     calibration_fit = _mapping(calibration.get("fit"), "calibration.fit")
     if baseline.get("schema") != BASELINE_SCHEMA:
         raise ValueError(
             f"Baseline schema must be {BASELINE_SCHEMA}, got {baseline.get('schema')}."
+        )
+    if motion_reference.get("schema") != MOTION_REFERENCE_SCHEMA:
+        raise ValueError(
+            "Motion-reference schema must be "
+            f"{MOTION_REFERENCE_SCHEMA}, got {motion_reference.get('schema')}."
         )
     if int(calibration.get("schema_version", -1)) != 1:
         raise ValueError("TCN calibration schema_version must be 1.")
     if calibration.get("protocol") != "gexo_myoassist_phase12_tcn_calibration_v1":
         raise ValueError("Unsupported MyoAssist TCN calibration protocol.")
     _require_flag(baseline_metadata, "urdf_enabled", False)
+    _require_flag(motion_metadata, "urdf_enabled", True)
+    if baseline_metadata.get("reference_condition") != NAKED_REFERENCE_CONDITION:
+        raise ValueError("Baseline is not a naked-human reference artifact.")
+    if motion_metadata.get("reference_condition") != URDF_ZERO_ASSIST_CONDITION:
+        raise ValueError("Motion reference is not worn-URDF zero assistance.")
+    runtime_urdf_enabled = _boolean_flag(
+        calibration,
+        "urdf_enabled",
+    )
+    if not runtime_urdf_enabled:
+        raise ValueError(
+            "The separated motion-reference protocol requires a URDF runtime model."
+        )
+    reference_model_hash = baseline_metadata.get("reference_model_sha256")
+    if not isinstance(reference_model_hash, str) or not reference_model_hash:
+        raise ValueError("Baseline has no reference_model_sha256.")
+    baseline_physiology = baseline_metadata.get("physiology_signature")
+    calibration_physiology = calibration.get("physiology_signature")
+    if baseline_physiology != calibration_physiology:
+        raise ValueError(
+            "Naked baseline and runtime TCN calibration use different physiology."
+        )
     _require_flag(baseline_metadata, "domain_randomization_enabled", False)
-    _require_flag(calibration, "urdf_enabled", False)
     _require_flag(calibration, "domain_randomization_enabled", False)
+    _require_flag(motion_metadata, "domain_randomization_enabled", False)
 
     identities = {
         "human_checkpoint_sha256": hashes["human_checkpoint"],
-        "physical_model_sha256": hashes["physical_model"],
+        "reference_model_sha256": reference_model_hash,
+        "runtime_model_sha256": hashes["physical_model"],
         "tcn_checkpoint_sha256": hashes["tcn_checkpoint"],
+        "physiology_signature": baseline_physiology,
     }
     expected_identity_fields = (
         (baseline_metadata, "human_checkpoint_sha256", identities["human_checkpoint_sha256"]),
-        (baseline_metadata, "model_sha256", identities["physical_model_sha256"]),
         (calibration, "human_checkpoint_sha256", identities["human_checkpoint_sha256"]),
-        (calibration, "physical_model_sha256", identities["physical_model_sha256"]),
+        (calibration, "physical_model_sha256", identities["runtime_model_sha256"]),
         (calibration, "tcn_checkpoint_sha256", identities["tcn_checkpoint_sha256"]),
+        (motion_metadata, "human_checkpoint_sha256", identities["human_checkpoint_sha256"]),
+        (motion_metadata, "physical_model_sha256", identities["runtime_model_sha256"]),
     )
     for source, name, expected in expected_identity_fields:
         if source.get(name) != expected:
@@ -155,20 +205,44 @@ def build_training_protocol(
         calibration.get("verified_speed_set_m_s"),
         "TCN calibration",
     )
-    calibrated_min = max(float(baseline_speeds[0]), float(calibration_speeds[0]))
-    calibrated_max = min(float(baseline_speeds[-1]), float(calibration_speeds[-1]))
+    motion_speeds = _positive_speeds(
+        motion_reference.get("speeds_m_s"), "motion reference"
+    )
+    calibrated_min = max(
+        float(baseline_speeds[0]),
+        float(calibration_speeds[0]),
+        float(motion_speeds[0]),
+    )
+    calibrated_max = min(
+        float(baseline_speeds[-1]),
+        float(calibration_speeds[-1]),
+        float(motion_speeds[-1]),
+    )
     _validate_requested_range(
         min_speed_m_s,
         max_speed_m_s,
         calibrated_min,
         calibrated_max,
     )
-    _validate_requested_range(
-        evaluation_speed_m_s,
-        evaluation_speed_m_s,
-        calibrated_min,
-        calibrated_max,
+    evaluation_speeds = np.unique(
+        np.asarray(
+            (
+                [evaluation_speed_m_s]
+                if evaluation_speeds_m_s is None
+                else list(evaluation_speeds_m_s)
+            ),
+            dtype=np.float64,
+        )
     )
+    if evaluation_speeds.size < 1 or not np.all(np.isfinite(evaluation_speeds)):
+        raise ValueError("Evaluation speeds must be finite and non-empty.")
+    for speed in evaluation_speeds:
+        _validate_requested_range(
+            float(speed),
+            float(speed),
+            calibrated_min,
+            calibrated_max,
+        )
     if int(baseline.get("speed_window_steps", -1)) != SPEED_WINDOW_STEPS:
         raise ValueError("Baseline forward-speed filter contract is incompatible.")
     if int(baseline_metadata.get("warmup_steps", -1)) != WARMUP_STEPS:
@@ -177,6 +251,12 @@ def build_training_protocol(
         )
     if baseline_metadata.get("warmup_protocol") != RESET_PROTOCOL:
         raise ValueError("Baseline reset/warmup protocol is incompatible.")
+    if int(motion_metadata.get("warmup_steps", -1)) != WARMUP_STEPS:
+        raise ValueError(
+            f"Motion reference must use the {WARMUP_STEPS}-step warmup protocol."
+        )
+    if motion_metadata.get("warmup_protocol") != RESET_PROTOCOL:
+        raise ValueError("Motion-reference reset/warmup protocol is incompatible.")
     if int(calibration_fit.get("warmup_steps", -1)) != WARMUP_STEPS:
         raise ValueError(
             f"TCN calibration must use the {WARMUP_STEPS}-step warmup protocol."
@@ -202,6 +282,26 @@ def build_training_protocol(
         torque_soft_threshold_nm=TORQUE_SOFT_THRESHOLD_NM,
         torque_termination_threshold_nm=TORQUE_TERMINATION_THRESHOLD_NM,
     )
+    randomization = DeploymentRandomizationConfig(
+        enabled=bool(domain_randomization_enabled)
+    )
+    speed_sampling = SpeedCurriculumConfig(
+        minimum_m_s=float(min_speed_m_s),
+        maximum_m_s=float(max_speed_m_s),
+        anchor_minimum_m_s=float(
+            min_speed_m_s
+            if anchor_min_speed_m_s is None
+            else anchor_min_speed_m_s
+        ),
+        anchor_maximum_m_s=float(
+            max_speed_m_s
+            if anchor_max_speed_m_s is None
+            else anchor_max_speed_m_s
+        ),
+        lower_probability=lower_speed_probability,
+        anchor_probability=anchor_speed_probability,
+        upper_probability=upper_speed_probability,
+    )
     protocol = {
         "schema": PROTOCOL_SCHEMA,
         "backend": "myoassist",
@@ -210,6 +310,14 @@ def build_training_protocol(
             "baseline": {
                 "sha256": hashes["baseline"],
                 "schema": baseline["schema"],
+                "reference_condition": NAKED_REFERENCE_CONDITION,
+                "reference_model_sha256": reference_model_hash,
+            },
+            "motion_reference": {
+                "sha256": hashes["motion_reference"],
+                "schema": motion_reference["schema"],
+                "reference_condition": URDF_ZERO_ASSIST_CONDITION,
+                "physical_model_sha256": identities["runtime_model_sha256"],
             },
             "tcn_checkpoint": {
                 "sha256": hashes["tcn_checkpoint"],
@@ -257,14 +365,17 @@ def build_training_protocol(
             "terrain": "flat",
             "speed_schedule": TRAINING_SPEED_SCHEDULE,
             "speed_range_m_s": [float(min_speed_m_s), float(max_speed_m_s)],
+            "speed_sampling": speed_sampling.to_dict(),
             "calibrated_speed_range_m_s": [calibrated_min, calibrated_max],
             "max_episode_steps": int(max_episode_steps),
-            "urdf_enabled": False,
-            "domain_randomization_enabled": False,
+            "urdf_enabled": runtime_urdf_enabled,
+            "domain_randomization_enabled": randomization.enabled,
+            "domain_randomization": _json_value(randomization.to_dict()),
         },
         "evaluation": {
             "canonical": True,
             "target_speed_m_s": float(evaluation_speed_m_s),
+            "target_speeds_m_s": evaluation_speeds.tolist(),
             "reference_index": 0,
             "seed": int(evaluation_seed),
             "deterministic_actor": True,
@@ -287,9 +398,19 @@ def protocol_sha256(protocol: Mapping[str, Any]) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def assert_protocol_matches(expected: Mapping[str, Any], actual: Mapping[str, Any]) -> None:
+def assert_protocol_matches(
+    expected: Mapping[str, Any],
+    actual: Mapping[str, Any],
+    *,
+    allow_domain_randomization_enable: bool = False,
+    allow_speed_curriculum_widening: bool = False,
+) -> None:
     expected_value = _json_value(dict(expected))
     actual_value = _json_value(dict(actual))
+    if allow_domain_randomization_enable:
+        _accept_domain_randomization_enable(expected_value, actual_value)
+    if allow_speed_curriculum_widening:
+        _accept_speed_curriculum_widening(expected_value, actual_value)
     if expected_value == actual_value:
         return
     differences = _differences(expected_value, actual_value)
@@ -303,6 +424,8 @@ def prepare_run_config(
     protocol: Mapping[str, Any],
     launch: Mapping[str, Any],
     resume_from: str | Path | None,
+    allow_domain_randomization_enable: bool = False,
+    allow_speed_curriculum_widening: bool = False,
 ) -> Path:
     """Validate resume provenance before creating, and never overwrite config."""
 
@@ -314,7 +437,16 @@ def prepare_run_config(
         source_protocol = _mapping(
             source.get("immutable_protocol"), "source immutable_protocol"
         )
-        assert_protocol_matches(source_protocol, protocol)
+        assert_protocol_matches(
+            source_protocol,
+            protocol,
+            allow_domain_randomization_enable=(
+                allow_domain_randomization_enable
+            ),
+            allow_speed_curriculum_widening=(
+                allow_speed_curriculum_widening
+            ),
+        )
         if config_path.is_file():
             existing = _json_object(config_path)
             assert_protocol_matches(
@@ -341,6 +473,86 @@ def prepare_run_config(
         json.dump(value, stream, indent=2, sort_keys=True)
         stream.write("\n")
     return config_path
+
+
+def _accept_domain_randomization_enable(
+    expected: dict[str, Any],
+    actual: dict[str, Any],
+) -> None:
+    """Normalize the one allowed curriculum transition in-place."""
+
+    expected_domain = expected["training_domain"]
+    actual_domain = actual["training_domain"]
+    if (
+        expected_domain.get("domain_randomization_enabled") is not False
+        or actual_domain.get("domain_randomization_enabled") is not True
+    ):
+        return
+    expected_config = expected_domain.get("domain_randomization", {})
+    actual_config = actual_domain.get("domain_randomization", {})
+    shared = set(expected_config) & set(actual_config)
+    for key in shared - {"enabled"}:
+        if expected_config[key] != actual_config[key]:
+            return
+    if set(expected_config) - set(actual_config):
+        return
+    expected_domain["domain_randomization_enabled"] = True
+    expected_domain["domain_randomization"] = actual_config
+    # The digest necessarily changes with the explicitly accepted domain.
+    expected["sha256"] = actual.get("sha256")
+
+
+def _accept_speed_curriculum_widening(
+    expected: dict[str, Any],
+    actual: dict[str, Any],
+) -> None:
+    """Allow only a wider per-episode speed range under one fixed protocol."""
+
+    expected_domain = expected["training_domain"]
+    actual_domain = actual["training_domain"]
+    old_range = expected_domain.get("speed_range_m_s")
+    new_range = actual_domain.get("speed_range_m_s")
+    if not (
+        isinstance(old_range, list)
+        and isinstance(new_range, list)
+        and len(old_range) == 2
+        and len(new_range) == 2
+    ):
+        return
+    if not (
+        float(new_range[0]) <= float(old_range[0])
+        and float(new_range[1]) >= float(old_range[1])
+        and new_range != old_range
+    ):
+        return
+    if (
+        expected_domain.get("calibrated_speed_range_m_s")
+        != actual_domain.get("calibrated_speed_range_m_s")
+    ):
+        return
+    actual_sampling = actual_domain.get("speed_sampling")
+    if not isinstance(actual_sampling, dict):
+        return
+    if actual_sampling.get("anchor_range_m_s") != old_range:
+        return
+    expected_sampling = expected_domain.get("speed_sampling")
+    if expected_sampling is not None:
+        if not isinstance(expected_sampling, dict):
+            return
+        if (
+            expected_sampling.get("protocol") != actual_sampling.get("protocol")
+            or expected_sampling.get("probabilities")
+            != actual_sampling.get("probabilities")
+        ):
+            return
+    expected_domain["speed_range_m_s"] = list(new_range)
+    expected_domain["speed_sampling"] = actual_sampling
+    expected_evaluation = expected.get("evaluation", {})
+    actual_evaluation = actual.get("evaluation", {})
+    expected_evaluation["target_speeds_m_s"] = actual_evaluation.get(
+        "target_speeds_m_s"
+    )
+    expected["sha256"] = actual.get("sha256")
 
 
 def find_run_config(checkpoint: str | Path) -> Path:
@@ -370,12 +582,47 @@ def collect_myoassist_metrics(info: Mapping[str, Any]) -> dict[str, float]:
         "activation_cost": "myoassist_human/activation_squared",
         "human_torque_cost": "myoassist_human/joint_torque_cost",
         "gross_load_cost": "myoassist_human/gross_load_cost",
-        "activation_saving_z": "myoassist_saving/activation_z",
-        "human_torque_saving_z": "myoassist_saving/joint_torque_z",
+        "activation_saving_ratio": "myoassist_saving/activation_ratio",
+        "human_torque_saving_ratio": "myoassist_saving/joint_torque_ratio",
+        "activation_residual_z": "myoassist_baseline/activation_residual_z",
+        "human_torque_residual_z": "myoassist_baseline/joint_torque_residual_z",
+        "global_activation_saving_ratio": (
+            "myoassist_saving/global_act_ratio"
+        ),
+        "activation_saving_mean_ratio": (
+            "myoassist_saving/target_act_mean"
+        ),
+        "activation_saving_left_ratio": (
+            "myoassist_saving/target_act_l"
+        ),
+        "activation_saving_right_ratio": (
+            "myoassist_saving/target_act_r"
+        ),
+        "activation_side_degradation_ratio": (
+            "myoassist_saving/target_act_side_bad"
+        ),
+        "activation_cost_cycle": "myoassist_human/act2_cycle",
+        "target_activation_cost_cycle_left": (
+            "myoassist_human/target_act2_cycle_l"
+        ),
+        "target_activation_cost_cycle_right": (
+            "myoassist_human/target_act2_cycle_r"
+        ),
+        "human_torque_cost_cycle": (
+            "myoassist_human/torque2_cycle"
+        ),
+        "physiology_window_fill_ratio": (
+            "myoassist_system/physiology_fill"
+        ),
         "saving_raw": "myoassist_saving/combined_raw",
         "safety_gate": "myoassist_safety/gate",
         "speed_excess": "myoassist_safety/speed_excess",
         "upright_excess": "myoassist_safety/upright_excess",
+        "movement_rmse_rad": "myoassist_movement/rmse_rad",
+        "movement_z_rms": "myoassist_movement/standardized_rms",
+        "movement_free_z": "myoassist_movement/free_standardized_rms",
+        "movement_transition_z": "myoassist_movement/transition_standardized_rms",
+        "movement_excess": "myoassist_movement/excess",
         "joint_limit_excess": "myoassist_safety/joint_limit_excess",
         "positive_power_w": "myoassist_exo/positive_power_w",
         "mean_absolute_human_torque_nm": "myoassist_human/mean_abs_torque_nm",
@@ -397,10 +644,17 @@ def collect_myoassist_metrics(info: Mapping[str, Any]) -> dict[str, float]:
         "pelvis_pitch_rad": "myoassist_pose/pelvis_pitch_rad",
         "torque_overload": "myoassist_safety/torque_overload",
         "max_absolute_exo_torque_nm": "myoassist_exo/max_abs_torque_nm",
+        "gait_phase": "myoassist_phase/value",
+        "gait_period_steps": "myoassist_phase/period_steps",
+        "speed_curriculum_band_id": "myoassist_locomotion/speed_band_id",
     }
     for source, destination in top_level.items():
         if source in info:
             _record_scalar(result, destination, info[source])
+    randomization = info.get("domain_randomization", {})
+    if isinstance(randomization, Mapping):
+        for name, value in randomization.items():
+            _record_scalar(result, f"myoassist_randomization/{name}", value)
     arrays = {
         "joint_q_rad": "myoassist_joint/q_rad",
         "joint_dq_rad_s": "myoassist_joint/dq_rad_s",
@@ -476,6 +730,13 @@ def _positive_speeds(value: Any, name: str) -> np.ndarray:
 def _require_flag(source: Mapping[str, Any], name: str, expected: bool) -> None:
     if source.get(name) is not expected:
         raise ValueError(f"{name} must be explicitly {expected}.")
+
+
+def _boolean_flag(source: Mapping[str, Any], name: str) -> bool:
+    value = source.get(name)
+    if not isinstance(value, bool):
+        raise ValueError(f"{name} must be an explicit boolean.")
+    return value
 
 
 def _path(value: str | Path) -> Path:

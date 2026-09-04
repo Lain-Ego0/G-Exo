@@ -1,0 +1,21 @@
+{
+  "pipeline_version": 1,
+  "validation_read_only": true,
+  "data_root": "<EXTERNAL_DATA_ROOT>/processed/tcn50",
+  "seed": 43,
+  "device": "cuda",
+  "epochs": 30,
+  "batch_size": 256,
+  "learning_rate": 0.001,
+  "hidden_dim": 64,
+  "dropout": 0.1,
+  "patience": 5,
+  "history": 50,
+  "horizons": [
+    5,
+    10
+  ],
+  "train_samples": 105392,
+  "validation_samples": 14115,
+  "parameters": 59288
+}

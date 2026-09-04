@@ -10,9 +10,15 @@ from typing import Any
 import numpy as np
 from stable_baselines3 import PPO
 
-from RL.env.myoassist.baseline import MyoAssistBaseline
+from RL.env.actor_observation import RESET_WARMUP_STEPS
+from RL.env.myoassist.baseline import ForwardSpeedWindow, MyoAssistBaseline
 from RL.env.myoassist.gexo_leg_env import CONTROL_DT, GexoMyoAssistEnv
-from RL.env.myoassist.policy_transfer import file_sha256
+from RL.env.myoassist.human_adaptation import make_human_adaptation_env
+from RL.env.myoassist.model_builder import DEFAULT_PHYSICAL_OUTPUT_PATH
+from RL.env.myoassist.muscle_adapter import MyoAssistMuscleAdapter
+from RL.env.myoassist.policy_transfer import FrozenHumanPolicy, file_sha256
+from RL.env.myoassist.reward import physiology_costs
+from RL.metrics.trajectory import constrained_dtw_rmse
 from RL.env.myoassist.sensor_adapter import JOINT_SPECS
 
 
@@ -22,8 +28,8 @@ DEFAULT_OUTPUT = PROJECT_ROOT / "RL/outputs/myoassist_exo_evaluation.json"
 CANONICAL_SPEEDS_M_S = (0.8, 1.0, 1.25)
 CANONICAL_REFERENCE_INDICES = (0,)
 SUPPORTED_MODES = ("baseline", "oracle", "policy")
-TRACE_SCHEMA = "gexo_myoassist_paired_traces_v2"
-REPORT_SCHEMA = "gexo_myoassist_paired_evaluation_v2"
+TRACE_SCHEMA = "gexo_myoassist_naked_vs_urdf_traces_v4"
+REPORT_SCHEMA = "gexo_myoassist_naked_vs_urdf_evaluation_v4"
 
 
 def parse_csv(value: str, conversion) -> tuple:
@@ -68,7 +74,206 @@ def _oracle_action(
     ).astype(np.float32)
 
 
-def run_episode(
+def _empty_rows() -> dict[str, list]:
+    return {
+        "activation_cost": [],
+        "target_activation_cost": [],
+        "human_torque_cost": [],
+        "gross_cost": [],
+        "applied_exo_torque_nm": [],
+        "exo_joint_power_w": [],
+        "forward_speed_m_s": [],
+        "pelvis_height_m": [],
+        "pelvis_pitch_rad": [],
+        "joint_limit_excess": [],
+        "joint_q_rad": [],
+    }
+
+
+def _human_joint_q(simulation) -> np.ndarray:
+    return np.asarray(
+        [
+            spec.sign * float(simulation.data.joint(spec.name).qpos[0])
+            for spec in JOINT_SPECS
+        ],
+        dtype=np.float32,
+    )
+
+
+def _joint_limit_excess(q: np.ndarray, baseline: MyoAssistBaseline) -> float:
+    lower = baseline.joint_lower_rad
+    upper = baseline.joint_upper_rad
+    excess = np.maximum(np.maximum(lower - q, q - upper), 0.0)
+    return float(np.max(excess / baseline.joint_limit_transition_rad))
+
+
+def _summarize(
+    *,
+    mode: str,
+    seed: int,
+    speed: float,
+    reference_index: int,
+    steps: int,
+    reason: str,
+    total_return: float,
+    rows: dict[str, list],
+) -> tuple[dict[str, object], dict[str, np.ndarray]]:
+    traces = {
+        name: np.asarray(values, dtype=np.float32)
+        for name, values in rows.items()
+    }
+    completed = int(traces["activation_cost"].shape[0])
+    torque = traces["applied_exo_torque_nm"]
+    power = traces["exo_joint_power_w"]
+    target_activation = traces["target_activation_cost"]
+    if target_activation.size == 0:
+        target_activation = np.empty((0, 2), dtype=np.float32)
+    summary: dict[str, object] = {
+        "mode": mode,
+        "seed": seed,
+        "speed_m_s": speed,
+        "reference_index": reference_index,
+        "requested_steps": steps,
+        "steps": completed,
+        "success": completed == steps and reason == "evaluation_horizon",
+        "reason": reason,
+        "return": total_return,
+        "activation_cost_integral": float(
+            np.sum(traces["activation_cost"]) * CONTROL_DT
+        ),
+        "target_activation_cost_integral_left": float(
+            np.sum(target_activation[:, 0]) * CONTROL_DT
+        ),
+        "target_activation_cost_integral_right": float(
+            np.sum(target_activation[:, 1]) * CONTROL_DT
+        ),
+        "human_torque_cost_integral": float(
+            np.sum(traces["human_torque_cost"]) * CONTROL_DT
+        ),
+        "gross_cost_integral": float(
+            np.sum(traces["gross_cost"]) * CONTROL_DT
+        ),
+        "mean_absolute_exo_torque_nm": (
+            float(np.mean(np.abs(torque))) if torque.size else None
+        ),
+        "positive_exo_work_j": (
+            float(np.sum(np.maximum(power, 0.0)) * CONTROL_DT)
+            if power.size else None
+        ),
+        "negative_exo_work_j": (
+            float(np.sum(np.minimum(power, 0.0)) * CONTROL_DT)
+            if power.size else None
+        ),
+        "mean_forward_speed_m_s": _finite_mean(rows["forward_speed_m_s"]),
+        "minimum_pelvis_height_m": _finite_min(rows["pelvis_height_m"]),
+        "maximum_absolute_pelvis_pitch_rad": _finite_max_abs(
+            rows["pelvis_pitch_rad"]
+        ),
+        "maximum_joint_limit_excess": (
+            float(np.max(traces["joint_limit_excess"]))
+            if traces["joint_limit_excess"].size else None
+        ),
+    }
+    return summary, traces
+
+
+def run_naked_episode(
+    *,
+    policy: FrozenHumanPolicy,
+    baseline: MyoAssistBaseline,
+    reference_model: Path,
+    seed: int,
+    speed: float,
+    reference_index: int,
+    steps: int,
+) -> tuple[dict[str, object], dict[str, np.ndarray]]:
+    """Run the no-URDF human that defines the physiological denominator."""
+
+    environment = make_human_adaptation_env(
+        seed=seed,
+        max_episode_steps=RESET_WARMUP_STEPS + steps,
+        evaluate=True,
+        model_path=reference_model,
+    )
+    observation, _ = environment.reset(
+        seed=seed,
+        options={"target_speed": speed, "reference_index": reference_index},
+    )
+    simulation = environment.unwrapped.sim
+    muscle = MyoAssistMuscleAdapter(
+        simulation.model.ptr,
+        simulation.data.ptr,
+        model_hash=file_sha256(reference_model),
+    )
+    if muscle.physiology_signature != baseline.metadata["physiology_signature"]:
+        environment.close()
+        raise ValueError("Reference model does not match baseline physiology.")
+    rows = _empty_rows()
+    speed_window = ForwardSpeedWindow(baseline.speed_window_steps)
+    reason = "evaluation_horizon"
+    try:
+        for _ in range(RESET_WARMUP_STEPS):
+            observation, _, terminated, truncated, _ = environment.step(
+                policy(observation)
+            )
+            speed_window.append(simulation.data.joint("pelvis_tx").qvel[0])
+            if terminated or truncated:
+                reason = "naked_warmup_failed"
+                break
+        else:
+            environment.unwrapped.finish_preroll()
+            for _ in range(steps):
+                observation, _, terminated, truncated, _ = environment.step(
+                    policy(observation)
+                )
+                forward_speed = speed_window.append(
+                    simulation.data.joint("pelvis_tx").qvel[0]
+                )
+                snapshot = muscle.snapshot()
+                costs = physiology_costs(snapshot, baseline)
+                joint_q = _human_joint_q(simulation)
+                rows["activation_cost"].append(float(costs["activation_cost"]))
+                rows["target_activation_cost"].append(
+                    np.asarray(costs["target_activation_cost"], dtype=np.float32)
+                )
+                rows["human_torque_cost"].append(
+                    float(costs["human_torque_cost"])
+                )
+                rows["gross_cost"].append(float(costs["gross_cost"]))
+                rows["applied_exo_torque_nm"].append(np.zeros(4))
+                rows["exo_joint_power_w"].append(np.zeros(4))
+                rows["forward_speed_m_s"].append(forward_speed)
+                rows["pelvis_height_m"].append(
+                    float(simulation.data.joint("pelvis_ty").qpos[0])
+                )
+                rows["pelvis_pitch_rad"].append(
+                    float(simulation.data.joint("pelvis_tilt").qpos[0])
+                )
+                rows["joint_limit_excess"].append(
+                    _joint_limit_excess(joint_q, baseline)
+                )
+                rows["joint_q_rad"].append(joint_q)
+                if terminated:
+                    reason = "naked_terminated"
+                    break
+                if truncated:
+                    reason = "naked_truncated"
+                    break
+    finally:
+        environment.close()
+    return _summarize(
+        mode="baseline",
+        seed=seed,
+        speed=speed,
+        reference_index=reference_index,
+        steps=steps,
+        reason=reason,
+        total_return=0.0,
+        rows=rows,
+    )
+
+
+def run_assisted_episode(
     *,
     mode: str,
     model: PPO | None,
@@ -80,34 +285,24 @@ def run_episode(
     render: bool,
     oracle_gain: float = 0.25,
 ) -> tuple[dict[str, object], dict[str, np.ndarray]]:
-    if mode not in SUPPORTED_MODES:
+    if mode not in SUPPORTED_MODES or mode == "baseline":
         raise ValueError(f"Unsupported evaluation mode: {mode}.")
     if mode == "policy" and model is None:
         raise ValueError("Policy mode requires --model.")
 
-    environment = GexoMyoAssistEnv(**environment_options)
+    # Seed construction as well as reset: some wrapped components allocate
+    # stochastic state in __init__, before Gymnasium receives reset(seed=...).
+    environment = GexoMyoAssistEnv(seed=seed, **environment_options)
     observation, _ = environment.reset(
         seed=seed,
         options={"target_speed": speed, "reference_index": reference_index},
     )
-    rows: dict[str, list] = {
-        "activation_cost": [],
-        "human_torque_cost": [],
-        "gross_cost": [],
-        "applied_exo_torque_nm": [],
-        "exo_joint_power_w": [],
-        "forward_speed_m_s": [],
-        "pelvis_height_m": [],
-        "pelvis_pitch_rad": [],
-        "joint_limit_excess": [],
-    }
+    rows = _empty_rows()
     total_return = 0.0
     reason = "evaluation_horizon"
     try:
         for step_index in range(steps):
-            if mode == "baseline":
-                action = np.zeros(4, dtype=np.float32)
-            elif mode == "oracle":
+            if mode == "oracle":
                 action = _oracle_action(
                     environment.muscle_adapter.snapshot(),
                     environment.action_torque_scale_nm,
@@ -119,6 +314,15 @@ def run_episode(
             observation, reward, terminated, truncated, info = environment.step(action)
             total_return += float(reward)
             rows["activation_cost"].append(float(info["reward/activation_cost"]))
+            rows["target_activation_cost"].append(
+                np.asarray(
+                    [
+                        info["reward/target_activation_cost_left"],
+                        info["reward/target_activation_cost_right"],
+                    ],
+                    dtype=np.float32,
+                )
+            )
             rows["human_torque_cost"].append(
                 float(info["reward/human_torque_cost"])
             )
@@ -133,6 +337,9 @@ def run_episode(
             rows["pelvis_height_m"].append(float(info["pelvis_height_m"]))
             rows["pelvis_pitch_rad"].append(float(info["pelvis_pitch_rad"]))
             rows["joint_limit_excess"].append(float(info["joint_limit_excess"]))
+            rows["joint_q_rad"].append(
+                np.asarray(info["human_joint_q_rad"], dtype=np.float32)
+            )
             if render:
                 environment.render()
             if terminated:
@@ -148,55 +355,16 @@ def run_episode(
     finally:
         environment.close()
 
-    traces = {
-        name: np.asarray(values, dtype=np.float32)
-        for name, values in rows.items()
-    }
-    completed = int(traces["activation_cost"].shape[0])
-    torque = traces["applied_exo_torque_nm"]
-    power = traces["exo_joint_power_w"]
-    summary: dict[str, object] = {
-        "mode": mode,
-        "seed": seed,
-        "speed_m_s": speed,
-        "reference_index": reference_index,
-        "requested_steps": steps,
-        "steps": completed,
-        "success": completed == steps and reason == "evaluation_horizon",
-        "reason": reason,
-        "return": total_return,
-        "activation_cost_integral": float(
-            np.sum(traces["activation_cost"]) * CONTROL_DT
-        ),
-        "human_torque_cost_integral": float(
-            np.sum(traces["human_torque_cost"]) * CONTROL_DT
-        ),
-        "gross_cost_integral": float(np.sum(traces["gross_cost"]) * CONTROL_DT),
-        "mean_absolute_exo_torque_nm": (
-            float(np.mean(np.abs(torque))) if torque.size else None
-        ),
-        "positive_exo_work_j": (
-            float(np.sum(np.maximum(power, 0.0)) * CONTROL_DT)
-            if power.size
-            else None
-        ),
-        "negative_exo_work_j": (
-            float(np.sum(np.minimum(power, 0.0)) * CONTROL_DT)
-            if power.size
-            else None
-        ),
-        "mean_forward_speed_m_s": _finite_mean(rows["forward_speed_m_s"]),
-        "minimum_pelvis_height_m": _finite_min(rows["pelvis_height_m"]),
-        "maximum_absolute_pelvis_pitch_rad": _finite_max_abs(
-            rows["pelvis_pitch_rad"]
-        ),
-        "maximum_joint_limit_excess": (
-            float(np.max(traces["joint_limit_excess"]))
-            if traces["joint_limit_excess"].size
-            else None
-        ),
-    }
-    return summary, traces
+    return _summarize(
+        mode=mode,
+        seed=seed,
+        speed=speed,
+        reference_index=reference_index,
+        steps=steps,
+        reason=reason,
+        total_return=total_return,
+        rows=rows,
+    )
 
 
 def _saving(baseline_value: object, assisted_value: object) -> float:
@@ -240,6 +408,7 @@ def finalize_pair(
     nondegradation_tolerance: float,
     minimum_improvement: float,
     gross_degradation_tolerance: float,
+    movement_rmse_tolerance_rad: float = np.inf,
 ) -> dict[str, object]:
     """Attach strict paired savings and explicit protocol/effectiveness checks."""
 
@@ -272,6 +441,9 @@ def finalize_pair(
             continue
         values: dict[str, float | None] = {
             "activation_saving_fraction": None,
+            "target_activation_saving_left_fraction": None,
+            "target_activation_saving_right_fraction": None,
+            "target_activation_saving_mean_fraction": None,
             "human_torque_saving_fraction": None,
             "gross_load_saving_fraction": None,
         }
@@ -280,6 +452,14 @@ def finalize_pair(
                 "activation_saving_fraction": _saving(
                     baseline["activation_cost_integral"],
                     runs[mode]["activation_cost_integral"],
+                ),
+                "target_activation_saving_left_fraction": _saving(
+                    baseline["target_activation_cost_integral_left"],
+                    runs[mode]["target_activation_cost_integral_left"],
+                ),
+                "target_activation_saving_right_fraction": _saving(
+                    baseline["target_activation_cost_integral_right"],
+                    runs[mode]["target_activation_cost_integral_right"],
                 ),
                 "human_torque_saving_fraction": _saving(
                     baseline["human_torque_cost_integral"],
@@ -290,6 +470,14 @@ def finalize_pair(
                     runs[mode]["gross_cost_integral"],
                 ),
             }
+            values["target_activation_saving_mean_fraction"] = float(
+                np.mean(
+                    [
+                        values["target_activation_saving_left_fraction"],
+                        values["target_activation_saving_right_fraction"],
+                    ]
+                )
+            )
         for name, value in values.items():
             pair[f"{mode}_{name}"] = value
 
@@ -299,6 +487,7 @@ def finalize_pair(
                 "human_torque_nondegradation": False,
                 "at_least_one_improvement": False,
                 "gross_within_tolerance": False,
+                "movement_consistent": False,
                 "pass": False,
                 "excluded_reason": "incomplete_or_unequal_horizon",
             }
@@ -306,6 +495,9 @@ def finalize_pair(
             activation = float(values["activation_saving_fraction"])
             human_torque = float(values["human_torque_saving_fraction"])
             gross = float(values["gross_load_saving_fraction"])
+            movement_rmse = runs[mode].get(
+                "naked_phase_aligned_movement_rmse_rad"
+            )
             effectiveness = {
                 "activation_nondegradation": (
                     activation >= -nondegradation_tolerance
@@ -319,6 +511,10 @@ def finalize_pair(
                 "gross_within_tolerance": (
                     gross >= -gross_degradation_tolerance
                 ),
+                "movement_consistent": (
+                    movement_rmse is None
+                    or float(movement_rmse) <= movement_rmse_tolerance_rad
+                ),
             }
             effectiveness["pass"] = protocol_pass and all(
                 effectiveness.values()
@@ -326,6 +522,35 @@ def finalize_pair(
             effectiveness["excluded_reason"] = None
         pair["effectiveness_by_mode"][mode] = effectiveness
     return pair
+
+
+def attach_pairwise_movement(
+    runs: dict[str, dict[str, object]],
+    traces: dict[str, dict[str, np.ndarray]],
+    modes: tuple[str, ...],
+) -> None:
+    naked = traces["baseline"]["joint_q_rad"]
+    naked_speed = runs["baseline"]["mean_forward_speed_m_s"]
+    for mode in modes:
+        if mode == "baseline":
+            continue
+        assisted = traces[mode]["joint_q_rad"]
+        if naked.shape == assisted.shape and naked.size:
+            runs[mode]["naked_movement_rmse_rad"] = float(
+                np.sqrt(np.mean(np.square(assisted - naked)))
+            )
+            runs[mode]["naked_phase_aligned_movement_rmse_rad"] = (
+                constrained_dtw_rmse(naked, assisted)
+            )
+        else:
+            runs[mode]["naked_movement_rmse_rad"] = None
+            runs[mode]["naked_phase_aligned_movement_rmse_rad"] = None
+        assisted_speed = runs[mode]["mean_forward_speed_m_s"]
+        runs[mode]["naked_speed_delta_m_s"] = (
+            None
+            if naked_speed is None or assisted_speed is None
+            else float(assisted_speed) - float(naked_speed)
+        )
 
 
 def _mean_valid(pairs: list[dict[str, object]], key: str) -> float | None:
@@ -356,8 +581,20 @@ def main() -> None:
     parser.add_argument("--model", type=Path)
     parser.add_argument("--human-checkpoint", type=Path, required=True)
     parser.add_argument("--baseline", type=Path, required=True)
+    parser.add_argument("--motion-reference", type=Path, required=True)
     parser.add_argument("--tcn-checkpoint", type=Path, default=DEFAULT_TCN)
     parser.add_argument("--tcn-calibration", type=Path, required=True)
+    parser.add_argument(
+        "--physical-model",
+        type=Path,
+        default=DEFAULT_PHYSICAL_OUTPUT_PATH,
+    )
+    parser.add_argument(
+        "--reference-model",
+        type=Path,
+        default=DEFAULT_PHYSICAL_OUTPUT_PATH,
+        help="Naked-human model used only for the physiological denominator.",
+    )
     parser.add_argument("--speeds", default="0.8,1.0,1.25")
     parser.add_argument("--seeds", default="0,1,2")
     parser.add_argument("--reference-indices", default="0")
@@ -367,6 +604,7 @@ def main() -> None:
     parser.add_argument("--nondegradation-tolerance", type=float, default=0.0)
     parser.add_argument("--minimum-improvement", type=float, default=0.0)
     parser.add_argument("--gross-degradation-tolerance", type=float, default=0.1)
+    parser.add_argument("--movement-rmse-tolerance-rad", type=float, default=0.15)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
@@ -402,11 +640,13 @@ def main() -> None:
         "nondegradation_tolerance",
         "minimum_improvement",
         "gross_degradation_tolerance",
+        "movement_rmse_tolerance_rad",
     ):
         if getattr(args, name) < 0.0:
             raise ValueError(f"--{name.replace('_', '-')} must be non-negative.")
 
     baseline_path = args.baseline.expanduser().resolve(strict=True)
+    motion_reference_path = args.motion_reference.expanduser().resolve(strict=True)
     baseline_artifact = MyoAssistBaseline.load(baseline_path)
     if min(speeds) < baseline_artifact.speeds_m_s[0] or max(speeds) > baseline_artifact.speeds_m_s[-1]:
         raise ValueError("Evaluation speeds must stay inside the baseline range.")
@@ -416,8 +656,16 @@ def main() -> None:
     model = PPO.load(model_path, device=args.device) if model_path is not None else None
 
     human_checkpoint = args.human_checkpoint.expanduser().resolve(strict=True)
+    naked_policy = FrozenHumanPolicy(human_checkpoint, device="cpu")
     tcn_checkpoint = args.tcn_checkpoint.expanduser().resolve(strict=True)
     tcn_calibration = args.tcn_calibration.expanduser().resolve(strict=True)
+    physical_model = args.physical_model.expanduser().resolve(strict=True)
+    reference_model = args.reference_model.expanduser().resolve(strict=True)
+    if (
+        file_sha256(reference_model)
+        != baseline_artifact.metadata["reference_model_sha256"]
+    ):
+        raise ValueError("--reference-model does not match the naked baseline.")
     protocol_thresholds = {
         "minimum_pelvis_height_m": float(
             baseline_artifact.minimum_pelvis_height_m
@@ -432,6 +680,7 @@ def main() -> None:
     environment_options = {
         "human_checkpoint": str(human_checkpoint),
         "baseline_path": str(baseline_path),
+        "motion_reference_path": str(motion_reference_path),
         "tcn_checkpoint": str(tcn_checkpoint),
         "tcn_calibration": str(tcn_calibration),
         "max_episode_steps": args.steps,
@@ -441,6 +690,7 @@ def main() -> None:
         "human_device": "cpu",
         "tcn_device": "cpu",
         "render_mode": "human" if args.render else None,
+        "model_path": str(physical_model),
     }
     pairs: list[dict[str, object]] = []
     trace_arrays: dict[str, np.ndarray] = {
@@ -461,23 +711,37 @@ def main() -> None:
             for reference_index in reference_indices:
                 pair_index = len(pairs)
                 runs: dict[str, dict[str, object]] = {}
+                pair_traces: dict[str, dict[str, np.ndarray]] = {}
                 for mode in modes:
-                    summary, traces = run_episode(
-                        mode=mode,
-                        model=model if mode == "policy" else None,
-                        environment_options=environment_options,
-                        seed=seed,
-                        speed=speed,
-                        reference_index=reference_index,
-                        steps=args.steps,
-                        render=args.render and mode == render_mode,
-                        oracle_gain=args.oracle_gain,
-                    )
+                    if mode == "baseline":
+                        summary, traces = run_naked_episode(
+                            policy=naked_policy,
+                            baseline=baseline_artifact,
+                            reference_model=reference_model,
+                            seed=seed,
+                            speed=speed,
+                            reference_index=reference_index,
+                            steps=args.steps,
+                        )
+                    else:
+                        summary, traces = run_assisted_episode(
+                            mode=mode,
+                            model=model if mode == "policy" else None,
+                            environment_options=environment_options,
+                            seed=seed,
+                            speed=speed,
+                            reference_index=reference_index,
+                            steps=args.steps,
+                            render=args.render and mode == render_mode,
+                            oracle_gain=args.oracle_gain,
+                        )
                     runs[mode] = summary
+                    pair_traces[mode] = traces
                     for trace_name, values in traces.items():
                         trace_arrays[
                             f"pair_{pair_index:04d}_{mode}_{trace_name}"
                         ] = values
+                attach_pairwise_movement(runs, pair_traces, modes)
                 pairs.append(
                     finalize_pair(
                         runs,
@@ -488,6 +752,9 @@ def main() -> None:
                         minimum_improvement=args.minimum_improvement,
                         gross_degradation_tolerance=(
                             args.gross_degradation_tolerance
+                        ),
+                        movement_rmse_tolerance_rad=(
+                            args.movement_rmse_tolerance_rad
                         ),
                     )
                 )
@@ -518,6 +785,15 @@ def main() -> None:
             "mean_activation_saving_fraction": _mean_valid(
                 pairs, f"{mode}_activation_saving_fraction"
             ),
+            "mean_target_activation_saving_left_fraction": _mean_valid(
+                pairs, f"{mode}_target_activation_saving_left_fraction"
+            ),
+            "mean_target_activation_saving_right_fraction": _mean_valid(
+                pairs, f"{mode}_target_activation_saving_right_fraction"
+            ),
+            "mean_target_activation_saving_mean_fraction": _mean_valid(
+                pairs, f"{mode}_target_activation_saving_mean_fraction"
+            ),
             "mean_human_torque_saving_fraction": _mean_valid(
                 pairs, f"{mode}_human_torque_saving_fraction"
             ),
@@ -539,10 +815,15 @@ def main() -> None:
     artifact_metadata = {
         "human_checkpoint": _artifact(human_checkpoint),
         "baseline": _artifact(baseline_path),
+        "motion_reference": _artifact(motion_reference_path),
         "tcn_checkpoint": _artifact(tcn_checkpoint),
         "tcn_calibration": _artifact(tcn_calibration),
         "policy_model": _artifact(model_path) if model_path is not None else None,
-        "physical_model_sha256": baseline_artifact.metadata.get("model_sha256"),
+        "physical_model": _artifact(physical_model),
+        "reference_model": _artifact(reference_model),
+        "reference_condition": baseline_artifact.metadata.get(
+            "reference_condition"
+        ),
         "trace_npz": _artifact(trace_output),
     }
     report = {
@@ -573,8 +854,12 @@ def main() -> None:
                 "gross_degradation_tolerance": (
                     args.gross_degradation_tolerance
                 ),
+                "movement_rmse_tolerance_rad": (
+                    args.movement_rmse_tolerance_rad
+                ),
             },
-            "urdf_enabled": False,
+            "reference_urdf_enabled": False,
+            "assisted_urdf_enabled": True,
             "domain_randomization_enabled": False,
         },
         "artifacts": artifact_metadata,
@@ -594,6 +879,8 @@ def main() -> None:
         summary = effectiveness_by_mode[mode]
         print(
             f"{mode}: activation={summary['mean_activation_saving_fraction']} "
+            f"target_left={summary['mean_target_activation_saving_left_fraction']} "
+            f"target_right={summary['mean_target_activation_saving_right_fraction']} "
             f"human_torque={summary['mean_human_torque_saving_fraction']} "
             f"gross={summary['mean_gross_load_saving_fraction']}"
         )

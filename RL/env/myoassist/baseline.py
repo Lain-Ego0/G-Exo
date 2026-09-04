@@ -11,9 +11,11 @@ from typing import Any
 import numpy as np
 
 
-BASELINE_SCHEMA = "gexo_myoassist_zero_assist_baseline_v3"
+BASELINE_SCHEMA = "gexo_myoassist_naked_reference_v6"
+NAKED_REFERENCE_CONDITION = "naked_human_zero_external_torque_v1"
+PHASE_BIN_COUNT = 32
 SPEED_WINDOW_STEPS = 50
-TRAINING_SPEED_SCHEDULE = "uniform_per_episode_v1"
+TRAINING_SPEED_SCHEDULE = "uniform_per_episode_staged_range_v2"
 EPSILON = 1.0e-6
 
 
@@ -55,10 +57,14 @@ class ForwardSpeedWindow:
 class BaselineAtSpeed:
     activation_mean: float
     activation_std: float
+    target_activation_mean: np.ndarray
+    target_activation_std: np.ndarray
     human_torque_mean: float
     human_torque_std: float
     gross_median: float
     gross_scale: float
+    joint_q_mean: np.ndarray
+    joint_q_scale: np.ndarray
     speed_free_error_m_s: float
     speed_transition_m_s: float
 
@@ -68,12 +74,17 @@ class MyoAssistBaseline:
     speeds_m_s: np.ndarray
     activation_mean: np.ndarray
     activation_std: np.ndarray
+    target_activation_mean: np.ndarray
+    target_activation_std: np.ndarray
     human_torque_mean: np.ndarray
     human_torque_std: np.ndarray
     gross_median: np.ndarray
     gross_scale: np.ndarray
+    joint_q_mean: np.ndarray
+    joint_q_scale: np.ndarray
     human_joint_scale_nm: np.ndarray
     gross_joint_scale_nm: np.ndarray
+    phase_bin_count: int
     speed_window_steps: int
     speed_free_error_m_s: np.ndarray
     speed_transition_m_s: np.ndarray
@@ -93,21 +104,54 @@ class MyoAssistBaseline:
         if len(speeds) < 1 or np.any(speeds <= 0.0) or np.any(np.diff(speeds) <= 0.0):
             raise ValueError("speeds_m_s must be positive and strictly increasing.")
         count = len(speeds)
-        fields = (
+        phase_bin_count = int(self.phase_bin_count)
+        if phase_bin_count != PHASE_BIN_COUNT:
+            raise ValueError(
+                f"Formal baseline requires exactly {PHASE_BIN_COUNT} phase bins."
+            )
+        object.__setattr__(self, "phase_bin_count", phase_bin_count)
+        phase_fields = (
             "activation_mean",
             "activation_std",
             "human_torque_mean",
             "human_torque_std",
             "gross_median",
             "gross_scale",
+        )
+        for name in phase_fields:
+            value = _matrix(
+                getattr(self, name),
+                name,
+                count,
+                phase_bin_count,
+            )
+            if name.endswith(("std", "scale")) and np.any(value <= 0.0):
+                raise ValueError(f"{name} must be positive.")
+            object.__setattr__(self, name, _readonly(value))
+        for name in ("target_activation_mean", "target_activation_std"):
+            value = np.asarray(getattr(self, name), dtype=np.float64)
+            expected_shape = (count, phase_bin_count, 2)
+            if value.shape != expected_shape or not np.all(np.isfinite(value)):
+                raise ValueError(f"{name} must have shape {expected_shape}.")
+            if name.endswith("std") and np.any(value <= 0.0):
+                raise ValueError(f"{name} must be positive.")
+            object.__setattr__(self, name, _readonly(value))
+        for name in ("joint_q_mean", "joint_q_scale"):
+            value = np.asarray(getattr(self, name), dtype=np.float64)
+            expected_shape = (count, phase_bin_count, 4)
+            if value.shape != expected_shape or not np.all(np.isfinite(value)):
+                raise ValueError(f"{name} must have shape {expected_shape}.")
+            if name.endswith("scale") and np.any(value <= 0.0):
+                raise ValueError(f"{name} must be positive.")
+            object.__setattr__(self, name, _readonly(value))
+
+        speed_fields = (
             "speed_free_error_m_s",
             "speed_transition_m_s",
         )
-        for name in fields:
+        for name in speed_fields:
             value = _vector(getattr(self, name), name, count)
-            if name.endswith(("std", "scale", "transition_m_s")) and np.any(
-                value <= 0.0
-            ):
+            if name.endswith("transition_m_s") and np.any(value <= 0.0):
                 raise ValueError(f"{name} must be positive.")
             if name == "speed_free_error_m_s" and np.any(value < 0.0):
                 raise ValueError(f"{name} must be non-negative.")
@@ -159,9 +203,36 @@ class MyoAssistBaseline:
             object.__setattr__(self, name, value)
         if self.schema != BASELINE_SCHEMA:
             raise ValueError(f"Unsupported baseline schema: {self.schema}")
-        object.__setattr__(self, "metadata", dict(self.metadata))
+        metadata = dict(self.metadata)
+        if metadata.get("reference_condition") != NAKED_REFERENCE_CONDITION:
+            raise ValueError("Baseline must describe the naked-human reference condition.")
+        if metadata.get("urdf_enabled") is not False:
+            raise ValueError("Naked-human baseline cannot contain a G-Exo URDF.")
+        for name in (
+            "reference_model_sha256",
+            "human_checkpoint_sha256",
+            "physiology_signature",
+        ):
+            value = metadata.get(name)
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(f"Baseline metadata requires {name}.")
+        target_activation = metadata.get("target_activation")
+        if not isinstance(target_activation, dict):
+            raise ValueError("Baseline metadata requires target_activation.")
+        if target_activation.get("side_order") != ["left", "right"]:
+            raise ValueError("Target activation side order must be left, right.")
+        muscles = target_activation.get("muscle_names_by_side")
+        if not isinstance(muscles, dict) or any(
+            len(muscles.get(side, [])) != 7 for side in ("left", "right")
+        ):
+            raise ValueError("Target activation requires seven muscles per side.")
+        object.__setattr__(self, "metadata", metadata)
 
-    def at_speed(self, speed_m_s: float) -> BaselineAtSpeed:
+    def at_speed(
+        self,
+        speed_m_s: float,
+        gait_phase: float = 0.0,
+    ) -> BaselineAtSpeed:
         speed = float(speed_m_s)
         if not np.isfinite(speed):
             raise ValueError("speed_m_s must be finite.")
@@ -175,18 +246,128 @@ class MyoAssistBaseline:
             )
         speed = float(np.clip(speed, lower, upper))
 
-        def interpolate(values: np.ndarray) -> float:
-            return float(np.interp(speed, self.speeds_m_s, values))
+        phase = float(gait_phase)
+        if not np.isfinite(phase):
+            raise ValueError("gait_phase must be finite.")
+        # Each fitted value represents the center of its phase interval.
+        phase_position = (phase % 1.0) * self.phase_bin_count - 0.5
+        phase_lower = int(np.floor(phase_position)) % self.phase_bin_count
+        phase_upper = (phase_lower + 1) % self.phase_bin_count
+        phase_fraction = phase_position - np.floor(phase_position)
+
+        def interpolate_speed(values: np.ndarray) -> float:
+            if values.ndim == 1:
+                return float(np.interp(speed, self.speeds_m_s, values))
+            return np.asarray(
+                [
+                    np.interp(speed, self.speeds_m_s, values[:, index])
+                    for index in range(values.shape[1])
+                ],
+                dtype=np.float64,
+            )
+
+        def interpolate_phase_and_speed(values: np.ndarray) -> float:
+            phase_values = (
+                (1.0 - phase_fraction) * values[:, phase_lower]
+                + phase_fraction * values[:, phase_upper]
+            )
+            return interpolate_speed(phase_values)
 
         return BaselineAtSpeed(
-            activation_mean=interpolate(self.activation_mean),
-            activation_std=interpolate(self.activation_std),
-            human_torque_mean=interpolate(self.human_torque_mean),
-            human_torque_std=interpolate(self.human_torque_std),
-            gross_median=interpolate(self.gross_median),
-            gross_scale=interpolate(self.gross_scale),
-            speed_free_error_m_s=interpolate(self.speed_free_error_m_s),
-            speed_transition_m_s=interpolate(self.speed_transition_m_s),
+            activation_mean=interpolate_phase_and_speed(self.activation_mean),
+            activation_std=interpolate_phase_and_speed(self.activation_std),
+            target_activation_mean=np.asarray(
+                interpolate_phase_and_speed(self.target_activation_mean)
+            ),
+            target_activation_std=np.asarray(
+                interpolate_phase_and_speed(self.target_activation_std)
+            ),
+            human_torque_mean=interpolate_phase_and_speed(self.human_torque_mean),
+            human_torque_std=interpolate_phase_and_speed(self.human_torque_std),
+            gross_median=interpolate_phase_and_speed(self.gross_median),
+            gross_scale=interpolate_phase_and_speed(self.gross_scale),
+            joint_q_mean=interpolate_phase_and_speed(self.joint_q_mean),
+            joint_q_scale=interpolate_phase_and_speed(self.joint_q_scale),
+            speed_free_error_m_s=interpolate_speed(self.speed_free_error_m_s),
+            speed_transition_m_s=interpolate_speed(self.speed_transition_m_s),
+        )
+
+    def cycle_average_at_speed(self, speed_m_s: float) -> BaselineAtSpeed:
+        """Return a speed-conditioned reference without a gait-phase lookup."""
+
+        speed = float(speed_m_s)
+        if not np.isfinite(speed):
+            raise ValueError("speed_m_s must be finite.")
+        lower = float(self.speeds_m_s[0])
+        upper = float(self.speeds_m_s[-1])
+        tolerance = 64.0 * np.finfo(np.float64).eps * max(
+            1.0,
+            abs(lower),
+            abs(upper),
+        )
+        if speed < lower - tolerance or speed > upper + tolerance:
+            raise ValueError(
+                f"Speed {speed} is outside calibrated range "
+                f"[{lower}, {upper}]."
+            )
+        speed = float(np.clip(speed, lower, upper))
+
+        def interpolate(values: np.ndarray) -> float | np.ndarray:
+            if values.ndim == 1:
+                return float(np.interp(speed, self.speeds_m_s, values))
+            return np.asarray(
+                [
+                    np.interp(speed, self.speeds_m_s, values[:, index])
+                    for index in range(values.shape[1])
+                ],
+                dtype=np.float64,
+            )
+
+        def cycle_mean(values: np.ndarray) -> float | np.ndarray:
+            return interpolate(np.mean(values, axis=1))
+
+        def pooled_scale(
+            center: np.ndarray,
+            scale: np.ndarray,
+        ) -> float | np.ndarray:
+            cycle_center = np.mean(center, axis=1, keepdims=True)
+            variance = np.mean(
+                np.square(scale) + np.square(center - cycle_center),
+                axis=1,
+            )
+            return interpolate(np.sqrt(variance))
+
+        # A phase-free gross-load hinge must not penalize an ordinary high-load
+        # part of the gait cycle.  Use the worst nominal phase and its widest
+        # fitted scale while retaining the existing hinge formula.
+        gross_median = float(interpolate(np.max(self.gross_median, axis=1)))
+        gross_scale = float(interpolate(np.max(self.gross_scale, axis=1)))
+        return BaselineAtSpeed(
+            activation_mean=float(cycle_mean(self.activation_mean)),
+            activation_std=pooled_scale(
+                self.activation_mean,
+                self.activation_std,
+            ),
+            target_activation_mean=np.asarray(
+                cycle_mean(self.target_activation_mean)
+            ),
+            target_activation_std=np.asarray(
+                pooled_scale(
+                    self.target_activation_mean,
+                    self.target_activation_std,
+                )
+            ),
+            human_torque_mean=float(cycle_mean(self.human_torque_mean)),
+            human_torque_std=pooled_scale(
+                self.human_torque_mean,
+                self.human_torque_std,
+            ),
+            gross_median=gross_median,
+            gross_scale=gross_scale,
+            joint_q_mean=np.asarray(cycle_mean(self.joint_q_mean)),
+            joint_q_scale=np.asarray(cycle_mean(self.joint_q_scale)),
+            speed_free_error_m_s=float(interpolate(self.speed_free_error_m_s)),
+            speed_transition_m_s=float(interpolate(self.speed_transition_m_s)),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -251,7 +432,9 @@ def validate_calibrated_speed_range(
 def fit_baseline(
     *,
     speed_m_s: np.ndarray,
+    gait_phase: np.ndarray,
     activation_cost: np.ndarray,
+    target_activation_cost: np.ndarray,
     human_joint_torque_nm: np.ndarray,
     gross_joint_load_nm: np.ndarray,
     forward_speed_filtered_m_s: np.ndarray,
@@ -266,7 +449,14 @@ def fit_baseline(
 
     speed = _vector(speed_m_s, "speed_m_s")
     count = len(speed)
+    phase = _vector(gait_phase, "gait_phase", count) % 1.0
     activation = _vector(activation_cost, "activation_cost", count)
+    target_activation = _matrix(
+        target_activation_cost,
+        "target_activation_cost",
+        count,
+        2,
+    )
     human_torque = _matrix(
         human_joint_torque_nm,
         "human_joint_torque_nm",
@@ -282,7 +472,11 @@ def fit_baseline(
     height = _vector(pelvis_height_m, "pelvis_height_m", count)
     pitch = _vector(pelvis_pitch_rad, "pelvis_pitch_rad", count)
     joint_q = _matrix(joint_q_rad, "joint_q_rad", count, 4)
-    if np.any(activation < 0.0) or np.any(gross < 0.0):
+    if (
+        np.any(activation < 0.0)
+        or np.any(target_activation < 0.0)
+        or np.any(gross < 0.0)
+    ):
         raise ValueError("Activation and gross load costs must be non-negative.")
 
     human_scale = np.maximum(np.median(np.abs(human_torque), axis=0), 1.0)
@@ -290,42 +484,76 @@ def fit_baseline(
     human_cost = np.mean(np.square(human_torque / human_scale), axis=1)
     gross_cost = np.mean(gross / gross_joint_scale, axis=1)
     bins = np.unique(speed)
-    activation_mean: list[float] = []
-    activation_std: list[float] = []
-    human_mean: list[float] = []
-    human_std: list[float] = []
-    gross_median: list[float] = []
-    gross_scale: list[float] = []
+    phase_shape = (len(bins), PHASE_BIN_COUNT)
+    activation_mean = np.empty(phase_shape)
+    activation_std = np.empty(phase_shape)
+    target_activation_mean = np.empty((*phase_shape, 2))
+    target_activation_std = np.empty((*phase_shape, 2))
+    human_mean = np.empty(phase_shape)
+    human_std = np.empty(phase_shape)
+    gross_median = np.empty(phase_shape)
+    gross_scale = np.empty(phase_shape)
+    joint_q_mean = np.empty((*phase_shape, 4))
+    joint_q_scale = np.empty((*phase_shape, 4))
     speed_free_error: list[float] = []
     speed_transition: list[float] = []
 
-    for value in bins:
-        mask = np.isclose(speed, value, rtol=0.0, atol=1.0e-9)
-        if np.count_nonzero(mask) < 2:
+    phase_indices = np.floor(phase * PHASE_BIN_COUNT).astype(int) % PHASE_BIN_COUNT
+    for speed_index, value in enumerate(bins):
+        speed_mask = np.isclose(speed, value, rtol=0.0, atol=1.0e-9)
+        if np.count_nonzero(speed_mask) < 2:
             raise ValueError(f"Speed bin {value} needs at least two frames.")
-        activation_values = activation[mask]
-        human_values = human_cost[mask]
-        gross_values = gross_cost[mask]
-        speed_error_values = np.abs(forward[mask] - speed[mask])
-        activation_center = float(np.mean(activation_values))
-        human_center = float(np.mean(human_values))
-        gross_center = float(np.median(gross_values))
-        activation_mean.append(activation_center)
-        activation_std.append(
-            max(float(np.std(activation_values)), 0.05 * activation_center, EPSILON)
-        )
-        human_mean.append(human_center)
-        human_std.append(
-            max(float(np.std(human_values)), 0.05 * human_center, EPSILON)
-        )
-        gross_median.append(gross_center)
-        gross_scale.append(
-            max(
-                float(np.median(np.abs(gross_values - gross_center))),
-                0.05 * gross_center,
-                EPSILON,
+        for phase_index in range(PHASE_BIN_COUNT):
+            mask = speed_mask & (phase_indices == phase_index)
+            samples = int(np.count_nonzero(mask))
+            if samples < 2:
+                raise ValueError(
+                    f"Speed {value}, phase bin {phase_index} needs at least "
+                    f"two frames, got {samples}."
+                )
+            activation_values = activation[mask]
+            target_activation_values = target_activation[mask]
+            human_values = human_cost[mask]
+            gross_values = gross_cost[mask]
+            joint_values = joint_q[mask]
+            activation_center = float(np.mean(activation_values))
+            human_center = float(np.mean(human_values))
+            gross_center = float(np.median(gross_values))
+            activation_mean[speed_index, phase_index] = activation_center
+            activation_std[speed_index, phase_index] = _robust_scale(
+                activation_values,
+                activation_center,
             )
-        )
+            target_center = np.mean(target_activation_values, axis=0)
+            target_activation_mean[speed_index, phase_index] = target_center
+            target_activation_std[speed_index, phase_index] = np.asarray(
+                [
+                    _robust_scale(
+                        target_activation_values[:, side],
+                        target_center[side],
+                    )
+                    for side in range(2)
+                ]
+            )
+            human_mean[speed_index, phase_index] = human_center
+            human_std[speed_index, phase_index] = _robust_scale(
+                human_values,
+                human_center,
+            )
+            gross_median[speed_index, phase_index] = gross_center
+            gross_scale[speed_index, phase_index] = _robust_scale(
+                gross_values,
+                gross_center,
+            )
+            joint_center = np.mean(joint_values, axis=0)
+            joint_q_mean[speed_index, phase_index] = joint_center
+            joint_q_scale[speed_index, phase_index] = np.asarray(
+                [
+                    _robust_scale(joint_values[:, joint], joint_center[joint])
+                    for joint in range(4)
+                ]
+            )
+        speed_error_values = np.abs(forward[speed_mask] - speed[speed_mask])
         speed_free_error.append(
             float(np.percentile(speed_error_values, 95.0))
         )
@@ -338,14 +566,19 @@ def fit_baseline(
     observed_range = observed_upper - observed_lower
     return MyoAssistBaseline(
         speeds_m_s=bins,
-        activation_mean=np.asarray(activation_mean),
-        activation_std=np.asarray(activation_std),
-        human_torque_mean=np.asarray(human_mean),
-        human_torque_std=np.asarray(human_std),
-        gross_median=np.asarray(gross_median),
-        gross_scale=np.asarray(gross_scale),
+        activation_mean=activation_mean,
+        activation_std=activation_std,
+        target_activation_mean=target_activation_mean,
+        target_activation_std=target_activation_std,
+        human_torque_mean=human_mean,
+        human_torque_std=human_std,
+        gross_median=gross_median,
+        gross_scale=gross_scale,
+        joint_q_mean=joint_q_mean,
+        joint_q_scale=joint_q_scale,
         human_joint_scale_nm=human_scale,
         gross_joint_scale_nm=gross_joint_scale,
+        phase_bin_count=PHASE_BIN_COUNT,
         speed_window_steps=SPEED_WINDOW_STEPS,
         speed_free_error_m_s=np.asarray(speed_free_error),
         speed_transition_m_s=np.asarray(speed_transition),
@@ -388,8 +621,16 @@ def _readonly(value: np.ndarray) -> np.ndarray:
     return result
 
 
+def _robust_scale(values: np.ndarray, center: float) -> float:
+    median = float(np.median(values))
+    mad_scale = 1.4826 * float(np.median(np.abs(values - median)))
+    return max(float(np.std(values)), mad_scale, 0.05 * abs(center), EPSILON)
+
+
 __all__ = [
     "BASELINE_SCHEMA",
+    "NAKED_REFERENCE_CONDITION",
+    "PHASE_BIN_COUNT",
     "SPEED_WINDOW_STEPS",
     "BaselineAtSpeed",
     "ForwardSpeedWindow",

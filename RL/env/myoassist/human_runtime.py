@@ -16,6 +16,7 @@ from rl_train.train.train_configs.config_imiatation_exo import (
 )
 
 from RL.env.myoassist.model_builder import DEFAULT_OUTPUT_PATH, build_model
+from RL.env.myoassist.urdf_attachment import synchronize_dynamic_gexo_state
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -222,6 +223,7 @@ class GexoHumanRuntime(MyoAssistLegImitation):
 
         pelvis_tx_id = self.sim.model.joint("pelvis_tx").id
         qpos[int(self.sim.model.jnt_qposadr[pelvis_tx_id])] = 0.0
+        synchronize_dynamic_gexo_state(self.sim.model, qpos, qvel)
         return qpos, qvel
 
     def reset(
@@ -328,6 +330,8 @@ def make_human_runtime(
     min_target_speed_m_s: float = 0.8,
     max_target_speed_m_s: float = 1.5,
     enforce_imitation_termination: bool = False,
+    qpos_imitation_weight: float = 0.0,
+    qvel_imitation_weight: float = 0.0,
 ) -> GexoHumanRuntime:
     """Create the private MyoAssist runtime without editing third-party code."""
 
@@ -338,6 +342,8 @@ def make_human_runtime(
         model = model.resolve(strict=True)
     if not 0.0 < min_target_speed_m_s <= max_target_speed_m_s:
         raise ValueError("Target speed bounds must satisfy 0 < min <= max.")
+    if qpos_imitation_weight < 0.0 or qvel_imitation_weight < 0.0:
+        raise ValueError("Imitation weights cannot be negative.")
     config = load_runtime_config(
         seed=seed,
         max_episode_steps=max_episode_steps,
@@ -346,6 +352,19 @@ def make_human_runtime(
     )
     config.env_params.min_target_velocity = float(min_target_speed_m_s)
     config.env_params.max_target_velocity = float(max_target_speed_m_s)
+    tracked_joints = (
+        "hip_flexion_l",
+        "knee_angle_l",
+        "hip_flexion_r",
+        "knee_angle_r",
+    )
+    for joint in tracked_joints:
+        config.env_params.reward_keys_and_weights.qpos_imitation_rewards[
+            joint
+        ] = float(qpos_imitation_weight)
+        config.env_params.reward_keys_and_weights.qvel_imitation_rewards[
+            joint
+        ] = float(qvel_imitation_weight)
     reference = load_reference_data(sample_rate_hz=CONTROL_HZ)
     environment = GexoHumanRuntime(
         model_path=config.env_params.model_path,

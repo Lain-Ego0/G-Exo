@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from typing import Final
 
 import mujoco
@@ -11,6 +13,18 @@ from RL.optimization.contracts import MuscleSnapshot
 
 
 MUSCLE_COUNT: Final = 22
+ACTIVATION_SIDE_ORDER: Final = ("left", "right")
+TARGET_ACTIVATION_MUSCLE_STEMS: Final = frozenset(
+    {
+        "hamstrings",
+        "bifemsh",
+        "glutmax",
+        "iliopsoas",
+        "rectfem",
+        "vasti",
+        "gastroc",
+    }
+)
 TARGET_JOINT_NAMES: Final = (
     "hip_flexion_l",
     "knee_angle_l",
@@ -97,6 +111,7 @@ class MyoAssistMuscleAdapter:
             set(self.muscle_names)
         ) != MUSCLE_COUNT:
             raise ValueError("The first 22 muscle names must be present and unique.")
+        self.target_activation_masks = target_activation_masks(self.muscle_names)
 
         self.target_dof_ids = np.empty(len(TARGET_JOINT_NAMES), dtype=np.int32)
         for index, joint_name in enumerate(TARGET_JOINT_NAMES):
@@ -128,6 +143,7 @@ class MyoAssistMuscleAdapter:
         self.physics_dt_s = physics_dt_s
         self.activation_horizon_s = float(activation_horizon_s)
         self.target_mask = np.ones(MUSCLE_COUNT, dtype=bool)
+        self.physiology_signature = self._physiology_signature()
 
     def snapshot(self) -> MuscleSnapshot:
         """Capture one immutable snapshot after the caller has run mj_forward."""
@@ -184,12 +200,41 @@ class MyoAssistMuscleAdapter:
             metadata={
                 "backend": "myoassist",
                 "muscle_names": self.muscle_names,
+                "activation_side_order": ACTIVATION_SIDE_ORDER,
+                "target_activation_muscle_stems": tuple(
+                    sorted(TARGET_ACTIVATION_MUSCLE_STEMS)
+                ),
                 "target_joint_names": TARGET_JOINT_NAMES,
                 "target_joint_signs": tuple(TARGET_JOINT_SIGNS.tolist()),
                 "activation_horizon_s": self.activation_horizon_s,
                 "physics_timestep_s": self.physics_dt_s,
+                "physiology_signature": self.physiology_signature,
             },
         )
+
+    def _physiology_signature(self) -> str:
+        """Identify the muscle model while allowing unrelated URDF bodies."""
+
+        ids = self.muscle_actuator_ids
+        payload = {
+            "schema": "gexo_myoassist_physiology_v1",
+            "muscle_names": self.muscle_names,
+            "target_joint_names": TARGET_JOINT_NAMES,
+            "target_joint_signs": TARGET_JOINT_SIGNS.tolist(),
+            "control_range": self.model.actuator_ctrlrange[ids].tolist(),
+            "dynamic_parameters": self.model.actuator_dynprm[ids].tolist(),
+            "gain_parameters": self.model.actuator_gainprm[ids].tolist(),
+            "bias_parameters": self.model.actuator_biasprm[ids].tolist(),
+            "length_range": self.model.actuator_lengthrange[ids].tolist(),
+            "physics_timestep_s": self.physics_dt_s,
+        }
+        encoded = json.dumps(
+            payload,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        return hashlib.sha256(encoded).hexdigest()
+
 
     def _dense_muscle_moment(self) -> np.ndarray:
         raw = np.asarray(self.data.actuator_moment, dtype=np.float64)
@@ -285,10 +330,53 @@ class MyoAssistMuscleAdapter:
         return np.maximum(value, 0.0)
 
 
+def target_activation_masks(
+    muscle_names: tuple[str, ...],
+) -> np.ndarray:
+    """Return fixed left/right masks for muscles spanning a G-Exo joint."""
+
+    if len(muscle_names) != MUSCLE_COUNT or len(set(muscle_names)) != MUSCLE_COUNT:
+        raise ValueError("Expected 22 unique MyoAssist muscle names.")
+    masks = np.zeros((len(ACTIVATION_SIDE_ORDER), MUSCLE_COUNT), dtype=bool)
+    suffixes = ("_l", "_r")
+    for side_index, suffix in enumerate(suffixes):
+        for muscle_index, name in enumerate(muscle_names):
+            if not name.endswith(suffix):
+                continue
+            stem = name[: -len(suffix)]
+            masks[side_index, muscle_index] = (
+                stem in TARGET_ACTIVATION_MUSCLE_STEMS
+            )
+    expected_count = len(TARGET_ACTIVATION_MUSCLE_STEMS)
+    if np.any(np.sum(masks, axis=1) != expected_count):
+        raise ValueError(
+            "MyoAssist must provide every target hip/knee muscle on both sides."
+        )
+    return masks
+
+
+def target_activation_costs(snapshot: MuscleSnapshot) -> np.ndarray:
+    """Mean squared activation for left and right hip/knee muscle groups."""
+
+    names = snapshot.metadata.get("muscle_names")
+    if not isinstance(names, (tuple, list)):
+        raise ValueError("Muscle snapshot has no ordered muscle_names metadata.")
+    masks = target_activation_masks(tuple(names))
+    squared = np.square(snapshot.activation)
+    return np.asarray(
+        [float(np.mean(squared[mask])) for mask in masks],
+        dtype=np.float64,
+    )
+
+
 __all__ = [
+    "ACTIVATION_SIDE_ORDER",
     "DEFAULT_ACTIVATION_HORIZON_S",
     "MUSCLE_COUNT",
     "MyoAssistMuscleAdapter",
+    "TARGET_ACTIVATION_MUSCLE_STEMS",
     "TARGET_JOINT_NAMES",
     "TARGET_JOINT_SIGNS",
+    "target_activation_costs",
+    "target_activation_masks",
 ]

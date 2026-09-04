@@ -1,0 +1,1269 @@
+{
+  "checkpoint": "<PROJECT_ROOT>/RL/outputs/tcn_runs/seed_43/best_model.pt",
+  "checkpoint_epoch": 18,
+  "checkpoint_seed": 43,
+  "checkpoint_validation_loss": 0.07444620867079522,
+  "device": "cpu",
+  "data_root": "<TEMP_ROOT>/gexo_phase3_tcn50",
+  "split": "test",
+  "samples": 29171,
+  "validation_samples": 29171,
+  "moment_unit": "Nm/kg",
+  "input_realtime_note": "The dataset does not document whether exo velocity_filt is causal. Replace or reproduce it with an online filter before deployment.",
+  "target_processing_note": "Filtered angle/moment labels and central-difference velocity labels are offline supervision targets; they are not policy observations.",
+  "overall": {
+    "normalized_mse": 0.11918485135856817,
+    "horizons": {
+      "100_ms": {
+        "angle_rad": {
+          "tcn_rmse": 0.12539374217823585,
+          "training_mean_rmse": 0.3787681267637329,
+          "persistence_rmse": 0.33474993459905855
+        },
+        "velocity_rad_s": {
+          "tcn_rmse": 0.8387535193730079,
+          "training_mean_rmse": 3.6402472663977385,
+          "persistence_rmse": 4.621498689326656
+        },
+        "moment_nm_kg": {
+          "tcn_rmse": 0.18422024473416299,
+          "training_mean_rmse": 0.48223804182838725,
+          "persistence_rmse": 0.5339610484851278
+        },
+        "per_target": {
+          "left_hip_angle": {
+            "tcn_rmse": 0.10953399964613131,
+            "valid_labels": 29171
+          },
+          "left_knee_angle": {
+            "tcn_rmse": 0.16072654626879582,
+            "valid_labels": 29171
+          },
+          "right_hip_angle": {
+            "tcn_rmse": 0.09945060087057125,
+            "valid_labels": 29171
+          },
+          "right_knee_angle": {
+            "tcn_rmse": 0.12317962714002592,
+            "valid_labels": 29171
+          },
+          "left_hip_velocity": {
+            "tcn_rmse": 0.6247795217302049,
+            "valid_labels": 29171
+          },
+          "left_knee_velocity": {
+            "tcn_rmse": 1.0461288068153778,
+            "valid_labels": 29171
+          },
+          "right_hip_velocity": {
+            "tcn_rmse": 0.6117194999511845,
+            "valid_labels": 29171
+          },
+          "right_knee_velocity": {
+            "tcn_rmse": 0.977289203460015,
+            "valid_labels": 29171
+          },
+          "left_hip_moment": {
+            "tcn_rmse": 0.2030707151169098,
+            "valid_labels": 27856
+          },
+          "left_knee_moment": {
+            "tcn_rmse": 0.17828794302660755,
+            "valid_labels": 27856
+          },
+          "right_hip_moment": {
+            "tcn_rmse": 0.19760766038446748,
+            "valid_labels": 27856
+          },
+          "right_knee_moment": {
+            "tcn_rmse": 0.15386780322824062,
+            "valid_labels": 27856
+          }
+        }
+      },
+      "200_ms": {
+        "angle_rad": {
+          "tcn_rmse": 0.13967964425714197,
+          "training_mean_rmse": 0.3787494478007726,
+          "persistence_rmse": 0.5267711520992263
+        },
+        "velocity_rad_s": {
+          "tcn_rmse": 0.971352770600944,
+          "training_mean_rmse": 3.640127179949179,
+          "persistence_rmse": 6.470498593036981
+        },
+        "moment_nm_kg": {
+          "tcn_rmse": 0.19698634594664594,
+          "training_mean_rmse": 0.4824327621854895,
+          "persistence_rmse": 0.7434413136947977
+        },
+        "per_target": {
+          "left_hip_angle": {
+            "tcn_rmse": 0.11610965276952706,
+            "valid_labels": 29171
+          },
+          "left_knee_angle": {
+            "tcn_rmse": 0.17385361779800604,
+            "valid_labels": 29171
+          },
+          "right_hip_angle": {
+            "tcn_rmse": 0.1105236146748255,
+            "valid_labels": 29171
+          },
+          "right_knee_angle": {
+            "tcn_rmse": 0.148726631074271,
+            "valid_labels": 29171
+          },
+          "left_hip_velocity": {
+            "tcn_rmse": 0.7033127511112766,
+            "valid_labels": 29171
+          },
+          "left_knee_velocity": {
+            "tcn_rmse": 1.2015451075323764,
+            "valid_labels": 29171
+          },
+          "right_hip_velocity": {
+            "tcn_rmse": 0.6773802215481785,
+            "valid_labels": 29171
+          },
+          "right_knee_velocity": {
+            "tcn_rmse": 1.1734144127123882,
+            "valid_labels": 29171
+          },
+          "left_hip_moment": {
+            "tcn_rmse": 0.20983923745736552,
+            "valid_labels": 27856
+          },
+          "left_knee_moment": {
+            "tcn_rmse": 0.1938114592965792,
+            "valid_labels": 27856
+          },
+          "right_hip_moment": {
+            "tcn_rmse": 0.20860552128524124,
+            "valid_labels": 27856
+          },
+          "right_knee_moment": {
+            "tcn_rmse": 0.17350167467664748,
+            "valid_labels": 27856
+          }
+        }
+      }
+    }
+  },
+  "by_subject": {
+    "BT18": {
+      "normalized_mse": 0.05124684084076401,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.0684133038044308,
+            "training_mean_rmse": 0.3124601732206802,
+            "persistence_rmse": 0.16783725515639095
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.4823620678932425,
+            "training_mean_rmse": 1.743841670287805,
+            "persistence_rmse": 1.534578542200446
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.1308375956827382,
+            "training_mean_rmse": 0.16480304774127327,
+            "persistence_rmse": 0.11867601805072302
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.0799101980146746,
+              "valid_labels": 941
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.05683092293607726,
+              "valid_labels": 941
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.07237410471779188,
+              "valid_labels": 941
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.06219417953101896,
+              "valid_labels": 941
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.3326780410739391,
+              "valid_labels": 941
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.627188366958816,
+              "valid_labels": 941
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.33518512140678874,
+              "valid_labels": 941
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.5606279210806725,
+              "valid_labels": 941
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.08518320111548333,
+              "valid_labels": 941
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.18061102071956456,
+              "valid_labels": 941
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.09431991152224797,
+              "valid_labels": 941
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.140360754874538,
+              "valid_labels": 941
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.08532664739298627,
+            "training_mean_rmse": 0.31256017977876244,
+            "persistence_rmse": 0.30354935973302716
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.5512438396386419,
+            "training_mean_rmse": 1.7445027934270607,
+            "persistence_rmse": 2.5452668418202173
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.13198791581500927,
+            "training_mean_rmse": 0.16471729480049466,
+            "persistence_rmse": 0.18698799408349764
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.09136462677207051,
+              "valid_labels": 941
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.09040060418865548,
+              "valid_labels": 941
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.08049653183928267,
+              "valid_labels": 941
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.0782501828769857,
+              "valid_labels": 941
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.37691906849162704,
+              "valid_labels": 941
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.6753021206028088,
+              "valid_labels": 941
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.40523205444617316,
+              "valid_labels": 941
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.6731754056145384,
+              "valid_labels": 941
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.09156088915756373,
+              "valid_labels": 941
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.1833435085910092,
+              "valid_labels": 941
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.08931961087464185,
+              "valid_labels": 941
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.14038165204960837,
+              "valid_labels": 941
+            }
+          }
+        }
+      }
+    },
+    "BT19": {
+      "normalized_mse": 0.09445500274788837,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.10768870756031895,
+            "training_mean_rmse": 0.36774607730330494,
+            "persistence_rmse": 0.3097614026873682
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.72911360696305,
+            "training_mean_rmse": 3.35287243094264,
+            "persistence_rmse": 4.146556226531616
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.1734903448469249,
+            "training_mean_rmse": 0.4992430330389985,
+            "persistence_rmse": 0.5543686027056209
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.08822566278354955,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.12942977419492085,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.10756626757051116,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.10139573464032886,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.4822279372805212,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.940716809287335,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.5490633238390648,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.8411088960889093,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.20888303978211895,
+              "valid_labels": 4440
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.1292373944987505,
+              "valid_labels": 4440
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.2129758223573101,
+              "valid_labels": 4440
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.12125374083385336,
+              "valid_labels": 4440
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.12129796541151903,
+            "training_mean_rmse": 0.36745010421837554,
+            "persistence_rmse": 0.49531669487488733
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.7731470212754483,
+            "training_mean_rmse": 3.353240947528035,
+            "persistence_rmse": 5.904336709874819
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.18665305818479047,
+            "training_mean_rmse": 0.49921019501067915,
+            "persistence_rmse": 0.7570155045468108
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.09526769455464833,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.13736896611872804,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.11732086513966578,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.1309291173745955,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.5112670231106387,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.9502439849402158,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.5409006622324023,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.9664854576192377,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.20860547272336322,
+              "valid_labels": 4440
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.12913343291758236,
+              "valid_labels": 4440
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.22593280739593105,
+              "valid_labels": 4440
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.16769059697524677,
+              "valid_labels": 4440
+            }
+          }
+        }
+      }
+    },
+    "BT20": {
+      "normalized_mse": 0.13153124343958253,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.10961983413846019,
+            "training_mean_rmse": 0.37908485988632773,
+            "persistence_rmse": 0.37941450595455223
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 1.0159132216662217,
+            "training_mean_rmse": 4.1672523655766875,
+            "persistence_rmse": 5.547858158338047
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.18168815432563568,
+            "training_mean_rmse": 0.4604988937471336,
+            "persistence_rmse": 0.515010230338705
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.07556154808244833,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.1468840384490078,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.07456102411973965,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.12337835113456462,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.9762077312360278,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.0787956783117083,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.9716704913050856,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.0331473767487815,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.2134260861883665,
+              "valid_labels": 4705
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.16762460017227937,
+              "valid_labels": 4705
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.17449128781630652,
+              "valid_labels": 4705
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.16717186161740957,
+              "valid_labels": 4705
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.11996497570990965,
+            "training_mean_rmse": 0.3794617160852002,
+            "persistence_rmse": 0.577027110497908
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 1.3217741324355479,
+            "training_mean_rmse": 4.1669179729764885,
+            "persistence_rmse": 7.542220384902614
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.1996171982787077,
+            "training_mean_rmse": 0.4601195043398743,
+            "persistence_rmse": 0.7208387872281117
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.08586906340438034,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.14736183835062805,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.09227418513089153,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.1412899461912442,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 1.0756094792178617,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.6347672509478721,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 1.0454668113219745,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.4373402027955187,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.23688218230024727,
+              "valid_labels": 4705
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.18466714525199626,
+              "valid_labels": 4705
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.17557388445243036,
+              "valid_labels": 4705
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.19582336853909643,
+              "valid_labels": 4705
+            }
+          }
+        }
+      }
+    },
+    "BT21": {
+      "normalized_mse": 0.12940634395893547,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.12054621428446641,
+            "training_mean_rmse": 0.4045146944725776,
+            "persistence_rmse": 0.3369849044358289
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 1.0269160751496043,
+            "training_mean_rmse": 3.6149750725892167,
+            "persistence_rmse": 4.260095775966786
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.2063864205879307,
+            "training_mean_rmse": 0.48902586630859013,
+            "persistence_rmse": 0.5207433520046756
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.0552620939953566,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.19060572414548632,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.07570678394043022,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.11405963733453711,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.6031337477788349,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.4303948214934044,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.5831635353415248,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.2117537413128767,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.23590458460256125,
+              "valid_labels": 4705
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.21711234238992244,
+              "valid_labels": 4705
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.19665128631841838,
+              "valid_labels": 4705
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.1700615998606342,
+              "valid_labels": 4705
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.15012916076567184,
+            "training_mean_rmse": 0.40497827563188393,
+            "persistence_rmse": 0.5524884325883526
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 1.0799378712072203,
+            "training_mean_rmse": 3.615529827761844,
+            "persistence_rmse": 6.305965118180823
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.21381568346758892,
+            "training_mean_rmse": 0.4883524786700297,
+            "persistence_rmse": 0.7441749347506258
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.07807825086427933,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.2257586103440262,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.09057488788453653,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.15775958269161397,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.7121724940207721,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.445481380160619,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.6476029299480772,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.2841602649833792,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.23933863023669366,
+              "valid_labels": 4705
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.22329991707347785,
+              "valid_labels": 4705
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.21110402382571497,
+              "valid_labels": 4705
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.17651584694537154,
+              "valid_labels": 4705
+            }
+          }
+        }
+      }
+    },
+    "BT22": {
+      "normalized_mse": 0.09821255907998219,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.10946710684312294,
+            "training_mean_rmse": 0.3859763599260166,
+            "persistence_rmse": 0.35668056164615425
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.7710692106223582,
+            "training_mean_rmse": 3.8821755435174277,
+            "persistence_rmse": 4.958674409315462
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.16333058452084245,
+            "training_mean_rmse": 0.4039063541876043,
+            "persistence_rmse": 0.4622147122136989
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.06358229611189621,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.15022390545209083,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.049340183535081496,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.13743291477298905,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.5774553073326684,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.9652014573550577,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.5692531204031966,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.8882979848808484,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.15510785752021616,
+              "valid_labels": 4637
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.1615443039846808,
+              "valid_labels": 4637
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.1826695835635236,
+              "valid_labels": 4637
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.15226402393869173,
+              "valid_labels": 4637
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.13082360475288082,
+            "training_mean_rmse": 0.38556938036130745,
+            "persistence_rmse": 0.5596298592314403
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.980880114673295,
+            "training_mean_rmse": 3.884295448378848,
+            "persistence_rmse": 6.873290898676
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.19219740613258476,
+            "training_mean_rmse": 0.40418735304549025,
+            "persistence_rmse": 0.6319695674746695
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.06773804394258601,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.17561471115512411,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.06472618335624142,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.16982583448645483,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.7054143787082491,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.142632347313685,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.7185319947307424,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.2365261190845582,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.161577431224391,
+              "valid_labels": 4637
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.2178778873810767,
+              "valid_labels": 4637
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.1996395217008942,
+              "valid_labels": 4637
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.18527113369518516,
+              "valid_labels": 4637
+            }
+          }
+        }
+      }
+    },
+    "BT23": {
+      "normalized_mse": 0.07708167761140049,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.09692028916005778,
+            "training_mean_rmse": 0.34426619456964935,
+            "persistence_rmse": 0.3312484008991424
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.7113082182993269,
+            "training_mean_rmse": 3.613174513581791,
+            "persistence_rmse": 4.666196514499824
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.14343254939104388,
+            "training_mean_rmse": 0.5149621033350175,
+            "persistence_rmse": 0.5487520612220534
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.10411177141453455,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.08450965743709077,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.08528006253675732,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.11099701613105145,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.5853796938283918,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.850312829113354,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.4231162563110458,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.8826714371863398,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.15961169799208022,
+              "valid_labels": 3912
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.10354484274940387,
+              "valid_labels": 3912
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.17616733352242736,
+              "valid_labels": 3912
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.12271604175062445,
+              "valid_labels": 3912
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.10943266856433906,
+            "training_mean_rmse": 0.34420832858179873,
+            "persistence_rmse": 0.5150490784585046
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.813932137649934,
+            "training_mean_rmse": 3.6125787084343344,
+            "persistence_rmse": 6.466172979801489
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.15632930921011973,
+            "training_mean_rmse": 0.5156794698678048,
+            "persistence_rmse": 0.8068189563006066
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.10967744887582731,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.09800287190144256,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.09922960142687313,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.1281476347978126,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.5644360201219275,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.9091178605033186,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.5070843218101135,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.1170157941026302,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.1623479350040437,
+              "valid_labels": 3912
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.14984032550641768,
+              "valid_labels": 3912
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.1726506559137123,
+              "valid_labels": 3912
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.13834083828382499,
+              "valid_labels": 3912
+            }
+          }
+        }
+      }
+    },
+    "BT24": {
+      "normalized_mse": 0.19610916451159413,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.1924287922074849,
+            "training_mean_rmse": 0.3998586504713783,
+            "persistence_rmse": 0.31418131912624864
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.7723092629910547,
+            "training_mean_rmse": 3.4275904995624935,
+            "persistence_rmse": 4.412170448268589
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.22845439335338733,
+            "training_mean_rmse": 0.5625216460559451,
+            "persistence_rmse": 0.6441197940762925
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.20415535862749595,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.23484496286282536,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.16644670657024796,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.15355548546138,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.41546600986220167,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 0.9783116029383998,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.4569513631351011,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.0233944717172345,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.24030747753343792,
+              "valid_labels": 4516
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.24162525925350098,
+              "valid_labels": 4516
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.24750193087132202,
+              "valid_labels": 4516
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.17713831860164783,
+              "valid_labels": 4516
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.19691239204223954,
+            "training_mean_rmse": 0.3996211000010886,
+            "persistence_rmse": 0.4898904892952736
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.8083119528723933,
+            "training_mean_rmse": 3.424418236599617,
+            "persistence_rmse": 6.141409352256184
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.2307032891062314,
+            "training_mean_rmse": 0.5637405017096345,
+            "persistence_rmse": 0.8647865600761502
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.20676622490863183,
+              "valid_labels": 4705
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.23186905936624713,
+              "valid_labels": 4705
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.1729782020720391,
+              "valid_labels": 4705
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.16929551001948112,
+              "valid_labels": 4705
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.5446946623090526,
+              "valid_labels": 4705
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.0309468606030672,
+              "valid_labels": 4705
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.4833252578263115,
+              "valid_labels": 4705
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.0101117973953997,
+              "valid_labels": 4705
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.24350386583092526,
+              "valid_labels": 4516
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.22940983868748002,
+              "valid_labels": 4516
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.2669838422319461,
+              "valid_labels": 4516
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.1723155583329027,
+              "valid_labels": 4516
+            }
+          }
+        }
+      }
+    }
+  },
+  "by_condition": {
+    "on": {
+      "normalized_mse": 0.11918485135856817,
+      "horizons": {
+        "100_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.12539374217823585,
+            "training_mean_rmse": 0.3787681267637329,
+            "persistence_rmse": 0.33474993459905855
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.8387535193730079,
+            "training_mean_rmse": 3.6402472663977385,
+            "persistence_rmse": 4.621498689326656
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.18422024473416299,
+            "training_mean_rmse": 0.48223804182838725,
+            "persistence_rmse": 0.5339610484851278
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.10953399964613131,
+              "valid_labels": 29171
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.16072654626879582,
+              "valid_labels": 29171
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.09945060087057125,
+              "valid_labels": 29171
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.12317962714002592,
+              "valid_labels": 29171
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.6247795217302049,
+              "valid_labels": 29171
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.0461288068153778,
+              "valid_labels": 29171
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.6117194999511845,
+              "valid_labels": 29171
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 0.977289203460015,
+              "valid_labels": 29171
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.2030707151169098,
+              "valid_labels": 27856
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.17828794302660755,
+              "valid_labels": 27856
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.19760766038446748,
+              "valid_labels": 27856
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.15386780322824062,
+              "valid_labels": 27856
+            }
+          }
+        },
+        "200_ms": {
+          "angle_rad": {
+            "tcn_rmse": 0.13967964425714197,
+            "training_mean_rmse": 0.3787494478007726,
+            "persistence_rmse": 0.5267711520992263
+          },
+          "velocity_rad_s": {
+            "tcn_rmse": 0.971352770600944,
+            "training_mean_rmse": 3.640127179949179,
+            "persistence_rmse": 6.470498593036981
+          },
+          "moment_nm_kg": {
+            "tcn_rmse": 0.19698634594664594,
+            "training_mean_rmse": 0.4824327621854895,
+            "persistence_rmse": 0.7434413136947977
+          },
+          "per_target": {
+            "left_hip_angle": {
+              "tcn_rmse": 0.11610965276952706,
+              "valid_labels": 29171
+            },
+            "left_knee_angle": {
+              "tcn_rmse": 0.17385361779800604,
+              "valid_labels": 29171
+            },
+            "right_hip_angle": {
+              "tcn_rmse": 0.1105236146748255,
+              "valid_labels": 29171
+            },
+            "right_knee_angle": {
+              "tcn_rmse": 0.148726631074271,
+              "valid_labels": 29171
+            },
+            "left_hip_velocity": {
+              "tcn_rmse": 0.7033127511112766,
+              "valid_labels": 29171
+            },
+            "left_knee_velocity": {
+              "tcn_rmse": 1.2015451075323764,
+              "valid_labels": 29171
+            },
+            "right_hip_velocity": {
+              "tcn_rmse": 0.6773802215481785,
+              "valid_labels": 29171
+            },
+            "right_knee_velocity": {
+              "tcn_rmse": 1.1734144127123882,
+              "valid_labels": 29171
+            },
+            "left_hip_moment": {
+              "tcn_rmse": 0.20983923745736552,
+              "valid_labels": 27856
+            },
+            "left_knee_moment": {
+              "tcn_rmse": 0.1938114592965792,
+              "valid_labels": 27856
+            },
+            "right_hip_moment": {
+              "tcn_rmse": 0.20860552128524124,
+              "valid_labels": 27856
+            },
+            "right_knee_moment": {
+              "tcn_rmse": 0.17350167467664748,
+              "valid_labels": 27856
+            }
+          }
+        }
+      }
+    }
+  }
+}

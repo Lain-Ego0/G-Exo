@@ -92,6 +92,35 @@ class HumanAdaptationTest(unittest.TestCase):
         finally:
             environment.close()
 
+    def test_adaptation_can_enable_four_joint_imitation(self) -> None:
+        environment = make_human_adaptation_env(
+            seed=17,
+            max_episode_steps=10,
+            evaluate=True,
+            qpos_imitation_weight=0.12,
+            qvel_imitation_weight=0.04,
+        )
+        try:
+            rewards = environment.unwrapped._reward_keys_and_weights
+            for joint in (
+                "hip_flexion_l",
+                "knee_angle_l",
+                "hip_flexion_r",
+                "knee_angle_r",
+            ):
+                self.assertEqual(rewards.qpos_imitation_rewards[joint], 0.12)
+                self.assertEqual(rewards.qvel_imitation_rewards[joint], 0.04)
+            self.assertAlmostEqual(
+                environment.unwrapped.rwd_keys_wt["qpos_imitation_rewards"],
+                0.48,
+            )
+            self.assertAlmostEqual(
+                environment.unwrapped.rwd_keys_wt["qvel_imitation_rewards"],
+                0.16,
+            )
+        finally:
+            environment.close()
+
     def _make_transferred_model(self) -> PPO:
         target = make_human_ppo(
             self.environment,

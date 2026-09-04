@@ -27,6 +27,8 @@ def _run(
     activation: float = 10.0,
     torque: float = 20.0,
     gross: float = 30.0,
+    target_left: float | None = None,
+    target_right: float | None = None,
 ) -> dict[str, object]:
     return {
         "mode": mode,
@@ -34,6 +36,12 @@ def _run(
         "steps": steps,
         "success": success,
         "activation_cost_integral": activation,
+        "target_activation_cost_integral_left": (
+            activation if target_left is None else target_left
+        ),
+        "target_activation_cost_integral_right": (
+            activation if target_right is None else target_right
+        ),
         "human_torque_cost_integral": torque,
         "gross_cost_integral": gross,
         "mean_forward_speed_m_s": 1.05,
@@ -91,6 +99,12 @@ class MyoAssistEvaluatorTest(unittest.TestCase):
         self.assertIs(pair["pair_valid"], True)
         self.assertIs(pair["protocol_pass"], True)
         self.assertAlmostEqual(pair["policy_activation_saving_fraction"], 0.1)
+        self.assertAlmostEqual(
+            pair["policy_target_activation_saving_left_fraction"], 0.1
+        )
+        self.assertAlmostEqual(
+            pair["policy_target_activation_saving_right_fraction"], 0.1
+        )
         self.assertAlmostEqual(pair["policy_human_torque_saving_fraction"], 0.0)
         self.assertAlmostEqual(
             pair["policy_gross_load_saving_fraction"], -2.0 / 30.0

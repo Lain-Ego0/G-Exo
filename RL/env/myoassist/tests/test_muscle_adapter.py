@@ -8,13 +8,18 @@ import unittest
 import mujoco
 import numpy as np
 
-from RL.env.myoassist.model_builder import DEFAULT_PHYSICAL_OUTPUT_PATH
+from RL.env.myoassist.model_builder import (
+    DEFAULT_PHYSICAL_OUTPUT_PATH,
+    DEFAULT_URDF_DYNAMIC_OUTPUT_PATH,
+)
 from RL.env.myoassist.muscle_adapter import (
+    ACTIVATION_SIDE_ORDER,
     DEFAULT_ACTIVATION_HORIZON_S,
     MUSCLE_COUNT,
     MyoAssistMuscleAdapter,
     TARGET_JOINT_NAMES,
     TARGET_JOINT_SIGNS,
+    target_activation_costs,
 )
 
 
@@ -92,6 +97,43 @@ class MuscleAdapterTest(unittest.TestCase):
         ):
             self.assertTrue(np.all(np.isfinite(value)))
         self.assertTrue(np.all(snapshot.muscle_force_n >= 0.0))
+        self.assertEqual(
+            snapshot.metadata["physiology_signature"],
+            adapter.physiology_signature,
+        )
+        self.assertEqual(
+            snapshot.metadata["activation_side_order"],
+            ACTIVATION_SIDE_ORDER,
+        )
+        self.assertEqual(adapter.target_activation_masks.shape, (2, 22))
+        np.testing.assert_array_equal(
+            np.sum(adapter.target_activation_masks, axis=1),
+            [7, 7],
+        )
+        expected_costs = np.asarray(
+            [
+                np.mean(np.square(snapshot.activation[mask]))
+                for mask in adapter.target_activation_masks
+            ]
+        )
+        np.testing.assert_allclose(
+            target_activation_costs(snapshot),
+            expected_costs,
+        )
+
+    def test_dynamic_urdf_preserves_the_naked_muscle_protocol(self) -> None:
+        dynamic_model = mujoco.MjModel.from_xml_path(
+            str(DEFAULT_URDF_DYNAMIC_OUTPUT_PATH)
+        )
+        dynamic_data = mujoco.MjData(dynamic_model)
+        mujoco.mj_forward(dynamic_model, dynamic_data)
+        dynamic = MyoAssistMuscleAdapter(
+            dynamic_model,
+            dynamic_data,
+            model_hash="dynamic-model",
+        )
+        naked = self._adapter(self._make_data())
+        self.assertEqual(dynamic.physiology_signature, naked.physiology_signature)
 
     def test_sparse_moment_reconstruction_and_protocol_signs(self) -> None:
         data = self._make_data()

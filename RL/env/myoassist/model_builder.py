@@ -8,6 +8,15 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from pathlib import Path
 
+from RL.env.myoassist.urdf_attachment import (
+    DEFAULT_GEXO_URDF_PATH,
+    URDF_IMU_MOUNTS,
+    add_dynamic_gexo_urdf,
+    add_rigid_gexo_urdf,
+    dynamic_joint_name,
+    rigid_body_name,
+)
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 WORKSPACE_ROOT = PROJECT_ROOT.parent
@@ -41,6 +50,20 @@ DEFAULT_COMPAT_OUTPUT_PATH = (
     / "myoassist"
     / "myoLeg22_2D_GEXO_TEACHER_COMPAT.xml"
 )
+DEFAULT_URDF_OUTPUT_PATH = (
+    PROJECT_ROOT
+    / "RL"
+    / "assets"
+    / "myoassist"
+    / "myoLeg22_2D_GEXO_URDF_RIGID.xml"
+)
+DEFAULT_URDF_DYNAMIC_OUTPUT_PATH = (
+    PROJECT_ROOT
+    / "RL"
+    / "assets"
+    / "myoassist"
+    / "myoLeg22_2D_GEXO_URDF_DYNAMIC.xml"
+)
 
 # The physical plant is the only default used by training/runtime code.
 DEFAULT_SOURCE_PATH = DEFAULT_PHYSICAL_SOURCE_PATH
@@ -52,6 +75,8 @@ DEFAULT_CLEAN_OUTPUT_PATH = DEFAULT_PHYSICAL_OUTPUT_PATH
 
 PHYSICAL_VARIANT = "physical"
 TEACHER_COMPAT_VARIANT = "teacher_compatibility"
+URDF_RIGID_VARIANT = "urdf_rigid"
+URDF_DYNAMIC_VARIANT = "urdf_dynamic"
 
 MUSCLE_ACTUATOR_COUNT = 22
 TORQUE_LIMIT_NM = 17.0
@@ -85,6 +110,8 @@ class ModelVariantSpec:
     output_path: Path
     model_name: str
     teacher_compatible: bool
+    urdf_enabled: bool = False
+    urdf_dynamic: bool = False
 
 
 @dataclass(frozen=True)
@@ -94,6 +121,7 @@ class ImuSpec:
     name: str
     body: str
     position: tuple[float, float, float]
+    quaternion: tuple[float, float, float, float] = (1.0, 0.0, 0.0, 0.0)
 
 
 # MyoAssist knee flexion is negative, while the G-Exo protocol is positive.
@@ -104,11 +132,28 @@ EXO_ACTUATORS = (
     ExoActuatorSpec("gexo_right_knee", "knee_angle_r", -1.0),
 )
 
+DYNAMIC_EXO_ACTUATORS = tuple(
+    ExoActuatorSpec(spec.name, dynamic_joint_name(joint_name), spec.gear)
+    for spec, joint_name in zip(
+        EXO_ACTUATORS,
+        ("l_thigh_joint", "l_calf_joint", "r_thigh_joint", "r_calf_joint"),
+    )
+)
+
 IMU_SPECS = (
     ImuSpec("left_thigh", "femur_l", (0.0, -0.20, 0.0)),
     ImuSpec("left_shank", "tibia_l", (0.0, -0.20, 0.0)),
     ImuSpec("right_thigh", "femur_r", (0.0, -0.20, 0.0)),
     ImuSpec("right_shank", "tibia_r", (0.0, -0.20, 0.0)),
+)
+
+URDF_IMU_SPECS = tuple(
+    ImuSpec(
+        mount.name,
+        rigid_body_name(mount.link),
+        mount.position,
+    )
+    for mount in URDF_IMU_MOUNTS
 )
 
 MODEL_VARIANTS = {
@@ -123,6 +168,21 @@ MODEL_VARIANTS = {
         output_path=DEFAULT_COMPAT_OUTPUT_PATH,
         model_name="myoLeg22_2D_GEXO_TEACHER_COMPAT",
         teacher_compatible=True,
+    ),
+    URDF_RIGID_VARIANT: ModelVariantSpec(
+        source_path=DEFAULT_PHYSICAL_SOURCE_PATH,
+        output_path=DEFAULT_URDF_OUTPUT_PATH,
+        model_name="myoLeg22_2D_GEXO_URDF_RIGID",
+        teacher_compatible=False,
+        urdf_enabled=True,
+    ),
+    URDF_DYNAMIC_VARIANT: ModelVariantSpec(
+        source_path=DEFAULT_PHYSICAL_SOURCE_PATH,
+        output_path=DEFAULT_URDF_DYNAMIC_OUTPUT_PATH,
+        model_name="myoLeg22_2D_GEXO_URDF_DYNAMIC",
+        teacher_compatible=False,
+        urdf_enabled=True,
+        urdf_dynamic=True,
     ),
 }
 
@@ -249,7 +309,10 @@ def _convert_legacy_bodies_to_teacher_inertia(root: ET.Element) -> None:
         )
 
 
-def _add_virtual_imus(root: ET.Element) -> None:
+def _add_virtual_imus(
+    root: ET.Element,
+    specs: tuple[ImuSpec, ...],
+) -> None:
     """Attach noiseless IMU sites and sensors in the deployment order."""
 
     bodies = {
@@ -261,7 +324,7 @@ def _add_virtual_imus(root: ET.Element) -> None:
     if sensor is None:
         sensor = ET.SubElement(root, "sensor")
 
-    for spec in IMU_SPECS:
+    for spec in specs:
         try:
             body = bodies[spec.body]
         except KeyError as error:
@@ -274,6 +337,7 @@ def _add_virtual_imus(root: ET.Element) -> None:
             {
                 "name": site_name,
                 "pos": " ".join(f"{value:g}" for value in spec.position),
+                "quat": " ".join(f"{value:g}" for value in spec.quaternion),
                 "size": "0.008",
                 "group": "4",
                 "rgba": "0.1 0.4 0.9 0.6",
@@ -302,6 +366,7 @@ def build_model(
     output_path: str | Path | None = None,
     *,
     variant: str = PHYSICAL_VARIANT,
+    urdf_path: str | Path = DEFAULT_GEXO_URDF_PATH,
 ) -> Path:
     """Generate a deterministic 22-muscle + four-torque MuJoCo model.
 
@@ -350,9 +415,45 @@ def build_model(
             names=LEGACY_EXO_MESH_NAMES,
         )
 
-    _add_virtual_imus(root)
+    if variant_spec.urdf_enabled:
+        compiler = root.find("compiler")
+        if compiler is None:
+            compiler = ET.Element("compiler")
+            root.insert(0, compiler)
+        # The calf tensors are rounded in the exported URDF and narrowly
+        # violate the rigid-body triangle inequality.  Let MuJoCo apply its
+        # deterministic minimum balancing correction during compilation.
+        compiler.set("balanceinertia", "true")
+        if variant_spec.urdf_dynamic:
+            dynamic_imu_poses = add_dynamic_gexo_urdf(
+                root,
+                source_model_path=source,
+                urdf_path=Path(urdf_path),
+            )
+            imu_specs = tuple(
+                ImuSpec(
+                    pose.name,
+                    pose.body,
+                    pose.position,
+                    pose.quaternion,
+                )
+                for pose in dynamic_imu_poses
+            )
+            exo_actuators = DYNAMIC_EXO_ACTUATORS
+        else:
+            add_rigid_gexo_urdf(
+                root,
+                source_model_path=source,
+                urdf_path=Path(urdf_path),
+            )
+            imu_specs = URDF_IMU_SPECS
+            exo_actuators = EXO_ACTUATORS
+    else:
+        imu_specs = IMU_SPECS
+        exo_actuators = EXO_ACTUATORS
+    _add_virtual_imus(root, imu_specs)
 
-    for spec in EXO_ACTUATORS:
+    for spec in exo_actuators:
         ET.SubElement(
             actuator,
             "motor",
@@ -396,6 +497,7 @@ def main() -> None:
     )
     parser.add_argument("--source", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--urdf", type=Path, default=DEFAULT_GEXO_URDF_PATH)
     parser.add_argument(
         "--variant",
         choices=sorted(MODEL_VARIANTS),
@@ -407,6 +509,7 @@ def main() -> None:
         args.source,
         args.output,
         variant=args.variant,
+        urdf_path=args.urdf,
     )
     print(f"generated {args.variant} model: {output}")
 

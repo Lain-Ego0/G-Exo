@@ -56,6 +56,54 @@ DEFAULT_PPO_PARAMETERS = {
 
 }
 
+ACTOR_STATE_PREFIXES = (
+    "mlp_extractor.policy_net.",
+    "action_net.",
+)
+
+
+def initialize_actor_from_checkpoint(
+    model: PPO,
+    checkpoint: str | Path,
+    *,
+    device: str,
+) -> None:
+    """Transfer only the actor when the reward/protocol has changed.
+
+    A strict resume restores Actor, Critic and optimizer state.  Curriculum
+    stage zero instead reuses the previous motor behavior while leaving the
+    Critic random, because its value targets belong to the previous reward.
+    """
+
+    checkpoint_path = Path(checkpoint)
+    if not checkpoint_path.is_file():
+        raise FileNotFoundError(checkpoint_path)
+
+    source = PPO.load(checkpoint_path, device=device)
+    source_state = source.policy.state_dict()
+    target_state = model.policy.state_dict()
+    actor_keys = {
+        key
+        for key in target_state
+        if key == "log_std" or key.startswith(ACTOR_STATE_PREFIXES)
+    }
+    if not actor_keys:
+        raise RuntimeError("No Actor parameters were found for initialization.")
+
+    for key in actor_keys:
+        if key not in source_state:
+            raise ValueError(f"Actor checkpoint is missing parameter {key!r}.")
+        if source_state[key].shape != target_state[key].shape:
+            raise ValueError(
+                f"Actor parameter {key!r} has incompatible shape: "
+                f"{tuple(source_state[key].shape)} != "
+                f"{tuple(target_state[key].shape)}."
+            )
+        target_state[key] = source_state[key]
+
+    model.policy.load_state_dict(target_state)
+    del source
+
 class TrainingMetricsCallback(BaseCallback):
     def _on_step(self) -> bool:
         infos = self.locals.get("infos", [])
@@ -364,6 +412,7 @@ def train(
     eval_env_factory:EnvFactories | None = None,
     output_dir:str | Path,
     resume_from:str | Path | None = None,
+    initialize_from:str | Path | None = None,
     total_timesteps:int = 2_000_000,
     num_envs:int = 1,
     seed:int = 42,
@@ -375,6 +424,8 @@ def train(
     max_hours:float | None = None,
     additional_callbacks:Sequence[BaseCallback] | None = None,
 ) -> Path:
+    if resume_from is not None and initialize_from is not None:
+        raise ValueError("resume_from and initialize_from are mutually exclusive.")
     output_path = Path(output_dir)
     checkpoint_path = output_path / "checkpoints"
     best_model_path = output_path / "best_model"
@@ -465,6 +516,12 @@ def train(
             tensorboard_log = str(tensorboard_path),
             **parameters,
         )
+        if initialize_from is not None:
+            initialize_actor_from_checkpoint(
+                model,
+                initialize_from,
+                device=device,
+            )
     else:
         resume_path = Path(resume_from)
         if not resume_path.is_file():

@@ -17,6 +17,9 @@ from RL.env.myoassist.model_builder import (
     DEFAULT_PHYSICAL_OUTPUT_PATH,
     DEFAULT_PHYSICAL_SOURCE_PATH,
     DEFAULT_SOURCE_PATH,
+    DEFAULT_URDF_DYNAMIC_OUTPUT_PATH,
+    DEFAULT_URDF_OUTPUT_PATH,
+    DYNAMIC_EXO_ACTUATORS,
     EXO_ACTUATORS,
     IMU_SPECS,
     LEGACY_EXO_BODY_NAMES,
@@ -27,7 +30,23 @@ from RL.env.myoassist.model_builder import (
     TEACHER_INERTIA_PREFIX,
     TEACHER_COMPAT_VARIANT,
     TORQUE_LIMIT_NM,
+    URDF_IMU_SPECS,
+    URDF_DYNAMIC_VARIANT,
+    URDF_RIGID_VARIANT,
     build_model,
+)
+from RL.env.myoassist.urdf_attachment import (
+    LINK_ATTACHMENTS,
+    URDF_IMU_MOUNTS,
+    CUFF_ATTACHMENTS,
+    CUFF_SOLIMP,
+    CUFF_SOLREF,
+    HUMAN_JOINT_NAMES,
+    cuff_equality_name,
+    dynamic_body_name,
+    model_has_dynamic_gexo,
+    model_has_rigid_gexo,
+    rigid_body_name,
 )
 
 
@@ -82,6 +101,12 @@ class ModelBuilderTest(unittest.TestCase):
         cls.compat_model = mujoco.MjModel.from_xml_path(
             str(DEFAULT_COMPAT_OUTPUT_PATH),
         )
+        cls.urdf_model = mujoco.MjModel.from_xml_path(
+            str(DEFAULT_URDF_OUTPUT_PATH),
+        )
+        cls.dynamic_urdf_model = mujoco.MjModel.from_xml_path(
+            str(DEFAULT_URDF_DYNAMIC_OUTPUT_PATH),
+        )
 
     def test_physical_builder_compiles_from_another_directory(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -109,7 +134,12 @@ class ModelBuilderTest(unittest.TestCase):
 
     def test_generation_is_deterministic_for_both_variants(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            for variant in (PHYSICAL_VARIANT, TEACHER_COMPAT_VARIANT):
+            for variant in (
+                PHYSICAL_VARIANT,
+                TEACHER_COMPAT_VARIANT,
+                URDF_RIGID_VARIANT,
+                URDF_DYNAMIC_VARIANT,
+            ):
                 output = Path(directory) / f"{variant}.xml"
                 build_model(output_path=output, variant=variant)
                 first = output.read_bytes()
@@ -160,6 +190,15 @@ class ModelBuilderTest(unittest.TestCase):
             self.compat_model.nu,
         )
         self.assertEqual(compat_names, generated_names)
+        self.assertEqual(
+            (
+                self.urdf_model.nq,
+                self.urdf_model.nv,
+                self.urdf_model.nu,
+                self.urdf_model.na,
+            ),
+            (53, 53, 26, 22),
+        )
 
     def test_muscle_actuator_definitions_are_unchanged(self) -> None:
         path_pairs = (
@@ -252,6 +291,8 @@ class ModelBuilderTest(unittest.TestCase):
         for output_path in (
             DEFAULT_PHYSICAL_OUTPUT_PATH,
             DEFAULT_COMPAT_OUTPUT_PATH,
+            DEFAULT_URDF_OUTPUT_PATH,
+            DEFAULT_URDF_DYNAMIC_OUTPUT_PATH,
         ):
             root = ET.parse(output_path).getroot()
             references = [
@@ -265,7 +306,7 @@ class ModelBuilderTest(unittest.TestCase):
                 self.assertTrue((output_path.parent / reference).is_file())
 
     def test_four_actuator_joint_range_and_gear_contract(self) -> None:
-        for model in (self.model, self.compat_model):
+        for model in (self.model, self.compat_model, self.urdf_model):
             for offset, spec in enumerate(EXO_ACTUATORS):
                 actuator_id = MUSCLE_ACTUATOR_COUNT + offset
                 joint_id = int(model.actuator_trnid[actuator_id, 0])
@@ -316,8 +357,172 @@ class ModelBuilderTest(unittest.TestCase):
                     self.assertEqual(values.shape, (3,))
                     self.assertTrue(np.all(np.isfinite(values)))
 
+    def test_urdf_mass_inertia_and_link_aligned_imus_are_present(self) -> None:
+        self.assertTrue(model_has_rigid_gexo(self.urdf_model))
+        self.assertEqual(self.urdf_model.nbody, self.source_model.nbody + 5)
+        self.assertAlmostEqual(
+            float(self.urdf_model.body_mass.sum() - self.model.body_mass.sum()),
+            3.09834816165551,
+            places=10,
+        )
+        expected_parent = {
+            spec.link: spec.human_body for spec in LINK_ATTACHMENTS
+        }
+        for link_name, human_body in expected_parent.items():
+            body_id = mujoco.mj_name2id(
+                self.urdf_model,
+                mujoco.mjtObj.mjOBJ_BODY,
+                rigid_body_name(link_name),
+            )
+            parent_name = mujoco.mj_id2name(
+                self.urdf_model,
+                mujoco.mjtObj.mjOBJ_BODY,
+                int(self.urdf_model.body_parentid[body_id]),
+            )
+            self.assertEqual(parent_name, human_body)
+
+        mounts = {mount.name: mount for mount in URDF_IMU_MOUNTS}
+        for spec in URDF_IMU_SPECS:
+            site_id = mujoco.mj_name2id(
+                self.urdf_model,
+                mujoco.mjtObj.mjOBJ_SITE,
+                f"gexo_imu_{spec.name}",
+            )
+            body_name = mujoco.mj_id2name(
+                self.urdf_model,
+                mujoco.mjtObj.mjOBJ_BODY,
+                int(self.urdf_model.site_bodyid[site_id]),
+            )
+            self.assertEqual(body_name, spec.body)
+            np.testing.assert_allclose(
+                self.urdf_model.site_pos[site_id],
+                mounts[spec.name].position,
+                atol=1.0e-12,
+                rtol=0.0,
+            )
+            np.testing.assert_allclose(
+                self.urdf_model.site_quat[site_id],
+                [1.0, 0.0, 0.0, 0.0],
+                atol=0.0,
+                rtol=0.0,
+            )
+
+        data = mujoco.MjData(self.urdf_model)
+        mujoco.mj_resetDataKeyframe(self.urdf_model, data, 0)
+        mujoco.mj_forward(self.urdf_model, data)
+        for mount in URDF_IMU_MOUNTS:
+            site_id = mujoco.mj_name2id(
+                self.urdf_model,
+                mujoco.mjtObj.mjOBJ_SITE,
+                f"gexo_imu_{mount.name}",
+            )
+            np.testing.assert_allclose(
+                data.site_xmat[site_id].reshape(3, 3),
+                np.eye(3),
+                atol=3.0e-4,
+                rtol=0.0,
+            )
+
+    def test_dynamic_urdf_uses_four_hinges_and_eight_stiff_cuff_points(self) -> None:
+        model = self.dynamic_urdf_model
+        self.assertTrue(model_has_dynamic_gexo(model))
+        self.assertEqual(
+            (model.nq, model.nv, model.nu, model.na, model.nbody, model.neq),
+            (
+                self.source_model.nq + 4,
+                self.source_model.nv + 4,
+                self.source_model.nu + 4,
+                self.source_model.na,
+                self.source_model.nbody + 5,
+                self.source_model.neq + len(CUFF_ATTACHMENTS),
+            ),
+        )
+        for offset, spec in enumerate(DYNAMIC_EXO_ACTUATORS):
+            actuator_id = MUSCLE_ACTUATOR_COUNT + offset
+            joint_id = int(model.actuator_trnid[actuator_id, 0])
+            self.assertEqual(
+                mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_JOINT, joint_id),
+                spec.joint,
+            )
+            human_joint_id = mujoco.mj_name2id(
+                model,
+                mujoco.mjtObj.mjOBJ_JOINT,
+                HUMAN_JOINT_NAMES[offset],
+            )
+            self.assertNotEqual(joint_id, human_joint_id)
+            self.assertEqual(model.actuator_gear[actuator_id, 0], spec.gear)
+
+        for cuff in CUFF_ATTACHMENTS:
+            self.assertGreaterEqual(
+                mujoco.mj_name2id(
+                    model,
+                    mujoco.mjtObj.mjOBJ_EQUALITY,
+                    cuff_equality_name(cuff.link, cuff.mount),
+                ),
+                0,
+            )
+            equality_id = mujoco.mj_name2id(
+                model,
+                mujoco.mjtObj.mjOBJ_EQUALITY,
+                cuff_equality_name(cuff.link, cuff.mount),
+            )
+            np.testing.assert_allclose(
+                model.eq_solref[equality_id],
+                CUFF_SOLREF,
+                atol=0.0,
+                rtol=0.0,
+            )
+            np.testing.assert_allclose(
+                model.eq_solimp[equality_id, :3],
+                CUFF_SOLIMP,
+                atol=0.0,
+                rtol=0.0,
+            )
+
+        for link in {cuff.link for cuff in CUFF_ATTACHMENTS}:
+            points = [
+                cuff for cuff in CUFF_ATTACHMENTS if cuff.link == link
+            ]
+            self.assertEqual({point.mount for point in points}, {"proximal", "distal"})
+            self.assertAlmostEqual(
+                abs(points[0].human_position[1] - points[1].human_position[1]),
+                0.1,
+            )
+        for mount in URDF_IMU_MOUNTS:
+            site_id = mujoco.mj_name2id(
+                model,
+                mujoco.mjtObj.mjOBJ_SITE,
+                f"gexo_imu_{mount.name}",
+            )
+            self.assertEqual(
+                int(model.site_bodyid[site_id]),
+                mujoco.mj_name2id(
+                    model,
+                    mujoco.mjtObj.mjOBJ_BODY,
+                    dynamic_body_name(mount.link),
+                ),
+            )
+
+    def test_dynamic_motor_pulse_reaches_human_without_direct_actuation(self) -> None:
+        model = self.dynamic_urdf_model
+        for offset, human_joint_name in enumerate(HUMAN_JOINT_NAMES):
+            positive = _forward_with_pulse(model, offset, 1.0)
+            negative = _forward_with_pulse(model, offset, -1.0)
+            human_joint_id = mujoco.mj_name2id(
+                model,
+                mujoco.mjtObj.mjOBJ_JOINT,
+                human_joint_name,
+            )
+            human_dof = int(model.jnt_dofadr[human_joint_id])
+            actuator_force = _exo_generalized_force(model, positive)
+            self.assertEqual(actuator_force[human_dof], 0.0)
+            self.assertGreater(
+                abs(positive.qacc[human_dof] - negative.qacc[human_dof]),
+                1.0e-4,
+            )
+
     def test_zero_and_unit_pulses_have_expected_sign(self) -> None:
-        for model in (self.model, self.compat_model):
+        for model in (self.model, self.compat_model, self.urdf_model):
             zero_data = _forward_with_pulse(model, 0, 0.0)
             np.testing.assert_allclose(
                 _exo_generalized_force(model, zero_data),
