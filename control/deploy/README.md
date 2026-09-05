@@ -417,18 +417,15 @@ deploy/
 
 ### 13.1 本机构建
 
-本机已有的 ONNX Runtime C++ SDK 位于：
-
-```text
-/home/lenovo/third_party/onnxruntime-linux-x64-1.23.0
-```
-
-构建命令：
+构建前先把 ONNX Runtime C++ SDK 根目录写入环境变量。SDK 路径不写入项目，
+不同机器使用各自的安装位置。
 
 ```bash
-cd /home/lenovo/HK_hackthon/G-Exo/control/deploy
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+export ONNXRUNTIME_ROOT="/path/to/onnxruntime-sdk"
+cd "$PROJECT_ROOT/control/deploy"
 cmake -S . -B build -G Ninja \
-  -DONNXRUNTIME_ROOT=/home/lenovo/third_party/onnxruntime-linux-x64-1.23.0 \
+  -DONNXRUNTIME_ROOT="$ONNXRUNTIME_ROOT" \
   -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
 ctest --test-dir build --output-on-failure

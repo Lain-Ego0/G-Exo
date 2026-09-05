@@ -255,9 +255,10 @@ models/
 50 Hz 和 150 帧预热协议。替换 TCN checkpoint 时必须重新生成整个模型包和参考回放：
 
 ```bash
-cd /home/lenovo/HK_hackthon/G-Exo
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+cd "$PROJECT_ROOT"
 PYTHONDONTWRITEBYTECODE=1 \
-  /home/lenovo/UniLab/.venv/bin/python \
+  python \
   control/deploy/tcn_pd/tools/export_model_package.py
 ```
 
@@ -267,11 +268,15 @@ ActorObservationBuilder + TCNImpedanceController` 产生第 150、151 帧参考�
 
 ## 7. 构建与验证
 
-本机已有 x86-64 ONNX Runtime 1.23.0：
+构建前请设置本机 ONNX Runtime C++ SDK 路径：
 
 ```bash
-cd /home/lenovo/HK_hackthon/G-Exo/control/deploy/tcn_pd
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+export ONNXRUNTIME_ROOT="/path/to/onnxruntime-sdk"
+cd "$PROJECT_ROOT/control/deploy/tcn_pd"
+cmake -S . -B build \
+  -DONNXRUNTIME_ROOT="$ONNXRUNTIME_ROOT" \
+  -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
 cmake --build build --parallel
 ctest --test-dir build --output-on-failure
 ./build/gexo_tcn_pd_smoke_test

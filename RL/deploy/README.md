@@ -409,18 +409,15 @@ deploy/
 
 ### 13.1 本机构建
 
-本机已有的 ONNX Runtime C++ SDK 位于：
-
-```text
-/home/lenovo/third_party/onnxruntime-linux-x64-1.23.0
-```
-
-构建命令：
+构建前先把 ONNX Runtime C++ SDK 根目录写入环境变量。SDK 路径不写入项目，
+不同机器使用各自的安装位置。
 
 ```bash
-cd /home/lenovo/HK_hackthon/G-Exo/RL/deploy
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+export ONNXRUNTIME_ROOT="/path/to/onnxruntime-sdk"
+cd "$PROJECT_ROOT/RL/deploy"
 cmake -S . -B build -G Ninja \
-  -DONNXRUNTIME_ROOT=/home/lenovo/third_party/onnxruntime-linux-x64-1.23.0 \
+  -DONNXRUNTIME_ROOT="$ONNXRUNTIME_ROOT" \
   -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
 ctest --test-dir build --output-on-failure
@@ -477,14 +474,14 @@ Actor warmup 历史中写零；第 151 帧才采用调用方传入的上一周�
 Python 仅用于离线导出，不进入部署进程。当前机器可使用已有的 UniLab Python 环境：
 
 ```bash
-cd /home/lenovo/HK_hackthon/G-Exo
-/home/lenovo/UniLab/.venv/bin/python \
-  RL/deploy/tools/export_model_package.py \
-  --tcn-checkpoint RL/outputs/tcn_runs/seed_43/best_model.pt \
-  --tcn-calibration RL/assets/tcn/myoassist_phase12_calibration_preroll150.json \
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+python \
+  "$PROJECT_ROOT/RL/deploy/tools/export_model_package.py" \
+  --tcn-checkpoint "$PROJECT_ROOT/RL/outputs/tcn_runs/seed_43/best_model.pt" \
+  --tcn-calibration "$PROJECT_ROOT/RL/assets/tcn/myoassist_phase12_calibration_preroll150.json" \
   --actor-checkpoint /path/to/new/best_model.zip \
-  --output-directory RL/deploy/models \
-  --reference-replay RL/deploy/tests/reference_replay.json
+  --output-directory "$PROJECT_ROOT/RL/deploy/models" \
+  --reference-replay "$PROJECT_ROOT/RL/deploy/tests/reference_replay.json"
 ```
 
 导出器执行以下检查：

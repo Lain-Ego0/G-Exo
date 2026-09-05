@@ -10,11 +10,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(ONNXRUNTIME_ROOT "$ENV{ONNXRUNTIME_ROOT}" CACHE PATH
     "Root directory of the ONNX Runtime C/C++ SDK")
-if(NOT ONNXRUNTIME_ROOT AND
-   EXISTS "/home/lenovo/third_party/onnxruntime-linux-x64-1.23.0/include/onnxruntime_cxx_api.h")
-  set(ONNXRUNTIME_ROOT
-      "/home/lenovo/third_party/onnxruntime-linux-x64-1.23.0"
-      CACHE PATH "Root directory of the ONNX Runtime C/C++ SDK" FORCE)
+if(NOT ONNXRUNTIME_ROOT)
+  message(FATAL_ERROR
+    "ONNXRUNTIME_ROOT is not set. Pass -DONNXRUNTIME_ROOT=/path/to/onnxruntime "
+    "or export ONNXRUNTIME_ROOT before configuring.")
 endif()
 
 find_path(ONNXRUNTIME_INCLUDE_DIR
