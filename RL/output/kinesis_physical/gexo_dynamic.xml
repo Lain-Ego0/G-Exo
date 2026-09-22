@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mujoco model="MyoSuite's MyoLeg Model (w simple abdomen, + muscles)">
   
-  <compiler angle="radian" meshdir="../../../../../../../media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼/kinesis/data/xml" texturedir="../../../../../../../media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼/kinesis/data/xml" balanceinertia="true" />
+  <compiler angle="radian" meshdir="../../../../../../..<PROJECT_ROOT>" texturedir="../../../../../../..<PROJECT_ROOT>" balanceinertia="true" />
   <option timestep="0.001" />
   <size memory="10M" nkey="4" nuser_jnt="1" />
   <visual>
@@ -103,7 +103,7 @@
     <mesh name="l_bofoot" file="meshes/l_bofoot.stl" />
     <mesh name="l_patella" file="meshes/l_patella.stl" />
     <hfield name="terrain" size="7 7 1 0.001" nrow="100" ncol="100" />
-  <mesh name="gexo_mesh_base_link" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/base_link.STL" scale="1 1 1" /><mesh name="gexo_mesh_l_thigh" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/l_thigh.STL" scale="1 1 1" /><mesh name="gexo_mesh_l_calf" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/l_calf.STL" scale="1 1 1" /><mesh name="gexo_mesh_r_thigh" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/r_thigh.STL" scale="1 1 1" /><mesh name="gexo_mesh_r_calf" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/r_calf.STL" scale="1 1 1" /></asset>
+  <mesh name="gexo_mesh_base_link" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/base_link.STL" scale="1 1 1" /><mesh name="gexo_mesh_l_thigh" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/l_thigh.STL" scale="1 1 1" /><mesh name="gexo_mesh_l_calf" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/l_calf.STL" scale="1 1 1" /><mesh name="gexo_mesh_r_thigh" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/r_thigh.STL" scale="1 1 1" /><mesh name="gexo_mesh_r_calf" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/r_calf.STL" scale="1 1 1" /></asset>
   <worldbody>
     <geom name="floor" size="2.5 2.5 0.2" type="plane" material="MatPlane" rgba="0.8 0.9 0.8 1" />
     <site name="pelvis_target" pos="0 0 0.92" size="0.02" group="4" />

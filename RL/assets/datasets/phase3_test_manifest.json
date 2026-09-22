@@ -1,5 +1,5 @@
 {
-  "dataset_root": "/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼/Parsed",
+  "dataset_root": "<PROJECT_ROOT>",
   "input_columns": [
     "hip_angle_l",
     "knee_angle_l",

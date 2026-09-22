@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "method": "phase12_input_moments_and_direct_kinesis_output_affine",
-  "checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
-  "phase_root": "/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼/processed/tcn50/train",
+  "checkpoint": "<PROJECT_ROOT>/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
+  "phase_root": "<PROJECT_ROOT>",
   "calibration_motion_ids": [
     2,
     8,

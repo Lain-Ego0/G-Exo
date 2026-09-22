@@ -281,7 +281,7 @@ def main() -> None:
             "",
             "```bash",
             "cd ~/HK_hackthon",
-            "export GEXO_DATA_ROOT='/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼'",
+            "export GEXO_DATA_ROOT='<PROJECT_ROOT>'",
             "export GEXO_PHASE3_CACHE=\"$GEXO_DATA_ROOT/processed/tcn50_phase3\"",
             "TCN_DEVICE=cuda bash G-Exo/RL/runners/run_tcn_phase3.sh",
             "```",

@@ -1,7 +1,7 @@
 # SpacemiT K3 omni_agent 语音助手 · 完整启动流程
 
 > 适用开发板：SpacemiT K3 (com260ifx) · Bianbu 4.0.1 (riscv64)
-> 主机名：`gexo-spacemitk3com260ifx` · 局域网 IP：`192.168.11.66` · 用户：`gexo`
+> 主机名：`<K3_HOSTNAME>` · 局域网 IP：`<K3_LAN_IP>` · 用户：`<K3_USER>`
 > 本文档基于 Spacemit 官方文档《4.5 Agent》整理，并结合本板实际验证结果。
 
 ---
@@ -73,14 +73,14 @@ source ~/spacemit_robot/build/envsetup.sh
 
 ```bash
 # --- LLM 服务 (Qwen3.5-4B, 端口 9191) ---
-nohup llama-server -m /home/gexo/.cache/models/llm/Qwen3.5-4B-Q4_0.gguf \
+nohup llama-server -m <K3_HOME>/.cache/models/llm/Qwen3.5-4B-Q4_0.gguf \\
     --host 127.0.0.1 --port 9191 -c 4096 -t 8 --no-webui \
     > /tmp/llm_server.log 2>&1 &
 
 # --- ASR 服务 (Qwen3-ASR-0.6B, 端口 8063, 需要 SMT 加速后端) ---
-nohup llama-server -m /home/gexo/.cache/models/asr/qwen3-asr-0.6B-dynq-q40/Qwen3-ASR-0.6B-text-q40.gguf \
+nohup llama-server -m <K3_HOME>/.cache/models/asr/qwen3-asr-0.6B-dynq-q40/Qwen3-ASR-0.6B-text-q40.gguf \\
     --media-backend smt \
-    --smt-config-dir /home/gexo/.cache/models/asr/qwen3-asr-0.6B-dynq-q40 \
+    --smt-config-dir <K3_HOME>/.cache/models/asr/qwen3-asr-0.6B-dynq-q40 \\
     --host 127.0.0.1 --port 8063 -c 4096 -t 4 --no-webui \
     > /tmp/asr_server.log 2>&1 &
 ```
@@ -296,7 +296,7 @@ p = pyaudio.PyAudio()
 stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE,
                 input=True, frames_per_buffer=CHUNK)
 while True:
-    sock.sendto(struct.pack('!I', len(data)) + data if (data := stream.read(CHUNK)) else b'', ('192.168.11.66', 12345))
+    sock.sendto(struct.pack('!I', len(data)) + data if (data := stream.read(CHUNK)) else b'', ('<K3_LAN_IP>', 12345))
 ```
 
 **开发板侧接收脚本（预留）：**

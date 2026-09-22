@@ -90,7 +90,7 @@ python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 source /opt/ros/humble/setup.bash
-source /home/gexo/ros2_ws/install/setup.bash
+source <K3_HOME>/ros2_ws/install/setup.bash
 
 # 3a. 进程内 Mock（不依赖 ROS，最安全的 Web/LLM/RAG 演示路径）
 python -m gexo_web_agent.main --transport mock --host 0.0.0.0 --port 8000

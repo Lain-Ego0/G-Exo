@@ -54,7 +54,7 @@
 
 ### 3.1 工作区状态
 
-根目录 `/home/lenovo/HK_hackthon` 的 Git 状态把以下目录整体显示为未跟踪：
+根目录 `<PROJECT_ROOT>` 的 Git 状态把以下目录整体显示为未跟踪：
 
 ```text
 ?? G-Exo/
@@ -927,7 +927,7 @@ P8 reviewer 必须逐项给出证据，不能用“测试没有报错”代替�
   - `rg -c '^```'` 与 `rg -c '^\\$\\$$'` 检查 fence/display math，计数全部成对；
   - `rg` 审计 B-P1/S-P1A/S-P1B、fresh PPO、repeated reset、owner 和只读边界；
   - `test -f` 核对现有共享源码、MyoAssist 源码、XML、config 和 checkpoint，全部存在；
-  - `/home/lenovo/anaconda3/envs/hackthon/bin/python -c 'import mujoco; ...'` 独立解析
+  - `<CONDA_ENVS>/hackthon/bin/python -c 'import mujoco; ...'` 独立解析
     22 肌肉 XML，退出码 0，维度、actuator 顺序和 ctrlrange 如上；
   - `rg`/`sed` 独立检查 `RL/env/sensors.py`、`RL/env/torque.py`、`RL/train.py`、
     MyoAssist base/imitation/Exo 和 speed-control config，确认计划所述现状。
@@ -1211,7 +1211,7 @@ P8 reviewer 必须逐项给出证据，不能用“测试没有报错”代替�
   5. 髋 gear 为 `+1`；MyoAssist 膝坐标屈曲为负，故膝 gear 为 `-1`，对外协议仍为
      膝屈曲正；四路硬 `ctrlrange` 均为 `[-17, 17] Nm`；
   6. mesh 和 include 路径重写为相对生成 XML 的工作空间路径，没有写死
-     `/home/lenovo`；没有加入 URDF、绑带/连杆质量、IMU 或域随机化
+     `<HOME>`；没有加入 URDF、绑带/连杆质量、IMU 或域随机化
 - 命令和结果：
   - `PYTHONDONTWRITEBYTECODE=1 .../envs/hackthon/bin/python -m
     RL.env.myoassist.model_builder`：退出码 0；重复生成前后资产哈希均为
@@ -1474,7 +1474,7 @@ P8 reviewer 必须逐项给出证据，不能用“测试没有报错”代替�
   - `python -m RL.runners.evaluate_myoassist_gexo --help`：退出码 0，完整评估参数可见；
   - `python -m py_compile <两个入口和测试>`：退出码 0；生成的临时 bytecode 已清理；
   - `git diff --check -- <两个入口和测试>`：退出码 0
-- 测试环境：`/home/lenovo/anaconda3/envs/hackthon/bin/python`，
+- 测试环境：`<CONDA_ENVS>/hackthon/bin/python`，
   `PYTHONPATH=$PWD/G-Exo:$PWD/third_party/myoassist`；无显示器时 GLFW 仅报告
   `Failed to open display :1` 警告，不影响导入和 CLI 验收
 - 兼容性影响：旧入口继续有效；正式入口不维护参数副本，不会与既有实现漂移

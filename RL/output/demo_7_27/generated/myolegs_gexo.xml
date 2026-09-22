@@ -6,7 +6,7 @@
     source  :: https://github.com/vikashplus
     License :: Under Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 ====================================================== -->
-  <compiler angle="radian" meshdir="/home/lenovo/anaconda3/envs/gexo-opensim-rl/lib/python3.11/site-packages/myosuite/simhive/myo_sim/" texturedir="/home/lenovo/anaconda3/envs/gexo-opensim-rl/lib/python3.11/site-packages/myosuite/simhive/myo_sim/"/>
+  <compiler angle="radian" meshdir="<CONDA_ENVS>/gexo-opensim-rl/lib/python3.11/site-packages/myosuite/simhive/myo_sim/" texturedir="<CONDA_ENVS>/gexo-opensim-rl/lib/python3.11/site-packages/myosuite/simhive/myo_sim/"/>
 
   <option timestep="0.001"/>
 
@@ -90,11 +90,11 @@
     <mesh name="l_foot" file="../myo_sim/meshes/l_foot.stl"/>
     <mesh name="l_bofoot" file="../myo_sim/meshes/l_bofoot.stl"/>
     <mesh name="l_patella" file="../myo_sim/meshes/l_patella.stl"/>
-    <mesh name="gexo_base_link_mesh" content_type="model/stl" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/base_link.STL"/>
-    <mesh name="gexo_l_thigh_mesh" content_type="model/stl" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/l_thigh.STL"/>
-    <mesh name="gexo_l_calf_mesh" content_type="model/stl" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/l_calf.STL"/>
-    <mesh name="gexo_r_thigh_mesh" content_type="model/stl" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/r_thigh.STL"/>
-    <mesh name="gexo_r_calf_mesh" content_type="model/stl" file="/home/lenovo/HK_hackthon/G-Exo/1.hardware/G-exo_URDF/meshes/r_calf.STL"/>
+    <mesh name="gexo_base_link_mesh" content_type="model/stl" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/base_link.STL"/>
+    <mesh name="gexo_l_thigh_mesh" content_type="model/stl" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/l_thigh.STL"/>
+    <mesh name="gexo_l_calf_mesh" content_type="model/stl" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/l_calf.STL"/>
+    <mesh name="gexo_r_thigh_mesh" content_type="model/stl" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/r_thigh.STL"/>
+    <mesh name="gexo_r_calf_mesh" content_type="model/stl" file="<PROJECT_ROOT>/G-Exo/1.hardware/G-exo_URDF/meshes/r_calf.STL"/>
     <hfield name="terrain" size="7 7 1 0.001" nrow="100" ncol="100" elevation="
             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

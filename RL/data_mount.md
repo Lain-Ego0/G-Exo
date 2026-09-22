@@ -6,7 +6,7 @@
 
 ```text
 设备：/dev/sda1
-硬盘挂载点：/media/lenovo/艾谧My Passport
+硬盘挂载点：<PROJECT_ROOT>
 文件系统：NTFS
 挂载模式：只读
 ```
@@ -14,7 +14,7 @@
 本项目使用的数据实际位于：
 
 ```text
-/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼
+<PROJECT_ROOT>
 ```
 
 该目录已经确认：
@@ -29,7 +29,7 @@
 
 这里包含三个不同概念：
 
-1. **硬盘挂载**：Ubuntu 已经把 `/dev/sda1` 挂载到 `/media/lenovo/艾谧My Passport`，无需再次挂载其中的子目录。
+1. **硬盘挂载**：Ubuntu 已经把 `/dev/sda1` 挂载到 `<PROJECT_ROOT>
 2. **环境变量**：`GEXO_DATA_ROOT` 告诉程序原始数据位于哪里。
 3. **符号链接**：在项目中建立一个简短、稳定的路径别名，不复制任何数据。
 
@@ -37,7 +37,7 @@
 
 ```text
 移动硬盘原始数据（只读）
-    /media/lenovo/艾谧My Passport/.../AAA外骨骼
+    <PROJECT_ROOT>
                          │
                          ├── GEXO_DATA_ROOT
                          │
@@ -60,7 +60,7 @@
 ```bash
 cd ~/HK_hackthon
 
-export GEXO_DATA_ROOT='/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼'
+export GEXO_DATA_ROOT='<PROJECT_ROOT>'
 export GEXO_OUTPUT_ROOT="$HOME/HK_hackthon/RL/output"
 export GEXO_CACHE_ROOT="$HOME/HK_hackthon/RL/cache"
 
@@ -93,7 +93,7 @@ ls -ld "$DATA_LINK"
 预期 `readlink -f` 输出：
 
 ```text
-/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼
+<PROJECT_ROOT>
 ```
 
 ## 5. 每次开发前检查
@@ -101,7 +101,7 @@ ls -ld "$DATA_LINK"
 检查移动硬盘是否已挂载：
 
 ```bash
-findmnt '/media/lenovo/艾谧My Passport'
+findmnt '<PROJECT_ROOT>'
 ```
 
 检查数据目录：
@@ -124,7 +124,7 @@ test -w "$GEXO_CACHE_ROOT" && echo "cache directory is writable"
 ```bash
 cd ~/HK_hackthon
 
-findmnt '/media/lenovo/艾谧My Passport' >/dev/null || {
+findmnt '<PROJECT_ROOT>' >/dev/null || {
     echo "mobile disk is not mounted"
     exit 1
 }
@@ -153,7 +153,7 @@ nano ~/.bashrc
 在文件末尾加入：
 
 ```bash
-export GEXO_DATA_ROOT='/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼'
+export GEXO_DATA_ROOT='<PROJECT_ROOT>'
 export GEXO_OUTPUT_ROOT="$HOME/HK_hackthon/RL/output"
 export GEXO_CACHE_ROOT="$HOME/HK_hackthon/RL/cache"
 ```

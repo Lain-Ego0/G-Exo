@@ -40,7 +40,7 @@ Phase1/2 CSV
 
 ```bash
 cd ~/HK_hackthon
-export GEXO_DATA_ROOT='/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼'
+export GEXO_DATA_ROOT='<PROJECT_ROOT>'
 bash G-Exo/RL/runners/run_tcn_multiseed.sh 42 43 44
 ```
 
@@ -76,7 +76,7 @@ cd ~/HK_hackthon/G-Exo
 PYTHONPATH="$PWD:$PWD/../third_party/Kinesis" \
 /mnt/kinesis-fast/kinesis/envs/kinesis/bin/python \
 -m RL.runners.calibrate_kinesis_tcn \
-  --phase-root '/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼/processed/tcn50/train' \
+  --phase-root '<PROJECT_ROOT>' \
   --motion-ids 2 8 9 11 16 38 43 52 \
   --steps 100 \
   --output RL/assets/tcn/kinesis_phase12_calibration.json
@@ -117,7 +117,7 @@ Phase 3 只用于最终检测，不参与训练、归一化、早停、检查点
 
 ```bash
 cd ~/HK_hackthon
-export GEXO_DATA_ROOT='/media/lenovo/艾谧My Passport/昝昊林/HK_hackthon/datasets/AAA外骨骼'
+export GEXO_DATA_ROOT='<PROJECT_ROOT>'
 export GEXO_PHASE3_CACHE="$GEXO_DATA_ROOT/processed/tcn50_phase3"
 TCN_DEVICE=cuda bash G-Exo/RL/runners/run_tcn_phase3.sh
 ```

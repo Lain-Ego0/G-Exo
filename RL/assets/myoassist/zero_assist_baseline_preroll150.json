@@ -153,10 +153,10 @@
       }
     ],
     "frames": 4500,
-    "human_checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/myoassist_human_adaptation_low_speed_100k/adapted_human_final.zip",
+    "human_checkpoint": "<PROJECT_ROOT>/G-Exo/RL/outputs/myoassist_human_adaptation_low_speed_100k/adapted_human_final.zip",
     "human_checkpoint_sha256": "457ff4e33b62e9a1ff09e2b2aa821719fe743fc1f70234d7b4b53fb4bc01502c",
     "model_sha256": "7127a1cb67a64782410659f73dfd752b5b490c3d8c3a4f0e2f615e5af6c331fe",
-    "physical_model": "/home/lenovo/HK_hackthon/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
+    "physical_model": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
     "reset_state_contract": "canonical_full_state_v1",
     "speed_diagnostics": {
       "filtered_abs_error_mean_m_s": 0.0914898655119882,

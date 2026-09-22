@@ -149,7 +149,7 @@
     "warmup_protocol": "gexo_zero_assist_preroll50_v1",
     "warmup_steps": 50
   },
-  "human_checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/myoassist_human_adaptation_low_speed_100k/adapted_human_final.zip",
+  "human_checkpoint": "<PROJECT_ROOT>/G-Exo/RL/outputs/myoassist_human_adaptation_low_speed_100k/adapted_human_final.zip",
   "human_checkpoint_sha256": "457ff4e33b62e9a1ff09e2b2aa821719fe743fc1f70234d7b4b53fb4bc01502c",
   "input": {
     "imu_rotation": [
@@ -263,12 +263,12 @@
     ]
   },
   "phase_input_source": "local_phase_train_npz",
-  "phase_root": "/home/lenovo/HK_hackthon/G-Exo/tmp/tcn50_variable_speed_smoke/train",
-  "physical_model": "/home/lenovo/HK_hackthon/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
+  "phase_root": "<PROJECT_ROOT>/G-Exo/tmp/tcn50_variable_speed_smoke/train",
+  "physical_model": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
   "physical_model_sha256": "7127a1cb67a64782410659f73dfd752b5b490c3d8c3a4f0e2f615e5af6c331fe",
   "protocol": "gexo_myoassist_phase12_tcn_calibration_v1",
   "schema_version": 1,
-  "tcn_checkpoint": "/home/lenovo/HK_hackthon/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
+  "tcn_checkpoint": "<PROJECT_ROOT>/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
   "tcn_checkpoint_sha256": "fc6f552a00b17c5f98a4ee03ade4862eda1ce2f9724b25b3fe41739f1e8beb98",
   "urdf_enabled": false,
   "verified_speed_set_m_s": [
