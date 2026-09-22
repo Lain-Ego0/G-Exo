@@ -1,0 +1,280 @@
+{
+  "actor_feature_normalization": {
+    "clip": 5.0,
+    "horizon_steps": [
+      5,
+      10
+    ],
+    "mean": [
+      -0.009151469689434168,
+      -0.008637749458781428,
+      -0.005802955675535101,
+      -0.012857449758383963,
+      0.1471734082981668,
+      0.3114866728859919,
+      0.10445514979658935,
+      0.45417351999058925,
+      0.004680517725843601,
+      0.018620192989825257,
+      0.010614193665484587,
+      0.016008425247732293,
+      0.04477412572928837,
+      0.09371382226704289,
+      0.1296470614948443,
+      0.11604457941872102
+    ],
+    "minimum_std": 0.0001,
+    "samples": 756,
+    "source": "myoassist_zero_assist_complete_rollouts",
+    "std": [
+      0.24622878466920783,
+      0.4415723506061513,
+      0.22460812241744277,
+      0.3180178299034563,
+      2.3896948758179555,
+      4.917719929080032,
+      1.9764947436947915,
+      3.222941782503853,
+      0.4184313526829102,
+      0.5974358170834856,
+      0.373951317067314,
+      0.4599579040729766,
+      3.3869669945934167,
+      6.434959107745364,
+      2.980694509787647,
+      4.876114845503526
+    ]
+  },
+  "domain_randomization_enabled": false,
+  "fit": {
+    "calibrated_input_distribution": {
+      "fraction_above_3_sigma": 0.005813953488372093,
+      "fraction_above_5_sigma": 0.0017303433001107419,
+      "mean_absolute_z": 0.519725841518209,
+      "p95_absolute_z": 1.713720589876175
+    },
+    "complete_trajectories": 3,
+    "direct_tcn_to_myoassist": [
+      {
+        "position_correlation": 0.9483353021287222,
+        "position_offset": -0.12825580088957714,
+        "position_rmse_rad": 0.11115364179146633,
+        "position_scale": 1.2984455571054265,
+        "velocity_correlation": 0.801909961897181,
+        "velocity_rmse_rad_s": 1.4725089320355644
+      },
+      {
+        "position_correlation": -0.8705035283603156,
+        "position_offset": -0.15669297553580017,
+        "position_rmse_rad": 0.2128506613129688,
+        "position_scale": -1.2291902200171247,
+        "velocity_correlation": -0.7131832682754512,
+        "velocity_rmse_rad_s": 2.7730351636816
+      },
+      {
+        "position_correlation": 0.9328093554311003,
+        "position_offset": -0.04330878848346359,
+        "position_rmse_rad": 0.11280534475991859,
+        "position_scale": 1.103229359536748,
+        "velocity_correlation": 0.736344362517579,
+        "velocity_rmse_rad_s": 1.511810108301778
+      },
+      {
+        "position_correlation": -0.8292485869635279,
+        "position_offset": 0.013836211185607244,
+        "position_rmse_rad": 0.17032307091860321,
+        "position_scale": -0.8734280832666026,
+        "velocity_correlation": -0.8085371182990688,
+        "velocity_rmse_rad_s": 1.7395468776644534
+      }
+    ],
+    "episodes": [
+      {
+        "complete": true,
+        "frames": 301,
+        "reason": "time_limit",
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 0.8,
+        "warmup_steps": 150
+      },
+      {
+        "complete": true,
+        "frames": 301,
+        "reason": "time_limit",
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 1.0,
+        "warmup_steps": 150
+      },
+      {
+        "complete": true,
+        "frames": 301,
+        "reason": "time_limit",
+        "reference_index": 0,
+        "seed": 0,
+        "speed_m_s": 1.25,
+        "warmup_steps": 150
+      }
+    ],
+    "imu_rotation_cost": [
+      {
+        "best_candidate_cost": 2.1721550790095145,
+        "identity_cost": 23.141415260400297,
+        "non_identity_accepted": true,
+        "selected_cost": 2.1721550790095145
+      },
+      {
+        "best_candidate_cost": 2.8794221038556564,
+        "identity_cost": 13.863628254375946,
+        "non_identity_accepted": true,
+        "selected_cost": 2.8794221038556564
+      },
+      {
+        "best_candidate_cost": 2.211754563740299,
+        "identity_cost": 23.330553037827837,
+        "non_identity_accepted": true,
+        "selected_cost": 2.211754563740299
+      },
+      {
+        "best_candidate_cost": 3.830581312231213,
+        "identity_cost": 18.993300531882895,
+        "non_identity_accepted": true,
+        "selected_cost": 3.830581312231213
+      }
+    ],
+    "phase_frames": 17588,
+    "reset_state_contract": "canonical_full_state_v1",
+    "runtime_frames": 903,
+    "warmup_protocol": "gexo_zero_assist_preroll150_v1",
+    "warmup_steps": 150
+  },
+  "human_checkpoint": "<PROJECT_ROOT>/G-Exo/RL/outputs/myoassist_human_joint_physics_imitation_100k/adapted_human_final.zip",
+  "human_checkpoint_sha256": "4ffc076150494621a12072e0bdbb3818bb1754fc5f650bcc96acb984f5a1ae2b",
+  "input": {
+    "imu_rotation": [
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ]
+    ],
+    "motor_position_offset": [
+      -0.1696698419729005,
+      -0.02364324065570239,
+      -0.11550221123000695,
+      0.01697476455434538
+    ],
+    "motor_position_scale": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "motor_velocity_scale": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ]
+  },
+  "method": "train_phase_input_moments_and_direct_zero_assist_output_affine",
+  "output": {
+    "target_position_offset": [
+      -0.12825580088957714,
+      -0.15669297553580017,
+      -0.04330878848346359,
+      0.013836211185607244
+    ],
+    "target_position_scale": [
+      1.2984455571054265,
+      -1.2291902200171247,
+      1.103229359536748,
+      -0.8734280832666026
+    ],
+    "target_velocity_scale": [
+      1.2984455571054265,
+      -1.2291902200171247,
+      1.103229359536748,
+      -0.8734280832666026
+    ]
+  },
+  "phase_input_source": "local_phase_train_npz",
+  "phase_root": "<PROJECT_ROOT>/G-Exo/tmp/tcn50_variable_speed_smoke/train",
+  "physical_model": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO_URDF_DYNAMIC.xml",
+  "physical_model_sha256": "bb4ffb56e4186051015889853b610cd48e2ba4c020989b096a8350bda8934859",
+  "physiology_signature": "583f96e15e49b667d131d7e9b3e4c1087f159731bd2a6a2b79d8f389ddd9408a",
+  "protocol": "gexo_myoassist_phase12_tcn_calibration_v1",
+  "schema_version": 1,
+  "tcn_checkpoint": "<PROJECT_ROOT>/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
+  "tcn_checkpoint_sha256": "fc6f552a00b17c5f98a4ee03ade4862eda1ce2f9724b25b3fe41739f1e8beb98",
+  "urdf_enabled": true,
+  "verified_speed_set_m_s": [
+    0.8,
+    1.0,
+    1.25
+  ]
+}

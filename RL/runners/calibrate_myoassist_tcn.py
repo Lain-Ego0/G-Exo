@@ -7,14 +7,18 @@ import json
 import os
 from pathlib import Path
 
+import mujoco
 import numpy as np
 import torch
 
 from RL.env.actor_observation import RESET_PROTOCOL, RESET_WARMUP_STEPS
 from RL.env.myoassist.human_adaptation import make_human_adaptation_env
+from RL.env.myoassist.human_runtime import PHYSICS_HZ
 from RL.env.myoassist.model_builder import DEFAULT_PHYSICAL_OUTPUT_PATH
+from RL.env.myoassist.muscle_adapter import MyoAssistMuscleAdapter
 from RL.env.myoassist.policy_transfer import FrozenHumanPolicy, file_sha256
 from RL.env.myoassist.sensor_adapter import MyoAssistSensorAdapter
+from RL.env.myoassist.urdf_attachment import model_has_gexo_urdf
 from RL.env.sensors import SensorReader
 from RL.runners.predictors.tcn_calibration import (
     collect_raw_delta_features,
@@ -118,6 +122,7 @@ def collect_zero_assist_trajectories(
     warmup_steps: int,
     steps: int,
     device: str,
+    model_path: Path,
 ) -> tuple[list[np.ndarray], list[dict[str, object]]]:
     policy = FrozenHumanPolicy(human_checkpoint, device=device)
     backend_sensor = MyoAssistSensorAdapter()
@@ -132,6 +137,7 @@ def collect_zero_assist_trajectories(
                     seed=seed,
                     max_episode_steps=warmup_steps + steps,
                     evaluate=True,
+                    model_path=model_path,
                 )
                 frames: list[np.ndarray] = []
                 reason = "time_limit"
@@ -239,6 +245,11 @@ def parse_csv(value: str, conversion) -> tuple:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--human-checkpoint", type=Path, required=True)
+    parser.add_argument(
+        "--physical-model",
+        type=Path,
+        default=DEFAULT_PHYSICAL_OUTPUT_PATH,
+    )
     parser.add_argument("--tcn-checkpoint", type=Path, default=DEFAULT_TCN_CHECKPOINT)
     parser.add_argument("--phase-root", type=Path)
     parser.add_argument("--speeds", default="0.8,1.0,1.25")
@@ -256,6 +267,7 @@ def main() -> None:
     args = parser.parse_args()
 
     human_checkpoint = args.human_checkpoint.expanduser().resolve(strict=True)
+    physical_model = args.physical_model.expanduser().resolve(strict=True)
     tcn_checkpoint = args.tcn_checkpoint.expanduser().resolve(strict=True)
     output = args.output.expanduser().resolve()
     if output.exists() and not args.overwrite:
@@ -293,7 +305,17 @@ def main() -> None:
         warmup_steps=args.warmup_steps,
         steps=args.steps,
         device=args.device,
+        model_path=physical_model,
     )
+    compiled_model = mujoco.MjModel.from_xml_path(str(physical_model))
+    compiled_model.opt.timestep = 1.0 / PHYSICS_HZ
+    signature_data = mujoco.MjData(compiled_model)
+    mujoco.mj_forward(compiled_model, signature_data)
+    physiology_signature = MyoAssistMuscleAdapter(
+        compiled_model,
+        signature_data,
+        model_hash=file_sha256(physical_model),
+    ).physiology_signature
     runtime_frames = np.concatenate(trajectories)
     motor_scale, motor_offset, velocity_scale = fit_motor_input_calibration(
         phase_inputs,
@@ -341,11 +363,12 @@ def main() -> None:
         "tcn_checkpoint_sha256": file_sha256(tcn_checkpoint),
         "human_checkpoint": str(human_checkpoint),
         "human_checkpoint_sha256": file_sha256(human_checkpoint),
-        "physical_model": str(DEFAULT_PHYSICAL_OUTPUT_PATH.resolve(strict=True)),
-        "physical_model_sha256": file_sha256(DEFAULT_PHYSICAL_OUTPUT_PATH),
+        "physical_model": str(physical_model),
+        "physical_model_sha256": file_sha256(physical_model),
+        "physiology_signature": physiology_signature,
         "phase_input_source": phase_source,
         "phase_root": phase_root,
-        "verified_speed_set_m_s": list(VERIFIED_SPEEDS_M_S),
+        "verified_speed_set_m_s": list(speeds),
         "input": {
             "motor_position_scale": motor_scale.tolist(),
             "motor_position_offset": motor_offset.tolist(),
@@ -373,7 +396,7 @@ def main() -> None:
             "direct_tcn_to_myoassist": output_diagnostics,
             "calibrated_input_distribution": distribution_metrics(input_z),
         },
-        "urdf_enabled": False,
+        "urdf_enabled": model_has_gexo_urdf(compiled_model),
         "domain_randomization_enabled": False,
     }
     output.parent.mkdir(parents=True, exist_ok=True)

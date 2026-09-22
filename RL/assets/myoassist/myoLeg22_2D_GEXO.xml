@@ -199,7 +199,7 @@
                         <joint axis="0 1 0" name="vasti_r_vas_int_r-P4_y" pos="0 0 0" range="-0.06857 0.02752" type="slide" />
                         <site name="vasti_r_vas_int_r-P4" pos="0 0 0" />
                     </body>
-                    <site name="gexo_imu_right_shank" pos="0 -0.2 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
+                    <site name="gexo_imu_right_shank" pos="0 -0.2 0" quat="1 0 0 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
                 </body>
                 <body name="gastroc_r_med_gas_r-P2" pos="0 0 0">
                     <inertial diaginertia="0.00000001 0.00000001 0.00000001" mass="0.001" pos="0 0 0" />
@@ -208,7 +208,7 @@
                     <joint axis="0 0 1" name="gastroc_r_med_gas_r-P2_z" pos="0 0 0" range="-0.0258 -0.0235" type="slide" />
                     <site name="gastroc_r_med_gas_r-P2" pos="0 0 0" />
                 </body>
-                <site name="gexo_imu_right_thigh" pos="0 -0.2 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
+                <site name="gexo_imu_right_thigh" pos="0 -0.2 0" quat="1 0 0 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
             </body>
             <body name="femur_l" pos="-0.0707 -0.0661 -0.0835">
                 <inertial diaginertia="0.1412 0.145 0.0351" mass="9.3014" pos="0 -0.2 0" quat="0.5 0.5 -0.5 0.5" />
@@ -292,7 +292,7 @@
                         <joint axis="0 1 0" name="vasti_l_vas_int_l-P4_y" pos="0 0 0" range="-0.06857 0.02752" type="slide" />
                         <site name="vasti_l_vas_int_l-P4" pos="0 0 0" />
                     </body>
-                    <site name="gexo_imu_left_shank" pos="0 -0.2 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
+                    <site name="gexo_imu_left_shank" pos="0 -0.2 0" quat="1 0 0 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
                 </body>
                 <body name="gastroc_l_med_gas_l-P2" pos="0 0 0">
                     <inertial diaginertia="0.00000001 0.00000001 0.00000001" mass="0.001" pos="0 0 0" />
@@ -301,7 +301,7 @@
                     <joint axis="0 0 1" name="gastroc_l_med_gas_l-P2_z" pos="0 0 0" range="-0.0258 -0.0235" type="slide" />
                     <site name="gastroc_l_med_gas_l-P2" pos="0 0 0" />
                 </body>
-                <site name="gexo_imu_left_thigh" pos="0 -0.2 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
+                <site name="gexo_imu_left_thigh" pos="0 -0.2 0" quat="1 0 0 0" size="0.008" group="4" rgba="0.1 0.4 0.9 0.6" />
             </body>
             <body name="torso" pos="-0.1007 0.0815 0">
                 <inertial diaginertia="1.4745 1.4314 0.45" mass="34.2366" pos="0.01 0.325 0" quat="0.707107 0.707107 0 0" />

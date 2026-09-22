@@ -6,19 +6,27 @@ import argparse
 import json
 from pathlib import Path
 
+import mujoco
 import numpy as np
 
 from RL.env.actor_observation import RESET_PROTOCOL, RESET_WARMUP_STEPS
 from RL.env.myoassist.baseline import (
+    NAKED_REFERENCE_CONDITION,
+    PHASE_BIN_COUNT,
     SPEED_WINDOW_STEPS,
     ForwardSpeedWindow,
     fit_baseline,
 )
 from RL.env.myoassist.human_adaptation import make_human_adaptation_env
-from RL.env.myoassist.muscle_adapter import MyoAssistMuscleAdapter
+from RL.env.myoassist.gait_phase import CausalGaitPhase, left_foot_force
+from RL.env.myoassist.muscle_adapter import (
+    ACTIVATION_SIDE_ORDER,
+    MyoAssistMuscleAdapter,
+)
 from RL.env.myoassist.model_builder import DEFAULT_PHYSICAL_OUTPUT_PATH
 from RL.env.myoassist.policy_transfer import FrozenHumanPolicy, file_sha256
 from RL.env.myoassist.sensor_adapter import JOINT_SPECS, MyoAssistSensorAdapter
+from RL.env.myoassist.urdf_attachment import model_has_gexo_urdf
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -33,6 +41,11 @@ def parse_csv(value: str, conversion) -> tuple:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--human-checkpoint", type=Path, required=True)
+    parser.add_argument(
+        "--physical-model",
+        type=Path,
+        default=DEFAULT_PHYSICAL_OUTPUT_PATH,
+    )
     parser.add_argument("--speeds", default="0.8,1.0,1.25")
     parser.add_argument("--seeds", default="0,1,2")
     parser.add_argument("--reference-indices", default="0")
@@ -48,7 +61,10 @@ def main() -> None:
     args = parser.parse_args()
 
     checkpoint = args.human_checkpoint.expanduser().resolve(strict=True)
+    physical_model = args.physical_model.expanduser().resolve(strict=True)
     output = args.output.expanduser().resolve()
+    if output.suffix.lower() != ".json":
+        raise ValueError("Baseline output must use a .json suffix.")
     if output.exists() and not args.overwrite:
         raise FileExistsError(f"Baseline already exists: {output}")
     if args.warmup_steps != RESET_WARMUP_STEPS:
@@ -58,6 +74,9 @@ def main() -> None:
         )
     if args.steps < 1:
         raise ValueError("steps must be positive.")
+    compiled_reference_model = mujoco.MjModel.from_xml_path(str(physical_model))
+    if model_has_gexo_urdf(compiled_reference_model):
+        raise ValueError("Formal baseline must use the naked-human model without URDF.")
     policy = FrozenHumanPolicy(checkpoint, device=args.device)
     speeds = parse_csv(args.speeds, float)
     seeds = parse_csv(args.seeds, int)
@@ -76,9 +95,11 @@ def main() -> None:
         key: []
         for key in (
             "speed",
+            "gait_phase",
             "target_speed_raw",
             "target_speed_filtered",
             "activation",
+            "target_activation",
             "human_torque",
             "gross",
             "forward_speed_raw",
@@ -100,12 +121,13 @@ def main() -> None:
                     seed=seed,
                     max_episode_steps=args.warmup_steps + args.steps,
                     evaluate=True,
+                    model_path=physical_model,
                 )
                 simulation = environment.unwrapped.sim
                 muscle = MyoAssistMuscleAdapter(
                     simulation.model.ptr,
                     simulation.data.ptr,
-                    model_hash=file_sha256(DEFAULT_PHYSICAL_OUTPUT_PATH),
+                    model_hash=file_sha256(physical_model),
                 )
                 sensors = MyoAssistSensorAdapter()
                 observation, _ = environment.reset(
@@ -121,6 +143,7 @@ def main() -> None:
                 warmup_complete = True
                 speed_window = ForwardSpeedWindow(SPEED_WINDOW_STEPS)
                 target_speed_window = ForwardSpeedWindow(SPEED_WINDOW_STEPS)
+                phase_tracker = CausalGaitPhase()
                 try:
                     for _ in range(args.warmup_steps):
                         observation, _, terminated, truncated, _ = environment.step(
@@ -135,12 +158,17 @@ def main() -> None:
                         target_speed_window.append(
                             environment.unwrapped._target_velocity
                         )
+                        phase_tracker.update(left_foot_force(environment.unwrapped))
 
                     if warmup_complete:
                         if not speed_window.full or not target_speed_window.full:
                             raise RuntimeError(
                                 "Actual/target speed windows were not fully seeded "
                                 "by preroll."
+                            )
+                        if not phase_tracker.ready:
+                            raise RuntimeError(
+                                "Gait phase was not calibrated by zero-assist preroll."
                             )
                         for _ in range(args.steps):
                             observation, _, terminated, truncated, _ = environment.step(
@@ -158,13 +186,27 @@ def main() -> None:
                             filtered_target_speed = target_speed_window.append(
                                 raw_target_speed
                             )
+                            gait_phase = phase_tracker.update(
+                                left_foot_force(environment.unwrapped)
+                            )
                             episode["speed"].append(filtered_target_speed)
+                            episode["gait_phase"].append(gait_phase)
                             episode["target_speed_raw"].append(raw_target_speed)
                             episode["target_speed_filtered"].append(
                                 filtered_target_speed
                             )
                             episode["activation"].append(
                                 float(np.mean(np.square(snapshot.activation)))
+                            )
+                            squared_activation = np.square(snapshot.activation)
+                            episode["target_activation"].append(
+                                np.asarray(
+                                    [
+                                        np.mean(squared_activation[mask])
+                                        for mask in muscle.target_activation_masks
+                                    ],
+                                    dtype=np.float64,
+                                )
                             )
                             episode["human_torque"].append(
                                 np.sum(contribution, axis=0)
@@ -265,7 +307,9 @@ def main() -> None:
         )
     baseline = fit_baseline(
         speed_m_s=target_speed,
+        gait_phase=np.asarray(rows["gait_phase"]),
         activation_cost=np.asarray(rows["activation"]),
+        target_activation_cost=np.asarray(rows["target_activation"]),
         human_joint_torque_nm=np.asarray(rows["human_torque"]),
         gross_joint_load_nm=np.asarray(rows["gross"]),
         forward_speed_filtered_m_s=filtered_speed,
@@ -277,10 +321,13 @@ def main() -> None:
         metadata={
             "human_checkpoint": str(checkpoint),
             "human_checkpoint_sha256": file_sha256(checkpoint),
-            "physical_model": str(DEFAULT_PHYSICAL_OUTPUT_PATH.resolve(strict=True)),
+            "physical_model": str(physical_model),
             "model_sha256": model_hash,
-            "baseline_split": "canonical_zero_assist_training_v1",
-            "verified_speed_set_m_s": list(VERIFIED_SPEEDS_M_S),
+            "reference_model_sha256": model_hash,
+            "physiology_signature": muscle.physiology_signature,
+            "reference_condition": NAKED_REFERENCE_CONDITION,
+            "baseline_split": "canonical_naked_human_training_v1",
+            "verified_speed_set_m_s": list(speeds),
             "episodes": episode_records,
             "frames": len(rows["speed"]),
             "control_hz": 50,
@@ -288,6 +335,12 @@ def main() -> None:
             "warmup_protocol": RESET_PROTOCOL,
             "warmup_steps": args.warmup_steps,
             "speed_window_steps": SPEED_WINDOW_STEPS,
+            "gait_phase": {
+                "kind": "causal_left_foot_contact_v1",
+                "phase_zero": "stable_left_foot_contact",
+                "future_frames_used": 0,
+                "phase_bin_count": PHASE_BIN_COUNT,
+            },
             "speed_filter": {
                 "kind": "causal_rolling_mean",
                 "window_steps": SPEED_WINDOW_STEPS,
@@ -325,7 +378,22 @@ def main() -> None:
                 "joint_envelope_percentiles": [0.1, 99.9],
                 "joint_envelope_padding_rad": 0.05,
             },
-            "urdf_enabled": False,
+            "target_activation": {
+                "cost": "mean_squared_activation",
+                "side_order": list(ACTIVATION_SIDE_ORDER),
+                "muscle_names_by_side": {
+                    side: [
+                        name
+                        for name, selected in zip(
+                            muscle.muscle_names,
+                            muscle.target_activation_masks[side_index],
+                        )
+                        if selected
+                    ]
+                    for side_index, side in enumerate(ACTIVATION_SIDE_ORDER)
+                },
+            },
+            "urdf_enabled": model_has_gexo_urdf(muscle.model),
             "domain_randomization_enabled": False,
         },
     )

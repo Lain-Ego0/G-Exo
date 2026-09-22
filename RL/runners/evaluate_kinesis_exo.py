@@ -21,6 +21,10 @@ from RL.env.kinesis.exo_env import (
     TCN_OBSERVATION_DIM,
 )
 from RL.env.kinesis.baseline_reference import DEFAULT_PHYSICAL_BASELINE_DIR
+from RL.runners.policy_load_compat import (
+    load_ppo_for_inference,
+    saved_space_shapes,
+)
 
 
 RL_ROOT = Path(__file__).resolve().parents[1]
@@ -66,10 +70,8 @@ def load_run_config(model_path: Path | None) -> dict:
 def policy_observation_dim(model_path: Path, device: str) -> int:
     """Read the policy input width before constructing Kinesis."""
 
-    from stable_baselines3 import PPO
-
-    model = PPO.load(model_path, device=device)
-    shape = model.observation_space.shape
+    del device
+    shape, _ = saved_space_shapes(model_path)
     if shape is None or len(shape) != 1:
         raise ValueError(
             "The evaluator requires a one-dimensional Box observation."
@@ -240,6 +242,10 @@ def run_episode(
     baseline_co_contraction = []
     co_contraction_excess = []
     activation_overload_topk = []
+    action_samples = []
+    cuff_force_samples = []
+    cuff_error_samples = []
+    cuff_constraint_error_samples = []
     positive_work_j = 0.0
     negative_work_j = 0.0
     terminated = False
@@ -256,6 +262,7 @@ def run_episode(
             oracle_gain,
             test_torque_nm,
         )
+        action_samples.extend(np.abs(action).tolist())
         observation, reward, terminated, truncated, info = env.step(
             action
         )
@@ -307,6 +314,15 @@ def run_episode(
         )
         activation_overload_topk.append(
             float(metrics["activation_overload_topk"])
+        )
+        cuff_force_samples.extend(
+            np.abs(np.asarray(info["cuff_force_n"], dtype=np.float64)).ravel().tolist()
+        )
+        cuff_error_samples.extend(
+            np.abs(np.asarray(info["cuff_error_m"], dtype=np.float64)).ravel().tolist()
+        )
+        cuff_constraint_error_samples.append(
+            abs(float(info["cuff_constraint_error_m"]))
         )
 
         joint_power = np.asarray(
@@ -402,6 +418,17 @@ def run_episode(
         "positive_power_max_w": float(np.max(positive_power_samples)),
         "positive_exo_work_j": positive_work_j,
         "negative_exo_work_j": negative_work_j,
+        "action_saturation_ratio": float(
+            np.mean(np.asarray(action_samples) >= 0.98)
+        ),
+        "cuff_force_p95_n": float(np.percentile(cuff_force_samples, 95)),
+        "cuff_force_max_n": float(np.max(cuff_force_samples)),
+        "cuff_error_p95_mm": float(
+            1000.0 * np.percentile(cuff_error_samples, 95)
+        ),
+        "cuff_constraint_error_max_mm": float(
+            1000.0 * np.max(cuff_constraint_error_samples)
+        ),
     }
 
 
@@ -435,6 +462,11 @@ def aggregate(rows: list[dict]) -> list[dict]:
         "positive_power_max_w",
         "positive_exo_work_j",
         "negative_exo_work_j",
+        "action_saturation_ratio",
+        "cuff_force_p95_n",
+        "cuff_force_max_n",
+        "cuff_error_p95_mm",
+        "cuff_constraint_error_max_mm",
     )
 
     for mode in VALID_MODES:
@@ -522,6 +554,10 @@ def main() -> None:
         help="Defaults to the model run's config.json value.",
     )
     parser.add_argument("--model", type=Path, default=None)
+    parser.add_argument("--torque-limit-nm", type=float, default=17.0)
+    parser.add_argument("--torque-rate-limit-nm-s", type=float, default=50.0)
+    parser.add_argument("--warmup-steps", type=int, default=50)
+    parser.add_argument("--max-episode-steps", type=int, default=500)
     tcn_group = parser.add_mutually_exclusive_group()
     tcn_group.add_argument(
         "--use-tcn",
@@ -609,6 +645,14 @@ def main() -> None:
                 str(args.action_scale_nm),
                 "--baseline-dir",
                 str(args.baseline_dir),
+                "--torque-limit-nm",
+                str(args.torque_limit_nm),
+                "--torque-rate-limit-nm-s",
+                str(args.torque_rate_limit_nm_s),
+                "--warmup-steps",
+                str(args.warmup_steps),
+                "--max-episode-steps",
+                str(args.max_episode_steps),
                 "--device",
                 args.device,
                 "--output",
@@ -642,6 +686,10 @@ def main() -> None:
             "oracle_gain": args.oracle_gain,
             "test_torque_nm": args.test_torque_nm,
             "action_torque_scale_nm": args.action_scale_nm,
+            "torque_limit_nm": args.torque_limit_nm,
+            "torque_rate_limit_nm_s": args.torque_rate_limit_nm_s,
+            "warmup_steps": args.warmup_steps,
+            "max_episode_steps": args.max_episode_steps,
             "baseline_dir": str(args.baseline_dir.resolve()),
             "model": str(args.model) if args.model else None,
             "tcn_enabled": args.use_tcn,
@@ -666,10 +714,7 @@ def main() -> None:
 
     model = None
     if "policy" in modes:
-        # Lazy import keeps baseline/oracle preview independent of SB3.
-        from stable_baselines3 import PPO
-
-        model = PPO.load(args.model, device=args.device)
+        model = load_ppo_for_inference(args.model, device=args.device)
 
     rows = []
     for motion_id in motion_ids:
@@ -678,8 +723,11 @@ def main() -> None:
             render_mode="human" if args.render else None,
             baseline_dir=args.baseline_dir,
             strict_baseline_seed=True,
+            torque_limit_nm=args.torque_limit_nm,
             action_torque_scale_nm=args.action_scale_nm,
-            warmup_steps=50,
+            torque_rate_limit_nm_s=args.torque_rate_limit_nm_s,
+            warmup_steps=args.warmup_steps,
+            max_episode_steps=args.max_episode_steps,
             use_tcn=args.use_tcn,
             tcn_checkpoint=args.tcn_checkpoint,
             tcn_calibration=args.tcn_calibration,
@@ -718,6 +766,10 @@ def main() -> None:
         "oracle_gain": args.oracle_gain,
         "test_torque_nm": args.test_torque_nm,
         "action_torque_scale_nm": args.action_scale_nm,
+        "torque_limit_nm": args.torque_limit_nm,
+        "torque_rate_limit_nm_s": args.torque_rate_limit_nm_s,
+        "warmup_steps": args.warmup_steps,
+        "max_episode_steps": args.max_episode_steps,
         "baseline_dir": str(args.baseline_dir.resolve()),
         "model": str(args.model) if args.model else None,
         "tcn_enabled": args.use_tcn,

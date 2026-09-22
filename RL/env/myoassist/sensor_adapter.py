@@ -7,6 +7,12 @@ from typing import Any
 
 import numpy as np
 
+from RL.env.myoassist.urdf_attachment import (
+    URDF_JOINT_NAMES,
+    dynamic_joint_name,
+    model_has_dynamic_gexo,
+)
+
 
 @dataclass(frozen=True)
 class JointSensorSpec:
@@ -38,17 +44,21 @@ class MyoAssistSensorAdapter:
 
     def read_state(self, environment: Any) -> dict[str, np.ndarray]:
         sim = environment.sim
+        if model_has_dynamic_gexo(sim.model):
+            joint_names = tuple(dynamic_joint_name(name) for name in URDF_JOINT_NAMES)
+        else:
+            joint_names = tuple(spec.name for spec in JOINT_SPECS)
         motor_q = np.asarray(
             [
-                spec.sign * float(sim.data.joint(spec.name).qpos[0])
-                for spec in JOINT_SPECS
+                spec.sign * float(sim.data.joint(joint_name).qpos[0])
+                for spec, joint_name in zip(JOINT_SPECS, joint_names)
             ],
             dtype=np.float32,
         )
         motor_dq = np.asarray(
             [
-                spec.sign * float(sim.data.joint(spec.name).qvel[0])
-                for spec in JOINT_SPECS
+                spec.sign * float(sim.data.joint(joint_name).qvel[0])
+                for spec, joint_name in zip(JOINT_SPECS, joint_names)
             ],
             dtype=np.float32,
         )
