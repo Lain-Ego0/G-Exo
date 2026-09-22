@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Windows
+Thumbs.db
+
 # ROS2 / colcon build artifacts
 2.software/imu_driver/build/
 2.software/imu_driver/install/
@@ -14,8 +17,14 @@ spacemit_robot/
 !2.software/alloop/README.md
 
 # RL training artifacts (kept local only, not distributed)
+# NOTE: RL/output/ is deliberately NOT ignored — the demo_7_27 and
+# kinesis_physical artifacts under it are tracked on purpose.
 RL/outputs/
 RL/papers/
+RL/backups/
+RL/cache/
+RL/tmp/
+tmp/
 
 # Python
 __pycache__/
@@ -24,6 +33,37 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# C/C++ / CMake (control/ and RL/deploy* are built with CMake)
+**/build/
+**/build-*/
+**/CMakeFiles/
+**/CMakeCache.txt
+**/cmake_install.cmake
+compile_commands.json
+*.o
+*.a
+*.so
+
+# Logs and runtime files
+# NOTE: 1.hardware/G-exo_URDF/export.log is tracked on purpose; explicitly
+# added files are unaffected by ignore rules.
+*.log
+events.out.tfevents.*
+MUJOCO_LOG.TXT
+
+# Local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*credentials*.json
+
+# Local archives
+gexo_control_k3.tar.gz
 
 # Node / web frontend
 node_modules/
