@@ -29,6 +29,15 @@
 - Demo video: [We built a four-DOF reinforcement-learning exoskeleton at the Physical AI Hackathon — track champion](https://www.bilibili.com/video/BV1uuu36uEjx/) (Bilibili)
 - Event coverage: [Hong Kong's first Physical AI Hackathon concludes](https://www.elecfans.com/d/8207944.html)
 
+### The event
+
+Hong Kong's first Physical AI Hackathon — a 48-hour hackathon to build a physical AI prototype
+that can be seen, touched and tested. G-Exo took the alloop track.
+
+Official site: <https://www.brizanvp.com/physical-ai-hackathon>
+
+[![Physical AI Hackathon official page](assets/hackathon-site.jpg)](https://www.brizanvp.com/physical-ai-hackathon)
+
 ### Photos
 
 | Final pitch | Exoskeleton under construction |

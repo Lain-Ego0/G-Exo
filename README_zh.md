@@ -29,6 +29,15 @@
 - 演示视频：[在 Physical AI 黑客松我们做了一个四自由度强化学习外骨骼！赛道冠军！](https://www.bilibili.com/video/BV1uuu36uEjx/)（B站）
 - 赛事报道：[香港首届 Physical AI Hackathon 圆满落幕](https://www.elecfans.com/d/8207944.html)
 
+### 赛事信息
+
+香港首届 Physical AI Hackathon —— 48 小时做出一个能看、能摸、能实测的 Physical AI 原型，
+G-Exo 参加的是 alloop 赛道。
+
+官网：<https://www.brizanvp.com/physical-ai-hackathon>
+
+[![Physical AI Hackathon 官网首页](assets/hackathon-site.jpg)](https://www.brizanvp.com/physical-ai-hackathon)
+
 ### 实拍
 
 | 决赛路演 | 制作中的外骨骼 |
