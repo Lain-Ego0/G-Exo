@@ -39,7 +39,7 @@ Physical AI 黑客松参赛作品 — Ghost-Exoskeleton
 | 机械设计 | ✅ G-exo 单一版本定版（SolidWorks 装配体 + URDF + STL） | 2026-08 |
 | 样机组装 | ✅ 打印件加工完成、碳纤维件外发加工、整机装配跑通 | 2026-08 |
 | IMU 驱动 | ✅ ROS2 + Mahony AHRS，4 路 G354 200Hz 调通 | 2026-07-23 |
-| RL 训练框架 | ✅ Kinesis PPO + 显式 TCN（160 维观测 / 4 维动作 / 1M transitions） | 2026-08-09 |
+| RL 训练框架 | ✅ Kinesis PPO + TCN 时序编码（训练期 160 维观测 / 4 维动作 / 1M transitions） | 2026-08-09 |
 | 仿真助力验证 | ✅ MuJoCo + MyoSuite A/B 对照 Demo（零助力 vs 有助力，同种子） | 2026-07-27 |
 | 实机部署 | ✅ K3 Pico-ITX / CoM260 上的 Web Agent、LLM、遥测链路实机核验 | 2026-08-02 |
 | Alloop Ring 闭环 | ✅ 戒指 BLE → Android App（AlloopCore SDK）→ WebSocket 桥 → 系统，实机跑通 | 2026-08 |
@@ -54,7 +54,7 @@ Physical AI 黑客松参赛作品 — Ghost-Exoskeleton
 - **重量**：≤4kg（不含电池）
 - **执行器**：RobStride RS02 准直驱 QDD ×4（7.75:1 低减速比，额定 6 Nm / 峰值 17 Nm，CAN + MIT 力矩模式，Φ58mm / 405g）
 - **传感器**：4× Epson G354 车规级 IMU（大腿×2 + 小腿×2）+ 4× 14-bit 绝对值磁编码器
-- **供电**：6S LiPo 锂电（22.2V 标称 / 25.2V 满电），整机功率 30–100W，待机功耗 ~10W
+- **供电**：6S 5000mAh LiPo（22.2V 标称 / ≈111Wh）**单电池 + BMS**，整机功率 30–100W，待机功耗 ~10W（待机续航约 11h）
 - **BOM**：~¥4,611（目标 ≤¥5,000）
 - **计算平台**：进迭时空 K3（RISC-V）— NPU（TCN INT8 推理 <5ms）+ 多核 CPU + RT Linux
 - **控制**：RL + TCN 时序编码器混合架构，任务无关（无需任务分类器 / 步态相位检测）
@@ -86,12 +86,18 @@ Physical AI 黑客松参赛作品 — Ghost-Exoskeleton
         恢复良好 + 力量训练   → Damping 转为训练伙伴
                           ▼
 ┌──────────────── 控制：任务无关 RL ─────────────────┐
-│ 36 维/帧 × 200Hz 时序 → TCN 时序编码器（5 层膨胀卷积）│
-│                      → 160 维观测（144 传感器历史 + 16 TCN 预测）
-│                      → PPO 策略（MLP 128-64）→ 4 维归一化力矩 │
-│                      → 缩放 / 变化率限幅 / 低通滤波 → CAN → RS02 │
+│ 36 维/帧 × 200Hz 传感器时序                          │
+│   → TCN 时序编码器（5 层膨胀卷积，NPU INT8 量化）     │
+│   → 共享隐空间表征                                  │
+│   → PPO 策略网络（MLP 128-64）→ 4 维归一化力矩 ∈[-1,1]│
+│   → 力矩缩放 → 变化率限幅 → 一阶低通滤波 → CAN → RS02 │
+│   控制周期 50Hz · TCN INT8 推理 <5ms                │
 └─────────────────────────────────────────────────────┘
 ```
+
+> 训练期（Kinesis）观测为 160 维 = 144 维传感器历史 + 16 维显式 TCN 预测；
+> 部署期按上图的共享隐空间接口，见 [`RL/KINESIS_EXO_TRAINING.md`](RL/KINESIS_EXO_TRAINING.md) 与
+> [`RL/TCN_PIPELINE.md`](RL/TCN_PIPELINE.md)。
 
 **Sim-to-Real 训练管线**
 
@@ -158,7 +164,8 @@ G-Exo/
 
 - **仿真 ≠ 实机生理结论**：`RL/output/` 中的助力验证是在 MuJoCo + MyoSuite 上、以 55% 肌力构造的可重复功能测试条件，尚未标定 URDF 零位与真实电机工作包络，**不构成对真实人体代谢消耗或医疗效果的结论**。
 - **曾用的 oracle 助力控制器使用了仿真特权量**（直接读取上一步肌肉广义力矩），仅作为物理接口与上限基线，**不可部署**；部署路径为 TCN 估计 → PPO Actor。
-- **电源方案在文档间不一致**：[`BOM.md`](1.hardware/BOM.md) 为「6S 3000mAh ×2 热插拔」，`ppt.md` 答辩稿为「6S 5000mAh 单电池 + BMS」。以 BOM 为准，待整机实测后统一。
+- **电源方案以答辩稿为准**：本文档与 `ppt.md` 采用**最终定版**的「6S 5000mAh 单电池 + BMS」；
+  [`BOM.md`](1.hardware/BOM.md) 仍停留在较早的「6S 3000mAh ×2 热插拔」，尚未回改。
 - **实机控制指标待补齐**：额定力矩 6 Nm 的超越比例、省力比例等实机对标数据尚未归档到仓库。
 - **`2.software/imu_driver/` 下的两个驱动目录是游离 submodule 引用**（`ess_imu_driver2`、`G354_Attitude-algorithm` 在 git 中记为 commit 对象，但仓库无 `.gitmodules`），全新 clone 无法直接检出。
 
