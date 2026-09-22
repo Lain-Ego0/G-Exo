@@ -1,0 +1,351 @@
+{
+  "artifacts": {
+    "baseline": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/zero_assist_naked_v5.json",
+      "sha256": "9fcda599a1bfa3c4ae91ea3acbdf06fbc9bf406fec5b9aa419be74a20f7139db"
+    },
+    "human_checkpoint": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/outputs/myoassist_human_joint_physics_imitation_100k/adapted_human_final.zip",
+      "sha256": "4ffc076150494621a12072e0bdbb3818bb1754fc5f650bcc96acb984f5a1ae2b"
+    },
+    "motion_reference": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/urdf_zero_assist_motion_stiff_cuff_v1.json",
+      "sha256": "da0577e36879d68c0ca1a1d76f27dba00a219481742b666db38c8242af3089f5"
+    },
+    "physical_model": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO_URDF_DYNAMIC.xml",
+      "sha256": "853095339f25a755c01952f2fc67b3a8bc14b4008edf5f5a3cf3c3d448370468"
+    },
+    "policy_model": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/outputs/myoassist_urdf_phasefree_dr_fixed_1ms_1m/final_model.zip",
+      "sha256": "a0c2771c6d1d72c09b734beb09d70aae630a64e8adb8e183450fea4eff66b388"
+    },
+    "reference_condition": "naked_human_zero_external_torque_v1",
+    "reference_model": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/assets/myoassist/myoLeg22_2D_GEXO.xml",
+      "sha256": "a2bd1967e1aa543b0e42e45cd222be71a604643e22daca091e239e9a32daef74"
+    },
+    "tcn_calibration": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/assets/tcn/myoassist_urdf_dynamic_stiff_cuff_v5.json",
+      "sha256": "8f87cc6cf003c5ef021b8672402e96ee8d69bdd1c9a649af873818ee9f955515"
+    },
+    "tcn_checkpoint": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/outputs/tcn_runs/seed_43/best_model.pt",
+      "sha256": "fc6f552a00b17c5f98a4ee03ade4862eda1ce2f9724b25b3fe41739f1e8beb98"
+    },
+    "trace_npz": {
+      "path": "<PROJECT_ROOT>/G-Exo/RL/outputs/myoassist_urdf_phasefree_dr_fixed_1ms_1m/paired_final_1m.npz",
+      "sha256": "48963f6c516db74bce2e98fa60b3c4257e1b707336841eebedebdab27ba4618b"
+    }
+  },
+  "effectiveness_by_mode": {
+    "policy": {
+      "mean_activation_saving_fraction": 0.0032626651505868755,
+      "mean_gross_load_saving_fraction": 0.022367844573710494,
+      "mean_human_torque_saving_fraction": 0.1295691705908902,
+      "pass": true,
+      "valid_pair_count": 3
+    }
+  },
+  "effectiveness_pass": true,
+  "effectiveness_target": "policy",
+  "pair_count": 3,
+  "pairs": [
+    {
+      "baseline": {
+        "activation_cost_integral": 4.4083099365234375,
+        "gross_cost_integral": 10.419970512390137,
+        "human_torque_cost_integral": 25.292558670043945,
+        "maximum_absolute_pelvis_pitch_rad": 0.20300028328690817,
+        "maximum_joint_limit_excess": 0.0,
+        "mean_absolute_exo_torque_nm": 0.0,
+        "mean_forward_speed_m_s": 1.0162016699425518,
+        "minimum_pelvis_height_m": 0.863566726482476,
+        "mode": "baseline",
+        "negative_exo_work_j": 0.0,
+        "positive_exo_work_j": 0.0,
+        "reason": "evaluation_horizon",
+        "reference_index": 0,
+        "requested_steps": 500,
+        "return": 0.0,
+        "seed": 0,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "success": true
+      },
+      "complete_horizon": true,
+      "effectiveness_by_mode": {
+        "policy": {
+          "activation_nondegradation": true,
+          "at_least_one_improvement": true,
+          "excluded_reason": null,
+          "gross_within_tolerance": true,
+          "human_torque_nondegradation": true,
+          "movement_consistent": true,
+          "pass": true
+        }
+      },
+      "equal_horizon": true,
+      "pair_valid": true,
+      "policy": {
+        "activation_cost_integral": 4.393927097320557,
+        "gross_cost_integral": 10.186898231506348,
+        "human_torque_cost_integral": 22.015422821044922,
+        "maximum_absolute_pelvis_pitch_rad": 0.21387433021125352,
+        "maximum_joint_limit_excess": 0.0,
+        "mean_absolute_exo_torque_nm": 2.9518234729766846,
+        "mean_forward_speed_m_s": 0.9866294416417243,
+        "minimum_pelvis_height_m": 0.8576943810051828,
+        "mode": "policy",
+        "naked_movement_rmse_rad": 0.529955267906189,
+        "naked_phase_aligned_movement_rmse_rad": 0.09543596639214577,
+        "naked_speed_delta_m_s": -0.029572228300827508,
+        "negative_exo_work_j": -170.35585021972656,
+        "positive_exo_work_j": 122.21102142333984,
+        "reason": "evaluation_horizon",
+        "reference_index": 0,
+        "requested_steps": 500,
+        "return": 15.993941277993411,
+        "seed": 0,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "success": true
+      },
+      "policy_activation_saving_fraction": 0.003262665150586875,
+      "policy_gross_load_saving_fraction": 0.022367844573710494,
+      "policy_human_torque_saving_fraction": 0.1295691705908902,
+      "protocol_by_mode": {
+        "baseline": {
+          "joint_limits": true,
+          "pass": true,
+          "pelvis_height": true,
+          "pelvis_pitch": true,
+          "speed": true,
+          "survival": true
+        },
+        "policy": {
+          "joint_limits": true,
+          "pass": true,
+          "pelvis_height": true,
+          "pelvis_pitch": true,
+          "speed": true,
+          "survival": true
+        }
+      },
+      "protocol_pass": true
+    },
+    {
+      "baseline": {
+        "activation_cost_integral": 4.4083099365234375,
+        "gross_cost_integral": 10.419970512390137,
+        "human_torque_cost_integral": 25.292558670043945,
+        "maximum_absolute_pelvis_pitch_rad": 0.20300028328690817,
+        "maximum_joint_limit_excess": 0.0,
+        "mean_absolute_exo_torque_nm": 0.0,
+        "mean_forward_speed_m_s": 1.0162016699425518,
+        "minimum_pelvis_height_m": 0.863566726482476,
+        "mode": "baseline",
+        "negative_exo_work_j": 0.0,
+        "positive_exo_work_j": 0.0,
+        "reason": "evaluation_horizon",
+        "reference_index": 0,
+        "requested_steps": 500,
+        "return": 0.0,
+        "seed": 1,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "success": true
+      },
+      "complete_horizon": true,
+      "effectiveness_by_mode": {
+        "policy": {
+          "activation_nondegradation": true,
+          "at_least_one_improvement": true,
+          "excluded_reason": null,
+          "gross_within_tolerance": true,
+          "human_torque_nondegradation": true,
+          "movement_consistent": true,
+          "pass": true
+        }
+      },
+      "equal_horizon": true,
+      "pair_valid": true,
+      "policy": {
+        "activation_cost_integral": 4.393927097320557,
+        "gross_cost_integral": 10.186898231506348,
+        "human_torque_cost_integral": 22.015422821044922,
+        "maximum_absolute_pelvis_pitch_rad": 0.21387433021125352,
+        "maximum_joint_limit_excess": 0.0,
+        "mean_absolute_exo_torque_nm": 2.9518234729766846,
+        "mean_forward_speed_m_s": 0.9866294416417243,
+        "minimum_pelvis_height_m": 0.8576943810051828,
+        "mode": "policy",
+        "naked_movement_rmse_rad": 0.529955267906189,
+        "naked_phase_aligned_movement_rmse_rad": 0.09543596639214577,
+        "naked_speed_delta_m_s": -0.029572228300827508,
+        "negative_exo_work_j": -170.35585021972656,
+        "positive_exo_work_j": 122.21102142333984,
+        "reason": "evaluation_horizon",
+        "reference_index": 0,
+        "requested_steps": 500,
+        "return": 15.993941277993411,
+        "seed": 1,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "success": true
+      },
+      "policy_activation_saving_fraction": 0.003262665150586875,
+      "policy_gross_load_saving_fraction": 0.022367844573710494,
+      "policy_human_torque_saving_fraction": 0.1295691705908902,
+      "protocol_by_mode": {
+        "baseline": {
+          "joint_limits": true,
+          "pass": true,
+          "pelvis_height": true,
+          "pelvis_pitch": true,
+          "speed": true,
+          "survival": true
+        },
+        "policy": {
+          "joint_limits": true,
+          "pass": true,
+          "pelvis_height": true,
+          "pelvis_pitch": true,
+          "speed": true,
+          "survival": true
+        }
+      },
+      "protocol_pass": true
+    },
+    {
+      "baseline": {
+        "activation_cost_integral": 4.4083099365234375,
+        "gross_cost_integral": 10.419970512390137,
+        "human_torque_cost_integral": 25.292558670043945,
+        "maximum_absolute_pelvis_pitch_rad": 0.20300028328690817,
+        "maximum_joint_limit_excess": 0.0,
+        "mean_absolute_exo_torque_nm": 0.0,
+        "mean_forward_speed_m_s": 1.0162016699425518,
+        "minimum_pelvis_height_m": 0.863566726482476,
+        "mode": "baseline",
+        "negative_exo_work_j": 0.0,
+        "positive_exo_work_j": 0.0,
+        "reason": "evaluation_horizon",
+        "reference_index": 0,
+        "requested_steps": 500,
+        "return": 0.0,
+        "seed": 2,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "success": true
+      },
+      "complete_horizon": true,
+      "effectiveness_by_mode": {
+        "policy": {
+          "activation_nondegradation": true,
+          "at_least_one_improvement": true,
+          "excluded_reason": null,
+          "gross_within_tolerance": true,
+          "human_torque_nondegradation": true,
+          "movement_consistent": true,
+          "pass": true
+        }
+      },
+      "equal_horizon": true,
+      "pair_valid": true,
+      "policy": {
+        "activation_cost_integral": 4.393927097320557,
+        "gross_cost_integral": 10.186898231506348,
+        "human_torque_cost_integral": 22.015422821044922,
+        "maximum_absolute_pelvis_pitch_rad": 0.21387433021125352,
+        "maximum_joint_limit_excess": 0.0,
+        "mean_absolute_exo_torque_nm": 2.9518234729766846,
+        "mean_forward_speed_m_s": 0.9866294416417243,
+        "minimum_pelvis_height_m": 0.8576943810051828,
+        "mode": "policy",
+        "naked_movement_rmse_rad": 0.529955267906189,
+        "naked_phase_aligned_movement_rmse_rad": 0.09543596639214577,
+        "naked_speed_delta_m_s": -0.029572228300827508,
+        "negative_exo_work_j": -170.35585021972656,
+        "positive_exo_work_j": 122.21102142333984,
+        "reason": "evaluation_horizon",
+        "reference_index": 0,
+        "requested_steps": 500,
+        "return": 15.993941277993411,
+        "seed": 2,
+        "speed_m_s": 1.0,
+        "steps": 500,
+        "success": true
+      },
+      "policy_activation_saving_fraction": 0.003262665150586875,
+      "policy_gross_load_saving_fraction": 0.022367844573710494,
+      "policy_human_torque_saving_fraction": 0.1295691705908902,
+      "protocol_by_mode": {
+        "baseline": {
+          "joint_limits": true,
+          "pass": true,
+          "pelvis_height": true,
+          "pelvis_pitch": true,
+          "speed": true,
+          "survival": true
+        },
+        "policy": {
+          "joint_limits": true,
+          "pass": true,
+          "pelvis_height": true,
+          "pelvis_pitch": true,
+          "speed": true,
+          "survival": true
+        }
+      },
+      "protocol_pass": true
+    }
+  ],
+  "protocol": {
+    "action_scale_nm": 8.0,
+    "assisted_urdf_enabled": true,
+    "control_dt_s": 0.02,
+    "domain_randomization_enabled": false,
+    "effectiveness_criteria": {
+      "gross_degradation_tolerance": 0.1,
+      "minimum_improvement": 0.0,
+      "movement_rmse_tolerance_rad": 0.15,
+      "nondegradation_tolerance": 0.0
+    },
+    "joint_order": [
+      "hip_flexion_l",
+      "knee_angle_l",
+      "hip_flexion_r",
+      "knee_angle_r"
+    ],
+    "modes": [
+      "baseline",
+      "policy"
+    ],
+    "oracle_gain": 0.25,
+    "reference_indices": [
+      0
+    ],
+    "reference_urdf_enabled": false,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "speeds_m_s": [
+      1.0
+    ],
+    "steps": 500,
+    "thresholds": {
+      "maximum_joint_limit_excess": 1.0,
+      "maximum_pelvis_pitch_rad": 0.4232747806107539,
+      "minimum_pelvis_height_m": 0.7810426559260001,
+      "speed_tolerance_m_s_by_speed": {
+        "1.0": 0.14235042957589872
+      }
+    }
+  },
+  "protocol_pass": true,
+  "schema": "gexo_myoassist_naked_vs_urdf_evaluation_v3",
+  "valid_pair_count": 3
+}

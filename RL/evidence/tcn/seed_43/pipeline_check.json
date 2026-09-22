@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "manifest",
+      "status": "passed",
+      "details": {
+        "trials": 127,
+        "train_subjects": [
+          "BT01",
+          "BT02",
+          "BT03",
+          "BT06",
+          "BT07",
+          "BT08",
+          "BT09",
+          "BT10",
+          "BT11",
+          "BT12",
+          "BT13",
+          "BT14"
+        ],
+        "validation_subjects": [
+          "BT15",
+          "BT16",
+          "BT17"
+        ]
+      }
+    },
+    {
+      "name": "processed_npz",
+      "status": "passed",
+      "details": {
+        "files": 127,
+        "frames": 127000,
+        "dt_min": 0.01999664306640625,
+        "dt_max": 0.0200042724609375,
+        "target_valid_ratio": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9849606299212599,
+          0.9849606299212599,
+          0.8749133858267717,
+          0.8749133858267717
+        ]
+      }
+    },
+    {
+      "name": "dataset",
+      "status": "passed",
+      "details": {
+        "train_samples": 105392,
+        "validation_samples": 14115,
+        "sample_mask_valid": 20
+      }
+    },
+    {
+      "name": "model_forward_backward",
+      "status": "passed",
+      "details": {
+        "parameters": 59288,
+        "loss": 0.6218862533569336
+      }
+    },
+    {
+      "name": "model_causality",
+      "status": "passed",
+      "details": {
+        "maximum_past_difference": 0.0,
+        "cutoff_frame": 24
+      }
+    },
+    {
+      "name": "checkpoint",
+      "status": "passed",
+      "details": {
+        "epoch": 18,
+        "validation_loss": 0.07444620867079522,
+        "seed": 43
+      }
+    }
+  ]
+}
