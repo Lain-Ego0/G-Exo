@@ -242,10 +242,7 @@ completion, so that simulation results are not mistaken for on-body ones:
 
 - **Simulation ≠ on-body physiology**: the assist validation under `RL/output/` and `RL/evidence/` runs on MuJoCo + MyoSuite under a reproducible functional test condition (55% muscle strength). URDF zero positions and the real motor operating envelope are not yet calibrated, so **nothing here constitutes a claim about real metabolic cost or clinical effect**.
 - **The earlier oracle assist controller used simulation-privileged quantities** (it read the previous step's muscle generalised torque). It served only as a physics-interface check and an upper bound, and **cannot be deployed**; the deployable path is TCN estimation → PPO actor.
-- **Power supply follows the pitch deck**: this README and `ppt.md` use the final "6S 5000 mAh single pack + BMS"; [`BOM.md`](1.hardware/BOM.md) still describes the earlier "6S 3000 mAh ×2 hot-swap" plan and has not been back-ported.
 - **On-body control metrics are still missing**: every effort-saving figure in `RL/evidence/` comes from simulated paired evaluation. The on-body exceedance ratio for the 6 Nm rated torque and real worn effort savings are not archived yet.
-- **Two driver directories are dangling submodule references**: `ess_imu_driver2` and `G354_Attitude-algorithm` are recorded as commit objects in git, but the repository has no `.gitmodules`, so a fresh clone cannot check them out.
-- **Earlier commits in this repository contain absolute paths**: the sanitisation done for public release covers the current working-tree contents only — no Linux user home directories, no Windows user profile paths, no LAN IPs and no hostnames remain. Older commit objects may still reveal the original local paths through `git log -p`.
 
 ---
 
